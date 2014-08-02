@@ -45,4 +45,16 @@ ENV APACHE_SERVERNAME localhost
 ENV APACHE_SERVERALIAS docker.localhost
 ENV APACHE_DOCUMENTROOT /var/www
 
-CMD ["/usr/sbin/apache2","-D", "FOREGROUND"]
+RUN mkdir -p -m 700 /etc/pgpool2 && chown -R postgres:postgres /etc/pgpool2
+RUN mkdir -p -m 755 /var/log/pgpool && chown -R postgres:postgres /var/log/pgpool
+ADD pgpool/pgpool2.init.d /etc/init.d/pgpool
+RUN chmod 755 /etc/init.d/pgpool
+#USER postgres
+ADD pgpool/pool_hba.conf /etc/pgpool2/pool_hba.conf
+ADD pgpool/pgpool.conf /etc/pgpool2/pgpool.conf
+ADD pgpool/pcp.conf /etc/pgpool2/pcp.conf
+RUN chown -R postgres:postgres /etc/pgpool2
+
+#CMD ["/usr/sbin/apache2","-D", "FOREGROUND","&&","/etc/init.d/pgpool","start"]
+CMD /etc/init.d/pgpool start && /usr/sbin/apache2 -D FOREGROUND
+

@@ -24,10 +24,13 @@ RUN sudo apt-fast update
 
 RUN sudo apt-fast -y -q install postgresql-9.3 postgresql-client-9.3 postgresql-contrib-9.3 postgresql-server-dev-9.3
 
-USER postgres
-
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible. 
+ADD pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
+RUN chown postgres:postgres /etc/postgresql/9.3/main/pg_hba.conf
+
+USER postgres
+
 RUN echo "host all  all    0.0.0.0/0  trust" >> /etc/postgresql/9.3/main/pg_hba.conf
 
 # And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
