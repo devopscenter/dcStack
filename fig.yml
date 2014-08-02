@@ -1,2 +1,8 @@
 web:
-    image: devopscenter/web
+  image: devopscenter/web
+  ports:
+    - "80:80"
+db:
+  image: devopscenter/db
+  ports:
+    - "5432:5432"
