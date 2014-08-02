@@ -9,7 +9,7 @@ RUN add-apt-repository ppa:apt-fast/stable
 RUN apt-get update
 RUN apt-get -y install apt-fast
 
-RUN apt-fast -y install git python-dev python-pip wget sudo
+RUN apt-fast -y install git python-dev python-pip wget sudo vim
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc

@@ -2,7 +2,11 @@ web:
   image: devopscenter/web
   ports:
     - "80:80"
-db:
+  links:
+    - "masterdb"
+masterdb:
   image: devopscenter/db
+  expose:
+    - "5432"
   ports:
-    - "5432:5432"
+    - "5432"
