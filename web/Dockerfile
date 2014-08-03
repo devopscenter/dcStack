@@ -9,7 +9,9 @@ RUN add-apt-repository ppa:apt-fast/stable
 RUN apt-get update
 RUN apt-get -y install apt-fast
 
-RUN apt-fast -y install git python-dev python-pip wget sudo vim
+RUN apt-fast -y install git python-dev python-pip wget sudo vim curl
+
+RUN pip install distribute==0.6.49 && pip install -U setuptools && pip install -U pip
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -56,5 +58,5 @@ ADD pgpool/pcp.conf /etc/pgpool2/pcp.conf
 RUN chown -R postgres:postgres /etc/pgpool2
 
 #CMD ["/usr/sbin/apache2","-D", "FOREGROUND","&&","/etc/init.d/pgpool","start"]
-CMD /etc/init.d/pgpool start && /usr/sbin/apache2 -D FOREGROUND
+#CMD /etc/init.d/pgpool start && /usr/sbin/apache2 -D FOREGROUND
 
