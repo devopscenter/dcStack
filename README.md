@@ -1,9 +1,17 @@
 python-stack
 ============
 
+# Installation
+
+## Docker
+
 [Install Docker](http://docs.docker.com/installation/)
+
+## Fig
+
 [Install Fig](http://www.fig.sh/install.html)
 
+## Docker Utilities
 
 Install the following utilities. These allow you to enter into a running Docker container.
     docker run --rm jpetazzo/nsenter cat /nsenter > /tmp/nsenter
