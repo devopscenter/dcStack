@@ -5,7 +5,7 @@ python-stack
 
 ## Docker
 
-[Install Docker](http://docs.docker.com/installation/)
+[Install the latest Docker](http://docs.docker.com/installation/)
 
 ## Fig
 
