@@ -7,6 +7,10 @@ python-stack
 
 [Install the latest Docker](http://docs.docker.com/installation/)
 
+Add your username for USERNAME. You will also need to logout and login
+    sudo gpasswd -a ${USERNAME} docker
+    sudo service docker restart
+
 ## Fig
 
 [Install Fig](http://www.fig.sh/install.html)
