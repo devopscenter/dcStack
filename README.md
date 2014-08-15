@@ -10,7 +10,7 @@ python-stack
 
 [Install the latest Docker](http://docs.docker.com/installation/)
 
-## Add your username for USERNAME.
+## Add your username to the docker group.
 
     sudo gpasswd -a ${USERNAME} docker
 
