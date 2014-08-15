@@ -3,12 +3,19 @@ python-stack
 
 # Installation
 
+## Clone this repo
+    git clone https://github.com/devopscenter/python-stack.git
+
 ## Docker
 
 [Install the latest Docker](http://docs.docker.com/installation/)
 
-Add your username for USERNAME. You will also need to logout and login
+## Add your username for USERNAME.
+
     sudo gpasswd -a ${USERNAME} docker
+
+## logout and log back in, then restart docker.
+
     sudo service docker restart
 
 ## Fig
