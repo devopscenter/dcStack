@@ -34,7 +34,7 @@ Customization of [boot2docker](https://medium.com/boot2docker-lightweight-linux-
 
 Install the following utilities. These allow you to enter into a running Docker container.
 
-
+    docker pull jpetazzo/nsenter
     docker run --rm jpetazzo/nsenter cat /nsenter > /tmp/nsenter
     chmod 755 /tmp/nsenter
     sudo cp /tmp/nsenter /usr/local/bin
