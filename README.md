@@ -3,6 +3,9 @@ python-stack
 
 # Installation
 
+## Clone this repo
+    git clone https://github.com/devopscenter/python-stack.git
+
 ## Docker
 
 
@@ -10,8 +13,12 @@ You can eithr install Docker by installing inside an Ubuntu Virtual Box/Parallel
 See below for additional instructions for customizing boot2docker to support mounts from the host.
 [Install the latest Docker](http://docs.docker.com/installation/)
 
-Add your username for USERNAME. You will also need to logout and login
+## Add your username to the docker group.
+
     sudo gpasswd -a ${USERNAME} docker
+
+## logout and log back in, then restart docker.
+
     sudo service docker restart
 
 
