@@ -23,7 +23,7 @@ See below for additional instructions for customizing boot2docker to support mou
 
 
 Customization of [boot2docker](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c)
-    curl http://static.dockerfiles.io/boot2docker-v1.1.2-virtualbox-guest-additions-v4.3.12.iso
+    curl -L http://static.dockerfiles.io/boot2docker-v1.1.2-virtualbox-guest-additions-v4.3.12.iso > boot2docker.iso
     cp boot2docker.iso ~/.boot2docker/boot2docker.iso
 
 ## Fig
