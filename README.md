@@ -14,21 +14,21 @@ python-stack
 ## Docker
 
 
-You can eithr install Docker by installing inside an Ubuntu Virtual Box/Parallels/Virtual Machine or by using boot2docker.
+You can either install Docker by installing inside an Ubuntu Virtual Box/Parallels/Virtual Machine or by using boot2docker.
 
 ### Ubuntu inside a virtual machine
 
 After you have setup Ubuntu, then [Install the latest Docker](http://docs.docker.com/installation/)
 
-#### Add your username to the docker group.
+##### Add your username to the docker group.
 
     sudo gpasswd -a ${USERNAME} docker
 
-#### logout and log back in, then restart docker.
+##### logout and log back in, then restart docker.
 
     sudo service docker restart
 
-### Docker Utilities
+##### Docker Utilities
 
 Install the following utilities. These allow you to enter into a running Docker container.
 
@@ -44,7 +44,7 @@ Install the following utilities. These allow you to enter into a running Docker 
 
 [Install boot2docker](http://docs.docker.com/installation/mac/)
 
-#### Customization of [boot2docker](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c)
+##### Customization of [boot2docker](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c)
 
     curl -L http://static.dockerfiles.io/boot2docker-v1.1.2-virtualbox-guest-additions-v4.3.12.iso > boot2docker.iso
     cp boot2docker.iso ~/.boot2docker/boot2docker.iso
