@@ -44,8 +44,18 @@ Install the following utilities. These allow you to enter into a running Docker 
 
 [Install boot2docker](http://docs.docker.com/installation/mac/)
 
-##### Customization of [boot2docker](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c)
+##### Customization of [boot2docker](https://medium.com/boot2docker-lightweight-linux-for-docker/boot2docker-together-with-virtualbox-guest-additions-da1e3ab2465c). Run this from the host machine
 
     curl -L http://static.dockerfiles.io/boot2docker-v1.1.2-virtualbox-guest-additions-v4.3.12.iso > boot2docker.iso
     cp boot2docker.iso ~/.boot2docker/boot2docker.iso
+
+##### Now install the docker utils inside boot2docker. Run "boot2docker ssh" to enter boot2docker
+
+    docker pull jpetazzo/nsenter
+    docker run --rm jpetazzo/nsenter cat /nsenter > /tmp/nsenter
+    chmod 755 /tmp/nsenter
+    sudo cp /tmp/nsenter /var/lib/boot2docker
+    wget https://raw.githubusercontent.com/joshjdevl/docker-tools/master/docker-enter -O docker-enter
+    chmod 755 docker-enter
+    sudo cp docker-enter /var/lib/boot2docker
 
