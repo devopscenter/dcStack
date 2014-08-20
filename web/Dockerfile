@@ -81,3 +81,7 @@ ADD pgpool/pgpool.conf /etc/pgpool2/pgpool.conf
 ADD pgpool/pcp.conf /etc/pgpool2/pcp.conf
 RUN chown -R postgres:postgres /etc/pgpool2
 
+#Need redis-cli and libs
+RUN cd / && wget http://download.redis.io/releases/redis-2.8.13.tar.gz
+RUN cd / && tar xvzf redis-2.8.13.tar.gz
+RUN cd /redis-2.8.13 && make -j 3 && make install
