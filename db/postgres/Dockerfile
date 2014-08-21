@@ -22,7 +22,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg m
 
 RUN sudo apt-fast update
 
-RUN sudo apt-fast -y -q install postgresql-9.3 postgresql-client-9.3 postgresql-contrib-9.3 postgresql-server-dev-9.3
+RUN sudo apt-fast -y -q install postgresql-9.3 postgresql-client-9.3 postgresql-contrib-9.3 postgresql-server-dev-9.3 libpq-dev
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible. 

@@ -48,8 +48,13 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg m
 
 RUN sudo apt-fast update
 
-RUN sudo apt-fast -y -q install postgresql-$POSTGRES_VERSION postgresql-client-$POSTGRES_VERSION \
-        postgresql-contrib-$POSTGRES_VERSION postgresql-server-dev-$POSTGRES_VERSION
+RUN sudo apt-fast -y -q install postgresql-client-$POSTGRES_VERSION libpq-dev
+#        postgresql-contrib-$POSTGRES_VERSION postgresql-server-dev-$POSTGRES_VERSION
+
+#not installing postgres server, so manually create user
+RUN useradd postgres -m -s /bin/bash
+#RUN groupadd postgres
+RUN usermod -a -G postgres postgres
 
 
 RUN mkdir /installs
