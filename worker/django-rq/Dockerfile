@@ -1,4 +1,4 @@
-FROM devopscenter/web
+FROM devopscenter/web:latest
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN cd /redis-2.8.13 && \
