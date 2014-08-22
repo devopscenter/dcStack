@@ -1,6 +1,10 @@
 FROM devopscenter/python
 MAINTAINER josh < josh [at] devops {dot} center>
 
+ENV APACHE_VERSION 2.4.7-1ubuntu4.1
+ENV MODWSGI_VERSION 3.4-4ubuntu2.1.14.04.1
+ENV POSTGRES_VERSION 9.3
+
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \

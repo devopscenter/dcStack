@@ -13,11 +13,7 @@ RUN apt-get -y install apt-fast
 
 ENV GIT_VERSION 1:2.1.0-1~ppa0~ubuntu14.04.1
 ENV PYTHONPIP_VERSION 1.5.4
-ENV APACHE_VERSION 2.4.7-1ubuntu4.1
-ENV MODWSGI_VERSION 3.4-4ubuntu2.1.14.04.1
 ENV PYTHON_VERSION 2.7.8
-ENV PYTHONPIP_VERSION 1.5.4
-ENV POSTGRES_VERSION 9.3
 
 RUN add-apt-repository ppa:git-core/ppa
 RUN apt-fast update
