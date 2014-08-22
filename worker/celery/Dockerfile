@@ -1,4 +1,4 @@
-FROM devopscenter/web:latest
+FROM devopscenter/web:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV IS_WORKER True
