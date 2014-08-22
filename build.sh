@@ -1,4 +1,5 @@
 #!/bin/bash -e
+docker build -rm -t "devopscenter/python" python
 docker build -rm -t "devopscenter/web_apache" web/apache
 docker build -rm -t "devopscenter/db_postgres" db/postgres
 docker build -rm -t "devopscenter/db_postgres-performance-analysis" db/postgres-performance-analysis
