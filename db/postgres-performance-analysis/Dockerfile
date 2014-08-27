@@ -1,4 +1,4 @@
-FROM devopscenter/db:0.0.2
+FROM devopscenter/db_postgres:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN echo "log_destination = 'csvlog'" >> /etc/postgresql/9.3/main/postgresql.conf
