@@ -26,7 +26,7 @@ RUN apt-fast -y install build-essential
 RUN apt-fast -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libbz2-dev
 ADD https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz /tmp/Python-2.7.8.tgz
 RUN cd /tmp && tar -xvf Python-2.7.8.tgz
-RUN cd /tmp/Python-2.7.8 && ./configure --quiet && make -j3 && make altinstall
+RUN cd /tmp/Python-2.7.8 && ./configure --enable-shared --quiet && make -j3 && make altinstall
 
 RUN ln -s /usr/local/bin/python2.7 /usr/local/bin/python
 
