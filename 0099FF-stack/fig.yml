@@ -1,0 +1,30 @@
+web:
+  image: 0099FF/web
+  ports:
+    - "80:80"
+    - "8000:8000"
+  links:
+    - "masterdb"
+    - "worker"
+  volumes:
+    # "host:container"
+    - "/0099FF/web:/0099FF/web"
+    - "/0099FF/dataload:0099FF/dataload"
+masterdb:
+  image: 0099FF/db
+  expose:
+    - "5432"
+  ports:
+    - "5432"
+worker:
+  image: 0099FF/worker
+  expose:
+    - "6379"
+  ports:
+    - "6379"
+  links:
+    - "masterdb"
+  volumes:
+    - "/0099FF/web:/0099FF/web"
+  name:
+    - "worker_1"
