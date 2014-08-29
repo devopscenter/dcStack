@@ -11,4 +11,4 @@ RUN cd / && pip install -r requirements.txt
 
 RUN pip install django-sslserver==0.12
 
-CMD /etc/init.d/pgpool start  && /usr/sbin/apache2 -D FOREGROUND
+CMD /etc/init.d/pgpool start  && /etc/init.d/apache2 start

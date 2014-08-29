@@ -30,12 +30,15 @@ RUN cd /tmp/Python-${PYTHON_VERSION} \
     && make clean && make -j3 && make install
 
 ENV PATH /usr/local/opt/python/bin:$PATH
+RUN ln -s /usr/local/opt/python/bin/python /usr/local/bin/python
 
 #RUN ln -s /usr/local/bin/python2.7 /usr/local/bin/python
 RUN which python && python --version
 
 RUN cd /tmp && wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
+RUN ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
 
 RUN pip install distribute==0.6.49 && pip install -U setuptools && pip install -U pip
 
 RUN pip install virtualenv==1.11.6
+
