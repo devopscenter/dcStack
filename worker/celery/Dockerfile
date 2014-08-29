@@ -1,4 +1,4 @@
-FROM devopscenter/web_apache:devops_version
+FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV IS_WORKER True
