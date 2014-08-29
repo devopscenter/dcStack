@@ -1,4 +1,4 @@
-FROM devopscenter/python-apache-pgpool:0.1.2
+FROM devopscenter/python-apache-pgpool:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 #Need redis-cli and libs

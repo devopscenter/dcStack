@@ -1,4 +1,4 @@
-FROM devopscenter/python:0.1.2
+FROM devopscenter/python:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV APACHE_VERSION 2.4.7-1ubuntu4.1

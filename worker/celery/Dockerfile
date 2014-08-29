@@ -1,4 +1,4 @@
-FROM devopscenter/web_apache:0.1.2
+FROM devopscenter/web_apache:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV IS_WORKER True

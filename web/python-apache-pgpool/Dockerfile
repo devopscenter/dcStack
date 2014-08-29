@@ -1,4 +1,4 @@
-FROM devopscenter/python-apache:0.1.2
+FROM devopscenter/python-apache:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.3
