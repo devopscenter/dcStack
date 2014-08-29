@@ -26,10 +26,14 @@ RUN apt-fast -y install build-essential
 RUN apt-fast -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libbz2-dev
 ADD https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz /tmp/Python-2.7.8.tgz
 RUN cd /tmp && tar -xvf Python-2.7.8.tgz
-RUN cd /tmp/Python-2.7.8 && ./configure --enable-shared --quiet && make -j3 && make altinstall
+RUN cd /tmp/Python-2.7.8 \
+    && ./configure CFLAGSFORSHARED="-fPIC" CCSHARED="-fPIC" --quiet CCSHARED="-fPIC" --prefix=/usr/local/opt/python --exec-prefix=/usr/local/opt/python CCSHARED="-fPIC" \
+    && make clean && make -j3 && make install
 
-RUN ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+ENV PATH /usr/local/opt/python/bin:$PATH
 
+#RUN ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+RUN which python && python --version
 
 RUN cd /tmp && wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
 

@@ -1,4 +1,4 @@
-FROM devopscenter/python
+FROM devopscenter/python:0.1.2
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV APACHE_VERSION 2.4.7-1ubuntu4.1
@@ -31,7 +31,7 @@ RUN cd /installs && tar -xvf pgpool-II-3.3.3.tar.gz
 RUN cd /installs/pgpool-II-3.3.3 && ./configure && make && make install
 
 #https://github.com/jacksoncage/apache-docker
-RUN sudo apt-fast -y install apache2=$APACHE_VERSION libapache2-mod-wsgi=$MODWSGI_VERSION
+RUN sudo apt-fast -y install apache2=$APACHE_VERSION apache2-prefork-dev #libapache2-mod-wsgi=$MODWSGI_VERSION
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
@@ -43,6 +43,11 @@ ENV APACHE_SERVERADMIN admin@localhost
 ENV APACHE_SERVERNAME localhost
 ENV APACHE_SERVERALIAS docker.localhost
 ENV APACHE_DOCUMENTROOT /var/www
+
+
+RUN cd /tmp && wget https://github.com/GrahamDumpleton/mod_wsgi/archive/4.2.8.tar.gz && tar -xvf 4.2.8.tar.gz
+RUN which python && python --version
+RUN cd /tmp/mod_wsgi-4.2.8 && ./configure --with-python=/usr/local/opt/python/bin/python --quiet && make && make install
 
 RUN mkdir -p -m 700 /etc/pgpool2 && chown -R postgres:postgres /etc/pgpool2
 RUN mkdir -p -m 755 /var/log/pgpool && chown -R postgres:postgres /var/log/pgpool
