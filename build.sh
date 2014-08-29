@@ -17,6 +17,6 @@ docker build -rm -t "devopscenter/worker_django-rq:${devops_version}" worker/dja
 docker build -rm -t "devopscenter/worker_celery:${devops_version}" worker/celery
 
 docker build -rm -t "devopscenter/0099ff.web:${devops_version}" 0099FF-stack/web
+docker build -rm -t "devopscenter/0099ff.worker:${devops_version}" 0099FF-stack/worker
 
 docker build -rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web
-docker build -rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
