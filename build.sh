@@ -4,7 +4,7 @@ source VERSION
 echo "Version=${devops_version}"
 
 #replace variable devops_version with the VERSION we are building
-find . -name "Dockerfile" -type f -exec sed -i "s/devops_version/$devops_version/g" {} \;
+find . -name "Dockerfile" -type f -exec sed -i -e "s/devops_version/$devops_version/g" {} \;
 
 #build containers
 docker build -rm -t "devopscenter/python:${devops_version}" python
