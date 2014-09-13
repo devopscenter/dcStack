@@ -15,6 +15,7 @@ docker build -rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
 docker build -rm -t "devopscenter/db_postgres-perf-analysis:${devops_version}" db/postgres-performance-analysis
 docker build -rm -t "devopscenter/worker_django-rq:${devops_version}" worker/django-rq
 docker build -rm -t "devopscenter/worker_celery:${devops_version}" worker/celery
+docker build -rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail
 
 docker build -rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
 docker build -rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
