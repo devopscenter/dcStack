@@ -16,7 +16,7 @@ docker build -rm -t "devopscenter/db_postgres-perf-analysis:${devops_version}" d
 docker build -rm -t "devopscenter/worker_django-rq:${devops_version}" worker/django-rq
 docker build -rm -t "devopscenter/worker_celery:${devops_version}" worker/celery
 
-docker build -rm -t "devopscenter/0099ff.web:${devops_version}" 0099FF-stack/web
-docker build -rm -t "devopscenter/0099ff.worker:${devops_version}" 0099FF-stack/worker
+docker build -rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
+docker build -rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
 
 docker build -rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web

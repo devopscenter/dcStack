@@ -11,8 +11,8 @@ sudo docker push  "devopscenter/db_postgres-perf-analysis:${devops_version}"
 sudo docker push  "devopscenter/worker_django-rq:${devops_version}" 
 sudo docker push  "devopscenter/worker_celery:${devops_version}" 
 
-sudo docker push  "devopscenter/0099ff.web:${devops_version}"
-sudo docker push  "devopscenter/0099ff.worker:${devops_version}"
+sudo docker push  "devopscenter/0099ff.web2:${devops_version}"
+sudo docker push  "devopscenter/0099ff.worker2:${devops_version}"
 
 sudo docker push  "devopscenter/66ccff.web:${devops_version}"
 
