@@ -42,3 +42,7 @@ RUN pip install distribute==0.6.49 && pip install -U setuptools && pip install -
 
 RUN pip install virtualenv==1.11.6
 
+#ipython
+RUN apt-fast -y install libncurses5-dev
+RUN pip install readline==6.2.4.1
+
