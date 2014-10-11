@@ -54,3 +54,7 @@ ADD pgpool/pool_hba.conf /etc/pgpool2/pool_hba.conf
 ADD pgpool/pgpool.conf /etc/pgpool2/pgpool.conf
 ADD pgpool/pcp.conf /etc/pgpool2/pcp.conf
 RUN chown -R postgres:postgres /etc/pgpool2
+
+#Fix locale warnings when starting postgres
+RUN locale-gen en_US.UTF-8
+RUN dpkg-reconfigure locales
