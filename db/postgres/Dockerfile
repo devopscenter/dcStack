@@ -47,18 +47,27 @@ RUN sudo apt-fast -y -q install postgresql-9.3 postgresql-client-9.3 postgresql-
 ADD pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
 RUN chown postgres:postgres /etc/postgresql/9.3/main/pg_hba.conf
 
+#Fix locale warnings when starting postgres
+RUN locale-gen en_US.UTF-8
+RUN dpkg-reconfigure locales
+
 USER postgres
 
-RUN echo "host all  all    0.0.0.0/0  trust" >> /etc/postgresql/9.3/main/pg_hba.conf
+RUN echo "host all          all    0.0.0.0/0  trust" >> /etc/postgresql/9.3/main/pg_hba.conf
+RUN echo "host replication  all    0.0.0.0/0  trust" >> /etc/postgresql/9.3/main/pg_hba.conf
 
 # And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
 
 # ssl not needed for now. also gives error on boot2docker
 RUN echo "ssl = false                              # (change requires restart)" >> /etc/postgresql/9.3/main/postgresql.conf
+RUN echo "wal_level = hot_standby          # minimal, archive, or hot_standby" >> /etc/postgresql/9.3/main/postgresql.conf
+RUN echo "hot_standby = on            # 'on' allows queries during recovery" >> /etc/postgresql/9.3/main/postgresql.conf
+RUN echo "max_wal_senders = 5      # max number of walsender processes" >> /etc/postgresql/9.3/main/postgresql.conf
 
 # Set the default command to run when starting the container
 CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
 
 # Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/var/lib/postgresql/9.3/main"]
+
