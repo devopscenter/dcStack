@@ -10,7 +10,9 @@ dj-static==0.0.6
 gunicorn==19.1.1
 httplib2==0.9
 newrelic==2.32.0.28
+numpy==1.9.0
 oauth2==1.5.211
+pandas==0.14.1
 psycopg2==2.5.4
 python-dateutil==2.2
 pytz==2014.7

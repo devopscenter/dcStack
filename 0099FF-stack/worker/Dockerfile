@@ -16,15 +16,10 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool-redis:devops_version
+FROM devopscenter/0099ff.web2:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ENV HOME /root
-ENV IS_DOCKER True
 ENV IS_WORKER True
-
-ADD requirements.txt /requirements.txt
-RUN cd / && pip install -r requirements.txt
 
 RUN cd /redis-$REDIS_VERSION && \
 mkdir -p /etc/redis && \
