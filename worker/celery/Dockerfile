@@ -31,6 +31,6 @@ ADD \
 
 RUN chmod 755 /etc/init.d/celery*
 
-RUN cd /redis-2.8.13 && \
+RUN cd /redis-$REDIS_VERSION && \
 mkdir -p /etc/redis && \
 cp -f *.conf /etc/redis

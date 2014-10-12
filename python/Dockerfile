@@ -56,7 +56,7 @@ RUN which python && python --version
 RUN cd /tmp && wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
 RUN ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
 
-RUN pip install distribute==0.6.49 && pip install -U setuptools && pip install -U pip
+RUN pip install distribute==0.7.3 && pip install setuptools==6.1 && pip install -U pip
 
 RUN pip install virtualenv==1.11.6
 

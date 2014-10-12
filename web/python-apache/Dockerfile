@@ -19,24 +19,29 @@
 FROM devopscenter/python:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ENV APACHE_VERSION 2.4.7-1ubuntu4.1
-ENV MODWSGI_VERSION 3.4-4ubuntu2.1.14.04.1
+RUN cd /tmp && wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.36.tar.bz2
+RUN cd /tmp && tar -xvf pcre-8.36.tar.bz2
+RUN cd /tmp/pcre-8.36 && ./configure && make -j 3 && make install
 
-#https://github.com/jacksoncage/apache-docker
-RUN sudo apt-fast -y install apache2=$APACHE_VERSION apache2-prefork-dev #libapache2-mod-wsgi=$MODWSGI_VERSION
+ADD http://archive.apache.org/dist/httpd/httpd-2.4.10.tar.bz2 /tmp/httpd-2.4.10.tar.bz2
+ADD http://www.us.apache.org/dist/apr/apr-util-1.5.4.tar.gz /tmp/apr-util-1.5.4.tar.gz
+ADD http://www.us.apache.org/dist/apr/apr-1.5.1.tar.bz2 /tmp/apr-1.5.1.tar.bz2
+#ADD http://www.us.apache.org/dist/apr/apr-1.5.1.tar.bz2 /tmp/apr-1.5.1.tar.bz2
 
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
-ENV APACHE_RUN_DIR /var/run/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_SERVERADMIN admin@localhost
-ENV APACHE_SERVERNAME localhost
-ENV APACHE_SERVERALIAS docker.localhost
-ENV APACHE_DOCUMENTROOT /var/www
+RUN cd /tmp && tar -xf httpd-2.4.10.tar.bz2
+RUN cd /tmp && tar -xf apr-1.5.1.tar.bz2
+RUN cd /tmp && tar -xf apr-util-1.5.4.tar.gz
 
+RUN mv /tmp/apr-util-1.5.4 /tmp/httpd-2.4.10/srclib/apr-util
+RUN mv /tmp/apr-1.5.1  /tmp/httpd-2.4.10/srclib/apr
+
+RUN cd /tmp/httpd-2.4.10 && ./configure --with-mpm=worker --with-included-apr --enable-mods-shared="most status"
+RUN cd /tmp/httpd-2.4.10 && make -j 3 && make install
 
 RUN cd /tmp && wget https://github.com/GrahamDumpleton/mod_wsgi/archive/4.2.8.tar.gz && tar -xvf 4.2.8.tar.gz
 RUN which python && python --version
+ENV PATH $PATH:/usr/local/apache2/bin/
+RUN ldconfig
 RUN cd /tmp/mod_wsgi-4.2.8 && ./configure --with-python=/usr/local/opt/python/bin/python --quiet && make && make install
+
+RUN ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache2

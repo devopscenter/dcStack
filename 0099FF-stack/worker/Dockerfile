@@ -26,7 +26,7 @@ ENV IS_WORKER True
 ADD requirements.txt /requirements.txt
 RUN cd / && pip install -r requirements.txt
 
-RUN cd /redis-2.8.13 && \
+RUN cd /redis-$REDIS_VERSION && \
 mkdir -p /etc/redis && \
 cp -f *.conf /etc/redis
 

@@ -21,6 +21,6 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV IS_WORKER True
 
-RUN cd /redis-2.8.13 && \
+RUN cd /redis-$REDIS_VERSION && \
 mkdir -p /etc/redis && \
 cp -f *.conf /etc/redis
