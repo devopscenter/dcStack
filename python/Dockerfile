@@ -29,16 +29,17 @@ RUN add-apt-repository ppa:saiarcot895/myppa
 RUN apt-get update
 RUN apt-get -y install apt-fast
 
-ENV GIT_VERSION 1:2.1.0-1~ppa0~ubuntu14.04.1
-ENV PYTHON_VERSION 2.7.8
+ENV GIT_VERSION     2.1.2
+ENV PYTHON_VERSION  2.7.8
 
-RUN add-apt-repository ppa:git-core/ppa
 RUN apt-fast update
-#RUN apt-cache showpkg git python-dev apache2 libapache2-mod-wsgi python-pip curl
-RUN apt-fast -y install git=$GIT_VERSION
-
 RUN apt-fast -y install wget sudo vim curl
 RUN apt-fast -y install build-essential
+
+RUN apt-fast -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+RUN cd /tmp && wget https://www.kernel.org/pub/software/scm/git/git-2.1.2.tar.gz
+RUN cd /tmp && tar -xvf git-2.1.2.tar.gz
+RUN cd /tmp/git-2.1.2 && make prefix=/usr/local all && make prefix=/usr/local install
 
 RUN apt-fast -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libbz2-dev
 ADD https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz /tmp/Python-${PYTHON_VERSION}.tgz
