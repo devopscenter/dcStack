@@ -16,21 +16,29 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool-redis:devops_version
+FROM devopscenter/66ccff.web:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV IS_WORKER True
 
-ADD \
-    https://raw.githubusercontent.com/celery/celery/5ce97f1de36570a6b3c1eda84513cc6a8b3eb96e/extra/generic-init.d/celeryd \
-        /etc/init.d/celeryd
-
-ADD \
-    https://raw.githubusercontent.com/celery/celery/5ce97f1de36570a6b3c1eda84513cc6a8b3eb96e/extra/generic-init.d/celerybeat \
-    /etc/init.d/celerybeat
-
-RUN chmod 755 /etc/init.d/celery*
-
 RUN cd /redis-$REDIS_VERSION && \
 mkdir -p /etc/redis && \
 cp -f *.conf /etc/redis
+
+ONBUILD ADD celery/default/celeryd /etc/default/celeryd
+ONBUILD ADD celery/default/celerybeat /etc/default/celerybeat
+ONBUILD ADD celery/celery_fixes.sh /celery_fixes.sh
+ONBUILD RUN cd / && ./celery_fixes.sh
+
+ADD \
+https://raw.githubusercontent.com/celery/celery/5ce97f1de36570a6b3c1eda84513cc6a8b3eb96e/extra/generic-init.d/celeryd \
+/etc/init.d/celeryd
+
+ADD \
+https://raw.githubusercontent.com/celery/celery/5ce97f1de36570a6b3c1eda84513cc6a8b3eb96e/extra/generic-init.d/celerybeat \
+/etc/init.d/celerybeat
+
+RUN chmod 755 /etc/init.d/celery*
+
+CMD /etc/init.d/pgpool start && /etc/init.d/apache2 start &&  \
+    /etc/init.d/celeryd start && redis-server /etc/redis/redis.conf

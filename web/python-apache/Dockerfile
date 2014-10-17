@@ -45,6 +45,3 @@ RUN ldconfig
 RUN cd /tmp/mod_wsgi-4.2.8 && ./configure --with-python=/usr/local/opt/python/bin/python --quiet && make && make install
 
 RUN ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache2
-
-ONBUILD ADD requirements.txt /requirements.txt
-ONBUILD RUN cd / && pip install -r requirements.txt

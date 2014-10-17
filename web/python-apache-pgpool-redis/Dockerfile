@@ -24,3 +24,9 @@ ENV REDIS_VERSION 2.8.17
 RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
 RUN cd / && tar xvzf redis-$REDIS_VERSION.tar.gz
 RUN cd /redis-$REDIS_VERSION && make -j 3 && make install
+
+ONBUILD ADD requirements.txt /requirements.txt
+ONBUILD RUN cd / && pip install -r requirements.txt
+
+ONBUILD ADD apache/django.conf /etc/apache2/django.conf
+ONBUILD RUN echo "Include django.conf" | sudo tee -a /etc/apache2/apache2.conf
