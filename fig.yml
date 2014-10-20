@@ -16,14 +16,30 @@
 # limitations under the License.
 #
 web:
-  image: devopscenter/web
+  image: devopscenter/web:0.3.1
   ports:
     - "80:80"
+    - "8000:8000"
   links:
     - "masterdb"
+    - "standbydb"
+datamasterdb:
+  image: devopscenter/db_postgres:0.3.1
+  volumes:
+    - "/var/lib/postgresql/9.3/main"
 masterdb:
-  image: devopscenter/db
+  image: devopscenter/db_postgres:0.3.1
+  volumes_from:
+    - datamasterdb
   expose:
     - "5432"
   ports:
     - "5432"
+standbydb:
+  image: devopscenter/db_postgres-standby:0.3.1
+  expose:
+    - "5432"
+  ports:
+    - "5432"
+  links:
+    - "masterdb"
