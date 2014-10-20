@@ -27,6 +27,3 @@ RUN cd /redis-$REDIS_VERSION && make -j 3 && make install
 
 ONBUILD ADD requirements.txt /requirements.txt
 ONBUILD RUN cd / && pip install -r requirements.txt
-
-ONBUILD ADD apache/django.conf /usr/local/apache2/conf/django.conf
-ONBUILD RUN echo "Include conf/django.conf" | sudo tee -a /usr/local/apache2/conf/httpd.conf

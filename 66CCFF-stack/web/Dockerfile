@@ -19,4 +19,7 @@
 FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
+ADD apache/pdfcreator.conf /usr/local/apache2/conf/pdfcreator.conf
+RUN echo "Include conf/pdfcreator.conf" | sudo tee -a /usr/local/apache2/conf/httpd.conf
+
 CMD /etc/init.d/pgpool start  && /etc/init.d/apache2 start && tail -f /dev/null
