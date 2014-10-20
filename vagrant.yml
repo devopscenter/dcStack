@@ -1,0 +1,4 @@
+name: dockerstack
+synced_folder_host: /docker-stack
+synced_folder_target: /docker-stack
+utils_dir: /docker-stack/utils
