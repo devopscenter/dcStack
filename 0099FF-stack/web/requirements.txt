@@ -17,6 +17,7 @@ pandas==0.14.1
 psycopg2==2.5.4
 python-dateutil==2.2
 pytz==2014.7
+raven==5.1.1
 redis==2.10.3
 restkit==4.2.2
 rq==0.4.6
@@ -24,4 +25,5 @@ setuptools-git==1.1
 simple-salesforce==0.65.1
 South==1.0
 static==1.1.0
+whitenoise==1.0.3
 wsgiref==0.1.2
