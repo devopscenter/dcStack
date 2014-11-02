@@ -1,0 +1,18 @@
+{
+  "client": {
+    "name": "sensu-client-web",
+    "address": "sensu",
+    "subscriptions": [
+      "common",
+      "webservers"
+    ]
+  },
+  "keepalive": {
+    "thresholds": {
+      "warning": 60,
+      "critical": 30
+    },
+    "refresh": 30
+  }
+}
+

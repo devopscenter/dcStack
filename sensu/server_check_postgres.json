@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "postgres_alive_check": {
+      "handlers": ["default"],
+      "command": "ruby /etc/sensu/plugins/postgres-alive.rb -u postgres -h localhost -d rmsa",
+      "interval": 10,
+      "subscribers": [ "webservers" ]
+    },
+    "apache_alive_check": {
+      "command": "ruby /etc/sensu/plugins/apache-graphite.rb -h localhost -path /server-status?auto -p 80",
+      "interval": 10,
+      "subscribers": [ "webservers" ]
+    }
+  }
+}
