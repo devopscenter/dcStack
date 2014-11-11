@@ -20,3 +20,7 @@ FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 CMD /etc/init.d/pgpool start && tail -f /dev/null
+
+RUN apt-fast install -y gfortran libopenblas-dev liblapack-dev
+ADD science.txt /science.txt
+RUN cd / && pip install -r science.txt
