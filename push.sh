@@ -27,7 +27,7 @@ sudo docker push  "devopscenter/db_postgres:${devops_version}"
 sudo docker push  "devopscenter/db_postgres-standby:${devops_version}"
 sudo docker push  "devopscenter/db_postgres-perf-analysis:${devops_version}" 
 sudo docker push  "devopscenter/monitor_papertrail:${devops_version}"
-
+sudo docker push  "devopscenter/loadbalancer_ssl-termination:${devops_version}"
 sudo docker push  "devopscenter/0099ff.web2:${devops_version}"
 sudo docker push  "devopscenter/0099ff.worker2:${devops_version}"
 
