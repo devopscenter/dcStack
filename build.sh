@@ -32,6 +32,7 @@ docker build -rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
 docker build -rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
 docker build -rm -t "devopscenter/db_postgres-perf-analysis:${devops_version}" db/postgres-performance-analysis
 docker build -rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail
+docker build -rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry
 docker build -rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
 
 docker build -rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
