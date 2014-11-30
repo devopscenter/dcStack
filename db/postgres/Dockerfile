@@ -71,3 +71,4 @@ CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main
 # Add VOLUMEs to allow backup of config, logs and databases
 VOLUME  ["/var/lib/postgresql/9.3/main"]
 
+EXPOSE 5432

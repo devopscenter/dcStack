@@ -42,3 +42,6 @@ RUN chmod 755 /etc/init.d/celery*
 
 CMD /etc/init.d/pgpool start && /etc/init.d/apache2 start &&  \
     /etc/init.d/celeryd start && redis-server /etc/redis/redis.conf
+
+#redis server port
+EXPOSE 6379
