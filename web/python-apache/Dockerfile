@@ -48,3 +48,5 @@ RUN ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache2
 
 ADD apache/django.conf /usr/local/apache2/conf/django.conf
 RUN echo "Include conf/django.conf" | sudo tee -a /usr/local/apache2/conf/httpd.conf
+
+EXPOSE 80 8000 443
