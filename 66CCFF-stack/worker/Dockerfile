@@ -27,6 +27,8 @@ cp -f *.conf /etc/redis
 
 ONBUILD ADD celery/default/celeryd /etc/default/celeryd
 ONBUILD ADD celery/default/celerybeat /etc/default/celerybeat
+ONBUILD ADD celery/celery_fixes.sh /celery_fixes.sh
+ONBUILD RUN cd / && ./celery_fixes.sh
 
 ADD \
 https://raw.githubusercontent.com/celery/celery/5ce97f1de36570a6b3c1eda84513cc6a8b3eb96e/extra/generic-init.d/celeryd \
