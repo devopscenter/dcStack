@@ -22,6 +22,7 @@ FROM devopscenter/sentry-docker:dev
 
 MAINTAINER josh@devops.center
 
+ENV SENTRY_URL_PREFIX http://sentry:9000
 ENV SECRET_KEY randomvalue
 
 ENV SENTRY_INITIAL_TEAM devops.center
