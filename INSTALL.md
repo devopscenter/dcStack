@@ -11,9 +11,8 @@ Download and install the latest fig
 sudo pip install -U fig
 ```
 
-Initialize system
+Configure [port forwarding](portforward.sh). Make sure boot2docker-vm is not powered on or started.
 ```
-#Configure port forwarding. Make sure boot2docker-vm is not powered on or started.
 ./portforward.sh
 ```
 
