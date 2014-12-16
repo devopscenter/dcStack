@@ -8,6 +8,7 @@ After installing boot2docker, [resize the hardrive](boot2docker-init.sh)
 
 Download and install the latest fig
 ```
+sudo pip install --upgrade distribute
 sudo pip install -U fig
 ```
 
