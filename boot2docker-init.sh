@@ -19,4 +19,5 @@
 
 boot2docker delete
 echo 'DiskSize = 75000' > $HOME/.boot2docker/profile
+echo 'Memory = 4096' >> $HOME/.boot2docker/profile
 boot2docker init
