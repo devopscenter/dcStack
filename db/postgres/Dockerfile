@@ -19,6 +19,8 @@
 FROM ubuntu:trusty
 MAINTAINER josh < josh [at] devops {dot} center>
 
+ENV POSTGRES_VERSION 9.4
+
 RUN apt-get update && apt-get -y install python-software-properties software-properties-common
 RUN add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 RUN apt-get update
@@ -35,17 +37,17 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
   sudo apt-key add -
 
 # Add PostgreSQL's repository. It contains the most recent stable release
-#     of PostgreSQL, ``9.3``.
+#     of PostgreSQL, ``${POSTGRES_VERSION}``.
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN sudo apt-fast update
 
-RUN sudo apt-fast -y -q install postgresql-9.3 postgresql-client-9.3 postgresql-contrib-9.3 postgresql-server-dev-9.3 libpq-dev
+RUN sudo apt-fast -y -q install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible. 
-ADD pg_hba.conf /etc/postgresql/9.3/main/pg_hba.conf
-RUN chown postgres:postgres /etc/postgresql/9.3/main/pg_hba.conf
+ADD pg_hba.conf /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
+RUN chown postgres:postgres /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
 
 #Fix locale warnings when starting postgres
 RUN locale-gen en_US.UTF-8
@@ -53,22 +55,22 @@ RUN dpkg-reconfigure locales
 
 USER postgres
 
-RUN echo "host all          all    0.0.0.0/0  trust" >> /etc/postgresql/9.3/main/pg_hba.conf
-RUN echo "host replication  all    0.0.0.0/0  trust" >> /etc/postgresql/9.3/main/pg_hba.conf
+RUN echo "host all          all    0.0.0.0/0  trust" >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
+RUN echo "host replication  all    0.0.0.0/0  trust" >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
 
-# And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
+# And add ``listen_addresses`` to ``/etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf``
+RUN echo "listen_addresses='*'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
 # ssl not needed for now. also gives error on boot2docker
-RUN echo "ssl = false                              # (change requires restart)" >> /etc/postgresql/9.3/main/postgresql.conf
-RUN echo "wal_level = hot_standby          # minimal, archive, or hot_standby" >> /etc/postgresql/9.3/main/postgresql.conf
-RUN echo "hot_standby = on            # 'on' allows queries during recovery" >> /etc/postgresql/9.3/main/postgresql.conf
-RUN echo "max_wal_senders = 5      # max number of walsender processes" >> /etc/postgresql/9.3/main/postgresql.conf
+RUN echo "ssl = false                              # (change requires restart)" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
+RUN echo "wal_level = hot_standby          # minimal, archive, or hot_standby" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
+RUN echo "hot_standby = on            # 'on' allows queries during recovery" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
+RUN echo "max_wal_senders = 5      # max number of walsender processes" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
 # Set the default command to run when starting the container
-CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/${POSTGRES_VERSION}/bin/postgres", "-D", "/var/lib/postgresql/${POSTGRES_VERSION}/main", "-c", "config_file=/etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf"]
 
 # Add VOLUMEs to allow backup of config, logs and databases
-VOLUME  ["/var/lib/postgresql/9.3/main"]
+VOLUME  ["/var/lib/postgresql/${POSTGRES_VERSION}/main"]
 
 EXPOSE 5432

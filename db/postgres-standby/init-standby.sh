@@ -18,9 +18,9 @@
 #
 
 service postgresql stop
-#/usr/lib/postgresql/9.3/bin/pg_ctl stop -D /var/lib/postgresql/9.3/main -m immediate
-rm -rf /var/lib/postgresql/9.3/main/*
-pg_basebackup -D /var/lib/postgresql/9.3/main -w -R --xlog-method=stream --dbname="host=masterdb_1 user=postgres"
-chown -R postgres:postgres /var/lib/postgresql/9.3/main
+#/usr/lib/postgresql/9.4/bin/pg_ctl stop -D /var/lib/postgresql/9.4/main -m immediate
+rm -rf /var/lib/postgresql/9.4/main/*
+pg_basebackup -D /var/lib/postgresql/9.4/main -w -R --xlog-method=stream --dbname="host=masterdb_1 user=postgres"
+chown -R postgres:postgres /var/lib/postgresql/9.4/main
 service postgresql start
-#/usr/lib/postgresql/9.3/bin/postgres -D /var/lib/postgresql/9.3/main -c config_file=/etc/postgresql/9.3/main/postgresql.conf
+#/usr/lib/postgresql/9.4/bin/postgres -D /var/lib/postgresql/9.4/main -c config_file=/etc/postgresql/9.4/main/postgresql.conf

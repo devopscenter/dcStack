@@ -19,7 +19,7 @@
 FROM devopscenter/python-apache:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.3
+ENV POSTGRES_VERSION 9.4
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -27,12 +27,12 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
   sudo apt-key add -
 
 # Add PostgreSQL's repository. It contains the most recent stable release
-#     of PostgreSQL, ``9.3``.
+#     of PostgreSQL, ``9.4``.
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 RUN sudo apt-fast update
 
-RUN sudo apt-fast -y -q install postgresql-client-$POSTGRES_VERSION libpq-dev
+RUN sudo apt-fast -y -q install postgresql-client-$POSTGRES_VERSION libpq5 libpq-dev
 #        postgresql-contrib-$POSTGRES_VERSION postgresql-server-dev-$POSTGRES_VERSION
 
 #not installing postgres server, so manually create user
