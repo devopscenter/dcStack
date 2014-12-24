@@ -26,4 +26,5 @@ RUN cd / && tar xvzf redis-$REDIS_VERSION.tar.gz
 RUN cd /redis-$REDIS_VERSION && make -j 3 && make install
 
 ONBUILD ADD requirements.txt /requirements.txt
-ONBUILD RUN cd / && pip install -r requirements.txt
+ONBUILD RUN cd / && pip wheel --wheel-dir=/wheel -r requirements.txt
+ONBUILD RUN cd / && pip install --use-wheel --no-index --find-links=/wheel -r requirements.txt

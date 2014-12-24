@@ -23,4 +23,5 @@ CMD /etc/init.d/pgpool start && tail -f /dev/null
 
 RUN apt-fast install -y gfortran libopenblas-dev liblapack-dev
 ADD science.txt /science.txt
-RUN cd / && pip install -r science.txt
+RUN cd / && pip wheel --wheel-dir=/wheel -r science.txt
+RUN cd / && pip install --use-wheel --no-index --find-links=/wheel -r science.txt
