@@ -41,8 +41,5 @@ RUN echo "auto_explain.log_analyze = 'true'" >> /etc/postgresql/${POSTGRES_VERSI
 #RUN echo "log_planner_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 #RUN echo "log_executor_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
-# Set the default command to run when starting the container
-#CMD ["/usr/lib/postgresql/${POSTGRES_VERSION}/bin/postgres", "-D", "/var/lib/postgresql/${POSTGRES_VERSION}/main", "-c", "config_file=/etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf"]
-
 #be able to restart container without shutting down in fig, so start postgres service manually
 CMD tail -f /dev/null

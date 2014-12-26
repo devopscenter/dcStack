@@ -46,8 +46,8 @@ RUN sudo apt-fast -y -q install postgresql-${POSTGRES_VERSION} postgresql-client
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible. 
-ADD pg_hba.conf /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
-RUN chown postgres:postgres /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
+ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
+RUN chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
 
 #Fix locale warnings when starting postgres
 RUN locale-gen en_US.UTF-8
@@ -58,7 +58,7 @@ USER postgres
 RUN echo "host all          all    0.0.0.0/0  trust" >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
 RUN echo "host replication  all    0.0.0.0/0  trust" >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
 
-# And add ``listen_addresses`` to ``/etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf``
+# And add ``listen_addresses`` 
 RUN echo "listen_addresses='*'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
 # ssl not needed for now. also gives error on boot2docker
@@ -68,9 +68,26 @@ RUN echo "hot_standby = on            # 'on' allows queries during recovery" >> 
 RUN echo "max_wal_senders = 5      # max number of walsender processes" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
 # Set the default command to run when starting the container
-CMD ["/usr/lib/postgresql/${POSTGRES_VERSION}/bin/postgres", "-D", "/var/lib/postgresql/${POSTGRES_VERSION}/main", "-c", "config_file=/etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf"]
+CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
 
 # Add VOLUMEs to allow backup of config, logs and databases
-VOLUME  ["/var/lib/postgresql/${POSTGRES_VERSION}/main"]
+VOLUME  ["/var/lib/postgresql/9.4/main"]
 
 EXPOSE 5432
+
+USER root
+RUN pip install --upgrade distribute
+RUN pip install -U six
+RUN pip install wal-e==0.7.3
+RUN apt-fast install -y daemontools lzop pv
+
+RUN umask u=rwx,g=rx,o=
+#RUN mkdir -p /etc/wal-e.d/env/dev
+#RUN mkdir -p /etc/wal-e.d/env/alpha
+RUN mkdir -p /etc/wal-e.d/env/prod
+
+RUN chown -R root:postgres /etc/wal-e.d
+
+USER postgres
+
+RUN mkdir -p /var/run/postgresql/9.4-main.pg_stat_tmp
