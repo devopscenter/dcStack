@@ -76,6 +76,7 @@ VOLUME  ["/var/lib/postgresql/9.4/main"]
 EXPOSE 5432
 
 USER root
+#https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
 RUN pip install --upgrade distribute
 RUN pip install -U six
 RUN pip install wal-e==0.7.3
