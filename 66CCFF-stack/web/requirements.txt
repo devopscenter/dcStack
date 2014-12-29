@@ -11,7 +11,7 @@ fabric==1.9.1
 flower==0.7.2
 httpagentparser==1.7.3
 ipython==2.2.0
-pandas==0.15.1
+pandas==0.15.2
 jinja2==2.7.3
 jsonschema==2.4.0
 psycopg2==2.5.3
@@ -23,4 +23,5 @@ requests==2.3.0
 simplejson==3.6.3
 south==1.0
 sqlparse==0.1.11
+xlrd==0.9.3
 werkzeug==0.9.6
