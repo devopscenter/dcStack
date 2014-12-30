@@ -1,0 +1,16 @@
+version: 0.5.3
+images:
+  - devopscenter/python
+  - devopscenter/python-apache
+  - devopscenter/python-apache-pgpool
+  - devopscenter/python-apache-pgpool-redis
+  - devopscenter/db_postgres
+  - devopscenter/db_postgres-standby
+  - devopscenter/db_postgres-perf-analysis
+  - devopscenter/db_postgres-restore
+  - devopscenter/monitor_papertrail
+  - devopscenter/monitor_sentry
+  - devopscenter/0099ff.web2
+  - devopscenter/0099ff.worker2
+  - devopscenter/66ccff.web
+  - devopscenter/66ccff.worker

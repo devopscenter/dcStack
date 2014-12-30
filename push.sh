@@ -19,20 +19,38 @@
 
 source VERSION
 echo "Version=${devops_version}"
-sudo docker push  "devopscenter/python:${devops_version}" 
-sudo docker push  "devopscenter/python-apache:${devops_version}"
-sudo docker push  "devopscenter/python-apache-pgpool:${devops_version}"
-sudo docker push  "devopscenter/python-apache-pgpool-redis:${devops_version}"
-sudo docker push  "devopscenter/db_postgres:${devops_version}" 
-sudo docker push  "devopscenter/db_postgres-standby:${devops_version}"
-sudo docker push  "devopscenter/db_postgres-perf-analysis:${devops_version}" 
-sudo docker push  "devopscenter/db_postgres-restore:${devops_version}"
-sudo docker push  "devopscenter/monitor_papertrail:${devops_version}"
-sudo docker push  "devopscenter/monitor_sentry:${devops_version}"
-#sudo docker push  "devopscenter/loadbalancer_ssl-termination:${devops_version}"
-#sudo docker push  "devopscenter/loadbalancer_haproxy:${devops_version}"
-sudo docker push  "devopscenter/0099ff.web2:${devops_version}"
-sudo docker push  "devopscenter/0099ff.worker2:${devops_version}"
 
-sudo docker push  "devopscenter/66ccff.web:${devops_version}"
-sudo docker push  "devopscenter/66ccff.worker:${devops_version}"
+function db {
+    docker push  "devopscenter/db_postgres:${devops_version}"  
+    docker push  "devopscenter/db_postgres-standby:${devops_version}" 
+    docker push  "devopscenter/db_postgres-perf-analysis:${devops_version}"  
+    #docker push  "devopscenter/db_postgres-restore:${devops_version}" 
+}
+
+docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
+docker push  "devopscenter/monitor_sentry:${devops_version}"  &
+#docker push  "devopscenter/loadbalancer_ssl-termination:${devops_version}"
+#docker push  "devopscenter/loadbalancer_haproxy:${devops_version}"
+
+function stack1 {
+    docker push  "devopscenter/0099ff.web2:${devops_version}" 
+    docker push  "devopscenter/0099ff.worker2:${devops_version}" 
+}
+
+function stack2 {
+    docker push  "devopscenter/66ccff.web:${devops_version}" 
+    docker push  "devopscenter/66ccff.worker:${devops_version}" 
+}
+
+function web {
+    docker push  "devopscenter/python:${devops_version}"
+    docker push  "devopscenter/python-apache:${devops_version}"
+    docker push  "devopscenter/python-apache-pgpool:${devops_version}"
+    docker push  "devopscenter/python-apache-pgpool-redis:${devops_version}"
+    stack1 &
+    stack2 &
+}
+
+web &
+db &
+
