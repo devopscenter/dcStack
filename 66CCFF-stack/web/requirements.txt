@@ -23,5 +23,7 @@ requests==2.3.0
 simplejson==3.6.3
 south==1.0
 sqlparse==0.1.11
+xlutils==1.7.1
+xlwt==0.7.5
 xlrd==0.9.3
 werkzeug==0.9.6
