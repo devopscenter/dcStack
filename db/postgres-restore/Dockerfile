@@ -50,8 +50,7 @@ RUN chmod -R 0700 /tmp/postgres/9.4
 
 USER root
 
-ONBUILD ADD wal-env.sh /scripts/wal-env.sh
-ONBUILD /scripts/wal-env.sh
+ONBUILD ADD wale.properties /scripts/wale.properties
 
 RUN chown -R root:postgres /etc/wal-e.d
 
@@ -62,7 +61,7 @@ USER postgres
 ENV DATA_DIR /tmp/postgres/restore9.3
 #ENV DATA_DIR /var/lib/postgresql/9.3/main
 
-RUN /usr/bin/envdir /etc/wal-e.d/env/prod wal-e backup-fetch $DATA_DIR LATEST
+RUN source /scripts/wale.properties && wal-e backup-fetch $DATA_DIR LATEST
 RUN rm -rf $DATA_DIR/backup_label
 
 RUN cp /etc/postgresql/9.3/main/postgresql.conf $DATA_DIR/postgresql.conf
