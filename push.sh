@@ -35,7 +35,7 @@ docker push  "devopscenter/monitor_sentry:${devops_version}"  &
 function stack1 {
     docker push  "devopscenter/0099ff.web2:${devops_version}" 
     docker push  "devopscenter/0099ff.worker2:${devops_version}" 
-    docker push  "devopscenter/0099ff.worker-standby:${devops_version}"
+    docker push  "devopscenter/0099ff.worker_standby:${devops_version}"
 }
 
 function stack2 {
