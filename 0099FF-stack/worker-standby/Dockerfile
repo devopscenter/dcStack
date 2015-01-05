@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/0099ff.worker22:devops_version
+FROM devopscenter/0099ff.worker2:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 
