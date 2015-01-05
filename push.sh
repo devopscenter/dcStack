@@ -35,6 +35,7 @@ docker push  "devopscenter/monitor_sentry:${devops_version}"  &
 function stack1 {
     docker push  "devopscenter/0099ff.web2:${devops_version}" 
     docker push  "devopscenter/0099ff.worker2:${devops_version}" 
+    docker push  "devopscenter/0099ff.worker-standby:${devops_version}"
 }
 
 function stack2 {
@@ -46,7 +47,9 @@ function web {
     docker push  "devopscenter/python:${devops_version}"
     docker push  "devopscenter/python-apache:${devops_version}"
     docker push  "devopscenter/python-apache-pgpool:${devops_version}"
+    docker push  "devopscenter/python-apache-pgpool-db3:${devops_version}"
     docker push  "devopscenter/python-apache-pgpool-redis:${devops_version}"
+    docker push  "devopscenter/python-apache-pgpool-db3-redis:${devops_version}"
     stack1 &
     stack2 &
 }

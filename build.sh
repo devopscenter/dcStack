@@ -41,6 +41,7 @@ docker build -rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sent
 function stack1 {
     docker build -rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
     docker build -rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
+    docker build -rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby
 }
 
 function stack2 {
@@ -52,7 +53,9 @@ function web {
     docker build -rm -t "devopscenter/python:${devops_version}" python
     docker build -rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
     docker build -rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
+    docker build -rm -t "devopscenter/python-apache-pgpool-db3:${devops_version}" web/python-apache-pgpool-db3
     docker build -rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
+    docker build -rm -t "devopscenter/python-apache-pgpool-db3-redis:${devops_version}" web/python-apache-pgpool-db3-redis
     stack1 &
     stack2 &
 }
