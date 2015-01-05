@@ -20,4 +20,4 @@ FROM devopscenter/0099ff.worker2:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 
-RUN echo "slaveof 192.168.1.1 6379" >> /etc/redis/redis.conf
+RUN echo "slaveof masterworker_1 6379" >> /etc/redis/redis.conf
