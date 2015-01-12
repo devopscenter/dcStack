@@ -2,6 +2,7 @@ Django==1.6.8
 South==1.0.1
 arrow==0.4.4
 boto==2.34.0
+celery[redis]==3.1.7
 click==3.3
 dj-database-url==0.3.0
 dj-static==0.0.6
@@ -25,6 +26,7 @@ redis==2.10.3
 requests==2.4.3
 restkit==4.2.2
 rq==0.4.6
+setproctitle==1.1.8
 setuptools-git==1.1
 simple-salesforce==0.65.1
 simplejson==3.6.5
