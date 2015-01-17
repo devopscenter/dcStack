@@ -10,6 +10,7 @@ django-filter==0.8
 django-rq==0.7.0
 django-salesforce==0.4
 djangorestframework==2.4.4
+flower==0.7.3
 gunicorn==19.1.1
 http-parser==0.8.3
 httplib2==0.9
