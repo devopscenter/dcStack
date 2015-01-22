@@ -25,3 +25,12 @@ RUN echo "Include conf/pdfcreator.conf" | sudo tee -a /usr/local/apache2/conf/ht
 CMD /etc/init.d/pgpool start  && /etc/init.d/apache2 start && tail -f /dev/null
 
 RUN apt-fast -y install libfontconfig-dev libxrender-dev libxtst6
+
+RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
+
+RUN apt-get install -y nodejs
+
+RUN curl -L https://npmjs.com/install.sh | sh
+
+RUN npm install -g less
+
