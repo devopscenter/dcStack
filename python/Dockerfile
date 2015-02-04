@@ -31,7 +31,7 @@ RUN apt-get update
 RUN apt-get -y install apt-fast
 
 ENV GIT_VERSION     2.1.2
-ENV PYTHON_VERSION  2.7.8
+ENV PYTHON_VERSION  2.7.9
 
 RUN apt-fast update
 RUN apt-fast -y install wget sudo vim curl

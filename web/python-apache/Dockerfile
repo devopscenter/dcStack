@@ -37,7 +37,7 @@ RUN cd /tmp && tar -xf apr-util-1.5.4.tar.gz
 RUN mv /tmp/apr-util-1.5.4 /tmp/httpd-$APACHE_VERSION/srclib/apr-util
 RUN mv /tmp/apr-1.5.1  /tmp/httpd-$APACHE_VERSION/srclib/apr
 
-RUN cd /tmp/httpd-$APACHE_VERSION && ./configure --with-mpm=worker --with-included-apr --enable-mods-shared="most status"
+RUN cd /tmp/httpd-$APACHE_VERSION && ./configure --with-mpm=event --with-included-apr --enable-mods-shared="all status"
 RUN cd /tmp/httpd-$APACHE_VERSION && make -j 3 && make install
 
 RUN cd /tmp && wget https://github.com/GrahamDumpleton/mod_wsgi/archive/4.4.6.tar.gz && tar -xvf 4.4.6.tar.gz
@@ -50,5 +50,13 @@ RUN ln -s /usr/local/apache2/bin/apachectl /etc/init.d/apache2
 
 ADD apache/django.conf /usr/local/apache2/conf/django.conf
 RUN echo "Include conf/django.conf" | sudo tee -a /usr/local/apache2/conf/httpd.conf
+
+
+RUN cd /tmp && wget http://nginx.org/download/nginx-1.6.2.tar.gz && tar -xvf nginx-1.6.2.tar.gz
+RUN cd /tmp/nginx-1.6.2 && ./configure && make -j 3 && make install
+ADD nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
+RUN pip install uwsgi==2.0.9
+RUN mkdir -p /var/log/uwsgi
+RUN mkdir -p /var/run/uwsgi
 
 EXPOSE 80 8000 443
