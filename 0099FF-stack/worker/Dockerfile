@@ -25,4 +25,10 @@ RUN cd /redis-$REDIS_VERSION && \
 mkdir -p /etc/redis && \
 cp -f *.conf /etc/redis
 
+ADD https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-init.d/celeryd /etc/init.d/celeryd
+ADD https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-init.d/celerybeat /etc/init.d/celerybeat
+RUN chmod 755 /etc/init.d/celery*
+ADD celeryd /etc/default/celeryd
+RUN useradd celery
+
 CMD /etc/init.d/pgpool start && redis-server /etc/redis/redis.conf
