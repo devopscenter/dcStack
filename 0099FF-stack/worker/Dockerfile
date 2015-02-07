@@ -30,5 +30,6 @@ ADD https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-init.d/cel
 RUN chmod 755 /etc/init.d/celery*
 ADD celeryd /etc/default/celeryd
 RUN useradd celery
+RUN chmod 640 /etc/default/celeryd
 
 CMD /etc/init.d/pgpool start && redis-server /etc/redis/redis.conf

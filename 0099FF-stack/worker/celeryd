@@ -5,10 +5,9 @@ CELERY_BIN="/usr/local/opt/python/bin/celery"
 
 # App instance to use
 # comment out this line if you don't use an app
-#CELERY_APP="topopps"
 
 # Where to chdir at start.
-CELERYD_CHDIR="/topopps/topopps-web/"
+CELERYD_CHDIR="/data/deploy/current"
 
 # Extra command-line arguments to the worker
 CELERYD_OPTS="--time-limit=300 --concurrency=8"
