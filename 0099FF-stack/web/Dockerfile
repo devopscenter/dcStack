@@ -19,9 +19,12 @@
 FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-CMD /etc/init.d/pgpool start && tail -f /dev/null
+#CMD /etc/init.d/pgpool start && tail -f /dev/null
 
 RUN apt-fast install -y gfortran libopenblas-dev liblapack-dev
 ADD science.txt /science.txt
 RUN cd / && pip wheel --wheel-dir=/wheel -r science.txt
 RUN cd / && pip install --use-wheel --no-index --find-links=/wheel -r science.txt
+
+
+CMD /bin/bash -c "rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && /usr/local/opt/python/bin/uwsgi /data/deploy/current/uwsgi.ini && /usr/local/nginx/sbin/nginx && tail -f /dev/null"

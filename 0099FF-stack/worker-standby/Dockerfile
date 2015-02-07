@@ -21,3 +21,5 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 
 RUN echo "slaveof masterworker_1 6379" >> /etc/redis/redis.conf
+
+CMD /bin/bash -c "rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && redis-server /etc/redis/redis.conf && /etc/init.d/celeryd stop && /etc/init.d/celeryd start"
