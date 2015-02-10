@@ -36,4 +36,4 @@ RUN apt-fast install -y supervisor
 ADD flower.conf /etc/supervisor/conf.d/flower.conf
 
 #CMD /etc/init.d/pgpool start && redis-server /etc/redis/redis.conf
-CMD /bin/bash -c "rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && redis-server /etc/redis/redis.conf && /etc/init.d/celeryd stop && /etc/init.d/celeryd start && /usr/bin/supervisord"
+CMD /bin/bash -c "rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && redis-server /etc/redis/redis.conf && /usr/bin/supervisord && /etc/init.d/celeryd stop && /etc/init.d/celeryd start "
