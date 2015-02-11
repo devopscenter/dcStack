@@ -4,3 +4,4 @@ log.txt
 *-e
 push.log
 build.log
+postgres.log

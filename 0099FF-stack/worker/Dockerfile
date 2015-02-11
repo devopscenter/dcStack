@@ -19,8 +19,6 @@
 FROM devopscenter/0099ff.web2:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ENV IS_WORKER True
-
 RUN cd /redis-$REDIS_VERSION && \
 mkdir -p /etc/redis && \
 cp -f *.conf /etc/redis
@@ -32,6 +30,7 @@ RUN chmod 755 /etc/init.d/celery* && \
 useradd celery && \
 chmod 640 /etc/default/celeryd
 
+RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
 ADD flower.conf /etc/supervisor/conf.d/flower.conf
 ADD redis.conf /etc/supervisor/conf.d/redis.conf
 

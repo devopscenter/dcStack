@@ -26,15 +26,18 @@ find . -name "Dockerfile" -type f -exec sed -i -e "s/devops_version/$devops_vers
 #build containers
 
 function db {
-    docker build -rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
-    docker build -rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
-    docker build -rm -t "devopscenter/db_postgres-perf-analysis:${devops_version}" db/postgres-performance-analysis
-    docker build -rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
+    rm -rf postgres.log
+    docker build -rm -t "devopscenter/db_postgres:${devops_version}" db/postgres >> postgres.log
+    docker build -rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby >> postgres.log
+    docker build -rm -t "devopscenter/db_postgres-perf-analysis:${devops_version}" db/postgres-performance-analysis >> postgres.log
+    docker build -rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr >> postgres.log
     #docker build -rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
 }
 
-docker build -rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &
-docker build -rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &
+function misc {
+    docker build -rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &
+    docker build -rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &
+}
 #docker build -rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
 #docker build -rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
 
@@ -58,5 +61,6 @@ function web {
     stack2 &
 }
 
+misc &
 web &
 db &

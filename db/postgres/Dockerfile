@@ -21,13 +21,13 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.4
 
-RUN apt-get update && apt-get -y install python-software-properties software-properties-common
-RUN add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
-RUN apt-get update
+RUN apt-get update && apt-get -y install python-software-properties software-properties-common && \
+add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
+apt-get update
 
-RUN add-apt-repository ppa:saiarcot895/myppa
-RUN apt-get update
-RUN apt-get -y install apt-fast
+RUN add-apt-repository ppa:saiarcot895/myppa && \
+apt-get update && \
+apt-get -y install apt-fast
 
 RUN apt-fast -y install git python-dev python-pip wget sudo vim
 
@@ -50,8 +50,8 @@ ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
 RUN chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
 
 #Fix locale warnings when starting postgres
-RUN locale-gen en_US.UTF-8
-RUN dpkg-reconfigure locales
+RUN locale-gen en_US.UTF-8 && \
+dpkg-reconfigure locales
 
 USER postgres
 
@@ -78,14 +78,12 @@ EXPOSE 5432
 USER root
 #https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
 RUN pip install --upgrade distribute
-RUN pip install -U six
-RUN pip install wal-e==0.7.3
+RUN pip install -U six && \
+pip install wal-e==0.7.3
 RUN apt-fast install -y daemontools lzop pv
 
-RUN umask u=rwx,g=rx,o=
-#RUN mkdir -p /etc/wal-e.d/env/dev
-#RUN mkdir -p /etc/wal-e.d/env/alpha
-RUN mkdir -p /etc/wal-e.d/env/prod
+RUN umask u=rwx,g=rx,o= && \
+mkdir -p /etc/wal-e.d/env/prod
 
 RUN chown -R root:postgres /etc/wal-e.d
 
