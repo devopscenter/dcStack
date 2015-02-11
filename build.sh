@@ -53,9 +53,7 @@ function web {
     docker build -rm -t "devopscenter/python:${devops_version}" python
     docker build -rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
     docker build -rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
-    docker build -rm -t "devopscenter/python-apache-pgpool-db3:${devops_version}" web/python-apache-pgpool-db3
     docker build -rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
-    docker build -rm -t "devopscenter/python-apache-pgpool-db3-redis:${devops_version}" web/python-apache-pgpool-db3-redis
     stack1 &
     stack2 &
 }

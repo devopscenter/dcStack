@@ -47,9 +47,7 @@ function web {
     docker push  "devopscenter/python:${devops_version}"
     docker push  "devopscenter/python-apache:${devops_version}"
     docker push  "devopscenter/python-apache-pgpool:${devops_version}"
-    docker push  "devopscenter/python-apache-pgpool-db3:${devops_version}"
     docker push  "devopscenter/python-apache-pgpool-redis:${devops_version}"
-    docker push  "devopscenter/python-apache-pgpool-db3-redis:${devops_version}"
     stack1 &
     stack2 &
 }

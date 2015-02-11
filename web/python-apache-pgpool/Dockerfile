@@ -42,17 +42,19 @@ RUN usermod -a -G postgres postgres
 
 RUN mkdir /installs
 ENV PGPOOL_VERSION 3.4.0
-RUN cd /installs && wget http://www.pgpool.net/download.php?f=pgpool-II-$PGPOOL_VERSION.tar.gz -O pgpool-II-$PGPOOL_VERSION.tar.gz
-RUN cd /installs && tar -xvf pgpool-II-$PGPOOL_VERSION.tar.gz
-RUN cd /installs/pgpool-II-$PGPOOL_VERSION && ./configure && make && make install
+RUN cd /installs && wget http://www.pgpool.net/download.php?f=pgpool-II-$PGPOOL_VERSION.tar.gz -O pgpool-II-$PGPOOL_VERSION.tar.gz && \
+cd /installs && tar -xvf pgpool-II-$PGPOOL_VERSION.tar.gz && \
+cd /installs/pgpool-II-$PGPOOL_VERSION && ./configure && make && make install
 
-RUN mkdir -p -m 700 /etc/pgpool2 && chown -R postgres:postgres /etc/pgpool2
-RUN mkdir -p -m 755 /var/log/pgpool && chown -R postgres:postgres /var/log/pgpool
+RUN mkdir -p -m 700 /etc/pgpool2 && chown -R postgres:postgres /etc/pgpool2 && \
+mkdir -p -m 755 /var/log/pgpool && chown -R postgres:postgres /var/log/pgpool
 ADD pgpool/pgpool2.init.d /etc/init.d/pgpool
 RUN chmod 755 /etc/init.d/pgpool
 #USER postgres
 ADD pgpool/pool_hba.conf /etc/pgpool2/pool_hba.conf
-ADD pgpool/pgpool.conf /etc/pgpool2/pgpool.conf
+ADD pgpool/pgpool.conf.one /etc/pgpool2/pgpool.conf.one
+ADD pgpool/pgpool.conf.two /etc/pgpool2/pgpool.conf.two
+ADD pgpool/pgpool.conf.three /etc/pgpool2/pgpool.conf.three
 ADD pgpool/pcp.conf /etc/pgpool2/pcp.conf
 RUN chown -R postgres:postgres /etc/pgpool2
 

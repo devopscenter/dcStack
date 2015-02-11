@@ -20,10 +20,10 @@ FROM devopscenter/python-apache-pgpool:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 #Need redis-cli and libs
-ENV REDIS_VERSION 2.8.17
-RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
-RUN cd / && tar xvzf redis-$REDIS_VERSION.tar.gz
-RUN cd /redis-$REDIS_VERSION && make -j 3 && make install
+ENV REDIS_VERSION 2.8.19
+RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz && \
+cd / && tar xvzf redis-$REDIS_VERSION.tar.gz && \
+cd /redis-$REDIS_VERSION && make -j 3 && make install
 
 ONBUILD ADD requirements.txt /requirements.txt
 ONBUILD RUN cd / && pip wheel --wheel-dir=/wheel -r requirements.txt

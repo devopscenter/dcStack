@@ -33,7 +33,7 @@ PGPOOL_HBA_CONFIG_FILE="$PREFIX_PGPOOL/pool_hba.conf"
 
 # Sets the path to the pgpool.conf configuration file
 # defailt: /usr/local/etc/pgpool.conf
-PGPOOL_CONFIG_FILE="$PREFIX_PGPOOL/pgpool.conf"
+#PGPOOL_CONFIG_FILE="$PREFIX_PGPOOL/pgpool.conf"
 
 # Sets the path to the pcp.conf configuration file
 # default: /usr/local/etc/pcp.conf)
