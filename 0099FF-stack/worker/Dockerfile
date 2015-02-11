@@ -34,4 +34,4 @@ RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uw
 ADD flower.conf /etc/supervisor/conf.d/flower.conf
 ADD redis.conf /etc/supervisor/conf.d/redis.conf
 
-CMD /bin/bash -c "rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && /usr/bin/supervisord && /etc/init.d/celeryd stop && /etc/init.d/celeryd start "
+CMD /bin/bash -c "rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && /usr/bin/supervisord && /etc/init.d/celeryd stop && /etc/init.d/celeryd start && tail -f /dev/null"
