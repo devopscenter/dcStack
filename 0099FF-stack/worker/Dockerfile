@@ -23,15 +23,11 @@ RUN cd /redis-$REDIS_VERSION && \
 mkdir -p /etc/redis && \
 cp -f *.conf /etc/redis
 
-ADD https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-init.d/celeryd /etc/init.d/celeryd
-ADD https://raw.githubusercontent.com/celery/celery/3.1/extra/generic-init.d/celerybeat /etc/init.d/celerybeat
-ADD celeryd /etc/default/celeryd
-RUN chmod 755 /etc/init.d/celery* && \
-useradd celery && \
-chmod 640 /etc/default/celeryd
+RUN useradd celery
 
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
 ADD flower.conf /etc/supervisor/conf.d/flower.conf
 ADD redis.conf /etc/supervisor/conf.d/redis.conf
+ADD celery.conf /etc/supervisor/conf.d/celery.conf
 
 CMD /bin/bash -c "rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && /usr/bin/supervisord && /etc/init.d/celeryd stop && /etc/init.d/celeryd start && tail -f /dev/null"
