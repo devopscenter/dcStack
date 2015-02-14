@@ -41,7 +41,7 @@ RUN useradd postgres -m -s /bin/bash
 RUN usermod -a -G postgres postgres
 
 RUN mkdir /installs
-ENV PGPOOL_VERSION 3.4.0
+ENV PGPOOL_VERSION 3.4.1
 RUN cd /installs && wget http://www.pgpool.net/download.php?f=pgpool-II-$PGPOOL_VERSION.tar.gz -O pgpool-II-$PGPOOL_VERSION.tar.gz && \
 cd /installs && tar -xvf pgpool-II-$PGPOOL_VERSION.tar.gz && \
 cd /installs/pgpool-II-$PGPOOL_VERSION && ./configure && make && make install
