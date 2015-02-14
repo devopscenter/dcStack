@@ -28,4 +28,4 @@ ADD pgpool.conf /etc/supervisor/conf.d/pgpool.conf
 ADD nginx.conf /etc/supervisor/conf.d/nginx.conf
 ADD uwsgi.conf /etc/supervisor/conf.d/uwsgi.conf
 
-CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
+CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.*.s* && /usr/bin/supervisord && tail -f /dev/null"
