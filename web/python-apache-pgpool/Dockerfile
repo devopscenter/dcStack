@@ -56,7 +56,11 @@ ADD pgpool/pgpool.conf.one /etc/pgpool2/pgpool.conf.one
 ADD pgpool/pgpool.conf.two /etc/pgpool2/pgpool.conf.two
 ADD pgpool/pgpool.conf.three /etc/pgpool2/pgpool.conf.three
 ADD pgpool/pcp.conf /etc/pgpool2/pcp.conf
-RUN chown -R postgres:postgres /etc/pgpool2
+RUN chown -R postgres:postgres /etc/pgpool2 && \
+mkdir -p /var/run/pgpool && \
+chown -R postgres:postgres /var/run/pgpool && \
+mkdir -p /var/run/postgresql/ && \
+chown -R postgres:postgres  /var/run/postgresql/
 
 #Fix locale warnings when starting postgres
 RUN locale-gen en_US.UTF-8
