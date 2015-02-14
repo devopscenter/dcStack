@@ -30,4 +30,4 @@ ADD flower.conf /etc/supervisor/conf.d/flower.conf
 ADD redis.conf /etc/supervisor/conf.d/redis.conf
 ADD celery.conf /etc/supervisor/conf.d/celery.conf
 
-CMD /bin/bash -c "rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && /usr/bin/supervisord && /etc/init.d/celeryd stop && /etc/init.d/celeryd start && tail -f /dev/null"
+CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"

@@ -24,7 +24,8 @@ ADD science.txt /science.txt
 RUN cd / && pip wheel --wheel-dir=/wheel -r science.txt && \
 cd / && pip install --use-wheel --no-index --find-links=/wheel -r science.txt
 
+ADD pgpool.conf /etc/supervisor/conf.d/pgpool.conf
 ADD nginx.conf /etc/supervisor/conf.d/nginx.conf
 ADD uwsgi.conf /etc/supervisor/conf.d/uwsgi.conf
 
-CMD /bin/bash -c "/usr/bin/supervisord && rm -rf /var/run/pgpoo/pgpool.pid && rm -rf /var/run/postgresql/.s.PGSQL.* && /etc/init.d/pgpool start && tail -f /dev/null"
+CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
