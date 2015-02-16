@@ -19,6 +19,8 @@
 FROM devopscenter/python:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
+RUN apt-fast -y install supervisor
+
 ENV APACHE_VERSION 2.4.12
 
 RUN cd /tmp && wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.36.tar.bz2 && \

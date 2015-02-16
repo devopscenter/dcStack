@@ -19,10 +19,7 @@
 FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN apt-fast install -y gfortran libopenblas-dev liblapack-dev supervisor
-ADD science.txt /science.txt
-RUN cd / && pip wheel --wheel-dir=/wheel -r science.txt && \
-cd / && pip install --use-wheel --no-index --find-links=/wheel -r science.txt
+#RUN apt-fast install -y gfortran libopenblas-dev liblapack-dev supervisor
 
 ADD pgpool.conf /etc/supervisor/conf.d/pgpool.conf
 ADD nginx.conf /etc/supervisor/conf.d/nginx.conf

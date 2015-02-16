@@ -5,3 +5,4 @@ log.txt
 push.log
 build.log
 postgres.log
+wheel.log

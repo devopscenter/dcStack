@@ -41,7 +41,7 @@ RUN cd /tmp && wget https://www.kernel.org/pub/software/scm/git/git-2.1.2.tar.gz
 RUN cd /tmp && tar -xvf git-2.1.2.tar.gz
 RUN cd /tmp/git-2.1.2 && make prefix=/usr/local all && make prefix=/usr/local install
 
-RUN apt-fast -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libbz2-dev
+RUN apt-fast -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libbz2-dev gfortran libopenblas-dev liblapack-dev
 ADD https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz /tmp/Python-${PYTHON_VERSION}.tgz
 RUN cd /tmp && tar -xvf Python-${PYTHON_VERSION}.tgz
 RUN cd /tmp/Python-${PYTHON_VERSION} \
