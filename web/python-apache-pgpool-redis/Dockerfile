@@ -25,6 +25,11 @@ RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz &
 cd / && tar xvzf redis-$REDIS_VERSION.tar.gz && \
 cd /redis-$REDIS_VERSION && make -j 3 && make install
 
+ADD redis.conf /etc/supervisor/conf.d/redis.conf
+
+#redis server port
+EXPOSE 6379
+
 ONBUILD ADD requirements.txt /requirements.txt
 ONBUILD RUN cd / && pip wheel --wheel-dir=/wheel -r requirements.txt
 ONBUILD RUN cd / && pip install --use-wheel --no-index --find-links=/wheel -r requirements.txt

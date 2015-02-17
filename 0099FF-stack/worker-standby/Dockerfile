@@ -23,4 +23,3 @@ MAINTAINER josh < josh [at] devops {dot} center>
 RUN echo "slaveof masterworker_1 6379" >> /etc/redis/redis.conf
 RUN rm -rf /etc/supervisor/conf.d/flower.conf
 
-#CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"

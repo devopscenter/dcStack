@@ -19,11 +19,6 @@
 FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ADD apache/pdfcreator.conf /usr/local/apache2/conf/pdfcreator.conf
-RUN echo "Include conf/pdfcreator.conf" | sudo tee -a /usr/local/apache2/conf/httpd.conf
-
-CMD /etc/init.d/pgpool start  && /etc/init.d/apache2 start && tail -f /dev/null
-
 RUN apt-fast -y install libfontconfig-dev libxrender-dev libxtst6
 
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
@@ -34,3 +29,4 @@ RUN curl -L https://npmjs.com/install.sh | sh
 
 RUN npm install -g less
 
+RUN mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 

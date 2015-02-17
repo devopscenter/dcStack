@@ -27,7 +27,4 @@ RUN useradd celery
 
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
 ADD flower.conf /etc/supervisor/conf.d/flower.conf
-ADD redis.conf /etc/supervisor/conf.d/redis.conf
 ADD celery.conf /etc/supervisor/conf.d/celery.conf
-
-#CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"
