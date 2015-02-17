@@ -19,6 +19,7 @@ xlwt==0.7.5
 psycopg2==2.5.1
 python-dateutil==2.2
 pytz==2012d
+raven==5.1.1
 redis==2.9.1
 restkit==4.2.2
 rq==0.3.13
