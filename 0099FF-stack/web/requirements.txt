@@ -1,6 +1,7 @@
 Django==1.6.8
 South==1.0
 boto==2.30.0
+celery[redis]==3.1.7
 click==2.4
 dj-database-url==0.3.0
 dj-static==0.0.6
@@ -8,6 +9,7 @@ django-filter==0.7
 django-rq==0.6.1
 django-salesforce==0.2.0.1
 djangorestframework==2.3.12
+flower==0.7.3
 gunicorn==19.1.1
 httplib2==0.8
 newrelic==2.30.0.27
