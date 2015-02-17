@@ -65,3 +65,7 @@ chown -R postgres:postgres  /var/run/postgresql/
 #Fix locale warnings when starting postgres
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
+
+ADD pgpool.conf /etc/supervisor/conf.d/pgpool.conf
+
+CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"

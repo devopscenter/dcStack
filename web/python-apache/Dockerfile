@@ -62,3 +62,7 @@ mkdir -p /var/log/uwsgi && \
 mkdir -p /var/run/uwsgi
 
 EXPOSE 80 8000 443
+
+ADD nginx.conf /etc/supervisor/conf.d/nginx.conf
+ADD uwsgi.conf /etc/supervisor/conf.d/uwsgi.conf
+

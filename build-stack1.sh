@@ -1,3 +1,4 @@
+#!/bin/bash -e
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
@@ -16,9 +17,11 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool-redis:devops_version
-MAINTAINER josh < josh [at] devops {dot} center>
+source VERSION
 
-ADD science.txt /science.txt
-RUN cd / && pip wheel --wheel-dir=/wheel -r science.txt
-RUN cd / && pip install --use-wheel --no-index --find-links=/wheel -r science.txt
+#replace variable devops_version with the VERSION we are building
+find . -name "Dockerfile" -type f -exec sed -i -e "s/devops_version/$devops_version/g" {} \;
+
+docker build -rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
+docker build -rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
+docker build -rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby
