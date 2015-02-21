@@ -19,7 +19,7 @@
 FROM devopscenter/db_postgres:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN echo "autostart=false'" >> /etc/supervisor/conf.d/postgres.conf
+RUN echo "autostart=false" >> /etc/supervisor/conf.d/postgres.conf
 
 ADD init-standby.sh /tmp/init-standby.sh
 
