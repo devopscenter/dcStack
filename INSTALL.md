@@ -17,3 +17,12 @@ Configure [port forwarding](portforward.sh). Make sure boot2docker-vm is not pow
 ./portforward.sh
 ```
 
+Verify port forward rules
+```
+VBoxManage showvminfo boot2docker-vm | grep "NIC [0-9]* Rule([0-9]*): *name = $1"
+```
+
+Add entries to hosts file
+```
+echo "127.0.0.1 sentry" | sudo tee -a /private/etc/hosts > /dev/null
+```
