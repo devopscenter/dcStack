@@ -29,7 +29,6 @@ function db {
     rm -rf postgres.log
     docker build -rm -t "devopscenter/db_postgres:${devops_version}" db/postgres >> postgres.log
     docker build -rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby >> postgres.log
-    docker build -rm -t "devopscenter/db_postgres-perf-analysis:${devops_version}" db/postgres-performance-analysis >> postgres.log
     docker build -rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr >> postgres.log
     #docker build -rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
 }

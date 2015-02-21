@@ -30,6 +30,9 @@ ADD redis.conf /etc/supervisor/conf.d/redis.conf
 #redis server port
 EXPOSE 6379
 
+#flower port
+EXPOSE 5555
+
 ONBUILD ADD requirements.txt /requirements.txt
 ONBUILD RUN cd / && pip wheel --wheel-dir=/wheel -r requirements.txt
 ONBUILD RUN cd / && pip install --use-wheel --no-index --find-links=/wheel -r requirements.txt

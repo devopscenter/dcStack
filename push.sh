@@ -23,7 +23,6 @@ echo "Version=${devops_version}"
 function db {
     docker push  "devopscenter/db_postgres:${devops_version}"  
     docker push  "devopscenter/db_postgres-standby:${devops_version}" 
-    docker push  "devopscenter/db_postgres-perf-analysis:${devops_version}"  
     #docker push  "devopscenter/db_postgres-restore:${devops_version}" 
 }
 
