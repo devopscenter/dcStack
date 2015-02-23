@@ -67,10 +67,12 @@ RUN echo "ssl = false                              # (change requires restart)" 
 RUN echo "wal_level = hot_standby          # minimal, archive, or hot_standby" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 RUN echo "hot_standby = on            # 'on' allows queries during recovery" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 RUN echo "max_wal_senders = 5      # max number of walsender processes" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-RUN echo "log_destination = 'csvlog'" >> $POSTGRES_CONF
-RUN echo "logging_collector = on" >> $POSTGRES_CONF
-RUN echo "log_directory = 'pg_log'" >> $POSTGRES_CONF
-RUN echo "log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'" >> $POSTGRES_CONF
+RUN echo "log_destination = 'syslog'" >> $POSTGRES_CONF
+RUN echo "syslog_facility = 'LOCAL0'" >> $POSTGRES_CONF
+RUN echo "syslog_ident = 'postgres'" >> $POSTGRES_CONF
+#RUN echo "logging_collector = on" >> $POSTGRES_CONF
+#RUN echo "log_directory = 'pg_log'" >> $POSTGRES_CONF
+#RUN echo "log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'" >> $POSTGRES_CONF
 
 # Set the default command to run when starting the container
 #CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]

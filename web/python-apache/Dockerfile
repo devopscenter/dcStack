@@ -36,4 +36,4 @@ EXPOSE 80 8000 443
 
 ADD nginx.conf /etc/supervisor/conf.d/nginx.conf
 ADD uwsgi.conf /etc/supervisor/conf.d/uwsgi.conf
-
+ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf

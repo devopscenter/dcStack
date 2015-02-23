@@ -26,4 +26,4 @@ ADD init-standby.sh /tmp/init-standby.sh
 USER root
 
 # Set the default command to run when starting the container
-CMD /tmp/init-standby.sh && /usr/bin/supervisord && tail -f /dev/null
+CMD /usr/bin/supervisord && /tmp/init-standby.sh && tail -f /dev/null
