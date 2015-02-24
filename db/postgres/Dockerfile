@@ -130,3 +130,5 @@ RUN echo "archive_timeout = 60" >> $POSTGRES_WALE_CONF
 #RUN echo "log_executor_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
 USER root
+
+ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
