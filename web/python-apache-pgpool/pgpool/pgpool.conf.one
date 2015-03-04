@@ -129,7 +129,7 @@ client_idle_limit = 0
 
 # - Where to log -
 
-log_destination = 'stderr'
+log_destination = 'syslog'
                                    # Where to log
                                    # Valid values are combinations of stderr,
                                    # and syslog. Default to stderr.

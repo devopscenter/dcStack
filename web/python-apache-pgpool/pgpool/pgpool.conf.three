@@ -112,10 +112,10 @@ ssl = off
 
 # - Pool size -
 
-num_init_children = 2 
+num_init_children = 4 
                                    # Number of pools
                                    # (change requires restart)
-max_pool = 4
+max_pool = 15 
                                    # Number of connections per pool
                                    # (change requires restart)
 
@@ -141,7 +141,7 @@ client_idle_limit = 0
 
 # - Where to log -
 
-log_destination = 'stderr'
+log_destination = 'syslog'
                                    # Where to log
                                    # Valid values are combinations of stderr,
                                    # and syslog. Default to stderr.
