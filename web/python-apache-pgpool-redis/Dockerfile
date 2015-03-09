@@ -33,5 +33,10 @@ EXPOSE 6379
 #flower port
 EXPOSE 5555
 
+ONBUILD ADD wheelhouse /wheelhouse
 ONBUILD ADD requirements.txt /requirements.txt
 ONBUILD RUN cd / && pip install --no-index -r requirements.txt
+
+ENV WHEELHOUSE=/wheelhouse
+ENV PIP_WHEEL_DIR=/wheelhouse
+ENV PIP_FIND_LINKS=/wheelhouse

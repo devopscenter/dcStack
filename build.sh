@@ -27,33 +27,39 @@ find . -name "Dockerfile" -type f -exec sed -i -e "s/devops_version/$devops_vers
 
 function db {
     rm -rf postgres.log
-    docker build -rm -t "devopscenter/db_postgres:${devops_version}" db/postgres >> postgres.log
-    docker build -rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby >> postgres.log
-    docker build -rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr >> postgres.log
-    #docker build -rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
+    docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres >> postgres.log
+    docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby >> postgres.log
+    docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr >> postgres.log
+    #docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
 }
 
 function misc {
-    docker build -rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &
-    docker build -rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &
+    docker build --rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &
+    docker build --rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &
 }
-#docker build -rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
-#docker build -rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
+#docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
+#docker build --rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
 
 function stack1 {
-    docker build -rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
-    docker build -rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
-    docker build -rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby
+    mkdir -p 0099FF-stack/web/wheelhouse
+    cp /data/wheelhouse/* 0099FF-stack/web/wheelhouse
+    docker build --rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
+    docker build --rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
+    docker build --rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby
 }
 
 function stack2 {
-    docker build -rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web
-    docker build -rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
+    mkdir -p 66CCFF-stack/web/wheelhouse 
+    cp /data/wheelhouse/* 66CCFF-stack/web/wheelhouse
+    docker build --rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web
+    docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
 }
 
 function buildtools {
-    docker build -rm -t "devopscenter/buildtools:${devops_version}" buildtools/pythonwheel
-    rm -rf buildtools/pythonwheel/application
+    echo "Running buildtools"
+    mkdir -p buildtools/pythonwheel/wheelhouse
+    docker build --rm -t "devopscenter/buildtools:${devops_version}" buildtools/pythonwheel
+    rm -rf buildtools/pythonwheel/application/app*
     mkdir -p buildtools/pythonwheel/application
     cp 0099FF-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
     cp 0099FF-stack/web/science.txt buildtools/pythonwheel/application/app1.science.txt
@@ -66,10 +72,10 @@ function buildtools {
 }
 
 function web {
-    docker build -rm -t "devopscenter/python:${devops_version}" python
-    docker build -rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
-    docker build -rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
-    docker build -rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
+    docker build --rm -t "devopscenter/python:${devops_version}" python
+    docker build --rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
+    docker build --rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
+    docker build --rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
     buildtools
     stack1 &
     stack2 &
