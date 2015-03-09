@@ -51,11 +51,26 @@ function stack2 {
     docker build -rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
 }
 
+function buildtools {
+    docker build -rm -t "devopscenter/buildtools:${devops_version}" buildtools/pythonwheel
+    rm -rf buildtools/pythonwheel/application
+    mkdir -p buildtools/pythonwheel/application
+    cp 0099FF-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
+    cp 0099FF-stack/web/science.txt buildtools/pythonwheel/application/app1.science.txt
+    cp 66CCFF-stack/web/requirements.txt buildtools/pythonwheel/application/app2.requirements.txt
+    cp 66CCFF-stack/web/science.txt buildtools/pythonwheel/application/app2.science.txt
+    docker run --rm \
+        -v "/home/ubuntu/devopscenter/docker-stack/buildtools/pythonwheel/application":/application \
+        -v /data/wheelhouse:/wheelhouse \
+        "devopscenter/buildtools:${devops_version}"
+}
+
 function web {
     docker build -rm -t "devopscenter/python:${devops_version}" python
     docker build -rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
     docker build -rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
     docker build -rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
+    buildtools
     stack1 &
     stack2 &
 }
