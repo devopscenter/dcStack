@@ -43,16 +43,18 @@ function misc {
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
     cp /data/wheelhouse/* 0099FF-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
-    docker build --rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
-    docker build --rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby
+    rm -rf stack1.log
+    docker build --rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web >> stack1.log
+    docker build --rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker >> stack1.log
+    docker build --rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby >> stack1.log
 }
 
 function stack2 {
     mkdir -p 66CCFF-stack/web/wheelhouse 
     cp /data/wheelhouse/* 66CCFF-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web
-    docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
+    rm -rf stack2.log
+    docker build --rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web >> stack2.log
+    docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker >> stack2.log
 }
 
 function buildtools {

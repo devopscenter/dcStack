@@ -6,3 +6,5 @@ push.log
 build.log
 postgres.log
 wheel.log
+stack1.log
+stack2.log
