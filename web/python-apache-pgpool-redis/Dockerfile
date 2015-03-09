@@ -34,5 +34,4 @@ EXPOSE 6379
 EXPOSE 5555
 
 ONBUILD ADD requirements.txt /requirements.txt
-ONBUILD RUN cd / && pip wheel --wheel-dir=/wheel -r requirements.txt
-ONBUILD RUN cd / && pip install --use-wheel --no-index --find-links=/wheel -r requirements.txt
+ONBUILD RUN cd / && pip install --no-index -r requirements.txt

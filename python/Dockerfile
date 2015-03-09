@@ -61,7 +61,7 @@ RUN pip install -U setuptools-git==1.1 wheel==0.24.0 virtualenv==1.11.6
 RUN pip install -U pip
 #RUN pip install -U distribute==0.7.3  setuptools==8.3
 
-RUN mkdir -p /wheel
+RUN mkdir -p /wheelhouse
 
 #ipython
 RUN apt-fast -y install libncurses5-dev

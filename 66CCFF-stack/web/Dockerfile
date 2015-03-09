@@ -19,6 +19,7 @@
 FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
+ADD wheelhouse /wheelhouse
 RUN apt-fast -y install libfontconfig-dev libxrender-dev libxtst6
 
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -

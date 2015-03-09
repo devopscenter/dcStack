@@ -19,7 +19,15 @@
 FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ADD wheelhouse /wheelhouse
-ADD science.txt /science.txt
-#RUN cd / && pip wheel --wheel-dir=/wheel -r science.txt
-RUN cd / && pip install --no-index -r science.txt
+ENV WHEELHOUSE=/wheelhouse
+ENV PIP_WHEEL_DIR=/wheelhouse
+ENV PIP_FIND_LINKS=/wheelhouse
+
+VOLUME /wheelhouse
+VOLUME /application
+
+ENTRYPOINT cd /application; \
+    pip wheel -r app1.science.txt; \
+    pip wheel -r app1.requirements.txt; \
+    pip wheel -r app2.science.txt; \
+    pip wheel -r app2.requirements.txt
