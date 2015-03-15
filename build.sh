@@ -26,10 +26,10 @@ find . -name "Dockerfile" -type f -exec sed -i -e "s/devops_version/$devops_vers
 #build containers
 
 function db {
-    rm -rf postgres.log
-    docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres >> postgres.log
-    docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby >> postgres.log
-    docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr >> postgres.log
+    #rm -rf postgres.log
+    docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
+    docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
+    docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
     #docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
 }
 
@@ -43,18 +43,16 @@ function misc {
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
     cp /data/wheelhouse/* 0099FF-stack/web/wheelhouse
-    rm -rf stack1.log
-    docker build --rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web >> stack1.log
-    docker build --rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker >> stack1.log
-    docker build --rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby >> stack1.log
+    docker build --rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
+    docker build --rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
+    docker build --rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby
 }
 
 function stack2 {
     mkdir -p 66CCFF-stack/web/wheelhouse 
     cp /data/wheelhouse/* 66CCFF-stack/web/wheelhouse
-    rm -rf stack2.log
-    docker build --rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web >> stack2.log
-    docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker >> stack2.log
+    docker build --rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web
+    docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
 }
 
 function buildtools {
@@ -79,10 +77,12 @@ function web {
     docker build --rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
     docker build --rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
     buildtools
-    stack1 &
-    stack2 &
+    rm -rf stack1.log
+    time stack1 &> stack1.log &
+    rm -rf stack2.log
+    time stack2 &> stack2.log &
 }
 
-misc &
+time misc &> misc.log &
 web &
-db &
+time db &> db.log &

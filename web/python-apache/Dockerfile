@@ -26,7 +26,7 @@ cd /tmp && tar -xvf pcre-8.36.tar.bz2 && \
 cd /tmp/pcre-8.36 && ./configure && make -j 3 && make install
 
 RUN cd /tmp && wget http://nginx.org/download/nginx-1.6.2.tar.gz && tar -xvf nginx-1.6.2.tar.gz && \
-cd /tmp/nginx-1.6.2 && ./configure && make -j 3 && make install
+cd /tmp/nginx-1.6.2 && ./configure --with-http_stub_status_module && make -j 3 && make install
 ADD nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 RUN pip install uwsgi==2.0.9 && \
 mkdir -p /var/log/uwsgi && \
