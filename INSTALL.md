@@ -6,10 +6,10 @@ Download and install the [latest boot2docker](https://github.com/boot2docker/osx
 
 After installing boot2docker, [resize the hardrive](boot2docker-init.sh)
 
-Download and install the latest fig
+Download and install the latest docker-compose
 ```
 sudo pip install --upgrade distribute
-sudo pip install -U fig
+sudo pip install -U docker-compose
 ```
 
 Configure [port forwarding](portforward.sh). Make sure boot2docker-vm is not powered on or started.
