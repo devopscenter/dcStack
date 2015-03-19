@@ -130,6 +130,12 @@ RUN echo "archive_timeout = 60" >> $POSTGRES_WALE_CONF
 #RUN echo "log_planner_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 #RUN echo "log_executor_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
+# HSTORE
+RUN echo "CREATE EXTENSION hstore;" | \
+    /bin/bash -c "/usr/lib/postgresql/9.4/bin/postgres --single \
+    -D /var/lib/postgresql/9.4/main \
+    -c config_file=$POSTGRES_CONF"
+
 USER root
 
 ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
