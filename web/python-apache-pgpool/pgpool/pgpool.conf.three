@@ -24,7 +24,7 @@
 
 # - pgpool Connection Settings -
 
-listen_addresses = 'localhost'
+listen_addresses = '*'
                                    # Host name or IP address to listen on:
                                    # '*' for all, '' for no TCP/IP connections
                                    # (change requires restart)

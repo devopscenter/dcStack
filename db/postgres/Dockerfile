@@ -66,11 +66,13 @@ RUN echo "listen_addresses='*'" >> /etc/postgresql/${POSTGRES_VERSION}/main/post
 RUN echo "ssl = false                              # (change requires restart)" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 RUN echo "wal_level = hot_standby          # minimal, archive, or hot_standby" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 RUN echo "hot_standby = on            # 'on' allows queries during recovery" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-RUN echo "max_wal_senders = 10      # max number of walsender processes" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
+RUN echo "max_wal_senders = 20      # max number of walsender processes" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 RUN echo "log_destination = 'syslog'" >> $POSTGRES_CONF
 RUN echo "syslog_facility = 'LOCAL0'" >> $POSTGRES_CONF
 RUN echo "syslog_ident = 'postgres'" >> $POSTGRES_CONF
 RUN echo "max_connections = 200" >> $POSTGRES_CONF
+RUN echo "shared_buffers = 128MB" >> $POSTGRES_CONF
+RUN echo "checkpoint_segments=16" >> $POSTGRES_CONF
 #RUN echo "logging_collector = on" >> $POSTGRES_CONF
 #RUN echo "log_directory = 'pg_log'" >> $POSTGRES_CONF
 #RUN echo "log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'" >> $POSTGRES_CONF
@@ -87,6 +89,7 @@ EXPOSE 5432
 
 USER root
 #https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
+RUN apt-fast -y install libffi-dev
 RUN pip install --upgrade distribute
 RUN pip install -U six && \
 pip install wal-e==0.7.3
