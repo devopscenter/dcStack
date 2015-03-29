@@ -82,11 +82,6 @@ RUN echo "checkpoint_segments=16" >> $POSTGRES_CONF
 ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
 
-# Add VOLUMEs to allow backup of config, logs and databases
-VOLUME  ["/var/lib/postgresql/9.4/main"]
-
-EXPOSE 5432
-
 USER root
 #https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
 RUN apt-fast -y install libffi-dev
@@ -143,3 +138,8 @@ RUN echo "CREATE EXTENSION hstore;" | \
 USER root
 
 ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
+
+# Add VOLUMEs to allow backup of config, logs and databases
+VOLUME  ["/var/lib/postgresql"]
+
+EXPOSE 5432
