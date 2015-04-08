@@ -30,7 +30,7 @@ function db {
     docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
     docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
     docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
-    #docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
+    docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
 }
 
 function misc {

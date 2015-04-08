@@ -30,13 +30,6 @@ USER postgres
 RUN /usr/lib/postgresql/9.3/bin/initdb --locale en_US.UTF-8 -D /tmp/postgres/9.3
 RUN /usr/lib/postgresql/9.4/bin/initdb --locale en_US.UTF-8 -D /tmp/postgres/9.4
 
-VOLUME ["/var/lib/postgresql/9.3/main"]
-#RUN cp /etc/postgresql/9.3/main/postgresql.conf /var/lib/postgresql/9.3/main/
-#RUN cp /etc/postgresql/9.4/main/postgresql.conf /var/lib/postgresql/9.4/main/
-#RUN cp /etc/postgresql/9.3/main/postgresql.conf /tmp/postgres/restore9.3/
-#RUN echo "data_directory = '/tmp/postgres/restore9.3'"  >> /tmp/postgres/restore9.3/postgresql.conf
-#RUN chmod -R 0700 /tmp/postgres/restore9.3
-
 RUN cp /etc/postgresql/9.3/main/postgresql.conf /tmp/postgres/9.3
 RUN echo "data_directory = '/tmp/postgres/9.3'"  >> /tmp/postgres/9.3/postgresql.conf
 RUN chmod -R 0700 /tmp/postgres/9.3
@@ -44,7 +37,6 @@ RUN chmod -R 0700 /tmp/postgres/9.3
 RUN cp /etc/postgresql/9.4/main/postgresql.conf /tmp/postgres/9.4
 RUN echo "data_directory = '/tmp/postgres/9.4'"  >> /tmp/postgres/9.4/postgresql.conf
 RUN chmod -R 0700 /tmp/postgres/9.4
-
 
 #######
 
@@ -75,4 +67,3 @@ RUN /usr/lib/postgresql/9.3/bin/pg_resetxlog -f $DATA_DIR
 RUN cp /etc/postgresql/9.4/main/postgresql.conf /var/lib/postgresql/9.4/main/postgresql.conf
 
 ADD upgrade.sh /scripts/upgrade.sh
-#VOLUME  ["/var/lib/postgresql/9.3/main"]

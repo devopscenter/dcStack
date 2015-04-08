@@ -19,16 +19,19 @@
 FROM devopscenter/python:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
+ENV NGINX_VERSION 1.7.12
+ENV UWSGI_VERSION 2.0.10
+
 RUN apt-fast -y install supervisor
 
 RUN cd /tmp && wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.36.tar.bz2 && \
 cd /tmp && tar -xvf pcre-8.36.tar.bz2 && \
 cd /tmp/pcre-8.36 && ./configure && make -j 3 && make install
 
-RUN cd /tmp && wget http://nginx.org/download/nginx-1.6.2.tar.gz && tar -xvf nginx-1.6.2.tar.gz && \
-cd /tmp/nginx-1.6.2 && ./configure --with-http_stub_status_module && make -j 3 && make install
+RUN cd /tmp && wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz && tar -xvf nginx-$NGINX_VERSION.tar.gz && \
+cd /tmp/nginx-$NGINX_VERSION && ./configure --with-http_stub_status_module && make -j 3 && make install
 ADD nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
-RUN pip install uwsgi==2.0.9 && \
+RUN pip install uwsgi==$UWSGI_VERSION && \
 mkdir -p /var/log/uwsgi && \
 mkdir -p /var/run/uwsgi
 
