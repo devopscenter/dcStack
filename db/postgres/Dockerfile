@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM ubuntu:trusty
+FROM base_image_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.4

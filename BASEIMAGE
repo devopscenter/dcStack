@@ -1,0 +1,2 @@
+#base_image_version=ubuntu:trusty
+base_image_version=phusion/baseimage:0.9.16

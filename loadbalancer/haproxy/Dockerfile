@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM ubuntu:trusty
+FROM base_image_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN apt-get update && apt-get -y install python-software-properties software-properties-common
