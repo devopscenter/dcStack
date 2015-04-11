@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM base_image_version
+FROM baseimageversion
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.4
@@ -45,7 +45,7 @@ RUN sudo apt-fast update
 RUN sudo apt-fast -y -q install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev
 
 # Adjust PostgreSQL configuration so that remote connections to the
-# database are possible. 
+# data are possible. 
 ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
 RUN chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
 
@@ -139,7 +139,7 @@ USER root
 
 ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
 
-# Add VOLUMEs to allow backup of config, logs and databases
+# Add VOLUMEs to allow backup of config, logs and datas
 VOLUME  ["/var/lib/postgresql"]
 
 EXPOSE 5432

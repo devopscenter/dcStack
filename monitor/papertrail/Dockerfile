@@ -16,6 +16,6 @@
 # limitations under the License.
 #
 
-FROM base_image_version
+FROM baseimageversion
 MAINTAINER josh < josh [at] devops {dot} center>
 
