@@ -58,6 +58,13 @@ function stack2 {
     docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
 }
 
+function stack3 {
+    mkdir -p 007acc-stack/web/wheelhouse
+    cp /data/wheelhouse/* 007acc-stack/web/wheelhouse
+    docker build --rm -t "devopscenter/007acc.web:${devops_version}" 007acc-stack/web
+    docker build --rm -t "devopscenter/007acc.worker:${devops_version}" 007acc-stack/worker
+}
+
 function buildtools {
     echo "Running buildtools"
     mkdir -p buildtools/pythonwheel/wheelhouse
@@ -68,6 +75,8 @@ function buildtools {
     cp 0099FF-stack/web/science.txt buildtools/pythonwheel/application/app1.science.txt
     cp 66CCFF-stack/web/requirements.txt buildtools/pythonwheel/application/app2.requirements.txt
     cp 66CCFF-stack/web/science.txt buildtools/pythonwheel/application/app2.science.txt
+    cp 007acc-stack/web/requirements.txt buildtools/pythonwheel/application/app3.requirements.txt
+    cp 007acc-stack/web/science.txt buildtools/pythonwheel/application/app3.science.txt
     docker run --rm \
         -v "/home/ubuntu/devopscenter/docker-stack/buildtools/pythonwheel/application":/application \
         -v /data/wheelhouse:/wheelhouse \
@@ -84,6 +93,8 @@ function web {
     time stack1 &> stack1.log &
     rm -rf stack2.log
     time stack2 &> stack2.log &
+    rm -rf stack3.log
+    time stack3 &> stack3.log &
 }
 
 time misc &> misc.log &

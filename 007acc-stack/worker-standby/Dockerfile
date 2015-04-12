@@ -15,4 +15,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-fig stop && fig kill && fig rm --force
+
+FROM devopscenter/0099ff.worker2:devops_version
+MAINTAINER josh < josh [at] devops {dot} center>
+
+
+RUN echo "slaveof masterworker_1 6379" >> /etc/redis/redis.conf
+RUN rm -rf /etc/supervisor/conf.d/flower.conf
+

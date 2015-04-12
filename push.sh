@@ -42,6 +42,10 @@ function stack2 {
     docker push  "devopscenter/66ccff.worker:${devops_version}" 
 }
 
+function stack3 {
+    docker push  "devopscenter/007acc.web:${devops_version}"
+    docker push  "devopscenter/007acc.worker:${devops_version}"
+}
 function web {
     docker push  "devopscenter/python:${devops_version}"
     docker push  "devopscenter/python-apache:${devops_version}"
@@ -49,6 +53,7 @@ function web {
     docker push  "devopscenter/python-apache-pgpool-redis:${devops_version}"
     stack1 &
     stack2 &
+    stack3 &
 }
 
 web &

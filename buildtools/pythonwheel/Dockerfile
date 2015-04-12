@@ -30,4 +30,6 @@ ENTRYPOINT cd /application; \
     pip wheel -r app1.requirements.txt; \
     pip wheel -r app1.science.txt; \
     pip wheel -r app2.requirements.txt; \
-    pip wheel -r app2.science.txt;
+    pip wheel -r app2.science.txt; \
+    pip wheel -r app3.requirements.txt; \
+    pip wheel -r app3.science.txt;
