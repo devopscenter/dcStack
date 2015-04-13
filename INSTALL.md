@@ -2,6 +2,7 @@
 
 Download and install the [latest Parallels platform packages](http://www.parallels.com/)
 
+Download and install the latest docker-compose
 ```
 sudo pip install --upgrade distribute
 sudo pip install -U docker-compose
