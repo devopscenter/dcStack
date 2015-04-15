@@ -10,5 +10,5 @@ sudo pip install -U docker-compose
 
 Add entries to hosts file
 ```
-echo "127.0.0.1 sentry" | sudo tee -a /private/etc/hosts > /dev/null
+echo "127.0.0.1 sentry" | sudo tee -a /etc/hosts > /dev/null
 ```
