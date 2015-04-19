@@ -19,10 +19,6 @@
 FROM devopscenter/66ccff.web:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN cd /redis-$REDIS_VERSION && \
-mkdir -p /etc/redis && \
-cp -f *.conf /etc/redis
-
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
 ADD flower.conf /etc/supervisor/conf.d/flower.conf
 ADD celery.conf /etc/supervisor/conf.d/celery.conf
