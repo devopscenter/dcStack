@@ -22,6 +22,8 @@ MAINTAINER josh < josh [at] devops {dot} center>
 ENV NGINX_VERSION 1.7.12
 ENV UWSGI_VERSION 2.0.10
 
+RUN useradd uwsgi
+
 RUN apt-fast -y install supervisor
 
 RUN cd /tmp && wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.36.tar.bz2 && \
@@ -33,7 +35,9 @@ cd /tmp/nginx-$NGINX_VERSION && ./configure --with-http_stub_status_module && ma
 ADD nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
 RUN pip install uwsgi==$UWSGI_VERSION && \
 mkdir -p /var/log/uwsgi && \
-mkdir -p /var/run/uwsgi
+mkdir -p /var/run/uwsgi && \
+chown -R uwsgi /var/run/uwsgi && \
+chown -R uwsgi /var/log/uwsgi
 
 EXPOSE 80 8000 443
 
