@@ -24,6 +24,8 @@ function db {
     docker push  "devopscenter/db_postgres:${devops_version}"  
     docker push  "devopscenter/db_postgres-standby:${devops_version}" 
     #docker push  "devopscenter/db_postgres-restore:${devops_version}" 
+    docker push  "devopscenter/db_redis:${devops_version}"
+    docker push  "devopscenter/db_redis-standby:${devops_version}"
 }
 
 docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
