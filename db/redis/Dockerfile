@@ -16,22 +16,18 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool:devops_version
+FROM redis:3.0.0
 MAINTAINER josh < josh [at] devops {dot} center>
 
-#Need redis-cli and libs
-ENV REDIS_VERSION 3.0.0
-RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz && \
-cd / && tar xvzf redis-$REDIS_VERSION.tar.gz && \
-cd /redis-$REDIS_VERSION && make -j 3 && make install
+RUN apt-get update
+RUN apt-get -y install supervisor
 
-#flower port
-EXPOSE 5555
+ADD redis.conf /etc/supervisor/conf.d/redis.conf
 
-ONBUILD ADD wheelhouse /wheelhouse
-ONBUILD ADD requirements.txt /requirements.txt
-ONBUILD RUN cd / && pip install --no-index -r requirements.txt
+ADD https://raw.githubusercontent.com/antirez/redis/3.0.0/redis.conf /etc/redis/redis.conf
+RUN echo "dir /data" >> /etc/redis/redis.conf
+RUN echo "syslog-enabled yes" >> /etc/redis/redis.conf
+RUN echo "syslog-ident redis" >> /etc/redis/redis.conf
+RUN echo "syslog-facility local0" >> /etc/redis/redis.conf
 
-ENV WHEELHOUSE=/wheelhouse
-ENV PIP_WHEEL_DIR=/wheelhouse
-ENV PIP_FIND_LINKS=/wheelhouse
+CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"

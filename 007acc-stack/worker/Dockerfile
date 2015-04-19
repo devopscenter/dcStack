@@ -19,13 +19,6 @@
 FROM devopscenter/0099ff.web2:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN cd /redis-$REDIS_VERSION && \
-mkdir -p /etc/redis && \
-cp -f *.conf /etc/redis
-
-RUN mkdir -p /redis
-RUN echo "dir /redis" >> /etc/redis/redis.conf
-
 RUN useradd celery
 
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf

@@ -16,10 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/0099ff.worker2:devops_version
+FROM devopscenter/db_redismaster:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-
-RUN echo "slaveof masterworker_1 6379" >> /etc/redis/redis.conf
-RUN rm -rf /etc/supervisor/conf.d/flower.conf
-
+RUN echo "slaveof redismaster 6379" >> /etc/redis/redis.conf

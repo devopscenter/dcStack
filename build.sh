@@ -33,7 +33,9 @@ function db {
     docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
     docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
     docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
-    docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
+    #docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
+    docker build --rm -t "devopscenter/db_redis:${devops_version}" db/redis
+    docker build --rm -t "devopscenter/db_redis-standby:${devops_version}" db/redis-standby
 }
 
 function misc {
@@ -48,7 +50,6 @@ function stack1 {
     cp /data/wheelhouse/* 0099FF-stack/web/wheelhouse
     docker build --rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
     docker build --rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
-    docker build --rm -t "devopscenter/0099ff.worker_standby:${devops_version}" 0099FF-stack/worker-standby
 }
 
 function stack2 {
