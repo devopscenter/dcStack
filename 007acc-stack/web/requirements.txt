@@ -7,4 +7,4 @@ ipython==2.2.0
 psycopg2==2.5.3
 raven==5.1.1
 redis==2.10.3
-uwsgi=2.0.10
+uwsgi==2.0.10
