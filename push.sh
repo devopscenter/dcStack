@@ -30,6 +30,7 @@ function db {
 
 docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
 docker push  "devopscenter/monitor_sentry:${devops_version}"  &
+docker push  "devopscenter/monitor_newrelic:${devops_version}"  &
 #docker push  "devopscenter/loadbalancer_ssl-termination:${devops_version}"
 #docker push  "devopscenter/loadbalancer_haproxy:${devops_version}"
 
