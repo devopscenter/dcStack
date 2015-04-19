@@ -136,7 +136,7 @@ RUN echo "CREATE EXTENSION hstore;" | \
     template1"
 
 USER root
-
+RUN chown -R postgres:postgres /var/lib/postgresql 
 ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
 
 # Add VOLUMEs to allow backup of config, logs and datas
