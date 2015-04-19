@@ -42,6 +42,7 @@ RUN pip install newrelic-plugin-agent[postgresql]
 RUN mkdir -p /var/log/newrelic
 RUN mkdir -p /var/run/newrelic
 
+ADD newrelic-plugin-agent.cfg /etc/newrelic/newrelic-plugin-agent.cfg
 ADD newrelic-plugin-agent.conf /etc/supervisor/conf.d/newrelic-plugin-agent.conf
 
 CMD /bin/bash -c " /usr/bin/supervisord && tail -f /dev/null"
