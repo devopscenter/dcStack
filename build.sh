@@ -90,6 +90,7 @@ function buildtools {
 
 function web {
     docker build --rm -t "devopscenter/python:${devops_version}" python
+    time newrelic &> newrelic.log &
     docker build --rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
     docker build --rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
     docker build --rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
@@ -105,4 +106,3 @@ function web {
 time misc &> misc.log &
 web &
 time db &> db.log &
-time newrelic &> newrelic.log &
