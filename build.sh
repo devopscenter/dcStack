@@ -41,10 +41,13 @@ function db {
 function misc {
     docker build --rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &
     docker build --rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &
-    docker build --rm -t "devopscenter/monitor_newrelic:${devops_version}" monitor/newrelic &
 }
 #docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
 #docker build --rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
+
+function newrelic {
+    docker build --rm -t "devopscenter/monitor_newrelic:${devops_version}" monitor/newrelic &
+}
 
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
@@ -102,3 +105,4 @@ function web {
 time misc &> misc.log &
 web &
 time db &> db.log &
+time newrelic &> newrelic.log &
