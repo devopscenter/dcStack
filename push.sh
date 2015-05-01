@@ -28,11 +28,10 @@ function db {
     docker push  "devopscenter/db_redis-standby:${devops_version}"
 }
 
-docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
-docker push  "devopscenter/monitor_sentry:${devops_version}"  &
-docker push  "devopscenter/monitor_newrelic:${devops_version}"  &
-#docker push  "devopscenter/loadbalancer_ssl-termination:${devops_version}"
-#docker push  "devopscenter/loadbalancer_haproxy:${devops_version}"
+function misc {
+    docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
+    docker push  "devopscenter/monitor_sentry:${devops_version}"  &
+}
 
 function stack1 {
     docker push  "devopscenter/0099ff.web2:${devops_version}" 
@@ -51,14 +50,18 @@ function stack3 {
 }
 function web {
     docker push  "devopscenter/python:${devops_version}"
+    docker push  "devopscenter/monitor_newrelic:${devops_version}"  &
     docker push  "devopscenter/python-apache:${devops_version}"
     docker push  "devopscenter/python-apache-pgpool:${devops_version}"
     docker push  "devopscenter/python-apache-pgpool-redis:${devops_version}"
-    stack1 &
-    stack2 &
-    stack3 &
+    rm -rf stack1.log
+    time stack1 &> stack1.log &
+    rm -rf stack2.log
+    time stack2 &> stack2.log &
+    rm -rf stack3.log
+    time stack3 &> stack3.log &
 }
 
-web &
-db &
-
+time misc &> misc.log &
+time web &> web.log &
+time db &> db.log &
