@@ -41,6 +41,7 @@ function db {
 function misc {
     docker build --rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &
     docker build --rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &
+    docker build --rm -t "devopscenter/monitor_nagio:${devops_version}" monitor/nagios &
 }
 #docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
 #docker build --rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
