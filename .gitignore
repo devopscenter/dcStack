@@ -14,3 +14,6 @@ stack3.log
 newrelic.log
 web.log
 backups.log
+nagios.log
+papertrail.log
+sentry.log

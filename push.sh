@@ -31,6 +31,7 @@ function db {
 function misc {
     docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
     docker push  "devopscenter/monitor_sentry:${devops_version}"  &
+    docker push  "devopscenter/monitor_nagios:${devops_version}"  &
 }
 
 function stack1 {

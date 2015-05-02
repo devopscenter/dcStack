@@ -53,10 +53,18 @@ RUN mkdir /tmp/check_postgres
 RUN cd /tmp/check_postgres && wget http://bucardo.org/downloads/check_postgres-2.21.0.tar.gz && tar -xvf check_postgres-2.21.0.tar.gz
 RUN cd /tmp/check_postgres/check_postgres-2.21.0 && perl Makefile.PL && make && make install
 
-
+RUN apt-fast -y install python-dev
 RUN cd /tmp && wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
+#RUN apt-fast install -y mysql-client libmysqlclient-dev mysql-server libsnappy-dev 
+RUN apt-fast install -y libsnappy-dev libmysqlclient-dev
+RUN pip install MySQL-python==1.2.5
 
 #for XMLParser
 RUN sudo apt-fast install -y expat libexpat1-dev
-#RUN cd /tmp && wget http://search.cpan.org/CPAN/authors/id/M/MS/MSERGEANT/XML-Parser-2.36.tar.gz && tar -xvf XML-Parser-2.36.tar.gz 
-#RUN cd /tmp/XML-Parser-2.36 && perl Makefile.PL && make && make test && make install
+RUN cd /tmp && wget http://search.cpan.org/CPAN/authors/id/M/MS/MSERGEANT/XML-Parser-2.36.tar.gz && tar -xvf XML-Parser-2.36.tar.gz 
+RUN cd /tmp/XML-Parser-2.36 && perl Makefile.PL && make && make test && make install
+
+RUN mkdir -p /usr/local/lib/nagios && cd /usr/local/lib/nagios && git clone https://github.com/harisekhon/nagios-plugins
+RUN cd /usr/local/lib/nagios/nagios-plugins && make -j10 || make install
+
+ENV PATH /usr/local/lib/nagios/nagios-plugins:$PATH
