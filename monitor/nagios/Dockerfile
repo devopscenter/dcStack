@@ -53,3 +53,10 @@ RUN mkdir /tmp/check_postgres
 RUN cd /tmp/check_postgres && wget http://bucardo.org/downloads/check_postgres-2.21.0.tar.gz && tar -xvf check_postgres-2.21.0.tar.gz
 RUN cd /tmp/check_postgres/check_postgres-2.21.0 && perl Makefile.PL && make && make install
 
+
+RUN cd /tmp && wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
+
+#for XMLParser
+RUN sudo apt-fast install -y expat libexpat1-dev
+#RUN cd /tmp && wget http://search.cpan.org/CPAN/authors/id/M/MS/MSERGEANT/XML-Parser-2.36.tar.gz && tar -xvf XML-Parser-2.36.tar.gz 
+#RUN cd /tmp/XML-Parser-2.36 && perl Makefile.PL && make && make test && make install
