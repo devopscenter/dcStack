@@ -49,6 +49,10 @@ function newrelic {
     docker build --rm -t "devopscenter/monitor_newrelic:${devops_version}" monitor/newrelic &
 }
 
+function backups {
+    docker build --rm -t "devopscenter/db_postgres-backup:${devops_version}" db/postgres-backup
+}
+
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
     cp /data/wheelhouse/* 0099FF-stack/web/wheelhouse
@@ -91,6 +95,7 @@ function buildtools {
 function web {
     docker build --rm -t "devopscenter/python:${devops_version}" python
     time newrelic &> newrelic.log &
+    time backups &> backups.log &
     docker build --rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
     docker build --rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
     docker build --rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
