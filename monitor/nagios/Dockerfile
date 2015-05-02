@@ -48,3 +48,8 @@ ENV REDIS_VERSION 3.0.0
 RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz && \
 cd / && tar xvzf redis-$REDIS_VERSION.tar.gz && \
 cd /redis-$REDIS_VERSION && make -j 3 && make install
+
+RUN mkdir /tmp/check_postgres
+RUN cd /tmp/check_postgres && wget http://bucardo.org/downloads/check_postgres-2.21.0.tar.gz && tar -xvf check_postgres-2.21.0.tar.gz
+RUN cd /tmp/check_postgres/check_postgres-2.21.0 && perl Makefile.PL && make && make install
+
