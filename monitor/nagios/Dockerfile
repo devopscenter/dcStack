@@ -64,7 +64,9 @@ RUN sudo apt-fast install -y expat libexpat1-dev
 RUN cd /tmp && wget http://search.cpan.org/CPAN/authors/id/M/MS/MSERGEANT/XML-Parser-2.36.tar.gz && tar -xvf XML-Parser-2.36.tar.gz 
 RUN cd /tmp/XML-Parser-2.36 && perl Makefile.PL && make && make test && make install
 
+RUN sudo cpan JSON  && sudo cpan Term::ReadKey && sudo cpan Redis
+
 RUN mkdir -p /usr/local/lib/nagios && cd /usr/local/lib/nagios && git clone https://github.com/harisekhon/nagios-plugins
-RUN cd /usr/local/lib/nagios/nagios-plugins && make -j10 || make install
+RUN cd /usr/local/lib/nagios/nagios-plugins && make
 
 ENV PATH /usr/local/lib/nagios/nagios-plugins:$PATH
