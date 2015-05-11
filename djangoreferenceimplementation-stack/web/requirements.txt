@@ -1,0 +1,11 @@
+celery==3.1.18
+Django==1.8.1
+django-debug-toolbar==1.2.1
+fabric==1.9.1
+flower==0.7.2
+ipython==2.2.0
+jinja2==2.7.3
+psycopg2==2.5.3
+python_dateutil==2.2
+raven==5.1.1
+redis==2.10.3
