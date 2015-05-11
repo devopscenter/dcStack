@@ -39,11 +39,20 @@ function db {
 }
 
 function misc {
-    docker build --rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &
-    docker build --rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &
+    docker build --rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &> papertrail.log &
+    docker build --rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &> sentry.log &
+    docker build --rm -t "devopscenter/monitor_nagios:${devops_version}" monitor/nagios &> nagios.log &
 }
 #docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
 #docker build --rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
+
+function newrelic {
+    docker build --rm -t "devopscenter/monitor_newrelic:${devops_version}" monitor/newrelic &
+}
+
+function backups {
+    docker build --rm -t "devopscenter/db_postgres-backup:${devops_version}" db/postgres-backup
+}
 
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
@@ -86,6 +95,8 @@ function buildtools {
 
 function web {
     docker build --rm -t "devopscenter/python:${devops_version}" python
+    time newrelic &> newrelic.log &
+    time backups &> backups.log &
     docker build --rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
     docker build --rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
     docker build --rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis

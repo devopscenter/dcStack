@@ -24,12 +24,15 @@ function db {
     docker push  "devopscenter/db_postgres:${devops_version}"  
     docker push  "devopscenter/db_postgres-standby:${devops_version}" 
     #docker push  "devopscenter/db_postgres-restore:${devops_version}" 
+    docker push  "devopscenter/db_redis:${devops_version}"
+    docker push  "devopscenter/db_redis-standby:${devops_version}"
 }
 
-docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
-docker push  "devopscenter/monitor_sentry:${devops_version}"  &
-#docker push  "devopscenter/loadbalancer_ssl-termination:${devops_version}"
-#docker push  "devopscenter/loadbalancer_haproxy:${devops_version}"
+function misc {
+    docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
+    docker push  "devopscenter/monitor_sentry:${devops_version}"  &
+    docker push  "devopscenter/monitor_nagios:${devops_version}"  &
+}
 
 function stack1 {
     docker push  "devopscenter/0099ff.web2:${devops_version}" 
@@ -48,14 +51,18 @@ function stack3 {
 }
 function web {
     docker push  "devopscenter/python:${devops_version}"
+    docker push  "devopscenter/monitor_newrelic:${devops_version}"  &
     docker push  "devopscenter/python-apache:${devops_version}"
     docker push  "devopscenter/python-apache-pgpool:${devops_version}"
     docker push  "devopscenter/python-apache-pgpool-redis:${devops_version}"
-    stack1 &
-    stack2 &
-    stack3 &
+    rm -rf stack1push.log
+    time stack1 &> stack1push.log &
+    rm -rf stack2push.log
+    time stack2 &> stack2push.log &
+    rm -rf stack3push.log
+    time stack3 &> stack3push.log &
 }
 
-web &
-db &
-
+time misc &> miscpush.log &
+time web &> webpush.log &
+time db &> dbpush.log &
