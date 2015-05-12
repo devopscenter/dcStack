@@ -1,10 +1,16 @@
+boto==2.38.0
 celery==3.1.13
 Django==1.8
 django-celery==3.1.16
 git+https://github.com/josh-devops-center/django-health-check@e9bcff0030c85dd97a7effa04a66a6a438fbe9c2#egg=django-health-check
 flower==0.7.2
 ipython==2.2.0
+lxml==3.4.4
+pandas==0.16.0
 psycopg2==2.5.3
 raven==5.1.1
 redis==2.10.3
+requests==2.7.0
 uwsgi==2.0.10
+xlrd==0.9.3
+xlwt==1.0.0
