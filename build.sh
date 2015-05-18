@@ -57,8 +57,8 @@ function backups {
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
     cp /data/wheelhouse/* 0099FF-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/0099ff.web2:${devops_version}" 0099FF-stack/web
-    docker build --rm -t "devopscenter/0099ff.worker2:${devops_version}" 0099FF-stack/worker
+    docker build --rm -t "devopscenter/0099ff.web:${devops_version}" 0099FF-stack/web
+    docker build --rm -t "devopscenter/0099ff.worker:${devops_version}" 0099FF-stack/worker
 }
 
 function stack2 {

@@ -17,3 +17,7 @@ backups.log
 nagios.log
 papertrail.log
 sentry.log
+dbpush.log
+webpush.log
+miscpush.log
+stack*log
