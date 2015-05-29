@@ -21,3 +21,13 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD science.txt /science.txt
 RUN cd / && pip install -r science.txt
+
+RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
+
+RUN apt-get install -y nodejs
+
+RUN curl -L https://npmjs.com/install.sh | sh
+
+RUN npm install -g less
+
+RUN npm install -g coffee-script
