@@ -1,5 +1,6 @@
 boto==2.38.0
 celery==3.1.18
+coverage==4.0a6
 Django==1.8.2
 django-celery==3.1.16
 git+https://github.com/josh-devops-center/django-health-check@e9bcff0030c85dd97a7effa04a66a6a438fbe9c2#egg=django-health-check
