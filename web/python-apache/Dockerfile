@@ -20,7 +20,7 @@ FROM devopscenter/python:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV NGINX_VERSION 1.7.12
-ENV UWSGI_VERSION 2.0.10
+ENV UWSGI_VERSION 2.0.11
 
 RUN useradd uwsgi
 
