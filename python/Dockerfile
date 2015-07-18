@@ -31,7 +31,7 @@ apt-get update && \
 apt-get -y install apt-fast
 
 ENV GIT_VERSION     2.1.2
-ENV PYTHON_VERSION  2.7.9
+ENV PYTHON_VERSION  2.7.10
 
 RUN apt-fast update
 RUN apt-fast -y install wget sudo vim curl build-essential
