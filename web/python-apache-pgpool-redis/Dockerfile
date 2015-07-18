@@ -20,7 +20,7 @@ FROM devopscenter/python-apache-pgpool:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 #Need redis-cli and libs
-ENV REDIS_VERSION 3.0.0
+ENV REDIS_VERSION 3.0.3
 RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz && \
 cd / && tar xvzf redis-$REDIS_VERSION.tar.gz && \
 cd /redis-$REDIS_VERSION && make -j 3 && make install
