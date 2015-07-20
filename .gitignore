@@ -21,3 +21,4 @@ dbpush.log
 webpush.log
 miscpush.log
 stack*log
+buildtools.log

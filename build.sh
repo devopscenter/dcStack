@@ -100,11 +100,11 @@ function web {
     docker build --rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
     docker build --rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
     docker build --rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
-    buildtools
+    buildtools &> buildtools.log
     rm -rf stack1.log
-    time stack1 &> stack1.log
+    time stack1 &> stack1.log &
     rm -rf stack2.log
-    time stack2 &> stack2.log
+    time stack2 &> stack2.log &
     rm -rf stack3.log
     time stack3 &> stack3.log &
 }
