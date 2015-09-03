@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM redis:3.0.0
+FROM redis:3.0.3
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN apt-get update
