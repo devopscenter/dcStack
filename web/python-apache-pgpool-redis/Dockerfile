@@ -19,19 +19,17 @@
 FROM devopscenter/python-apache-pgpool:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-#Need redis-cli and libs
 ENV REDIS_VERSION 3.0.3
-RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz && \
-cd / && tar xvzf redis-$REDIS_VERSION.tar.gz && \
-cd /redis-$REDIS_VERSION && make -j 3 && make install
 
 #flower port
 EXPOSE 5555
 
+#onbuild requires images to extend to have these files, so place in this dockerfile instead of python dockerfile
 ONBUILD ADD wheelhouse /wheelhouse
-ONBUILD ADD requirements.txt /requirements.txt
-ONBUILD RUN cd / && pip install --no-index -r requirements.txt
+ONBUILD ADD requirements.txt /installs/requirements.txt
+ONBUILD RUN cd /installs && pip install --no-index -r requirements.txt
 
 ENV WHEELHOUSE=/wheelhouse
 ENV PIP_WHEEL_DIR=/wheelhouse
 ENV PIP_FIND_LINKS=/wheelhouse
+

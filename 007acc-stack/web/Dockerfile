@@ -19,15 +19,8 @@
 FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ADD science.txt /science.txt
-RUN cd / && pip install -r science.txt
+ADD science.txt /installs/science.txt
 
-RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
-
-RUN apt-get install -y nodejs
-
-RUN curl -L https://npmjs.com/install.sh | sh
-
-RUN npm install -g less
-
-RUN npm install -g coffee-script
+ADD web.sh /installs/web.sh
+WORKDIR /installs
+RUN ./web.sh

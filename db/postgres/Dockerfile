@@ -21,37 +21,16 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.4
 
-RUN apt-get update && apt-get -y install python-software-properties software-properties-common && \
-add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-apt-get update
+ADD postgres.sh /installs/postgres.sh
+WORKDIR /installs
+RUN ./postgres.sh
 
-RUN add-apt-repository ppa:saiarcot895/myppa && \
-apt-get update && \
-apt-get -y install apt-fast
-
-RUN apt-fast -y install git python-dev python-pip wget sudo vim supervisor
-
-# Add the PostgreSQL PGP key to verify their Debian packages.
-# It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-  sudo apt-key add -
-
-# Add PostgreSQL's repository. It contains the most recent stable release
-#     of PostgreSQL, ``${POSTGRES_VERSION}``.
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-
-RUN sudo apt-fast update
-
-RUN sudo apt-fast -y -q install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # data are possible. 
 ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
 RUN chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
 
-#Fix locale warnings when starting postgres
-RUN locale-gen en_US.UTF-8 && \
-dpkg-reconfigure locales
 
 USER postgres
 
@@ -82,18 +61,6 @@ RUN echo "checkpoint_segments=16" >> $POSTGRES_CONF
 ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
 
-USER root
-#https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
-RUN apt-fast -y install libffi-dev
-RUN pip install --upgrade distribute
-RUN pip install -U six && \
-pip install wal-e==0.7.3
-RUN apt-fast install -y daemontools lzop pv
-
-RUN umask u=rwx,g=rx,o= && \
-mkdir -p /etc/wal-e.d/env/prod
-
-RUN chown -R root:postgres /etc/wal-e.d
 
 USER postgres
 

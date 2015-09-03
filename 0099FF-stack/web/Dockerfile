@@ -19,5 +19,6 @@
 FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ADD science.txt /science.txt
-RUN cd / && pip install -r science.txt
+ADD science.txt /installs/science.txt
+WORKDIR /installs
+RUN sudo pip install -r science.txt
