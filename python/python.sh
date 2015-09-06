@@ -19,7 +19,7 @@ pushd /tmp
 wget --quiet https://www.kernel.org/pub/software/scm/git/git-2.1.2.tar.gz
 tar -xvf git-2.1.2.tar.gz
 pushd git-2.1.2 
-make prefix=/usr/local all && sudo make prefix=/usr/local install
+make --silent prefix=/usr/local all && sudo make --silent prefix=/usr/local install
 popd
 popd
 
@@ -30,7 +30,7 @@ wget --quiet https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON
 tar -xvf Python-${PYTHON_VERSION}.tgz
 pushd Python-${PYTHON_VERSION}
 ./configure CFLAGSFORSHARED="-fPIC" CCSHARED="-fPIC" --quiet CCSHARED="-fPIC" --prefix=/usr/local/opt/python --exec-prefix=/usr/local/opt/python CCSHARED="-fPIC" \
-            && make clean && make -j3 && sudo make install
+            && make clean && make --silent -j3 && sudo make --silent install
 popd
 
 sudo ln -s /usr/local/opt/python/bin/python /usr/local/bin/python
