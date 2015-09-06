@@ -47,11 +47,11 @@ RUN sudo apt-fast -y -q install postgresql-client-$POSTGRES_VERSION libpq5 libpq
 ENV REDIS_VERSION 3.0.0
 RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz && \
 cd / && tar xvzf redis-$REDIS_VERSION.tar.gz && \
-cd /redis-$REDIS_VERSION && make -j 3 && make install
+cd /redis-$REDIS_VERSION && make --silent -j 3 && make --silent install
 
 RUN mkdir /tmp/check_postgres
 RUN cd /tmp/check_postgres && wget http://bucardo.org/downloads/check_postgres-2.21.0.tar.gz && tar -xvf check_postgres-2.21.0.tar.gz
-RUN cd /tmp/check_postgres/check_postgres-2.21.0 && perl Makefile.PL && make && make install
+RUN cd /tmp/check_postgres/check_postgres-2.21.0 && perl Makefile.PL && make --silent && make --silent install
 
 RUN apt-fast -y install python-dev
 RUN cd /tmp && wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
@@ -62,11 +62,11 @@ RUN pip install MySQL-python==1.2.5
 #for XMLParser
 RUN sudo apt-fast install -y expat libexpat1-dev
 RUN cd /tmp && wget http://search.cpan.org/CPAN/authors/id/M/MS/MSERGEANT/XML-Parser-2.36.tar.gz && tar -xvf XML-Parser-2.36.tar.gz 
-RUN cd /tmp/XML-Parser-2.36 && perl Makefile.PL && make && make test && make install
+RUN cd /tmp/XML-Parser-2.36 && perl Makefile.PL && make --silent && make test && make --silent install
 
 RUN sudo cpan JSON  && sudo cpan Term::ReadKey && sudo cpan Redis
 
 RUN mkdir -p /usr/local/lib/nagios && cd /usr/local/lib/nagios && git clone https://github.com/harisekhon/nagios-plugins
-RUN cd /usr/local/lib/nagios/nagios-plugins && make
+RUN cd /usr/local/lib/nagios/nagios-plugins && make --silent
 
 ENV PATH /usr/local/lib/nagios/nagios-plugins:$PATH
