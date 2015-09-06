@@ -25,75 +25,30 @@ ADD postgres.sh /installs/postgres.sh
 WORKDIR /installs
 RUN ./postgres.sh
 
-
-# Adjust PostgreSQL configuration so that remote connections to the
-# data are possible. 
+# Adjust PostgreSQL configuration so that remote connections to the data are possible. 
 ADD pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf
 RUN chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
 
-
 USER postgres
 
-RUN echo "host all          all    0.0.0.0/0  trust" >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
-RUN echo "host replication  all    0.0.0.0/0  trust" >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
+cat hba.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
 
-ENV POSTGRES_CONF /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-# And add ``listen_addresses`` 
-RUN echo "listen_addresses='*'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-
-# ssl not needed for now. also gives error on boot2docker
-RUN echo "ssl = false                              # (change requires restart)" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-RUN echo "wal_level = hot_standby          # minimal, archive, or hot_standby" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-RUN echo "hot_standby = on            # 'on' allows queries during recovery" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-RUN echo "max_wal_senders = 20      # max number of walsender processes" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-RUN echo "log_destination = 'syslog'" >> $POSTGRES_CONF
-RUN echo "syslog_facility = 'LOCAL0'" >> $POSTGRES_CONF
-RUN echo "syslog_ident = 'postgres'" >> $POSTGRES_CONF
-RUN echo "max_connections = 200" >> $POSTGRES_CONF
-RUN echo "shared_buffers = 128MB" >> $POSTGRES_CONF
-RUN echo "checkpoint_segments=16" >> $POSTGRES_CONF
-#RUN echo "logging_collector = on" >> $POSTGRES_CONF
-#RUN echo "log_directory = 'pg_log'" >> $POSTGRES_CONF
-#RUN echo "log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'" >> $POSTGRES_CONF
-
-# Set the default command to run when starting the container
-#CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
-ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
-CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
-
-
-USER postgres
+RUN cat pg.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
 RUN mkdir -p /var/run/postgresql/9.4-main.pg_stat_tmp
 
 # stats configuration
 ENV POSTGRES_PERF_CONF /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf.perf
 RUN cp /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf $POSTGRES_PERF_CONF
-RUN echo "shared_preload_libraries = 'auto_explain'" >> $POSTGRES_PERF_CONF
-#RUN echo "custom_variable_classes = 'auto_explain'" >> $POSTGRES_PERF_CONF
-RUN echo "auto_explain.log_min_duration = '10ms'" >> $POSTGRES_PERF_CONF
-RUN echo "auto_explain.log_verbose = 'true'" >> $POSTGRES_PERF_CONF
-RUN echo "auto_explain.log_analyze = 'true'" >> $POSTGRES_PERF_CONF
+ADD stats.conf /installs/stats.conf
+RUN cat /installs/stats.conf >> $POSTGRES_PERF_CONF
 
 # wal-e configuration
 ENV POSTGRES_WALE_CONF /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf.wale
 RUN cp /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf $POSTGRES_WALE_CONF
-RUN echo "archive_mode = on" >> $POSTGRES_WALE_CONF
-RUN echo "archive_command = 'wal-e wal-push %p'" >> $POSTGRES_WALE_CONF
-RUN echo "archive_timeout = 60" >> $POSTGRES_WALE_CONF
+ADD wale.conf /installs/wale.conf
+RUN cat /installs/wale.conf >> $POSTGRES_WALE_CONF
 
-
-# pg_stats
-#RUN echo "track_activities = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-#RUN echo "track_activity_query_size = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-#RUN echo "track_counts = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-#RUN echo "track_io_timing = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-
-#Statistics Monitoring
-#RUN echo "log_statement_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-#RUN echo "log_parser_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-#RUN echo "log_planner_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
-#RUN echo "log_executor_stats = 'true'" >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
 # HSTORE
 RUN echo "CREATE EXTENSION hstore;" | \
@@ -105,6 +60,13 @@ RUN echo "CREATE EXTENSION hstore;" | \
 USER root
 RUN chown -R postgres:postgres /var/lib/postgresql 
 ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
+ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
+
+
+# Set the default command to run when starting the container
+#CMD ["/usr/lib/postgresql/9.4/bin/postgres", "-D", "/var/lib/postgresql/9.4/main", "-c", "config_file=/etc/postgresql/9.4/main/postgresql.conf"]
+CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
+
 
 # Add VOLUMEs to allow backup of config, logs and datas
 VOLUME  ["/var/lib/postgresql"]
