@@ -24,6 +24,10 @@ ENV REDIS_VERSION 3.0.3
 #flower port
 EXPOSE 5555
 
+ADD redis-client-install.sh /installs/redis-client-install.sh
+WORKDIR /installs
+RUN ./redis-client-install.sh
+
 #onbuild requires images to extend to have these files, so place in this dockerfile instead of python dockerfile
 ONBUILD ADD wheelhouse /wheelhouse
 ONBUILD ADD requirements.txt /installs/requirements.txt
