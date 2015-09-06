@@ -28,7 +28,7 @@ pushd pgpool-II-$PGPOOL_VERSION
 
 sudo mkdir -p -m 700 /etc/pgpool2 && chown -R postgres:postgres /etc/pgpool2
 sudo mkdir -p -m 755 /var/log/pgpool && chown -R postgres:postgres /var/log/pgpool
-sudo chmod 755 /etc/init.d/pgpool
+#sudo chmod 755 /etc/init.d/pgpool
 
 #USER postgres
 sudo chown -R postgres:postgres /etc/pgpool2 && \
