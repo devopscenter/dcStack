@@ -16,7 +16,7 @@ sudo apt-fast -y install wget sudo vim curl build-essential
 
 sudo apt-fast -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
 pushd /tmp
-wget https://www.kernel.org/pub/software/scm/git/git-2.1.2.tar.gz
+wget --quiet https://www.kernel.org/pub/software/scm/git/git-2.1.2.tar.gz
 tar -xvf git-2.1.2.tar.gz
 pushd git-2.1.2 
 make prefix=/usr/local all && sudo make prefix=/usr/local install
@@ -24,18 +24,21 @@ popd
 popd
 
 sudo apt-fast -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev libatlas-dev subversion
-wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz /tmp/Python-${PYTHON_VERSION}.tgz
+
 pushd /tmp
+wget --quiet https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz /tmp/Python-${PYTHON_VERSION}.tgz
 tar -xvf Python-${PYTHON_VERSION}.tgz
+pushd Python-${PYTHON_VERSION}
 ./configure CFLAGSFORSHARED="-fPIC" CCSHARED="-fPIC" --quiet CCSHARED="-fPIC" --prefix=/usr/local/opt/python --exec-prefix=/usr/local/opt/python CCSHARED="-fPIC" \
             && make clean && make -j3 && sudo make install
+popd
 
 sudo ln -s /usr/local/opt/python/bin/python /usr/local/bin/python
 
 which python && python --version
 
 pushd /tmp
-wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py 
+wget --quiet https://bootstrap.pypa.io/get-pip.py && python get-pip.py 
 sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
 
 sudo pip install -U setuptools-git==1.1 wheel==0.24.0 virtualenv==1.11.6 
