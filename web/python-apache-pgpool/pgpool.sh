@@ -21,7 +21,7 @@ sudo usermod -a -G postgres postgres
 
 sudo mkdir /installs
 pushd /installs
-wget http://www.pgpool.net/download.php?f=pgpool-II-$PGPOOL_VERSION.tar.gz -O pgpool-II-$PGPOOL_VERSION.tar.gz
+wget --quiet http://www.pgpool.net/download.php?f=pgpool-II-$PGPOOL_VERSION.tar.gz -O pgpool-II-$PGPOOL_VERSION.tar.gz
 tar -xvf pgpool-II-$PGPOOL_VERSION.tar.gz && \
 pushd pgpool-II-$PGPOOL_VERSION 
 ./configure && make && sudo make install
