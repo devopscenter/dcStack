@@ -31,31 +31,27 @@ RUN chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
 
 USER postgres
 
-cat hba.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
+ADD conf /installs/conf
 
-RUN cat pg.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
+cat /installs/conf/hba.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
+
+RUN cat /installs/conf/pg.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
 RUN mkdir -p /var/run/postgresql/9.4-main.pg_stat_tmp
 
 # stats configuration
 ENV POSTGRES_PERF_CONF /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf.perf
 RUN cp /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf $POSTGRES_PERF_CONF
-ADD stats.conf /installs/stats.conf
-RUN cat /installs/stats.conf >> $POSTGRES_PERF_CONF
+RUN cat /installs/conf/stats.conf >> $POSTGRES_PERF_CONF
 
 # wal-e configuration
 ENV POSTGRES_WALE_CONF /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf.wale
 RUN cp /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf $POSTGRES_WALE_CONF
-ADD wale.conf /installs/wale.conf
-RUN cat /installs/wale.conf >> $POSTGRES_WALE_CONF
-
+RUN cat /installs/conf/wale.conf >> $POSTGRES_WALE_CONF
 
 # HSTORE
-RUN echo "CREATE EXTENSION hstore;" | \
-    /bin/bash -c "/usr/lib/postgresql/9.4/bin/postgres --single \
-    -D /var/lib/postgresql/9.4/main \
-    -c config_file=$POSTGRES_CONF \
-    template1"
+ADD hstore.sh /installs/hstore.sh
+RUN ./hstore.sh
 
 USER root
 RUN chown -R postgres:postgres /var/lib/postgresql 
