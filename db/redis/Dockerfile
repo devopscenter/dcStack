@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM redis:3.0.3
+
+FROM baseimageversion
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN apt-get update
@@ -24,10 +25,15 @@ RUN apt-get -y install supervisor
 
 ADD redis.conf /etc/supervisor/conf.d/redis.conf
 
-ADD https://raw.githubusercontent.com/antirez/redis/3.0.0/redis.conf /etc/redis/redis.conf
-RUN echo "dir /data" >> /etc/redis/redis.conf
-RUN echo "syslog-enabled yes" >> /etc/redis/redis.conf
-RUN echo "syslog-ident redis" >> /etc/redis/redis.conf
-RUN echo "syslog-facility local0" >> /etc/redis/redis.conf
+ADD https://raw.githubusercontent.com/antirez/redis/$REDIS_VERSION/redis.conf /etc/redis/redis.conf
 
+ADD redisinstall.sh /installs/redisinstall.sh
+ADD r.conf /installs/r.conf
+WORKDIR /installs
+RUN ./redisinstall.sh
+RUN cat r.conf >> /etc/redis/redis.conf
+
+VOLUME /redisdata
+WORKDIR /redisdata
+EXPOSE 6379
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
