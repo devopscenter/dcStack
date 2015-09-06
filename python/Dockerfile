@@ -25,4 +25,4 @@ ENV PATH /usr/local/opt/python/bin:$PATH
 ADD python.sh /installs/python.sh
 
 WORKDIR /installs
-RUN PS4='Line ${LINENO}: ' /bin/bash -x ./python.sh
+RUN ./python.sh

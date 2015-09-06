@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -evx
 
 sudo apt-get update && apt-get -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
