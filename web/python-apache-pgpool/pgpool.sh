@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -19,7 +19,7 @@ sudo useradd postgres -m -s /bin/bash
 #RUN groupadd postgres
 sudo usermod -a -G postgres postgres
 
-sudo mkdir /installs
+sudo mkdir -p /installs
 pushd /installs
 wget --quiet http://www.pgpool.net/download.php?f=pgpool-II-$PGPOOL_VERSION.tar.gz -O pgpool-II-$PGPOOL_VERSION.tar.gz
 tar -xvf pgpool-II-$PGPOOL_VERSION.tar.gz && \
