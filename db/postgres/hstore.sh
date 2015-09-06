@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 echo "CREATE EXTENSION hstore;" | \
     /bin/bash -c "/usr/lib/postgresql/9.4/bin/postgres --single \
