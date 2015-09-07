@@ -20,6 +20,10 @@
 source VERSION
 echo "Version=${devops_version}"
 
+function buildtools {
+    docker push  "devopscenter/jenkins:${devops_version}" &
+}
+
 function db {
     docker push  "devopscenter/db_postgres:${devops_version}"  
     docker push  "devopscenter/db_postgres-standby:${devops_version}" 
@@ -63,6 +67,7 @@ function web {
     time stack3 &> stack3push.log &
 }
 
+time buildtools &> buildtoolspush.log &
 time misc &> miscpush.log &
 time web &> webpush.log &
 time db &> dbpush.log &
