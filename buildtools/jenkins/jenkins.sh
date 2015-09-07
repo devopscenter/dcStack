@@ -1,22 +1,22 @@
 #!/bin/bash -evx
 
-sudo apt-get update && apt-get -y install python-software-properties software-properties-common && \
+sudo apt-get -qq update && apt-get -qq -y install python-software-properties software-properties-common && \
         sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-            sudo apt-get update
+            sudo apt-get -qq update
 
 sudo add-apt-repository ppa:saiarcot895/myppa && \
-        sudo apt-get update && \
-            sudo apt-get -y install apt-fast
+        sudo apt-get -qq update && \
+            sudo apt-get -qq -y install apt-fast
 
 export GIT_VERSION=2.1.2
 export PYTHON_VERSION=2.7.10
 
-sudo apt-fast update
-sudo apt-fast -y install wget sudo vim curl build-essential
+sudo apt-fast -qq update
+sudo apt-fast -qq -y install wget sudo vim curl build-essential
 
 wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-sudo apt-fast update
-sudo apt-fast install jenkins
+sudo apt-fast -qq update
+sudo apt-fast -qq install jenkins
 
 echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/environment
