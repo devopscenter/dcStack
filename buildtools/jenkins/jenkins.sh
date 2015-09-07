@@ -17,6 +17,6 @@ sudo apt-fast -qq -y install wget sudo vim curl build-essential
 wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-fast -qq update
-sudo apt-fast -qq install jenkins
+sudo apt-fast -qq -y install jenkins
 
 echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/environment
