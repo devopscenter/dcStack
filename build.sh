@@ -77,6 +77,7 @@ function stack3 {
 
 function buildtools {
     echo "Running buildtools"
+    docker build --rm -t "devopscenter/jenkins:${devops_version}" buildtools/jenkins &> jenkins.log &
     mkdir -p buildtools/pythonwheel/wheelhouse
     docker build --rm -t "devopscenter/buildtools:${devops_version}" buildtools/pythonwheel
     rm -rf buildtools/pythonwheel/application/app*
