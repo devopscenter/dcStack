@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -evx
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
