@@ -5,7 +5,7 @@ export REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-$REDIS_VERSION
 
 sudo groupadd -r redis && sudo useradd -r -g redis redis
 
-sudo apt-fast update && apt-fast install -y --no-install-recommends \
+sudo apt-fast -qq update && apt-fast -qq install -y --no-install-recommends \
     ca-certificates \
     curl \
     && rm -rf /var/lib/apt/lists/*
@@ -14,7 +14,7 @@ sudo gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD
 
 buildDeps='gcc libc6-dev make' \
     && set -x \
-    && sudo apt-fast update && sudo apt-fast install -y $buildDeps --no-install-recommends \
+    && sudo apt-fast -qq update && sudo apt-fast -qq install -y $buildDeps --no-install-recommends \
     && sudo rm -rf /var/lib/apt/lists/* \
     && sudo mkdir -p /usr/src/redis \
     && pushd /tmp

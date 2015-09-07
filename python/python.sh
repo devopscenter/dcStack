@@ -1,20 +1,20 @@
 #!/bin/bash -evx
 
-sudo apt-get update && apt-get -y install python-software-properties software-properties-common && \
+sudo apt-get -qq update && apt-get -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-    sudo apt-get update
+    sudo apt-get -qq update
 
 sudo add-apt-repository ppa:saiarcot895/myppa && \
-    sudo apt-get update && \
-    sudo apt-get -y install apt-fast
+    sudo apt-get -qq update && \
+    sudo apt-get -qq -y install apt-fast
 
 export GIT_VERSION=2.1.2
 export PYTHON_VERSION=2.7.10
 
-sudo apt-fast update
-sudo apt-fast -y install wget sudo vim curl build-essential
+sudo apt-fast -qq update
+sudo apt-fast -qq -y install wget sudo vim curl build-essential
 
-sudo apt-fast -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+sudo apt-fast -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
 pushd /tmp
 wget --quiet https://www.kernel.org/pub/software/scm/git/git-2.1.2.tar.gz
 tar -xvf git-2.1.2.tar.gz
@@ -23,7 +23,7 @@ make --silent prefix=/usr/local all && sudo make --silent prefix=/usr/local inst
 popd
 popd
 
-sudo apt-fast -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev libatlas-dev subversion
+sudo apt-fast -qq -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev libatlas-dev subversion
 
 pushd /tmp
 wget --quiet https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz -O /tmp/Python-${PYTHON_VERSION}.tgz
@@ -48,7 +48,7 @@ sudo pip install -U pip==7.1.0
 sudo mkdir -p /wheelhouse
 
 #ipython
-sudo apt-fast -y install libncurses5-dev
+sudo apt-fast -qq -y install libncurses5-dev
 sudo pip install readline==6.2.4.1
 
 sudo mkdir -p /data/scratch && \
