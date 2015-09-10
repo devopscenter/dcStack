@@ -3,13 +3,13 @@
 export REDIS_VERSION=3.0.3
 export REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
 
-sudo apt-get update && apt-get -y install python-software-properties software-properties-common && \
+sudo apt-get -qq update && apt-get -y install python-software-properties software-properties-common && \
         sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-            sudo apt-get update
+            sudo apt-get -qq update
 
 sudo add-apt-repository ppa:saiarcot895/myppa && \
-        sudo apt-get update && \
-            sudo apt-get -y install apt-fast
+        sudo apt-get -qq update && \
+            sudo apt-get -qq -y install apt-fast
 
 sudo groupadd -r redis && sudo useradd -r -g redis redis
 
