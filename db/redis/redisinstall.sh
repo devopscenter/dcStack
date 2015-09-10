@@ -25,7 +25,7 @@ buildDeps='gcc libc6-dev make' \
     && sudo apt-fast -qq update && sudo apt-fast -qq install -y $buildDeps --no-install-recommends \
     && sudo rm -rf /var/lib/apt/lists/* \
     && sudo mkdir -p /usr/src/redis \
-    && pushd /tmp
+    && pushd /tmp \
     && curl -sSL "$REDIS_DOWNLOAD_URL" -o redis.tar.gz \
     && echo "$REDIS_DOWNLOAD_SHA1 *redis.tar.gz" | sha1sum -c - \
     && tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
