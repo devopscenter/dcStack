@@ -25,8 +25,6 @@ RUN apt-get -y install supervisor
 
 ADD redis.conf /etc/supervisor/conf.d/redis.conf
 
-ADD https://raw.githubusercontent.com/antirez/redis/$REDIS_VERSION/redis.conf /etc/redis/redis.conf
-
 ADD redisinstall.sh /installs/redisinstall.sh
 ADD r.conf /installs/r.conf
 WORKDIR /installs

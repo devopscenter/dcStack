@@ -27,5 +27,8 @@ buildDeps='gcc libc6-dev make' \
     && rm -rf /usr/src/redis \
     && apt-get purge -y --auto-remove $buildDeps
 
-sudo mkdir /redisdata && chown redis:redis /redisdata
+sudo mkdir -p /etc/redis
+sudo curl -sSL https://raw.githubusercontent.com/antirez/redis/$REDIS_VERSION/redis.conf -o /etc/redis/redis.conf
+sudo mkdir /redisdata 
+sudo chown redis:redis /redisdata
 
