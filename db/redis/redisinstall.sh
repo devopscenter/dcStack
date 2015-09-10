@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -evx
 
 export REDIS_VERSION=3.0.3
 export REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
