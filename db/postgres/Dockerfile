@@ -40,6 +40,7 @@ RUN cat /installs/conf/pg.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/postg
 RUN mkdir -p /var/run/postgresql/9.4-main.pg_stat_tmp
 
 # stats configuration
+ENV POSTGRES_CONF /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 ENV POSTGRES_PERF_CONF /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf.perf
 RUN cp /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf $POSTGRES_PERF_CONF
 RUN cat /installs/conf/stats.conf >> $POSTGRES_PERF_CONF
@@ -51,7 +52,7 @@ RUN cat /installs/conf/wale.conf >> $POSTGRES_WALE_CONF
 
 # HSTORE
 ADD hstore.sh /installs/hstore.sh
-#RUN ./hstore.sh
+RUN ./hstore.sh
 
 USER root
 RUN chown -R postgres:postgres /var/lib/postgresql 
