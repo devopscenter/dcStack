@@ -51,7 +51,7 @@ RUN cat /installs/conf/wale.conf >> $POSTGRES_WALE_CONF
 
 # HSTORE
 ADD hstore.sh /installs/hstore.sh
-RUN ./hstore.sh
+#RUN ./hstore.sh
 
 USER root
 RUN chown -R postgres:postgres /var/lib/postgresql 
