@@ -12,12 +12,11 @@ sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim supervisor
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-      sudo apt-key add -
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 
 # Add PostgreSQL's repository. It contains the most recent stable release
 #     of PostgreSQL, ``${POSTGRES_VERSION}``.
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
 
 sudo apt-fast -qq update
 
