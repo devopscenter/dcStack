@@ -30,8 +30,9 @@ buildDeps='gcc libc6-dev make' \
     && echo "$REDIS_DOWNLOAD_SHA1 *redis.tar.gz" | sha1sum -c - \
     && tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
     && rm redis.tar.gz \
-    && make --silent -C /usr/src/redis \
-    && sudo make --silent -C /usr/src/redis install \
+    && pushd /usr/src/redis
+    && make --silent \
+    && sudo make --silent install \
     && rm -rf /usr/src/redis \
     && apt-get purge -y --auto-remove $buildDeps
 
