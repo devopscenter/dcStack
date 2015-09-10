@@ -33,7 +33,7 @@ USER postgres
 
 ADD conf /installs/conf
 
-cat /installs/conf/hba.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
+RUN cat /installs/conf/hba.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/pg_hba.conf
 
 RUN cat /installs/conf/pg.conf >> /etc/postgresql/${POSTGRES_VERSION}/main/postgresql.conf
 
