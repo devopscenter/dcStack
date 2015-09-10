@@ -17,8 +17,8 @@
 #
 
 # inherit from this image
-#FROM slafs/sentry:latest
-FROM devopscenter/sentry-docker:dev
+FROM slafs/sentry:7.7
+#FROM devopscenter/sentry-docker:dev
 
 MAINTAINER josh@devops.center
 
