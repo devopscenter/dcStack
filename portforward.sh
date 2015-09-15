@@ -17,16 +17,17 @@
 # limitations under the License.
 #
 
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port80,tcp,,80,,80" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port80,udp,,80,,80" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8000,tcp,,8000,,8000" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port8000,udp,,8000,,8000" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8080,tcp,,8080,,8080" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port8080,udp,,8080,,8080" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port9000,tcp,,9000,,9000" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port9000,udp,,9000,,9000" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port4433,tcp,,4433,,4433" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port4433,udp,,4433,,4433" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port9999,tcp,,9999,,9999" || true
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port9999,udp,,9999,,9999" || true
-
+VBoxManage modifyvm "default" --natpf1 "tcp-port80,tcp,,80,,80" || true
+VBoxManage modifyvm "default" --natpf1 "udp-port80,udp,,80,,80" || true
+VBoxManage modifyvm "default" --natpf1 "tcp-port8000,tcp,,8000,,8000" || true
+VBoxManage modifyvm "default" --natpf1 "udp-port8000,udp,,8000,,8000" || true
+VBoxManage modifyvm "default" --natpf1 "tcp-port8080,tcp,,8080,,8080" || true
+VBoxManage modifyvm "default" --natpf1 "udp-port8080,udp,,8080,,8080" || true
+VBoxManage modifyvm "default" --natpf1 "tcp-port9000,tcp,,9000,,9000" || true
+VBoxManage modifyvm "default" --natpf1 "udp-port9000,udp,,9000,,9000" || true
+VBoxManage modifyvm "default" --natpf1 "tcp-port4433,tcp,,4433,,4433" || true
+VBoxManage modifyvm "default" --natpf1 "udp-port4433,udp,,4433,,4433" || true
+VBoxManage modifyvm "default" --natpf1 "tcp-port9999,tcp,,9999,,9999" || true
+VBoxManage modifyvm "default" --natpf1 "udp-port9999,udp,,9999,,9999" || true
+VBoxManage modifyvm "default" --natpf1 "tcp-port5555,tcp,,5555,,5555" || true
+VBoxManage modifyvm "default" --natpf1 "udp-port5555,udp,,5555,,5555" || true
