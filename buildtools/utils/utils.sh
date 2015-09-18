@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt-fast -y install ncdu
+sudo apt-fast -y install ncdu ntp
