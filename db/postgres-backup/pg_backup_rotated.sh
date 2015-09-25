@@ -124,6 +124,9 @@ function perform_backups()
 				echo "[!!ERROR!!] Failed to produce plain backup database $DATABASE" 1>&2
 			else
 				mv $FINAL_BACKUP_DIR"$DATABASE".sql.gz.in_progress $FINAL_BACKUP_DIR"$DATABASE".sql.gz
+                TIMESTAMP=$(date +%F_%T | tr ':' '-')
+                S3_FILE="s3://$BUCKET_NAME/"$DATABASE".sql.gz-$TIMESTAMP"
+                s3cmd put $FINAL_BACKUP_DIR"$DATABASE".sql.gz $S3_FILE
 			fi
 		fi
  
