@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt-fast -y install ncdu ntp
+sudo apt-fast -y install ncdu ntp fail2ban
