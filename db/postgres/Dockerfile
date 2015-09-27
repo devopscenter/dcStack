@@ -21,6 +21,7 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.4
 ENV POSTGRESDBDIR /media/data/postgres/db
+ENV POSTGRESBINDIR /usr/lib/postgresql/${POSTGRES_VERSION}/bin
 
 ADD postgres.sh /installs/postgres.sh
 WORKDIR /installs
@@ -28,7 +29,7 @@ RUN ./postgres.sh
 
 USER postgres
 
-RUN initdb -D ${POSTGRESDBDIR}
+RUN ${POSTGRESBINDIR}/initdb -D ${POSTGRESDBDIR}
 
 # Adjust PostgreSQL configuration so that remote connections to the data are possible.
 ADD pg_hba.conf ${POSTGRESDBDIR}/pg_hba.conf
