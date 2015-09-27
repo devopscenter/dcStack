@@ -16,4 +16,8 @@ sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources
 sudo apt-fast -qq update
 sudo apt-fast -qq -y install jenkins
 
-echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/environment
+#echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/environment
+echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a/etc/default/jenkins
+
+sudo mkdir -p /media/data/jenkins
+sudo chown -R jenkins:jenkins /media/data/jenkins
