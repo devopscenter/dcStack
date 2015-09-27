@@ -17,11 +17,9 @@
 # limitations under the License.
 #
 
-#service postgresql stop
-#/usr/lib/postgresql/9.4/bin/pg_ctl stop -D /var/lib/postgresql/9.4/main -m immediate
-rm -rf /var/lib/postgresql/9.4/main/*
-pg_basebackup -D /var/lib/postgresql/9.4/main -w -R --xlog-method=stream --dbname="host=masterdb_1 user=postgres"
-chown -R postgres:postgres /var/lib/postgresql/9.4/main
-#service postgresql start
-#/usr/lib/postgresql/9.4/bin/postgres -D /var/lib/postgresql/9.4/main -c config_file=/etc/postgresql/9.4/main/postgresql.conf
+rm -rf /media/data/postgres/db/*
+#ln -s /media/data/postgres/xlog /media/data/postgres/db/pg_xlog
+#sudo chown -R postgres:postgres /media/data/postgres/xlog
+pg_basebackup -D /media/data/postgres/db -w -R --xlog-method=stream --dbname="host=masterdb_1 user=postgres"
+chown -R postgres:postgres /media/data/postgres/db
 supervisorctl start postgres
