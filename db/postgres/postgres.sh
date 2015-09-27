@@ -44,3 +44,5 @@ sudo chmod -R 750 /etc/wal-e.d
 sudo mkdir -p /media/data/postgres/db
 sudo mkdir -p /media/data/postgres/xlog
 sudo chown -R postgres:postgres /media/data/postgres
+
+sudo chown -R postgres:postgres /var/lib/postgresql

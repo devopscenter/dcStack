@@ -25,14 +25,12 @@ ENV POSTGRESBINDIR /usr/lib/postgresql/${POSTGRES_VERSION}/bin
 
 ADD postgres.sh /installs/postgres.sh
 ADD config.sh /installs/config.sh
+ADD xlog.sh /installs/xlog.sh
 WORKDIR /installs
 RUN ./postgres.sh
 
-# Adjust PostgreSQL configuration so that remote connections to the data are possible.
-#ADD pg_hba.conf ${POSTGRESDBDIR}/pg_hba.conf
-#RUN chown postgres:postgres ${POSTGRESDBDIR}/pg_hba.conf
-
-#RUN ln -s ${POSTGRESDBDIR}/pg_xlog /media/data/postgres/pg_xlog
+ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
+ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
 
 ADD conf /installs/conf
 ADD hstore.sh /installs/hstore.sh
@@ -46,14 +44,11 @@ USER postgres
 RUN ./config.sh
 
 USER root
-RUN sudo chown -R postgres:postgres /var/lib/postgresql 
-ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
-ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
 
+RUN ./xlog.sh
 
 # Set the default command to run when starting the container
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
-
 
 # Add VOLUMEs to allow backup of config, logs and datas
 VOLUME  ["/media/data/postgres/db"]
