@@ -1,0 +1,1 @@
+01 04  *   *   *     /media/data/backups/pg_backup_rotated.sh -c /media/data/backups/pg_backup.config
