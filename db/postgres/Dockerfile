@@ -41,7 +41,7 @@ RUN cat /installs/conf/hba.conf >> ${POSTGRESDBDIR}/pg_hba.conf
 
 RUN cat /installs/conf/pg.conf >> ${POSTGRESDBDIR}/postgresql.conf
 
-RUN mkdir -p /var/run/postgresql/9.4-main.pg_stat_tmp
+RUN mkdir -p /var/run/postgresql/postgres-main.pg_stat_tmp
 
 # stats configuration
 ENV POSTGRES_CONF ${POSTGRESDBDIR}/postgresql.conf
