@@ -29,8 +29,8 @@ WORKDIR /installs
 RUN ./postgres.sh
 
 # Adjust PostgreSQL configuration so that remote connections to the data are possible.
-ADD pg_hba.conf ${POSTGRESDBDIR}/pg_hba.conf
-RUN chown postgres:postgres ${POSTGRESDBDIR}/pg_hba.conf
+#ADD pg_hba.conf ${POSTGRESDBDIR}/pg_hba.conf
+#RUN chown postgres:postgres ${POSTGRESDBDIR}/pg_hba.conf
 
 #RUN ln -s ${POSTGRESDBDIR}/pg_xlog /media/data/postgres/pg_xlog
 
