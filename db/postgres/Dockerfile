@@ -24,42 +24,29 @@ ENV POSTGRESDBDIR /media/data/postgres/db
 ENV POSTGRESBINDIR /usr/lib/postgresql/${POSTGRES_VERSION}/bin
 
 ADD postgres.sh /installs/postgres.sh
+ADD config.sh /installs/config.sh
 WORKDIR /installs
 RUN ./postgres.sh
-
-USER postgres
-
-RUN ${POSTGRESBINDIR}/initdb -D ${POSTGRESDBDIR}
 
 # Adjust PostgreSQL configuration so that remote connections to the data are possible.
 ADD pg_hba.conf ${POSTGRESDBDIR}/pg_hba.conf
 RUN chown postgres:postgres ${POSTGRESDBDIR}/pg_hba.conf
 
+#RUN ln -s ${POSTGRESDBDIR}/pg_xlog /media/data/postgres/pg_xlog
+
 ADD conf /installs/conf
+ADD hstore.sh /installs/hstore.sh
 
-RUN cat /installs/conf/hba.conf >> ${POSTGRESDBDIR}/pg_hba.conf
-
-RUN cat /installs/conf/pg.conf >> ${POSTGRESDBDIR}/postgresql.conf
-
-RUN mkdir -p /var/run/postgresql/postgres-main.pg_stat_tmp
-
-# stats configuration
 ENV POSTGRES_CONF ${POSTGRESDBDIR}/postgresql.conf
 ENV POSTGRES_PERF_CONF ${POSTGRESDBDIR}/postgresql.conf.perf
-RUN cp ${POSTGRESDBDIR}/postgresql.conf $POSTGRES_PERF_CONF
-RUN cat /installs/conf/stats.conf >> $POSTGRES_PERF_CONF
-
-# wal-e configuration
 ENV POSTGRES_WALE_CONF ${POSTGRESDBDIR}/postgresql.conf.wale
-RUN cp ${POSTGRESDBDIR}/postgresql.conf $POSTGRES_WALE_CONF
-RUN cat /installs/conf/wale.conf >> $POSTGRES_WALE_CONF
 
-# HSTORE
-ADD hstore.sh /installs/hstore.sh
-RUN ./hstore.sh
+USER postgres
+
+RUN ./config.sh
 
 USER root
-RUN chown -R postgres:postgres /var/lib/postgresql 
+RUN sudo chown -R postgres:postgres /var/lib/postgresql 
 ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
 ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
 
