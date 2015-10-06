@@ -21,3 +21,5 @@ echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
 
 sudo mkdir -p /media/data/jenkins
 sudo chown -R jenkins:jenkins /media/data/jenkins
+
+sudo usermod  -d /media/data/jenkins jenkins
