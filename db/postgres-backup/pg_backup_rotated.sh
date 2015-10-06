@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
  
 ###########################
 ####### LOAD CONFIG #######
@@ -120,13 +120,18 @@ function perform_backups()
 		then
 			echo "Plain backup of $DATABASE"
  
-			if ! pg_dump -Fp -h "$HOSTNAME" -U "$USERNAME" "$DATABASE" | gzip > $FINAL_BACKUP_DIR"$DATABASE".sql.gz.in_progress; then
+			if ! pg_dump -Fc -h "$HOSTNAME" -U "$USERNAME" "$DATABASE" --file=$FINAL_BACKUP_DIR"$DATABASE".sql.gz; then
 				echo "[!!ERROR!!] Failed to produce plain backup database $DATABASE" 1>&2
 			else
-				mv $FINAL_BACKUP_DIR"$DATABASE".sql.gz.in_progress $FINAL_BACKUP_DIR"$DATABASE".sql.gz
-                TIMESTAMP=$(date +%F_%T | tr ':' '-')
-                S3_FILE="s3://$BUCKET_NAME/"$DATABASE".sql.gz-$TIMESTAMP"
-                s3cmd put $FINAL_BACKUP_DIR"$DATABASE".sql.gz $S3_FILE
+				#mv $FINAL_BACKUP_DIR"$DATABASE".sql.gz.in_progress $FINAL_BACKUP_DIR"$DATABASE".sql.gz
+				TIMESTAMP=$(date +%F_%T | tr ':' '-')
+				YEAR=$(date +%Y)
+				MONTH=$(date +%m)
+				S3_FILE="s3://$BUCKET_NAME/${YEAR}/${MONTH}/"$DATABASE".sql.gz-$TIMESTAMP"
+				/usr/local/bin/s3cmd put $FINAL_BACKUP_DIR"$DATABASE".sql.gz $S3_FILE
+				pg_dumpall --roles-only > $FINAL_BACKUP_DIR"roles"
+				S3_ROLES_FILE="s3://$BUCKET_NAME/${YEAR}/${MONTH}/roles-$TIMESTAMP"
+				/usr/local/bin/s3cmd put $FINAL_BACKUP_DIR"roles" $S3_ROLES_FILE
 			fi
 		fi
  
