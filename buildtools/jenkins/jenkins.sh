@@ -14,7 +14,8 @@ sudo apt-fast -qq -y install wget sudo vim curl build-essential fontconfig
 wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-fast -qq update
-sudo apt-fast -qq -y install jenkins
+sudo apt-fast -qq -y install jenkins python-pip python-dev
+sudo pip install fabric==1.10.2
 
 #echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/environment
 echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
