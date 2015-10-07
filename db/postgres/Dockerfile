@@ -19,10 +19,6 @@
 FROM baseimageversion
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.4
-ENV POSTGRESDBDIR /media/data/postgres/db
-ENV POSTGRESBINDIR /usr/lib/postgresql/${POSTGRES_VERSION}/bin
-
 ADD postgres.sh /installs/postgres.sh
 ADD config.sh /installs/config.sh
 ADD xlog.sh /installs/xlog.sh
@@ -34,10 +30,6 @@ ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
 
 ADD conf /installs/conf
 ADD hstore.sh /installs/hstore.sh
-
-ENV POSTGRES_CONF ${POSTGRESDBDIR}/postgresql.conf
-ENV POSTGRES_PERF_CONF ${POSTGRESDBDIR}/postgresql.conf.perf
-ENV POSTGRES_WALE_CONF ${POSTGRESDBDIR}/postgresql.conf.wale
 
 USER postgres
 
