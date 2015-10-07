@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+. ./postgresenv.sh
+
 sudo rsync -av /media/data/postgres/db/pg_xlog/ /media/data/postgres/xlog/
 sudo rm -rf /media/data/postgres/db/pg_xlog
 sudo ln -s /media/data/postgres/xlog /media/data/postgres/db/pg_xlog

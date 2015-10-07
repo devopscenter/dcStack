@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+. ./postgresenv.sh
+
 echo "CREATE EXTENSION hstore;" | \
     ${POSTGRESBINDIR}/postgres --single \
     -D ${POSTGRESDBDIR} \

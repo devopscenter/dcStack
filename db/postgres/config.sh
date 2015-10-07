@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+. ./postgresenv.sh
+
 ${POSTGRESBINDIR}/initdb -D ${POSTGRESDBDIR}
 
 cat ./conf/hba.conf >> ${POSTGRESDBDIR}/pg_hba.conf

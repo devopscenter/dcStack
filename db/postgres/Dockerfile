@@ -22,14 +22,12 @@ MAINTAINER josh < josh [at] devops {dot} center>
 ADD postgres.sh /installs/postgres.sh
 ADD config.sh /installs/config.sh
 ADD xlog.sh /installs/xlog.sh
-WORKDIR /installs
-RUN ./postgres.sh
-
-ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
-ADD postgres.conf /etc/supervisor/conf.d/postgres.conf
-
 ADD conf /installs/conf
 ADD hstore.sh /installs/hstore.sh
+
+WORKDIR /installs
+
+RUN ./postgres.sh
 
 USER postgres
 
@@ -38,6 +36,7 @@ RUN ./config.sh
 USER root
 
 RUN ./xlog.sh
+RUN ./supervisorconfig.sh
 
 # Set the default command to run when starting the container
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
