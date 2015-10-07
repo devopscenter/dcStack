@@ -50,7 +50,7 @@ sudo chown -R postgres:postgres /media/data/postgres
 sudo chown -R postgres:postgres /var/lib/postgresql
 
 
-sudo su -c "./config.sh" -s /bin/sh otheruser
+sudo su -c "./config.sh" -s /bin/sh postgres
 
 ./xlog.sh
 ./supervisorconfig.sh
