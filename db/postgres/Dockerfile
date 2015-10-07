@@ -24,6 +24,7 @@ ADD config.sh /installs/config.sh
 ADD xlog.sh /installs/xlog.sh
 ADD conf /installs/conf
 ADD hstore.sh /installs/hstore.sh
+ADD postgresenv.sh /installs/postgresenv.sh
 
 WORKDIR /installs
 
