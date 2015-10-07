@@ -48,3 +48,10 @@ sudo mkdir -p /media/data/postgres/xlog
 sudo chown -R postgres:postgres /media/data/postgres
 
 sudo chown -R postgres:postgres /var/lib/postgresql
+
+
+sudo su -c "./config.sh" -s /bin/sh otheruser
+
+./xlog.sh
+./supervisorconfig.sh
+
