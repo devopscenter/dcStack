@@ -36,4 +36,5 @@ ONBUILD RUN cd /installs && pip install --no-index -r requirements.txt
 ENV WHEELHOUSE=/wheelhouse
 ENV PIP_WHEEL_DIR=/wheelhouse
 ENV PIP_FIND_LINKS=/wheelhouse
+VOLUME  ["/wheelhouse"]
 
