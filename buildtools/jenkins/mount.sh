@@ -14,3 +14,11 @@ echo -e "n\np\n1\n\n\nw" | sudo fdisk /dev/xvdh
 sudo mkfs -t ext4 /dev/xvdh
 sudo mkdir /media/data/postgres/xlog
 sudo mount /dev/xvdh /media/data/postgres/xlog
+
+MOUNTPATH=/dev/xvdi
+DIRECTORY=/media/data/postgres/backup
+
+echo -e "n\np\n1\n\n\nw" | sudo fdisk ${MOUNTPATH}
+sudo mkfs -t ext4 ${MOUNTPATH}
+sudo mkdir -p ${DIRECTORY}
+sudo mount ${MOUNTPATH} ${DIRECTORY}
