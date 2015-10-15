@@ -44,6 +44,6 @@ RUN ./postgres.sh
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
 
 # Add VOLUMEs to allow backup of config, logs and datas
-VOLUME  ["/media/data/postgres/db", "/media/data/postgres/xlog"]
+VOLUME  ["/media/data/postgres/db/pgdata", "/media/data/postgres/xlog/transactions"]
 
 EXPOSE 5432
