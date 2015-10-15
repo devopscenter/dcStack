@@ -22,4 +22,4 @@ dropdb rmsa_backup --if-exists -U postgres
 psql -U postgres postgres -c "alter database $DATABASE rename to ${DATABASE}_backup"
 psql -U postgres postgres -c "create database $DATABASE"
 
-pg_restore -e -U postgres -Fc --dbname=$DATABASE ${BACKUPDIR}/$DATABASE.download
+pg_restore -j 3 -e -U postgres -Fc --dbname=$DATABASE ${BACKUPDIR}/$DATABASE.download
