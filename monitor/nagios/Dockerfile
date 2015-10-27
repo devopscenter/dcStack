@@ -23,7 +23,7 @@ RUN apt-get -qq update && apt-get -qq -y install python-software-properties soft
 add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
 apt-get -qq update
 
-RUN add-apt-repository ppa:saiarcot895/myppa && \
+RUN add-apt-repository -y ppa:saiarcot895/myppa && \
 apt-get -qq update && \
 apt-get -qq -y install apt-fast
 
