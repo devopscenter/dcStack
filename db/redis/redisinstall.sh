@@ -37,6 +37,8 @@ set -x \
 
 sudo mkdir -p /etc/redis
 sudo curl -sSL https://raw.githubusercontent.com/antirez/redis/$REDIS_VERSION/redis.conf -o /etc/redis/redis.conf
-sudo mkdir /redisdata 
-sudo chown redis:redis /redisdata
+sudo mkdir -p /media/data/redis/data
+sudo chown redis:redis /media/data/redis/data
 
+sudo cat conf/redis.conf >> /etc/redis/redis.conf
+sudo cp conf/supervisor-redis.conf /etc/supervisor/conf.d/redis.conf

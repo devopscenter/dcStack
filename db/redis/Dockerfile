@@ -23,15 +23,14 @@ MAINTAINER josh < josh [at] devops {dot} center>
 RUN apt-get update
 RUN apt-get -y install supervisor
 
-ADD redis.conf /etc/supervisor/conf.d/redis.conf
+#ADD redis.conf /etc/supervisor/conf.d/redis.conf
 
 ADD redisinstall.sh /installs/redisinstall.sh
-ADD r.conf /installs/r.conf
+ADD conf /installs/conf
 WORKDIR /installs
 RUN ./redisinstall.sh
-RUN cat r.conf >> /etc/redis/redis.conf
 
-VOLUME /redisdata
-WORKDIR /redisdata
+VOLUME /media/data/redis
+WORKDIR /media/data/redis
 EXPOSE 6379
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
