@@ -19,22 +19,11 @@
 FROM devopscenter/python-apache:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.4
-ENV PGPOOL_VERSION 3.4.2
-
-
+ADD pgpool /installs/pgpool
+ADD pgpoolenv.sh /installs/pgpoolenv.sh
 ADD pgpool.sh /installs/pgpool.sh
 WORKDIR /installs
 RUN ./pgpool.sh
 
-
-ADD pgpool/pgpool2.init.d /etc/init.d/pgpool
-ADD pgpool.conf /etc/supervisor/conf.d/pgpool.conf
-
-ADD pgpool/pool_hba.conf /etc/pgpool2/pool_hba.conf
-ADD pgpool/pgpool.conf.one /etc/pgpool2/pgpool.conf.one
-ADD pgpool/pgpool.conf.two /etc/pgpool2/pgpool.conf.two
-ADD pgpool/pgpool.conf.three /etc/pgpool2/pgpool.conf.three
-ADD pgpool/pcp.conf /etc/pgpool2/pcp.conf
 
 CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"

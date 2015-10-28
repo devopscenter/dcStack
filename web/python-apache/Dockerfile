@@ -19,16 +19,11 @@
 FROM devopscenter/python:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ENV NGINX_VERSION 1.7.12
-ENV UWSGI_VERSION 2.0.11
-
 EXPOSE 80 8000 443
 
+ADD nginxenv.sh /installs/nginxenv.sh
 ADD nginx.sh /installs/nginx.sh
+ADD conf /installs/conf
 WORKDIR /installs
 RUN ./nginx.sh
 
-ADD nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
-ADD nginx.conf /etc/supervisor/conf.d/nginx.conf
-ADD uwsgi.conf /etc/supervisor/conf.d/uwsgi.conf
-ADD rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf

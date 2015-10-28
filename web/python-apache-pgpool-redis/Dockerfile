@@ -19,12 +19,11 @@
 FROM devopscenter/python-apache-pgpool:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ENV REDIS_VERSION 3.0.3
-
 #flower port
 EXPOSE 5555
 
 ADD redis-client-install.sh /installs/redis-client-install.sh
+ADD redisclientenv.sh /installs/redisclientenv.sh
 WORKDIR /installs
 RUN ./redis-client-install.sh
 
@@ -33,8 +32,5 @@ ONBUILD ADD wheelhouse /wheelhouse
 ONBUILD ADD requirements.txt /installs/requirements.txt
 ONBUILD RUN cd /installs && pip install --no-index -r requirements.txt
 
-ENV WHEELHOUSE=/wheelhouse
-ENV PIP_WHEEL_DIR=/wheelhouse
-ENV PIP_FIND_LINKS=/wheelhouse
 VOLUME  ["/wheelhouse"]
 

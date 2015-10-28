@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+. ./redisclientenv.sh
+
 #Need redis-cli and libs
 pushd /tmp
 wget --quiet http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz

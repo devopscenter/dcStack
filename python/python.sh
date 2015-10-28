@@ -53,3 +53,4 @@ sudo pip install readline==6.2.4.1
 
 sudo mkdir -p /data/scratch && \
     chmod -R 777 /data/scratch
+

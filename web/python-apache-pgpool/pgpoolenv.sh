@@ -1,0 +1,4 @@
+#!/bin/bash -ev
+
+POSTGRES_VERSION=9.4
+PGPOOL_VERSION=3.4.2

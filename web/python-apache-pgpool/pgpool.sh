@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+. ./pgpoolenv.sh
+
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
 sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
@@ -40,4 +42,14 @@ sudo chown -R postgres:postgres /etc/pgpool2 && \
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8
 sudo dpkg-reconfigure locales
+
+
+sudo cp pgpool/pgpool2.init.d /etc/init.d/pgpool
+sudo cp pgpool.conf /etc/supervisor/conf.d/pgpool.conf
+
+sudo cp pgpool/pool_hba.conf /etc/pgpool2/pool_hba.conf
+sudo cp pgpool/pgpool.conf.one /etc/pgpool2/pgpool.conf.one
+sudo cp pgpool/pgpool.conf.two /etc/pgpool2/pgpool.conf.two
+sudo cp pgpool/pgpool.conf.three /etc/pgpool2/pgpool.conf.three
+sudo cp pgpool/pcp.conf /etc/pgpool2/pcp.conf
 
