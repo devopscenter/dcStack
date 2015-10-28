@@ -18,7 +18,7 @@
 #
 
 supervisorctl stop postgres
-rm -rf /media/data/postgres/db/*
+rm -rf /media/data/postgres/db/pgdata/* /media/data/postgres/db/pg_xlog/*
 #ln -s /media/data/postgres/xlog /media/data/postgres/db/pg_xlog
 #sudo chown -R postgres:postgres /media/data/postgres/xlog
 pg_basebackup -D /media/data/postgres/db -w -R --xlog-method=stream --dbname="host=masterdb_1 user=postgres"
