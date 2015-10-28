@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+supervisorctl stop postgres
 rm -rf /media/data/postgres/db/*
 #ln -s /media/data/postgres/xlog /media/data/postgres/db/pg_xlog
 #sudo chown -R postgres:postgres /media/data/postgres/xlog
