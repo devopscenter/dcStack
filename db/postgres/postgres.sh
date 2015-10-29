@@ -55,5 +55,7 @@ sudo su -c "./config.sh" -s /bin/sh postgres
 ./xlog.sh
 ./supervisorconfig.sh
 
+sudo service postgresql stop
+
 #disable init.d autostart
 sudo update-rc.d postgresql disable
