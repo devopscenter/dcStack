@@ -9,7 +9,7 @@ sudo mkdir -p ${DIRECTORY}
 sudo mount ${MOUNTPATH} ${DIRECTORY}
 
 
-MOUNTPATH=/dev/xvdg
+MOUNTPATH=/dev/xvdh
 DIRECTORY=/media/data/postgres/xlog
 
 echo -e "n\np\n1\n\n\nw" | sudo fdisk ${MOUNTPATH}
@@ -18,7 +18,7 @@ sudo mkdir -p ${DIRECTORY}
 sudo mount ${MOUNTPATH} ${DIRECTORY}
 
 
-MOUNTPATH=/dev/xvdh
+MOUNTPATH=/dev/xvdi
 DIRECTORY=/media/data/postgres/backup
 
 echo -e "n\np\n1\n\n\nw" | sudo fdisk ${MOUNTPATH}
