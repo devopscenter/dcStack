@@ -1,6 +1,13 @@
 #!/bin/bash
 
-MOUNTPATH=/dev/xvdb
+# make use of attached db volume if it exists, otherwise use instance-attached ssd.
+
+if [ -b /dev/xvdg ]
+    then
+        MOUNTPATH=/dev/xvdg
+    else
+        MOUNTPATH=/dev/xvdb
+fi
 DIRECTORY=/media/data/postgres/db
 
 echo -e "n\np\n1\n\n\nw" | sudo fdisk ${MOUNTPATH}
