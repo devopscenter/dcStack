@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -ex
+#!/usr/bin/env bash
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+set -ex
 sudo supervisorctl stop postgres
 sudo unlink /media/data/postgres/db/pgdata/pg_xlog
 sudo rm -rf /media/data/postgres/db/pgdata/ /media/data/postgres/db/pg_xlog/
