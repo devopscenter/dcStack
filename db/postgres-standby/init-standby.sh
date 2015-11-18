@@ -19,11 +19,11 @@
 set -ex
 sudo supervisorctl stop postgres
 sudo unlink /media/data/postgres/db/pgdata/pg_xlog
-sudo rm -rf /media/data/postgres/db/pgdata/ /media/data/postgres/db/pg_xlog/
+sudo rm -rf /media/data/postgres/db/pgdata/ /media/data/postgres/db/pg_xlog/ /media/data/postgres/xlog/
 #ln -s /media/data/postgres/xlog /media/data/postgres/db/pg_xlog
 #sudo chown -R postgres:postgres /media/data/postgres/xlog
 sudo pg_basebackup -D /media/data/postgres/db/pgdata -w -R --xlog-method=stream --dbname="host=postgresmaster_1 user=postgres"
-sudo rsync -av /media/data/postgres/db/pgdata/pg_xlog/ /media/data/postgres/db/pg_xlog/
+sudo rsync -av /media/data/postgres/db/pgdata/pg_xlog/ /media/data/postgres/xlog
 sudo rm -rf /media/data/postgres/db/pgdata/pg_xlog
 sudo ln -s /media/data/postgres/xlog/ /media/data/postgres/db/pgdata/pg_xlog
 sudo chown -R postgres:postgres /media/data/postgres/db
