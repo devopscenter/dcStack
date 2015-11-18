@@ -2,6 +2,9 @@
 
 # note that this is only run on an instance, not within a container.
 
+# enable us to modify /etc/fstab
+sudo chmod o+w /etc/fstab
+
 # make use of attached db volume if it exists, otherwise use instance-attached ssd.
 
 if [ -b /dev/xvdg ]
@@ -39,3 +42,6 @@ sudo mkdir -p ${DIRECTORY}
 sudo mount ${MOUNTPATH} ${DIRECTORY}
 sudo echo "${MOUNTPATH}   ${DIRECTORY}     auto    defaults,nobootwait,comment=cloudconfig 0       2" >> /etc/fstab
 
+# close up /etc/fstab again
+
+sudo chmod o-w /etc/fstab
