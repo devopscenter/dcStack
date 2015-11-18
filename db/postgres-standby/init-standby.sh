@@ -1,4 +1,4 @@
-!/bin/bash
+#!/usr/bin/env bash -ev
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
