@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# note that this is only run on an instance, not within a container.
+
 # make use of attached db volume if it exists, otherwise use instance-attached ssd.
 
 if [ -b /dev/xvdg ]
@@ -14,6 +16,7 @@ echo -e "n\np\n1\n\n\nw" | sudo fdisk ${MOUNTPATH}
 sudo mkfs -t ext4 ${MOUNTPATH}
 sudo mkdir -p ${DIRECTORY}
 sudo mount ${MOUNTPATH} ${DIRECTORY}
+echo ${MOUNTPATH} " " ${DIRECTORY} "    auto    defaults,nobootwait,comment=cloudconfig 0       2" >> /etc/fstab
 
 
 MOUNTPATH=/dev/xvdh
@@ -23,6 +26,8 @@ echo -e "n\np\n1\n\n\nw" | sudo fdisk ${MOUNTPATH}
 sudo mkfs -t ext4 ${MOUNTPATH}
 sudo mkdir -p ${DIRECTORY}
 sudo mount ${MOUNTPATH} ${DIRECTORY}
+echo ${MOUNTPATH} " " ${DIRECTORY} "    auto    defaults,nobootwait,comment=cloudconfig 0       2" >> /etc/fstab
+
 
 
 MOUNTPATH=/dev/xvdi
@@ -32,3 +37,5 @@ echo -e "n\np\n1\n\n\nw" | sudo fdisk ${MOUNTPATH}
 sudo mkfs -t ext4 ${MOUNTPATH}
 sudo mkdir -p ${DIRECTORY}
 sudo mount ${MOUNTPATH} ${DIRECTORY}
+echo ${MOUNTPATH} " " ${DIRECTORY} "    auto    defaults,nobootwait,comment=cloudconfig 0       2" >> /etc/fstab
+
