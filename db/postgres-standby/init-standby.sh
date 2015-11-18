@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-supervisorctl stop postgres
-rm -rf /media/data/postgres/db/pgdata/* /media/data/postgres/db/pg_xlog/*
+sudo supervisorctl stop postgres
+sudo rm -rf /media/data/postgres/db/pgdata/* /media/data/postgres/db/pg_xlog/*
 #ln -s /media/data/postgres/xlog /media/data/postgres/db/pg_xlog
 #sudo chown -R postgres:postgres /media/data/postgres/xlog
 pg_basebackup -D /media/data/postgres/db/pgdata -w -R --xlog-method=stream --dbname="host=postgresmaster_1 user=postgres"
-chown -R postgres:postgres /media/data/postgres/db
-supervisorctl start postgres
+sudo chown -R postgres:postgres /media/data/postgres/db
+sudo supervisorctl start postgres
