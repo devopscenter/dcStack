@@ -4,6 +4,6 @@
 
 sudo pip install supervisor-logging
 
-export SYSLOG_SERVER = 'logs2.papertrailapp.com'
-export SYSLOG_PORT = 48809
-export SYSLOG_PROTO = 'tcp'
+export SYSLOG_SERVER=logs2.papertrailapp.com
+export SYSLOG_PORT=48809
+export SYSLOG_PROTO=tcp
