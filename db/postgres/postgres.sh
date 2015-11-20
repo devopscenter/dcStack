@@ -61,3 +61,5 @@ sudo service postgresql stop
 sudo update-rc.d postgresql disable
 
 sudo pip install s3cmd==1.6.0
+sudo pip install -U setuptools
+sudo pip install -U pip
