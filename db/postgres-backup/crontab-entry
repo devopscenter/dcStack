@@ -1,1 +1,1 @@
-01 04  *   *   *     /media/data/backups/pg_backup_rotated.sh -c /media/data/backups/pg_backup.config
+01 04  *   *   *     /media/data/postgres/backup/pg_backup_rotated.sh -c /media/data/postgres/backup/pg_backup.config 
