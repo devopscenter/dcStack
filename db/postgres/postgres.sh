@@ -39,10 +39,6 @@ sudo pip install -U six && \
     sudo pip install wal-e==0.7.3
 sudo apt-fast -qq install -y daemontools lzop pv
 
-sudo mkdir -p /etc/wal-e.d/env/prod
-sudo chown -R root:postgres /etc/wal-e.d
-sudo chmod -R 750 /etc/wal-e.d
-
 sudo mkdir -p /media/data/postgres/db/pgdata
 sudo mkdir -p /media/data/postgres/xlog/transactions
 sudo chown -R postgres:postgres /media/data/postgres
