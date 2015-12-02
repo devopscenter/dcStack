@@ -7,14 +7,15 @@ BACKUPDIR=/media/data/postgres/backup
 YEAR=`date +%Y`
 MONTH=`date +%m`
 DAY=`date +%d`
-
+YESTERDAYYEAR=$(date +%y -d "yesterday")
+YESTERDAYMONTH=$(date +%m -d "yesterday")
 
 ROLESTODOWNLOAD=$(s3cmd ls s3://$S3BUCKET/$YEAR/$MONTH/ | grep `date +%F -d "yesterday"` | grep roles | sort -r -k1,2 | head  -1 | awk '{print $4}')
 s3cmd --force get $ROLESTODOWNLOAD ${BACKUPDIR}/roles.download
 psql -f ${BACKUPDIR}/roles.download  -U postgres
 
 #Latest first
-FILETODOWNLOAD=$(s3cmd ls s3://$S3BUCKET/$YEAR/$MONTH/ | grep `date +%F -d "yesterday"` | grep "$DATABASE".sql.gz | sort -r -k1,2 | head  -1 | awk '{print $4}')
+FILETODOWNLOAD=$(s3cmd ls s3://$S3BUCKET/$YESTERDAYYEAR/$YESTERDAYMONTH/ | grep `date +%F -d "yesterday"` | grep "$DATABASE".sql.gz | sort -r -k1,2 | head  -1 | awk '{print $4}')
 
 s3cmd --force get $FILETODOWNLOAD ${BACKUPDIR}/$DATABASE.download
 
