@@ -19,7 +19,7 @@ FILETODOWNLOAD=$(s3cmd ls s3://$S3BUCKET/$YEAR/$MONTH/ | grep `date +%F` | grep 
 
 s3cmd --force get $FILETODOWNLOAD ${BACKUPDIR}/$DATABASE.download
 
-dropdb rmsa_backup --if-exists -U postgres
+dropdb ${DATABASE}_backup --if-exists -U postgres
 psql -U postgres postgres -c "alter database $DATABASE rename to ${DATABASE}_backup"
 psql -U postgres postgres -c "create database $DATABASE"
 
