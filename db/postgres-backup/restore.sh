@@ -23,4 +23,9 @@ dropdb ${DATABASE}_backup --if-exists -U postgres
 psql -U postgres postgres -c "alter database $DATABASE rename to ${DATABASE}_backup"
 psql -U postgres postgres -c "create database $DATABASE"
 
+echo "started load of backup: " && date
+
 pg_restore --exit-on-error -j 3 -e -U postgres -Fc --dbname=$DATABASE ${BACKUPDIR}/$DATABASE.download
+
+echo "completed load of backup: " && date
+
