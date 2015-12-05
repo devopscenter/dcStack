@@ -38,7 +38,7 @@ sudo ln -s /usr/local/opt/python/bin/python /usr/local/bin/python
 which python && python --version
 
 pushd /tmp
-wget --quiet https://bootstrap.pypa.io/get-pip.py && python get-pip.py 
+wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
 sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
 
 sudo pip install -U setuptools-git==1.1 wheel==0.24.0 virtualenv==1.11.6 
