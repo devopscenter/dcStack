@@ -9,7 +9,7 @@ sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 
 # Add PostgreSQL's repository. It contains the most recent stable release
 #     of PostgreSQL, ``9.4``.
-sudo echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" | sudo tee --append /etc/apt/sources.list.d/pgdg.list
 
 sudo sudo apt-fast update
 
