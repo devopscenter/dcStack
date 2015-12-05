@@ -52,5 +52,5 @@ sudo apt-fast -qq -y install libncurses5-dev
 sudo pip install readline==6.2.4.1
 
 sudo mkdir -p /data/scratch && \
-    chmod -R 777 /data/scratch
+    sudo chmod -R 777 /data/scratch
 
