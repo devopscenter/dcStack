@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-pushd /installs
+#pushd /installs
 sudo pip install -r science.txt
 
 curl -sL https://deb.nodesource.com/setup | sudo bash -
