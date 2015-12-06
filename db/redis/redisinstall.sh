@@ -30,7 +30,7 @@ set -x \
 && sudo tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
 && sudo rm -rf redis.tar.gz \
 && pushd /usr/src/redis \
-&& make --silent \
+&& sudo make --silent \
 && sudo make --silent install \
 && sudo rm -rf /usr/src/redis \
 && sudo apt-get purge -y --auto-remove $buildDeps
