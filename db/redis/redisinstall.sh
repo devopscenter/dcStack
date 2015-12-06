@@ -3,7 +3,7 @@
 export REDIS_VERSION=3.0.3
 export REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
 
-sudo apt-get -qq update && apt-get -y install python-software-properties software-properties-common && \
+sudo apt-get -qq update && sudo apt-get -y install python-software-properties software-properties-common && \
         sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
             sudo apt-get -qq update
 
@@ -13,7 +13,7 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
 
 sudo groupadd -r redis && sudo useradd -r -g redis redis
 
-sudo apt-fast -qq update && apt-fast -qq install -y --no-install-recommends \
+sudo apt-fast -qq update && sudo apt-fast -qq install -y --no-install-recommends \
     ca-certificates \
     curl \
     && rm -rf /var/lib/apt/lists/*
@@ -33,7 +33,7 @@ set -x \
 && make --silent \
 && sudo make --silent install \
 && rm -rf /usr/src/redis \
-&& apt-get purge -y --auto-remove $buildDeps
+&& sudo apt-get purge -y --auto-remove $buildDeps
 
 sudo mkdir -p /etc/redis
 sudo curl -sSL https://raw.githubusercontent.com/antirez/redis/$REDIS_VERSION/redis.conf -o /etc/redis/redis.conf
