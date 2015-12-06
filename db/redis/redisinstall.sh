@@ -16,7 +16,7 @@ sudo groupadd -r redis && sudo useradd -r -g redis redis
 sudo apt-fast -qq update && sudo apt-fast -qq install -y --no-install-recommends \
     ca-certificates \
     curl \
-    && rm -rf /var/lib/apt/lists/*
+    && sudo rm -rf /var/lib/apt/lists/*
 
 sudo gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 
