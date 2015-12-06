@@ -15,7 +15,7 @@ popd
 
 wget --quiet http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz && tar -xvf nginx-$NGINX_VERSION.tar.gz
 pushd nginx-$NGINX_VERSION 
-./configure --with-http_stub_status_module && make --silent -j 3 && sudo make --silent install
+./configure --with-http_stub_status_module && sudo make --silent -j 3 && sudo make --silent install
 popd
 
 sudo pip install uwsgi==$UWSGI_VERSION && \
