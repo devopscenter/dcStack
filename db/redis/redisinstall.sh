@@ -26,13 +26,13 @@ set -x \
 && sudo rm -rf /var/lib/apt/lists/* \
 && sudo mkdir -p /usr/src/redis \
 && pushd /tmp \
-&& curl -sSL "$REDIS_DOWNLOAD_URL" -o redis.tar.gz \
-&& tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
-&& rm -rf redis.tar.gz \
+&& sudo curl -sSL "$REDIS_DOWNLOAD_URL" -o redis.tar.gz \
+&& sudo tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
+&& sudo rm -rf redis.tar.gz \
 && pushd /usr/src/redis \
 && make --silent \
 && sudo make --silent install \
-&& rm -rf /usr/src/redis \
+&& sudo rm -rf /usr/src/redis \
 && sudo apt-get purge -y --auto-remove $buildDeps
 
 sudo mkdir -p /etc/redis
