@@ -43,6 +43,8 @@ sudo chown -R postgres:postgres /etc/pgpool2 && \
 sudo locale-gen en_US.UTF-8
 sudo dpkg-reconfigure locales
 
+popd
+popd
 
 sudo cp pgpool/pgpool2.init.d /etc/init.d/pgpool
 sudo cp pgpool.conf /etc/supervisor/conf.d/pgpool.conf

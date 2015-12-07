@@ -24,6 +24,7 @@ sudo pip install uwsgi==$UWSGI_VERSION && \
     sudo chown -R uwsgi /var/run/uwsgi && \
     sudo chown -R uwsgi /var/log/uwsgi
 
+popd
 
 sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 sudo cp conf/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
