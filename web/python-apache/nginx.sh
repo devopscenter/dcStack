@@ -4,7 +4,7 @@
 
 sudo useradd uwsgi
 
-sudo pip install supervisor
+sudo apt-fast install supervisor
 
 pushd /tmp
 wget --quiet ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.bz2 && \
