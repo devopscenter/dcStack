@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
 #pushd /installs
+sudo pip install -r requirements.txt
+
 sudo pip install -r science.txt
 
 curl -sL https://deb.nodesource.com/setup | sudo bash -
