@@ -1,5 +1,11 @@
 #!/bin/bash
 PRIVATE_IP=$1
+PAPERTRAIL_ADDRESS=$2
+
+if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
+  echo "usage: new_postgres.sh <private ip address> <papertrailurl:port>"
+  exit 1
+fi
 
 # install standard packages/utilities
 cd ../../buildtools/utils/
@@ -32,4 +38,4 @@ sudo supervisorctl restart postgres
 
 # enable logging
 cd ~/docker-stack/logging/
-./enable-pg-logging.sh
+./enable-pg-logging.sh "$PAPERTRAIL_ADDRESS"

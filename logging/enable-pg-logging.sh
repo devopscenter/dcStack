@@ -1,5 +1,9 @@
 #!/bin/bash
 
+PAPERTRAIL_ADDRESS=$1
+PAPERTRAIL_SERVER=$(echo "$PAPERTRAIL_ADDRESS"|awk -F':' '{print $1}')
+PAPERTRAIL_PORT=$(echo "$PAPERTRAIL_ADDRESS"|awk -F':' '{print $2}')
+
 # note that this is only run on an instance, not within a container.
 
 # enable logging with papertrail using rsyslogd
@@ -17,7 +21,10 @@ sudo service rsyslog restart
 # https://github.com/Supervisor/supervisor/issues/446
 sudo pip install supervisor-logging
 sudo cp "supervisord.conf" /etc/supervisor/supervisord.conf
-# MANUALLY ADD PAPERTRAIL SERVERS TO THIS FILE
+
+# replace PAPERTRAIL_SERVER and PAPERTRAIL_PORT with actual values
+sudo sed -i "s/PAPERTRAIL_SERVER/${PAPERTRAIL_SERVER}/" /etc/supervisor/supervisord.conf
+sudo sed -i "s/PAPERTRAIL_PORT/${PAPERTRAIL_PORT}/" /etc/supervisor/supervisord.conf
 
 if [[ -f /etc/supervisor/conf.d/rsyslogd.conf ]]; then
   sudo rm /etc/supervisor/conf.d/rsyslogd.conf
