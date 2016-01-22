@@ -25,11 +25,11 @@ fi
 sudo chown ubuntu:ubuntu /media/data/tmp
 cd /media/data/tmp
 
-sudo apt-fast install pgtune
+sudo apt-fast -y install pgtune
 sudo pgtune -i /media/data/postgres/db/pgdata/postgresql.conf -o postgresql.conf.pgtune
 sudo cp postgresql.conf.pgtune /media/data/postgres/db/pgdata/postgresql.conf
 sudo supervisorctl restart postgres
 
 # enable logging
-cd ~/devopscenter/logging/
-sudo ./enable-pg-logging.sh
+cd ~/docker-stack/logging/
+./enable-pg-logging.sh
