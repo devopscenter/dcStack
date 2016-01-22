@@ -4,7 +4,7 @@
 
 # enable logging with papertrail using rsyslogd
 if [[ ! -f /etc/rsyslog.d/papertrail.conf ]]; then
-    echo "*.* @${PAPERTRAIL_ADDRESS}" > /etc/rsyslog.d/papertrail.conf
+    echo "*.* @${PAPERTRAIL_ADDRESS}" | sudo tee /etc/rsyslog.d/papertrail.conf > /dev/null
 fi
 
 # comment out broken section of this file and restart rsyslog
