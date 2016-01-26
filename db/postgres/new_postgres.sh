@@ -13,7 +13,7 @@ sudo ./base-utils
 
 # add private IP to /etc/hosts
 if ! (grep -q "^${PRIVATE_IP}\b.*\bpostgresmaster_1\b" /etc/hosts); then
-  echo "${PRIVATE_IP} postgresmaster_1" | tee -a /etc/hosts > /dev/null
+  echo "${PRIVATE_IP} postgresmaster_1" | sudo tee -a /etc/hosts > /dev/null
 fi
 
 # mount volumes and remove instance attached store from /mnt
