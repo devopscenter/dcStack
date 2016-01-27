@@ -39,3 +39,15 @@ sudo supervisorctl restart postgres
 # enable logging
 cd ~/docker-stack/logging/
 ./enable-pg-logging.sh "$PAPERTRAIL_ADDRESS"
+
+# enable ssl
+sudo sed "s/^\bssl\b[[:blank:]]\+=[[:blank:]]\+\bfalse\b/ssl = true/g" /media/data/postgres/db/pgdata/postgresql.conf
+sudo supervisorctl restart postgres
+
+# edit pg_hba.conf to set up appropriate access security for external connections.
+# NEED TO CHANGE CONFIG.SH TO NOT ADD INSECURE OPTIONS TO THE FILE
+#host replication postgres <VPC SUBNET?> trust
+#hostssl <DB NAME> all 0.0.0.0/0 password
+
+# set postgres user password
+#?
