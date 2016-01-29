@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 VPC_CIDR=$1
 DATABASE=$2
@@ -9,8 +9,8 @@ DATABASE=$2
 
 cat ./conf/hba.conf >> "${POSTGRESDBDIR}"/pg_hba.conf
 
-sed "s/<VPC_CIDR>/${VPC_CIDR}/g" "${POSTGRESDBDIR}"/pg_hba.conf
-sed "s/<DATABASE>/${DATABASE}/g" "${POSTGRESDBDIR}"/pg_hba.conf
+sed -i "s/<VPC_CIDR>/${VPC_CIDR}/g" "${POSTGRESDBDIR}"/pg_hba.conf
+sed -i "s/<DATABASE>/${DATABASE}/g" "${POSTGRESDBDIR}"/pg_hba.conf
 
 cat ./conf/pg.conf >> "${POSTGRESDBDIR}"/postgresql.conf
 mkdir -p /var/run/postgresql/postgres-main.pg_stat_tmp
