@@ -44,7 +44,13 @@ cd ~/docker-stack/logging/
 ./enable-pg-logging.sh "$PAPERTRAIL_ADDRESS"
 
 # enable ssl
-sudo sed "s/^\bssl\b[[:blank:]]\+=[[:blank:]]\+\bfalse\b/ssl = true/g" /media/data/postgres/db/pgdata/postgresql.conf
+sudo sed -i "s/^\bssl\b[[:blank:]]\+=[[:blank:]]\+\bfalse\b/ssl = true/g" /media/data/postgres/db/pgdata/postgresql.conf
+
+# self-signed cert for now...
+sudo openssl req -new -x509 -nodes -out /media/data/postgres/db/pgdata/server.crt -keyout /media/data/postgres/db/pgdata/server.key -days 1024 -subj "/C=US"
+sudo chmod 0600 /media/data/postgres/db/pgdata/server.key
+sudo chown postgres:postgres /media/data/postgres/db/pgdata/server.crt /media/data/postgres/db/pgdata/server.key
+
 sudo supervisorctl restart postgres
 
 # edit pg_hba.conf to set up appropriate access security for external connections.
