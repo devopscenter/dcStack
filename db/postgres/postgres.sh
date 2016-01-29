@@ -1,5 +1,8 @@
 #!/bin/bash -ex
 
+VPC_CIDR=$1
+DATABASE=$2
+
 . ./postgresenv.sh
 
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
@@ -46,7 +49,7 @@ sudo chown -R postgres:postgres /media/data/postgres
 sudo chown -R postgres:postgres /var/lib/postgresql
 
 
-sudo su -c "./config.sh" -s /bin/sh postgres
+sudo su -c "./config.sh ${VPC_CIDR} ${DATABASE}" -s /bin/sh postgres
 
 ./xlog.sh
 ./supervisorconfig.sh

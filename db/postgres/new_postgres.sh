@@ -1,6 +1,9 @@
 #!/bin/bash
+
 PRIVATE_IP=$1
 PAPERTRAIL_ADDRESS=$2
+VPC_CIDR=$3
+DATABASE=$4
 
 if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
   echo "usage: new_postgres.sh <private ip address> <papertrailurl:port>"
@@ -22,7 +25,7 @@ sudo ./mount.sh
 sudo sed '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 
 # install postgres and other tasks
-sudo ./postgres.sh
+sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}"
 
 # install pgtune and restart postgres with new config
 if [[ ! -d /media/data/tmp ]]; then
@@ -48,6 +51,7 @@ sudo supervisorctl restart postgres
 # NEED TO CHANGE CONFIG.SH TO NOT ADD INSECURE OPTIONS TO THE FILE
 #host replication postgres <VPC SUBNET?> trust
 #hostssl <DB NAME> all 0.0.0.0/0 password
+
 
 # set postgres user password
 #?
