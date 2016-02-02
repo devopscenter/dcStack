@@ -4,6 +4,7 @@ PRIVATE_IP=$1
 PAPERTRAIL_ADDRESS=$2
 VPC_CIDR=$3
 DATABASE=$4
+S3_BUCKET=$5
 
 if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
   echo "usage: new_postgres.sh <private ip address> <papertrailurl:port>"
@@ -53,6 +54,9 @@ sudo chmod 0600 /media/data/postgres/db/pgdata/server.key
 sudo chown postgres:postgres /media/data/postgres/db/pgdata/server.crt /media/data/postgres/db/pgdata/server.key
 
 sudo supervisorctl restart postgres
+
+cd ~/docker-stack/db/postgres-backup/
+./enable-backup.sh "$S3_BUCKET"
 
 # edit pg_hba.conf to set up appropriate access security for external connections.
 # NEED TO CHANGE CONFIG.SH TO NOT ADD INSECURE OPTIONS TO THE FILE
