@@ -44,6 +44,7 @@ cd ~/docker-stack/logging/
 ./enable-pg-logging.sh "$PAPERTRAIL_ADDRESS"
 
 # enable ssl
+sudo supervisorctl stop postgres
 sudo sed -i "s/^\bssl\b[[:blank:]]\+=[[:blank:]]\+\bfalse\b/ssl = true/g" /media/data/postgres/db/pgdata/postgresql.conf
 
 # self-signed cert for now...
