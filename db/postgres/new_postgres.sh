@@ -13,7 +13,7 @@ fi
 
 # install standard packages/utilities
 cd ../../buildtools/utils/
-sudo ./base-utils
+sudo ./base-utils.sh
 
 # add private IP to /etc/hosts
 if ! (grep -q "^${PRIVATE_IP}\b.*\bpostgresmaster_1\b" /etc/hosts); then

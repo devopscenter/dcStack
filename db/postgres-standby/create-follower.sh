@@ -41,3 +41,5 @@ etc_hosts_check "$PGFOLLOWER_PRIVATEIP" postgresstandby_1
 ~/docker-stack/db/postgres-standby/init-standby.sh
 
 echo "trigger_file = '/media/data/postgres/trigger_promote'" | sudo tee -a /media/data/postgres/db/pgdata/recovery.conf
+
+sudo sed -i "s/.*pg_backup_rotated/#&/" /var/spool/cron/crontabs/postgres
