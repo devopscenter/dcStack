@@ -20,12 +20,12 @@ while [[ $# -gt 0 ]]; do
                    ;;
     --list )       LIST=1
                    ;;
-    [!-]* )        if [[ $# -eq 3 ]]; then
+    [!-]* )        if [[ $# -eq 2 ]]; then
                      S3_BUCKET=$1
                      DBNAME=$2
-                     shift; shift;
+                     shift;
                    else
-                     echo "Too many/few of the 3 required parameters."
+                     echo "Too many/few of the 2 required parameters."
                      usage
                      exit 1
                    fi
