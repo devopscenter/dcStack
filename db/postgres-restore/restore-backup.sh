@@ -65,5 +65,5 @@ sudo s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${BACKUPFILE}" 
 dropdb "${DBNAME}" --if-exists -U postgres
 psql -U postgres postgres -c "create database $DBNAME"
 echo "Postgresql restore started at " && date
-pg_restore --exit-on-error -j 3 -e -U postgres -Fc --dbname="$DBNAME" "${BACKUPDIR}/${BACKUPFILE}.download"
+pg_restore --exit-on-error -j 1 -e -U postgres -Fc --dbname="$DBNAME" "${BACKUPDIR}/${BACKUPFILE}.download"
 echo "Postgresql restore completed at " && date
