@@ -16,6 +16,11 @@ sudo cp pg_backup_rotated.sh /media/data/postgres/backup/pg_backup_rotated.sh
 sudo chmod 0755 /media/data/postgres/backup/pg_backup_rotated.sh
 sudo sed "s/^BUCKET_NAME=.*/BUCKET_NAME=${S3_BUCKET}/" pg_backup.config
 
+# create bucket if it doesn't exist
+if ! s3cmd ls s3://"$S3_BUCKET" > /dev/null 2>&1; then
+  s3cmd mb s3://"$S3_BUCKET"
+fi
+
 # add cron job to run the backup daily
 #sudo (crontab -u postgres -l 2>/dev/null; echo "$1 $2 $3 $4 $5 /path/to/job -with args") | crontab -u postgres -
 (sudo crontab -u postgres -l 2>/dev/null; echo "01 04  *   *   *     /media/data/postgres/backup/pg_backup_rotated.sh -c /media/data/postgres/backup/pg_backup.config") | sudo crontab -u postgres -
