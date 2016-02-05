@@ -66,7 +66,9 @@ function parameter-ensure
   fi
 }
 parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
-parameter-ensure archive_command "'wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET} backup-push /media/data/postgres/db/pgdata'" /media/data/postgres/db/pgdata/postgresql.conf
+parameter-ensure archive_command "'wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
+# /media/data/postgres/db/xlog/transactions
+maybe using the wrong parameters, due to sourcing pgenv or whatever
 parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
 
 # self-signed cert for now...
@@ -80,7 +82,7 @@ cd ~/docker-stack/db/postgres-backup/ || exit
 ./enable-backup.sh "$S3_BACKUP_BUCKET"
 
 # push the first wal-e archive to s3
-sudo su -c "wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET} backup-push /media/data/postgres/db/pgdata" -s /bin/sh postgres
+sudo su -c "wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET} backup-push %p" -s /bin/sh postgres
 
 # edit pg_hba.conf to set up appropriate access security for external connections.
 # NEED TO CHANGE CONFIG.SH TO NOT ADD INSECURE OPTIONS TO THE FILE
