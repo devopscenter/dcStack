@@ -82,7 +82,7 @@ cd ~/docker-stack/db/postgres-backup/ || exit
 ./enable-backup.sh "$S3_BACKUP_BUCKET"
 
 # push the first wal-e archive to s3
-sudo su -c "wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET} backup-push %p" -s /bin/sh postgres
+sudo su -c "wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET} backup-push /media/data/postgres/db/pgdata" -s /bin/sh postgres
 
 # edit pg_hba.conf to set up appropriate access security for external connections.
 # NEED TO CHANGE CONFIG.SH TO NOT ADD INSECURE OPTIONS TO THE FILE
