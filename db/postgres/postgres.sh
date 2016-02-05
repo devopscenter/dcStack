@@ -43,6 +43,7 @@ sudo pip install --upgrade distribute
 sudo pip install -U six && \
     sudo pip install wal-e==0.8.1
 sudo apt-fast -qq install -y daemontools lzop pv
+sudo pip install -U requests
 
 sudo mkdir -p /media/data/postgres/db/pgdata
 sudo mkdir -p /media/data/postgres/xlog/transactions
