@@ -66,7 +66,7 @@ function parameter-ensure
   fi
 }
 parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
-parameter-ensure archive_command "'wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
+parameter-ensure archive_command "'wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
 # /media/data/postgres/db/xlog/transactions
 maybe using the wrong parameters, due to sourcing pgenv or whatever
 parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
