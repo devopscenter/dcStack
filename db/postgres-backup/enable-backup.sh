@@ -14,7 +14,7 @@ cd ~/docker-stack/db/postgres-backup/
 sudo cp pg_backup.config /media/data/postgres/backup/pg_backup.config
 sudo cp pg_backup_rotated.sh /media/data/postgres/backup/pg_backup_rotated.sh
 sudo chmod 0755 /media/data/postgres/backup/pg_backup_rotated.sh
-sudo sed "s/^BUCKET_NAME=.*/BUCKET_NAME=${S3_BUCKET}/" pg_backup.config
+sudo sed -i "s/^BUCKET_NAME=.*/BUCKET_NAME=${S3_BUCKET}/" pg_backup.config
 
 # create bucket if it doesn't exist
 if ! s3cmd ls s3://"$S3_BUCKET" > /dev/null 2>&1; then
