@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool:devops_version
+FROM devopscenter/python-apache-pgpool:v1.0
 MAINTAINER josh < josh [at] devops {dot} center>
 
 #flower port

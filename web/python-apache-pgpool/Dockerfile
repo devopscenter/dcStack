@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache:devops_version
+FROM devopscenter/python-apache:v1.0
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD pgpool /installs/pgpool

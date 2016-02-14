@@ -17,7 +17,7 @@
 #
 
 
-FROM baseimageversion
+FROM ubuntu:trusty
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN apt-get update

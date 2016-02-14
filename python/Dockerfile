@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM baseimageversion
+FROM ubuntu:trusty
 MAINTAINER josh < josh [at] devops {dot} center>
 
 
