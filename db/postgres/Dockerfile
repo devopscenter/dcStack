@@ -31,15 +31,6 @@ WORKDIR /installs
 
 RUN ./postgres.sh
 
-USER postgres
-
-RUN ./config.sh
-
-#USER root
-
-#RUN ./xlog.sh
-RUN ./supervisorconfig.sh
-
 # Set the default command to run when starting the container
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
 

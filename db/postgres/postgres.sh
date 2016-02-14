@@ -45,7 +45,7 @@ sudo pip install -U six && \
 sudo apt-fast -qq install -y daemontools lzop pv
 sudo pip install -U requests
 
-sudo mkdir -p /media/data/postgres/db/pgdata
+sudo mkdir -p ${POSTGRESDBDIR}
 sudo mkdir -p /media/data/postgres/xlog/transactions
 sudo chown -R postgres:postgres /media/data/postgres
 
