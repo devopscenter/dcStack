@@ -22,6 +22,7 @@ MAINTAINER josh < josh [at] devops {dot} center>
 ADD pgpool /installs/pgpool
 ADD pgpoolenv.sh /installs/pgpoolenv.sh
 ADD pgpool.sh /installs/pgpool.sh
+ADD pgpool.conf /installs/pgpool.conf
 WORKDIR /installs
 RUN ./pgpool.sh
 
