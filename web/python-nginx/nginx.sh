@@ -21,7 +21,7 @@ popd
 sudo apt-fast install -y libgeos-dev
 
 #http://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
-sudo cd /etc/ssl/certs && sudo openssl dhparam -dsaparam -out dhparam.pem 2048
+cd /etc/ssl/certs && sudo openssl dhparam -dsaparam -out dhparam.pem 2048
 
 sudo pip install uwsgi==$UWSGI_VERSION && \
     sudo mkdir -p /var/log/uwsgi && \
