@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool:postgres-automation-enhancements
+FROM devopsscion/python-apache-pgpool:postgres-automation-enhancements
 MAINTAINER josh < josh [at] devops {dot} center>
 
 #flower port

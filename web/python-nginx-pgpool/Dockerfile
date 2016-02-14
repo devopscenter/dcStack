@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx:postgres-automation-enhancements
+FROM devopsscion/python-nginx:postgres-automation-enhancements
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD pgpool /installs/pgpool

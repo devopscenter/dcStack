@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/db_postgres:postgres-automation-enhancements
+FROM devopsscion/db_postgres:postgres-automation-enhancements
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN echo "autostart=false" >> /etc/supervisor/conf.d/postgres.conf

@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/djangoreferenceimplementation.web:postgres-automation-enhancements
+FROM devopsscion/djangoreferenceimplementation.web:postgres-automation-enhancements
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
