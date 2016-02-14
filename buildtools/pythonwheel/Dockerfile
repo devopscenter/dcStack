@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool-redis:v1.0
+FROM devopscenter/python-apache-pgpool-redis:postgres-automation-enhancements
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV WHEELHOUSE=/wheelhouse

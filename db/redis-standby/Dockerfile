@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/db_redis:v1.0
+FROM devopscenter/db_redis:postgres-automation-enhancements
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN echo "slaveof redismaster 6379" >> /etc/redis/redis.conf

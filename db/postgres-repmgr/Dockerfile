@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM devopscenter/db_postgres:v1.0
+FROM devopscenter/db_postgres:postgres-automation-enhancements
 MAINTAINER josh < josh [at] devops {dot} center>
 
 USER root
