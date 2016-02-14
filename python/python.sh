@@ -9,7 +9,7 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq -y install apt-fast
 
 export GIT_VERSION=2.1.2
-export PYTHON_VERSION=2.7.10
+export PYTHON_VERSION=2.7.11
 
 sudo apt-fast -qq update
 sudo apt-fast -qq -y install wget sudo vim curl build-essential

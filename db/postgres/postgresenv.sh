@@ -1,6 +1,6 @@
 #!/bin/bash -evx
 
-POSTGRES_VERSION=9.4
+POSTGRES_VERSION=9.5
 POSTGRESDBDIR=/media/data/postgres/db/pgdata
 POSTGRESBINDIR=/usr/lib/postgresql/${POSTGRES_VERSION}/bin
 
