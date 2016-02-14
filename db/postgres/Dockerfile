@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM ubuntu:trusty
+#FROM ubuntu:trusty
+FROM devopsscion/base:postgres-automation-enhancements
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD postgres.sh /installs/postgres.sh
