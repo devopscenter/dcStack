@@ -28,4 +28,4 @@ ADD python.sh /installs/python.sh
 WORKDIR /installs
 RUN ./python.sh
 
-VOLUME ["/usr/local/opt/python"]
+#VOLUME ["/usr/local/opt/python"]
