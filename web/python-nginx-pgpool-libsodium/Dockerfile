@@ -5,7 +5,7 @@ WORKDIR /repos
 RUN git clone https://github.com/devopsscion/libsodium-jni
 RUN git clone https://github.com/data-luminosity/message
 
-WORKDIR /repos/kalium-jni
+WORKDIR /repos/libsodium-jni
 RUN ./dependencies-linux.sh
 RUN ./build.sh
 
