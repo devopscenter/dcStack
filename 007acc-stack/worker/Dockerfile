@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopsscion/007acc.web:postgres-automation-enhancements
+FROM devopscenter/007acc.web:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN useradd celery
