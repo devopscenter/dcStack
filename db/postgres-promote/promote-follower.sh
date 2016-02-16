@@ -4,7 +4,7 @@ OLD_MASTER_PRIVATEIP=$1
 OLD_FOLLOWER_PRIVATEIP=$2
 
 # promote to master
-sudo su -c "/usr/lib/postgresql/9.4/bin/pg_ctl promote -D /media/data/postgres/db/pgdata" -s /bin/sh postgres
+sudo su -c "/usr/lib/postgresql/9.5/bin/pg_ctl promote -D /media/data/postgres/db/pgdata" -s /bin/sh postgres
 
 # remove old follower ip/hostname
 function etc_hosts_remove
