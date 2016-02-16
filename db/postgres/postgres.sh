@@ -27,7 +27,7 @@ sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_rele
 
 sudo apt-fast -qq update
 
-sudo apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev
+sudo apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev postgresql-${POSTGRES_VERSION}-postgis-2.2
 
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8 && \
@@ -45,7 +45,7 @@ sudo pip install -U six && \
 sudo apt-fast -qq install -y daemontools lzop pv
 sudo pip install -U requests
 
-sudo mkdir -p /media/data/postgres/db/pgdata
+sudo mkdir -p ${POSTGRESDBDIR}
 sudo mkdir -p /media/data/postgres/xlog/transactions
 sudo chown -R postgres:postgres /media/data/postgres
 

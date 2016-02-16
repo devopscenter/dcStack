@@ -24,3 +24,4 @@ echo "BaseImage=${baseimageversion}"
 
 find . -name "Dockerfile" -type f -exec sed -i -e "s/$devops_version/devops_version/g" {} \;
 find . -name "Dockerfile" -type f -exec sed -i -e "s~$baseimageversion~baseimageversion~g" {} \;
+find . -name "Dockerfile" -type f -exec sed -i -e "s~FROM devopsscion~FROM devopscenter~g" {} \;

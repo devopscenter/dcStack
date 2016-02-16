@@ -4,7 +4,7 @@
 
 sudo useradd uwsgi
 
-sudo apt-fast install supervisor
+sudo apt-fast install -y supervisor rsyslog-gnutls
 
 pushd /tmp
 wget --quiet ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.bz2 && \
@@ -15,8 +15,13 @@ popd
 
 wget --quiet http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz && tar -xvf nginx-$NGINX_VERSION.tar.gz
 pushd nginx-$NGINX_VERSION 
-./configure --with-http_stub_status_module && sudo make --silent -j 3 && sudo make --silent install
+./configure --with-http_stub_status_module --with-http_ssl_module && sudo make --silent -j 3 && sudo make --silent install
 popd
+
+sudo apt-fast install -y libgeos-dev
+
+#http://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
+cd /etc/ssl/certs && sudo openssl dhparam -dsaparam -out dhparam.pem 2048
 
 sudo pip install uwsgi==$UWSGI_VERSION && \
     sudo mkdir -p /var/log/uwsgi && \

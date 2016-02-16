@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM baseimageversion
+#FROM baseimageversion
+FROM devopscenter/base:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 
@@ -27,4 +28,4 @@ ADD python.sh /installs/python.sh
 WORKDIR /installs
 RUN ./python.sh
 
-VOLUME ["/usr/local/opt/python"]
+#VOLUME ["/usr/local/opt/python"]
