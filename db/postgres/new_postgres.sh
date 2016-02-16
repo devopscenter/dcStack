@@ -71,6 +71,12 @@ parameter-ensure archive_command "'wal-e --aws-instance-profile --s3-prefix s3:/
 maybe using the wrong parameters, due to sourcing pgenv or whatever
 parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
 
+# make copies of files needed for wal-e restore
+sudo cp --preserve /media/data/postgres/db/pgdata/postgresql.conf /media/data/postgres/backup/
+sudo cp --preserve /media/data/postgres/db/pgdata/pg_ident.conf /media/data/postgres/backup/
+sudo cp --preserve /media/data/postgres/db/pgdata/pg_hba.conf /media/data/postgres/backup/
+
+
 # self-signed cert for now...
 sudo openssl req -new -x509 -nodes -out /media/data/postgres/db/pgdata/server.crt -keyout /media/data/postgres/db/pgdata/server.key -days 1024 -subj "/C=US"
 sudo chmod 0600 /media/data/postgres/db/pgdata/server.key
