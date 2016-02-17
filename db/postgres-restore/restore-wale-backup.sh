@@ -55,6 +55,7 @@ else
 fi
 
 # copy backups of postgresql.conf, pg_hba.conf, and pg_ident.conf over to new data dir
+#sudo cp --preserve /media/data/postgres/backup/postgresql.conf.wale /media/data/postgres/db/pgdata/postgresql.conf
 sudo cp --preserve /media/data/postgres/backup/postgresql.conf /media/data/postgres/db/pgdata/
 sudo cp --preserve /media/data/postgres/backup/pg_hba.conf /media/data/postgres/db/pgdata/
 sudo cp --preserve /media/data/postgres/backup/pg_ident.conf /media/data/postgres/db/pgdata/
@@ -68,3 +69,9 @@ fi
 sudo chown postgres:postgres /media/data/postgres/db/pgdata/recovery.conf
 
 sudo supervisorctl start postgres
+
+# ensure postgres has started
+sleep 5
+
+# create a basebackup to allow for wal-e restores on this host
+sudo su -c "wal-e --aws-instance-profile --s3-prefix s3://${S3BASE}-postgres-wale-${SUFFIX}/${AWS_HOSTNAME} backup-push /media/data/postgres/db/pgdata" -s /bin/sh postgres

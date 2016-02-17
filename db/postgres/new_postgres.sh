@@ -74,6 +74,9 @@ sudo cp --preserve /media/data/postgres/db/pgdata/postgresql.conf /media/data/po
 sudo cp --preserve /media/data/postgres/db/pgdata/pg_ident.conf /media/data/postgres/backup/
 sudo cp --preserve /media/data/postgres/db/pgdata/pg_hba.conf /media/data/postgres/backup/
 
+## create postgresql.conf file with archive mode = off for wal-e restores
+#sudo cp --preserve /media/data/postgres/backup/postgresql.conf /media/data/postgres/backup/postgresql.conf.wale
+#sudo sed -i "s/^\barchive_mode\b[[:blank:]]\+=[[:blank:]]\+\bon\b/archive_mode = off/g" /media/data/postgres/backup/postgresql.conf.wale
 
 # self-signed cert for now...
 sudo openssl req -new -x509 -nodes -out /media/data/postgres/db/pgdata/server.crt -keyout /media/data/postgres/db/pgdata/server.key -days 1024 -subj "/C=US"
@@ -81,6 +84,11 @@ sudo chmod 0600 /media/data/postgres/db/pgdata/server.key
 sudo chown postgres:postgres /media/data/postgres/db/pgdata/server.crt /media/data/postgres/db/pgdata/server.key
 
 sudo supervisorctl restart postgres
+
+# set postgres user password
+PG_PWD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+psql -U postgres -c "ALTER USER Postgres WITH PASSWORD '${PG_PWD}';"
+echo "postgres user password: ${PG_PWD}"
 
 cd ~/docker-stack/db/postgres-backup/ || exit
 ./enable-backup.sh "$S3_BACKUP_BUCKET"
@@ -90,14 +98,10 @@ sudo su -c "wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HO
 
 # run a nightly wal-e backup
 if ! (sudo crontab -l -u postgres|grep '^[^#].*\bbackup-push\b.*'); then
-  (sudo crontab -u postgres -l 2>/dev/null; echo "01 04  *   *   *     wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata") | sudo crontab -u postgres -
+  (sudo crontab -u postgres -l 2>/dev/null; echo "01 01  *   *   *     wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata") | sudo crontab -u postgres -
 fi
 
 # edit pg_hba.conf to set up appropriate access security for external connections.
 # NEED TO CHANGE CONFIG.SH TO NOT ADD INSECURE OPTIONS TO THE FILE
 #host replication postgres <VPC SUBNET?> trust
 #hostssl <DB NAME> all 0.0.0.0/0 password
-
-
-# set postgres user password
-#?
