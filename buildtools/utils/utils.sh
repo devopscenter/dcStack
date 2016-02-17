@@ -6,5 +6,5 @@ sudo apt-fast -y install ncdu ntp fail2ban htop
 #sudo apt-fast update
 #sudo apt-fast -y install ubuntu-tweak
 
+echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | debconf-set-selections
 sudo apt-fast -y install unattended-upgrades
-sudo dpkg-reconfigure --priority=low unattended-upgrades

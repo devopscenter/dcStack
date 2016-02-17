@@ -8,7 +8,7 @@ sudo apt-get -qq update && sudo apt-get -qq -y install python-software-propertie
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
-    sudo apt-get -qq -y install apt-fast
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
 sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim supervisor
 
