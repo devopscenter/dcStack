@@ -60,10 +60,11 @@ sudo cp --preserve /media/data/postgres/backup/pg_hba.conf /media/data/postgres/
 sudo cp --preserve /media/data/postgres/backup/pg_ident.conf /media/data/postgres/db/pgdata/
 
 # create recovery.conf file
-echo 'restore_command  = '\''wal-e --aws-instance-profile --s3-prefix s3://${S3BASE}-postgres-wale-${SUFFIX}/${AWS_HOSTNAME} wal-fetch "%f" "%p"'\'|sudo tee -a /media/data/postgres/db/pgdata/recovery.conf > /dev/null
+echo "restore_command  = 'wal-e --aws-instance-profile --s3-prefix s3://${S3BASE}-postgres-wale-${SUFFIX}/${AWS_HOSTNAME} wal-fetch \"%f\" \"%p\"'"|sudo tee -a /media/data/postgres/db/pgdata/recovery.conf > /dev/null
 echo 'pause_at_recovery_target = false'|sudo tee -a /media/data/postgres/db/pgdata/recovery.conf > /dev/null
 if [[ -n "$RECOVERYTIME" ]]; then
   echo "recovery_target_time = '${RECOVERYTIME}'"|sudo tee -a /media/data/postgres/db/pgdata/recovery.conf > /dev/null
 fi
+sudo chown postgres:postgres /media/data/postgres/db/pgdata/recovery.conf
 
 sudo supervisorctl start postgres
