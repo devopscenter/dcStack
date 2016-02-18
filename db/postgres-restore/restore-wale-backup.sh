@@ -47,6 +47,9 @@ fi
 
 sudo supervisorctl stop postgres
 
+sudo mkdir /media/data/postgres/xlog/transactions
+sudo chown postgres:postgres /media/data/postgres/xlog/transactions
+
 # if the backup file isn't specified, use LATEST
 if [[ -z "$BACKUPFILE" ]]; then
   sudo su -c "wal-e --aws-instance-profile --s3-prefix s3://${S3BASE}-postgres-wale-${SUFFIX}/${AWS_HOSTNAME} backup-fetch /media/data/postgres/db/pgdata/ LATEST" -s /bin/sh postgres
