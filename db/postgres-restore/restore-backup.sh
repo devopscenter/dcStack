@@ -64,6 +64,14 @@ sudo s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${BACKUPFILE}" 
 #sudo aws s3 cp "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${BACKUPFILE}" "${BACKUPDIR}/${BACKUPFILE}.download"
 dropdb "${DBNAME}" --if-exists -U postgres
 psql -U postgres postgres -c "create database $DBNAME"
+
+# turn off archive_mode for the restore
+sudo sed -i "s/^\barchive_mode\b[[:blank:]]\+=[[:blank:]]\+\bon\b/archive_mode = off/g" /media/data/postgres/db/pgdata/postgresql.conf
+sudo supervisorctl restart postgres
+
 echo "Postgresql restore started at " && date
 pg_restore --exit-on-error -j 1 -e -U postgres -Fc --dbname="$DBNAME" "${BACKUPDIR}/${BACKUPFILE}.download"
+
+sudo sed -i "s/^\barchive_mode\b[[:blank:]]\+=[[:blank:]]\+\boff\b/archive_mode = on/g" /media/data/postgres/db/pgdata/postgresql.conf
+sudo supervisorctl restart postgres
 echo "Postgresql restore completed at " && date
