@@ -32,8 +32,8 @@ sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}"
 # get instance type to determine which base postgresql.conf to use
 INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
 
-if [[ -f "~/docker-stack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE}" ]]; then
-  sudo cp "~/docker-stack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE}" /media/data/postgres/db/pgdata/
+if [[ -f ~/docker-stack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE} ]]; then
+  sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf."${INSTANCE_TYPE}" /media/data/postgres/db/pgdata/
 else
   sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf /media/data/postgres/db/pgdata/
 fi
