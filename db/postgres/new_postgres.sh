@@ -31,12 +31,13 @@ sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}"
 
 # get instance type to determine which base postgresql.conf to use
 INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
-
 if [[ -f ~/docker-stack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE} ]]; then
-  sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf."${INSTANCE_TYPE}" /media/data/postgres/db/pgdata/
+  sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf."${INSTANCE_TYPE}" /media/data/postgres/db/pgdata/postgresql.conf
 else
-  sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf /media/data/postgres/db/pgdata/
+  sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf /media/data/postgres/db/pgdata/postgresql.conf
 fi
+sudo chown postgres:postgres /media/data/postgres/db/pgdata/postgresql.conf
+
 
 # install pgtune and restart postgres with new config
 if [[ ! -d /media/data/tmp ]]; then
