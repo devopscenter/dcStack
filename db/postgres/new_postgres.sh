@@ -29,6 +29,15 @@ sudo ./mount.sh
 # install postgres and other tasks
 sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}"
 
+# get instance type to determine which base postgresql.conf to use
+INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
+
+if [[ -f "~/docker-stack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE}" ]]; then
+  sudo cp "~/docker-stack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE}" /media/data/postgres/db/pgdata/
+else
+  sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf /media/data/postgres/db/pgdata/
+fi
+
 # install pgtune and restart postgres with new config
 if [[ ! -d /media/data/tmp ]]; then
   sudo mkdir /media/data/tmp
@@ -37,18 +46,18 @@ sudo chown ubuntu:ubuntu /media/data/tmp
 cd /media/data/tmp || exit
 
 # update postgresql.conf with pgtuned parameters
-sudo apt-fast -y install pgtune
-sudo pgtune -i /media/data/postgres/db/pgdata/postgresql.conf -o postgresql.conf.pgtune
-sudo cp postgresql.conf.pgtune /media/data/postgres/db/pgdata/postgresql.conf
-sudo supervisorctl restart postgres
+#sudo apt-fast -y install pgtune
+#sudo pgtune -i /media/data/postgres/db/pgdata/postgresql.conf -o postgresql.conf.pgtune
+#sudo cp postgresql.conf.pgtune /media/data/postgres/db/pgdata/postgresql.conf
+#sudo supervisorctl restart postgres
 
 # enable logging
 cd ~/docker-stack/logging/ || exit
 ./enable-pg-logging.sh "$PAPERTRAIL_ADDRESS"
 
 # enable ssl
-sudo supervisorctl stop postgres
-sudo sed -i "s/^\bssl\b[[:blank:]]\+=[[:blank:]]\+\bfalse\b/ssl = true/g" /media/data/postgres/db/pgdata/postgresql.conf
+#sudo supervisorctl stop postgres
+#sudo sed -i "s/^\bssl\b[[:blank:]]\+=[[:blank:]]\+\bfalse\b/ssl = true/g" /media/data/postgres/db/pgdata/postgresql.conf
 
 # add parameters in postgresql.conf for wal-e archiving
 function parameter-ensure
@@ -65,9 +74,9 @@ function parameter-ensure
     echo "${P_KEY} = ${P_VALUE}"|sudo tee -a "${P_FILE}"
   fi
 }
-parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
+#parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
 parameter-ensure archive_command "'wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
-parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
+#parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
 
 # make copies of files needed for wal-e restore
 sudo cp --preserve /media/data/postgres/db/pgdata/postgresql.conf /media/data/postgres/backup/
