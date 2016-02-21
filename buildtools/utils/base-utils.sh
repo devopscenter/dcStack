@@ -8,6 +8,7 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
 sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim supervisor curl
+sudo pip install awscli==1.10.6
 
 sudo apt-fast -y install ncdu ntp fail2ban htop
 
