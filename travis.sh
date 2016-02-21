@@ -8,7 +8,7 @@ pushd buildtools/utils
 popd
 
 pushd logging
-RUN ./papertrail.sh
+./papertrail.sh
 popd
 
 pushd python
