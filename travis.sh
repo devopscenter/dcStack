@@ -23,3 +23,7 @@ git clone https://github.com/data-luminosity/message
     pip install -r requirements.txt > /dev/null
     popd
 popd
+
+pushd db/postgres
+./postgres.sh
+popd
