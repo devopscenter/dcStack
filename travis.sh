@@ -31,7 +31,7 @@ git clone https://github.com/data-luminosity/message
     popd
 
     pushd message
-    pip install -r requirements.txt > /dev/null
+    sudo pip install -r requirements.txt > /dev/null
     popd
 popd
 
