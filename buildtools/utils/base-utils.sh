@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ev
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo apt-get -qq update
@@ -7,7 +7,7 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
-sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim supervisor awscli curl
+sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim supervisor curl
 
 sudo apt-fast -y install ncdu ntp fail2ban htop
 
