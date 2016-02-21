@@ -39,7 +39,7 @@ which python && python --version
 
 pushd /tmp
 sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
-sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
+#sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
 
 sudo pip install -U setuptools-git==1.1 wheel==0.24.0 virtualenv==1.11.6 
 sudo pip install -U pip==7.1.0
