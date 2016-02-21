@@ -25,5 +25,5 @@ git clone https://github.com/data-luminosity/message
 popd
 
 pushd db/postgres
-./postgres.sh
+./postgres.sh > /dev/null
 popd
