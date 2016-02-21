@@ -1,5 +1,16 @@
 #!/bin/bash -ev
 
+echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
+. /etc/environment
+
+pushd buildtools/utils
+./base-utils.sh
+popd
+
+pushd logging
+RUN ./papertrail.sh
+popd
+
 pushd python
 ./python.sh > /dev/null
 popd
