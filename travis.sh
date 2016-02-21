@@ -1,26 +1,25 @@
 #!/bin/bash -ev
 
 pushd python
-./python.sh
+./python.sh > /dev/null
 popd
 
 pushd web/python-nginx
-./nginx.sh
+./nginx.sh > /dev/null
 popd
 
 pushd web/python-nginx-pgpool
-./pgpool.sh
+./pgpool.sh > /dev/null
 popd
 
 pushd web/python-nginx-pgpool-libsodium
 git clone https://github.com/devopsscion/libsodium-jni
 git clone https://github.com/data-luminosity/message
     pushd libsodium-jni
-    ./dependencies-linux.sh
-    ./build.sh
+    ./build-linux.sh > /dev/null
     popd
 
     pushd message
-    pip install -r requirements.txt
+    pip install -r requirements.txt > /dev/null
     popd
 popd
