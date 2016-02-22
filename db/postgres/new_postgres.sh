@@ -76,7 +76,7 @@ function parameter-ensure
   fi
 }
 #parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
-parameter-ensure archive_command "'wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
+parameter-ensure archive_command "'/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
 #parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
 
 # make copies of files needed for wal-e restore
@@ -104,11 +104,11 @@ cd ~/docker-stack/db/postgres-backup/ || exit
 ./enable-backup.sh "$S3_BACKUP_BUCKET"
 
 # push the first wal-e archive to s3
-sudo su -c "wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" -s /bin/sh postgres
+sudo su -c "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" -s /bin/sh postgres
 
 # run a nightly wal-e backup
 if ! (sudo crontab -l -u postgres|grep '^[^#].*\bbackup-push\b.*'); then
-  (sudo crontab -u postgres -l 2>/dev/null; echo "01 01  *   *   *     wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata") | sudo crontab -u postgres -
+  (sudo crontab -u postgres -l 2>/dev/null; echo "01 01  *   *   *     /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata") | sudo crontab -u postgres -
 fi
 
 # edit pg_hba.conf to set up appropriate access security for external connections.

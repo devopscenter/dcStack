@@ -646,5 +646,5 @@ checkpoint_segments=16
 checkpoint_completion_target = 0.9 # pgtune wizard 2016-02-18
 
 archive_mode = on
-archive_command = 'wal-e --aws-instance-profile --s3-prefix s3://<client>-postgres-wale-<target>/<hostname> wal-push %p'
+archive_command = '/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://<client>-postgres-wale-<target>/<hostname> wal-push %p'
 archive_timeout = 60
