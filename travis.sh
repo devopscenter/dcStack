@@ -38,9 +38,9 @@ popd
 pushd db/postgres
 sudo /etc/init.d/postgresql stop
 sudo apt-get --purge remove postgresql\*
-sudo rm -r /etc/postgresql/
-sudo rm -r /etc/postgresql-common/
-sudo rm -r /var/lib/postgresql/
+sudo rm -rf /etc/postgresql/
+sudo rm -rf /etc/postgresql-common/
+sudo rm -rf /var/lib/postgresql/
 sudo userdel -r postgres
 sudo groupdel postgres
 ./postgres.sh > /dev/null
