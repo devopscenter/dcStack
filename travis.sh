@@ -43,5 +43,5 @@ sudo rm -rf /etc/postgresql-common/
 sudo rm -rf /var/lib/postgresql/
 sudo userdel -r postgres
 #sudo groupdel postgres
-./postgres.sh > /dev/null
+#./postgres.sh > /dev/null
 popd
