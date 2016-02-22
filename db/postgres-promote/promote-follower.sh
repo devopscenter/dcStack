@@ -38,3 +38,6 @@ sudo sed -E -i "s/(^archive_command\b.*s3:\/\/.*\/)([a-zA-Z]+-[a-zA-Z0-9]+)([[:b
 
 # promote to master
 sudo su -c "/usr/lib/postgresql/9.4/bin/pg_ctl promote -D /media/data/postgres/db/pgdata" -s /bin/sh postgres
+
+# push base backup to s3 to enable immediate wal-e restore
+sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres

@@ -103,12 +103,17 @@ echo "postgres user password: ${PG_PWD}"
 cd ~/docker-stack/db/postgres-backup/ || exit
 ./enable-backup.sh "$S3_BACKUP_BUCKET"
 
+# create backup-push file
+echo "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
+sudo chown postgres:postgres /media/data/postgres/backup/backup-push.sh
+
 # push the first wal-e archive to s3
-sudo su -c "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" -s /bin/sh postgres
+sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres
+#sudo su -c "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" -s /bin/sh postgres
 
 # run a nightly wal-e backup
-if ! (sudo crontab -l -u postgres|grep '^[^#].*\bbackup-push\b.*'); then
-  (sudo crontab -u postgres -l 2>/dev/null; echo "01 01  *   *   *     /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata") | sudo crontab -u postgres -
+if ! (sudo crontab -l -u postgres|grep '^[^#].*backup-push.sh\b.*'); then
+  (sudo crontab -u postgres -l 2>/dev/null; echo "01 01  *   *   *     /media/data/postgres/backup/backup-push.sh") | sudo crontab -u postgres -
 fi
 
 # edit pg_hba.conf to set up appropriate access security for external connections.
