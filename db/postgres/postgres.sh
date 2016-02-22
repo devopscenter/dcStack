@@ -27,7 +27,9 @@ sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_rele
 
 sudo apt-fast -qq update
 
-sudo DEBIAN_FRONTEND=noninteractive apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev
+sudo apt-get --purge autoremove postgresql-${POSTGRES_VERSION} postgresql
+
+sudo apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev
 
 sudo apt-fast -y -qq install postgresql-contrib-${POSTGRES_VERSION} postgresql-${POSTGRES_VERSION}-postgis-2.2
 
