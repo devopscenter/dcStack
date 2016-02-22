@@ -36,12 +36,12 @@ git clone https://github.com/data-luminosity/message
 popd
 
 pushd db/postgres
-/etc/init.d/postgresql stop
-apt-get --purge remove postgresql\*
-rm -r /etc/postgresql/
-rm -r /etc/postgresql-common/
-rm -r /var/lib/postgresql/
-userdel -r postgres
-groupdel postgres
+sudo /etc/init.d/postgresql stop
+sudo apt-get --purge remove postgresql\*
+sudo rm -r /etc/postgresql/
+sudo rm -r /etc/postgresql-common/
+sudo rm -r /var/lib/postgresql/
+sudo userdel -r postgres
+sudo groupdel postgres
 ./postgres.sh > /dev/null
 popd
