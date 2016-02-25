@@ -59,9 +59,11 @@ fi
 S3_YEAR=$(echo "$S3_FILE"|awk -F/ '{print $5}')
 S3_MONTH=$(echo "$S3_FILE"|awk -F/ '{print $6}')
 
-# download backup, drop db if it already exists, create it, restore into it
 sudo s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${BACKUPFILE}" "${BACKUPDIR}/${BACKUPFILE}.download"
 #sudo aws s3 cp "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${BACKUPFILE}" "${BACKUPDIR}/${BACKUPFILE}.download"
+
+# kill any existing connections, then drop and recreate the db
+psql -U postgres -d "$DBNAME" -c "select pg_terminate_backend(pg_stat_activity.pid) from pg_stat_activity where pg_stat_activity.datname = '${DBNAME}' and pid <> pg_backend_pid();"
 dropdb "${DBNAME}" --if-exists -U postgres
 psql -U postgres postgres -c "create database $DBNAME"
 
