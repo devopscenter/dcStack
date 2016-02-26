@@ -103,6 +103,11 @@ echo "postgres user password: ${PG_PWD}"
 cd ~/docker-stack/db/postgres-backup/ || exit
 ./enable-backup.sh "$S3_BACKUP_BUCKET"
 
+# create wal-e bucket if it doesn't exist
+if ! s3cmd ls s3://"$S3_WALE_BUCKET" > /dev/null 2>&1; then
+  s3cmd mb s3://"$S3_WALE_BUCKET"
+fi
+
 # create backup-push file
 echo "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
 sudo chmod +x /media/data/postgres/backup/backup-push.sh
