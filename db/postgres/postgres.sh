@@ -1,10 +1,15 @@
 #!/bin/bash -ex
 
+VPC_CIDR=$1
+DATABASE=$2
+
 . ./postgresenv.sh
 
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo apt-get -qq update
+
+sudo apt-get -qq -y install debconf-utils
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
@@ -38,6 +43,7 @@ sudo pip install --upgrade distribute
 sudo pip install -U six && \
     sudo pip install wal-e==0.8.1
 sudo apt-fast -qq install -y daemontools lzop pv
+sudo pip install -U requests
 
 sudo mkdir -p /media/data/postgres/db/pgdata
 sudo mkdir -p /media/data/postgres/xlog/transactions
@@ -46,7 +52,7 @@ sudo chown -R postgres:postgres /media/data/postgres
 sudo chown -R postgres:postgres /var/lib/postgresql
 
 
-sudo su -c "./config.sh" -s /bin/sh postgres
+sudo su -c "./config.sh ${VPC_CIDR} ${DATABASE}" -s /bin/sh postgres
 
 ./xlog.sh
 ./supervisorconfig.sh
