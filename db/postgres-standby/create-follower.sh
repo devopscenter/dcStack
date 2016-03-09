@@ -31,7 +31,7 @@ if ! (grep -q "^${HOSTS_IP}\b.*\b${HOSTS_NAME}\b" "$TMP_ETC_HOSTS"); then
   echo "${HOSTS_IP} ${HOSTS_NAME}" | sudo tee -a "$TMP_ETC_HOSTS" > /dev/null
 fi
 
-cat "$TMP_ETC_HOSTS" | sudo tee /etc/hosts
+cat "$TMP_ETC_HOSTS" | sudo tee /etc/hosts > /dev/null
 rm -f "$TMP_ETC_HOSTS"
 }
 

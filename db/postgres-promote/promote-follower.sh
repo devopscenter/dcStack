@@ -3,9 +3,6 @@
 OLD_MASTER_PRIVATEIP=$1
 OLD_FOLLOWER_PRIVATEIP=$2
 
-# promote to master
-sudo su -c "/usr/lib/postgresql/9.5/bin/pg_ctl promote -D /media/data/postgres/db/pgdata" -s /bin/sh postgres
-
 # remove old follower ip/hostname
 function etc_hosts_remove
 {
@@ -35,3 +32,17 @@ etc_hosts_remove "$OLD_MASTER_PRIVATEIP" postgresmaster_1
 etc_hosts_remove "$OLD_FOLLOWER_PRIVATEIP" postgresstandby_1
 
 echo "${OLD_FOLLOWER_PRIVATEIP} postgressmaster_1" | sudo tee -a /etc/hosts > /dev/null
+
+# update wal-e archive command to point to correct/current hostname
+sudo sed -E -i "s/(^archive_command\b.*s3:\/\/.*\/)([a-zA-Z]+-[a-zA-Z0-9]+)([[:blank:]]+)/\1${HOSTNAME}\3/g" /media/data/postgres/db/pgdata/postgresql.conf
+
+# promote to master
+sudo su -c "/usr/lib/postgresql/9.4/bin/pg_ctl promote -D /media/data/postgres/db/pgdata" -s /bin/sh postgres
+
+# enable s3 backups
+if ! (sudo crontab -l -u postgres|grep -q '^[^#].*pg_backup_rotated.sh\b.*'); then
+  (sudo crontab -u postgres -l 2>/dev/null; echo "01 04  *   *   *     /media/data/postgres/backup/pg_backup_rotated.sh -c /media/data/postgres/backup/pg_backup.config") | sudo crontab -u postgres -
+fi
+
+# push base backup to s3 to enable immediate wal-e restore
+sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres

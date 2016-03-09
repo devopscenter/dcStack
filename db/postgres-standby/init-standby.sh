@@ -28,4 +28,8 @@ sudo rsync -av /media/data/postgres/db/pgdata/pg_xlog/ /media/data/postgres/xlog
 sudo rm -rf /media/data/postgres/db/pgdata/pg_xlog
 sudo ln -s /media/data/postgres/xlog/ /media/data/postgres/db/pgdata/pg_xlog
 sudo chown -R postgres:postgres /media/data/postgres/db /media/data/postgres/xlog
+
+# replace master's conf file so wal-e backups go to the correct bucket if promoted
+sudo cp --preserve /media/data/postgres/backup/postgresql.conf /media/data/postgres/db/pgdata/
+
 sudo supervisorctl start postgres
