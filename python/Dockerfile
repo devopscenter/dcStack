@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-#FROM ubuntu:trusty
-FROM devopsscion/base:postgres-automation-enhancements
+#FROM baseimageversion
+FROM devopsscion/base:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 

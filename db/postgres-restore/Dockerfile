@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM devopsscion/db_postgres-repmgr:postgres-automation-enhancements
+FROM devopsscion/db_postgres-repmgr:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 USER root

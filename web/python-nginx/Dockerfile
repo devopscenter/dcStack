@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopsscion/python:postgres-automation-enhancements
+FROM devopsscion/python:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 EXPOSE 80 8000 443
