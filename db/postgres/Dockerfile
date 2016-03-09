@@ -17,7 +17,7 @@
 #
 
 #FROM baseimageversion
-FROM devopsscion/base:devops_version
+FROM devopscenter/base:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD postgres.sh /installs/postgres.sh

@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopsscion/python-apache-pgpool-redis:devops_version
+FROM devopscenter/python-apache-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV WHEELHOUSE=/wheelhouse

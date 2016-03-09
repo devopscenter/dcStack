@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopsscion/python-nginx:devops_version
+FROM devopscenter/python-nginx:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD pgpool /installs/pgpool

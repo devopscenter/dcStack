@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopsscion/0099ff.web:devops_version
+FROM devopscenter/0099ff.web:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN useradd celery
