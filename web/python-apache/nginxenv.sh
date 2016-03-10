@@ -1,4 +1,0 @@
-#!/bin/bash -ev
-
-NGINX_VERSION=1.7.12
-UWSGI_VERSION=2.0.11

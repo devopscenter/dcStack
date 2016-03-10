@@ -1,0 +1,5 @@
+os:
+  - linux
+sudo: required
+script:
+  - travis_wait ./travis.sh
