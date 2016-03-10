@@ -642,7 +642,7 @@ hot_standby = on            # 'on' allows queries during recovery
 wal_level = hot_standby          # minimal, archive, or hot_standby
 wal_buffers = 8MB # pgtune wizard 2016-02-18
 max_wal_senders = 20      # max number of walsender processes
-checkpoint_segments=16
+#checkpoint_segments=16
 checkpoint_completion_target = 0.9 # pgtune wizard 2016-02-18
 
 archive_mode = on
