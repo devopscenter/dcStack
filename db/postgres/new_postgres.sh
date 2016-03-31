@@ -6,6 +6,7 @@ VPC_CIDR=$3
 DATABASE=$4
 S3_BACKUP_BUCKET=$5
 S3_WALE_BUCKET=$6
+PGVERSION=$7
 
 if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
   echo "usage: new_postgres.sh <private ip address> <papertrailurl:port>"
@@ -27,7 +28,7 @@ sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 sudo ./mount.sh
 
 # install postgres and other tasks
-sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}"
+sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}" "${PGVERSION}"
 
 # get instance type to determine which base postgresql.conf to use
 INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)

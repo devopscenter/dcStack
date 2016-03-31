@@ -2,8 +2,14 @@
 
 VPC_CIDR=$1
 DATABASE=$2
+PGVERSION=$3
 
 . ./postgresenv.sh
+
+# Default Postgres version specified in ./postgresenv.sh, allow it to be over-ridden
+
+if [ -n "$PGVERSION" ]; then
+POSTGRES_VERSION=${PGVERSION}
 
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
