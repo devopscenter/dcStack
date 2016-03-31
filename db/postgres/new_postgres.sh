@@ -54,7 +54,7 @@ cd /media/data/tmp || exit
 
 # enable logging
 cd ~/docker-stack/logging/ || exit
-./enable-pg-logging.sh "$PAPERTRAIL_ADDRESS"
+./enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 # enable ssl
 #sudo supervisorctl stop postgres
