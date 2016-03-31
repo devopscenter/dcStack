@@ -12,14 +12,24 @@ fi
 cd ~/docker-stack/buildtools/utils/ || exit
 sudo ./base-utils.sh
 
-
-# install postgres and other tasks
-sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}"
-
-
 # enable logging
 cd ~/docker-stack/logging/ || exit
 ./enable-pg-logging.sh "$PAPERTRAIL_ADDRESS"
 
+# install stack common to web and workers
+cd ~/docker-stack/python/ || exit
+sudo ./python.sh
 
-sudo supervisorctl restart postgres
+cd ~/docker-stack/web/python-nginx/ || exit
+sudo ./nginx.sh
+
+cd ~/docker-stack/web/python-nginx-pgpool/ || exit
+sudo ./pgpool.sh
+
+cd ~/docker-stack/web/python-nginx-pgpool-redis/ || exit
+sudo ./redis-client-install.sh
+
+
+# Install customer-specific stack
+
+
