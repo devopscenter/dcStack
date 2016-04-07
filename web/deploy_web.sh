@@ -37,7 +37,7 @@ sudo ./redis-client-install.sh
 cd ~/docker-stack/${STACK}-stack/web/ || exit
 sudo ./web.sh
 
-if [ $SUFFIX = "worker"]; then
+if [ "$SUFFIX" = "worker"]; then
   cd ~/docker-stack/${STACK}-stack/worker/ || exit
   sudo ./worker.sh
 fi
