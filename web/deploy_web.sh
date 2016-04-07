@@ -2,6 +2,8 @@
 
 PRIVATE_IP=$1
 PAPERTRAIL_ADDRESS=$2
+STACK=$3
+SUFFIX=$4
 
 if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
   echo "usage: new_postgres.sh <private ip address> <papertrailurl:port>"
@@ -30,6 +32,12 @@ cd ~/docker-stack/web/python-nginx-pgpool-redis/ || exit
 sudo ./redis-client-install.sh
 
 
-# Install customer-specific stack
+# Install customer-specific stack - all get the web portion.
 
+cd ~/docker-stack/${STACK}-stack/web/ || exit
+sudo ./web.sh
 
+if [ $SUFFIX = "worker"]; then
+  cd ~/docker-stack/${STACK}-stack/worker/ || exit
+  sudo ./worker.sh
+fi
