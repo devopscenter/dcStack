@@ -14,7 +14,7 @@ sudo ./base-utils.sh
 
 # enable logging
 cd ~/docker-stack/logging/ || exit
-./enable-pg-logging.sh "$PAPERTRAIL_ADDRESS"
+./enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 # install stack common to web and workers
 cd ~/docker-stack/python/ || exit
