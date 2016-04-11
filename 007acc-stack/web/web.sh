@@ -14,3 +14,5 @@ curl -L https://npmjs.com/install.sh | sudo sh
 sudo npm install -g less
 
 sudo npm install -g coffee-script
+
+echo "Installed customer-specific web and worker portion"
