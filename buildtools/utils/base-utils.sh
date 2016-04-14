@@ -7,7 +7,8 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
-sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim supervisor unzip curl
+sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim unzip curl
+sudo pip install supervisor -t /usr/bin/
 
 sudo apt-fast -y install ncdu ntp fail2ban htop
 
