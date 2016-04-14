@@ -45,7 +45,7 @@ fi
 
 # Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
 
-if [[ [ -n "${ENV}" ] -a [ -e ~/utils/environments ] ]]; then
+if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
   ~/utils/environments/deployenv.sh $SUFFIX $ENV
 fi
 
