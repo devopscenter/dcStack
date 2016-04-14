@@ -51,4 +51,6 @@ fi
 
 # Restart supervisor, so that all services are now running.
 
-sudo /etc/init.d/supervisor restart
+if !(sudo /etc/init.d/supervisor restart); then
+  echo "Error somewhere in supervisor or one of the services started by supervisor"
+fi
