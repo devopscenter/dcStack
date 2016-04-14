@@ -4,6 +4,7 @@ PRIVATE_IP=$1
 PAPERTRAIL_ADDRESS=$2
 STACK=$3
 SUFFIX=$4
+ENV=$5
 
 if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
   echo "usage: new_postgres.sh <private ip address> <papertrailurl:port>"
@@ -41,3 +42,13 @@ if [[ "$SUFFIX" = "worker" ]]; then
   cd ~/docker-stack/${STACK}-stack/worker/ || exit
   sudo ./worker.sh
 fi
+
+# Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
+
+if [[ -n "${ENV}" ] and [ -e "~/utils/environments" ]]; then
+  ~/utils/environments/deployenv.sh $SUFFIX $ENV
+fi
+
+# Restart supervisor, so that all services are now running.
+
+sudo /etc/init.d/supervisor restart
