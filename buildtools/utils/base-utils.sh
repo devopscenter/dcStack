@@ -12,6 +12,7 @@ sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim unzip curl
 sudo pip install supervisor
 sudo mkdir /etc/supervisor
 sudo mkdir /etc/supervisor/conf.d
+sudo mkdir /var/log/supervisor
 sudo cp ~/docker-stack/buildtools/utils/initd-supervisor /etc/init.d/supervisor
 sudo cp ~/docker-stack/buildtools/utils/supervisord.conf /etc/supervisor/
 
