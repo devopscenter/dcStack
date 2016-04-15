@@ -8,7 +8,12 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
 sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim unzip curl
+
 sudo pip install supervisor
+sudo mkdir /etc/supervisor
+sudo mkdir /etc/supervisor/conf.d
+sudo cp ~/docker-stack/buildtools/utils/initd-supervisor /etc/init.d/supervisor
+sudo cp ~/docker-stack/buildtools/utils/supervisord.conf /etc/supervisor/
 
 sudo apt-fast -y install ncdu ntp fail2ban htop
 
