@@ -4,7 +4,7 @@
 
 sudo useradd uwsgi
 
-sudo apt-fast install -y rsyslog-gnutls supervisor
+sudo apt-fast install -y rsyslog-gnutls
 
 pushd /tmp
 wget --quiet ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.bz2 && \
