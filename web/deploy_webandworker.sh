@@ -13,15 +13,15 @@ fi
 
 # install standard packages/utilities
 cd ~/docker-stack/buildtools/utils/ || exit
-sudo ./base-utils.sh
-
-# enable logging
-cd ~/docker-stack/logging/ || exit
-./enable-logging.sh "$PAPERTRAIL_ADDRESS"
+sudo ./utils.sh
 
 # install stack common to web and workers
 cd ~/docker-stack/python/ || exit
 sudo ./python.sh
+
+# enable logging
+cd ~/docker-stack/logging/ || exit
+./enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 cd ~/docker-stack/web/python-nginx/ || exit
 sudo ./nginx.sh
