@@ -6,6 +6,8 @@ sudo useradd uwsgi
 
 sudo apt-fast install -y rsyslog-gnutls
 
+.~/docker-stack/buildtools/utils/install-supervisor.sh
+
 pushd /tmp
 wget --quiet ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.bz2 && \
     tar -xvf pcre-8.38.tar.bz2
