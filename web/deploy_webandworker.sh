@@ -13,7 +13,7 @@ fi
 
 # install standard packages/utilities
 cd ~/docker-stack/buildtools/utils/ || exit
-sudo ./utils.sh
+sudo ./base-utils.sh
 
 # install stack common to web and workers
 cd ~/docker-stack/python/ || exit
