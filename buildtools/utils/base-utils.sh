@@ -7,7 +7,7 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
-sudo apt-fast -qq -y install git python-dev wget sudo vim unzip curl supervisor
+sudo apt-fast -qq -y install git wget sudo vim unzip curl supervisor
 
 # Install supervisor 3.2.3 via pip install, and mimic installation structure and configs of apt-get install.
 #sudo pip install supervisor
