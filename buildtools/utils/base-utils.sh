@@ -7,15 +7,15 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
-sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim unzip curl
+sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim unzip curl supervisor
 
 # Install supervisor 3.2.3 via pip install, and mimic installation structure and configs of apt-get install.
-sudo pip install supervisor
-sudo mkdir /etc/supervisor
-sudo mkdir /etc/supervisor/conf.d
-sudo mkdir /var/log/supervisor
-sudo cp ~/docker-stack/buildtools/utils/initd-supervisor /etc/init.d/supervisor
-sudo cp ~/docker-stack/buildtools/utils/supervisord.conf /etc/supervisor/
+#sudo pip install supervisor
+#sudo mkdir /etc/supervisor
+#sudo mkdir /etc/supervisor/conf.d
+#sudo mkdir /var/log/supervisor
+#sudo cp ~/docker-stack/buildtools/utils/initd-supervisor /etc/init.d/supervisor
+#sudo cp ~/docker-stack/buildtools/utils/supervisord.conf /etc/supervisor/
 
 sudo apt-fast -y install ncdu ntp fail2ban htop
 
