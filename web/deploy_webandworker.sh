@@ -19,7 +19,8 @@ sudo ./base-utils.sh
 cd ~/docker-stack/python/ || exit
 sudo ./python.sh
 
-exit 0
+cd ~/docker-stack/buildtools/utils || exit
+sudo ./install-supervisor.sh
 
 # enable logging
 cd ~/docker-stack/logging/ || exit
@@ -27,6 +28,8 @@ cd ~/docker-stack/logging/ || exit
 
 cd ~/docker-stack/web/python-nginx/ || exit
 sudo ./nginx.sh
+
+exit 0
 
 cd ~/docker-stack/web/python-nginx-pgpool/ || exit
 sudo ./pgpool.sh
