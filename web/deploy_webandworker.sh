@@ -11,13 +11,15 @@ if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
   exit 1
 fi
 
+# install standard packages/utilities
+cd ~/docker-stack/buildtools/utils/ || exit
+sudo ./base-utils.sh
+
 # install stack common to web and workers
 cd ~/docker-stack/python/ || exit
 sudo ./python.sh
 
-# install standard packages/utilities
-cd ~/docker-stack/buildtools/utils/ || exit
-sudo ./base-utils.sh
+exit 0
 
 # enable logging
 cd ~/docker-stack/logging/ || exit
