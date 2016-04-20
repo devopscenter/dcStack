@@ -16,11 +16,15 @@ sudo sudo apt-fast update
 sudo sudo apt-fast -y -q install postgresql-client-$POSTGRES_VERSION libpq5 libpq-dev
 #        postgresql-contrib-$POSTGRES_VERSION postgresql-server-dev-$POSTGRES_VERSION
 
-#not installing postgres server, so manually create user
-#EDIT not needed
-#sudo useradd postgres -m -s /bin/bash
-#RUN groupadd postgres
-sudo usermod -a -G postgres postgres
+# not installing postgres server, so manually create user and group, if needed
+
+getent passwd postgres || sudo useradd postgres -m -s /bin/bash
+getent group postgres || sudo groupadd postgres
+
+# Add postgres user to postgres group, if not already in it.
+if [[ !$(id -Gn postgres | grep '\bpostgres\b') ]]; then
+  sudo usermod -a -G postgres postgres
+fi
 
 sudo mkdir -p /installs
 pushd /installs
