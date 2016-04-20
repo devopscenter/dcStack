@@ -1,5 +1,7 @@
 #!/bin/bash -evx
 
+echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
+
 sudo apt-get -qq update && apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo apt-get -qq update
