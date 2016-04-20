@@ -4,6 +4,7 @@
 # Must be run after python and it's pip is installed.
 
 sudo pip install supervisor
+export PATH="/usr/local/opt/python/bin:${PATH}"
 
 sudo mkdir /etc/supervisor
 sudo mkdir /etc/supervisor/conf.d
