@@ -11,3 +11,6 @@ sudo mkdir /etc/supervisor/conf.d
 sudo mkdir /var/log/supervisor
 sudo cp ~/docker-stack/buildtools/utils/initd-supervisor /etc/init.d/supervisor
 sudo cp ~/docker-stack/buildtools/utils/supervisord.conf /etc/supervisor/
+
+# Now make sure that it starts up upon reboot
+sudo update-rc.d supervisor defaults
