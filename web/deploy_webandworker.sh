@@ -29,8 +29,6 @@ cd ~/docker-stack/logging/ || exit
 cd ~/docker-stack/web/python-nginx/ || exit
 sudo ./nginx.sh
 
-exit 0
-
 cd ~/docker-stack/web/python-nginx-pgpool/ || exit
 sudo ./pgpool.sh
 
