@@ -24,7 +24,7 @@ sudo apt-fast install -y libgeos-dev
 cd /etc/ssl/certs && sudo openssl dhparam -dsaparam -out dhparam.pem 2048
 
 sudo pip install uwsgi==$UWSGI_VERSION && \
-    sudo mkdir -p /var/log/uwsgi && |
+    sudo mkdir -p /var/log/uwsgi && \
     sudo chown -R uwsgi /var/log/uwsgi
 
 popd
