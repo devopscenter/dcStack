@@ -36,7 +36,7 @@ fi
 if [[ !$(id -Gn postgres | grep '\bsudo\b') ]]; then
   sudo usermod -a -G sudo postgres
 fi
-sudo cp sudo-postgres.conf /etc/sudoers.d
+sudo cp sudo-postgres /etc/sudoers.d
 
 sudo mkdir -p /installs
 pushd /installs
