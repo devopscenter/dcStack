@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# All 5 arguments are required
+
 PRIVATE_IP=$1
 PAPERTRAIL_ADDRESS=$2
 STACK=$3
 SUFFIX=$4
 ENV=$5
+PGVERSION=$6
 
 if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
   echo "usage: new_postgres.sh <private ip address> <papertrailurl:port>"
@@ -30,7 +33,7 @@ cd ~/docker-stack/web/python-nginx/ || exit
 sudo ./nginx.sh
 
 cd ~/docker-stack/web/python-nginx-pgpool/ || exit
-sudo ./pgpool.sh
+sudo ./pgpool.sh "$PGVERSION"
 
 cd ~/docker-stack/web/python-nginx-pgpool-redis/ || exit
 sudo ./redis-client-install.sh
