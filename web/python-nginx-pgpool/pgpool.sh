@@ -35,14 +35,9 @@ sudo ./configure && sudo make --silent && sudo make --silent install
 
 sudo mkdir -p -m 700 /etc/pgpool2 && sudo chown -R postgres:postgres /etc/pgpool2
 sudo mkdir -p -m 755 /var/log/pgpool && sudo chown -R postgres:postgres /var/log/pgpool
-#sudo chmod 755 /etc/init.d/pgpool
 
 #USER postgres
-sudo chown -R postgres:postgres /etc/pgpool2 && \
-    sudo mkdir -p /var/run/pgpool && \
-    sudo chown -R postgres:postgres /var/run/pgpool && \
-    sudo mkdir -p /var/run/postgresql/ && \
-    sudo chown -R postgres:postgres  /var/run/postgresql/
+sudo chown -R postgres:postgres /etc/pgpool2
 
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8
