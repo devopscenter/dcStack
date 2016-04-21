@@ -15,9 +15,11 @@ sudo apt-fast -y install ncdu ntp fail2ban htop
 #sudo apt-fast update
 #sudo apt-fast -y install ubuntu-tweak
 
+pushd /tmp
 curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 unzip awscli-bundle.zip
 sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+popd
 
 echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | sudo debconf-set-selections
 sudo apt-fast -y install unattended-upgrades
