@@ -3,6 +3,8 @@
 . ./nginxenv.sh
 
 sudo useradd uwsgi
+sudo usermod -a -G sudo uwsgi
+sudo cp conf/sudo-uwsgi.conf /etc/sudoer.d/
 
 sudo apt-fast install -y rsyslog-gnutls
 

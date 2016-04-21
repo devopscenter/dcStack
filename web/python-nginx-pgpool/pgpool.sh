@@ -32,6 +32,12 @@ if [[ !$(id -Gn postgres | grep '\bpostgres\b') ]]; then
   sudo usermod -a -G postgres postgres
 fi
 
+# Add postgres user to sudo group, if not already in it.
+if [[ !$(id -Gn postgres | grep '\bsudo\b') ]]; then
+  sudo usermod -a -G sudo postgres
+fi
+sudo cp sudo-postgres.conf /etc/sudoer.d/
+
 sudo mkdir -p /installs
 pushd /installs
 sudo wget --quiet http://www.pgpool.net/download.php?f=pgpool-II-$PGPOOL_VERSION.tar.gz -O pgpool-II-$PGPOOL_VERSION.tar.gz
