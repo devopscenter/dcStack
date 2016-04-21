@@ -53,7 +53,8 @@ popd
 popd
 
 sudo cp pgpool/pgpool2.init.d /etc/init.d/pgpool
-sudo cp pgpool.conf /etc/supervisor/conf.d/pgpool.conf
+sudo cp supervisor-pgpool.conf /etc/supervisor/conf.d/pgpool.conf
+sudo cp run_pgpool.sh /etc/supervisor/conf.d/run_pgpool.sh
 
 sudo cp pgpool/pool_hba.conf /etc/pgpool2/pool_hba.conf
 sudo cp pgpool/pgpool.conf.one /etc/pgpool2/pgpool.conf.one
