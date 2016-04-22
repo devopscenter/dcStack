@@ -9,7 +9,8 @@ PGVERSION=$3
 # Default Postgres version specified in ./postgresenv.sh, allow it to be over-ridden
 
 if [ -n "$PGVERSION" ]; then
-POSTGRES_VERSION=${PGVERSION}
+  POSTGRES_VERSION=${PGVERSION}
+fi
 
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
