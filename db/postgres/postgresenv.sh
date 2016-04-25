@@ -10,6 +10,7 @@ if [ -n "$PGVERSION" ]; then
   POSTGRES_VERSION=${PGVERSION}
 fi
 
+echo "pgversion: "+$PGVERSION "postgres_version: "+$POSTGRES_VERSION
 
 POSTGRES_MOUNT=/media/data/postgres
 
