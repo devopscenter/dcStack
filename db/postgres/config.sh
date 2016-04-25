@@ -2,8 +2,9 @@
 
 VPC_CIDR=$1
 DATABASE=$2
+PGVERSION=$3
 
-. ./postgresenv.sh
+. ./postgresenv.sh $PGVERSION
 
 "${POSTGRESBINDIR}"/initdb -D "${POSTGRESDBDIR}"
 

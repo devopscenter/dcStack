@@ -4,15 +4,7 @@ VPC_CIDR=$1
 DATABASE=$2
 PGVERSION=$3
 
-. ./postgresenv.sh
-
-# Default Postgres version specified in ./postgresenv.sh, allow it to be over-ridden
-
-if [ -n "$PGVERSION" ]; then
-  POSTGRES_VERSION=${PGVERSION}
-fi
-
-echo "Passed in pg version ${PGVERSION}, install pg version ${POSTGRES_VERSION}"
+. ./postgresenv.sh $PGVERSION
 
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
@@ -65,10 +57,10 @@ sudo chown -R postgres:postgres /media/data/postgres
 sudo chown -R postgres:postgres /var/lib/postgresql
 
 
-sudo su -c "./config.sh ${VPC_CIDR} ${DATABASE}" -s /bin/sh postgres
+sudo su -c "./config.sh ${VPC_CIDR} ${DATABASE} ${POSTGRES_VERSION}" -s /bin/sh postgres
 
-./xlog.sh
-./supervisorconfig.sh
+./xlog.sh $POSTGRES_VERSION
+./supervisorconfig.sh $POSTGRES_VERSION
 
 sudo service postgresql stop
 

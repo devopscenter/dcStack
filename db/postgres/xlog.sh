@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-. ./postgresenv.sh
+PGVERSION=$1
+. ./postgresenv.sh $PGVERSION
+
 
 sudo rsync -av ${POSTGRESDBDIR}/pg_xlog/ ${POSTGREX_XLOG}/
 sudo rm -rf ${POSTGRESDBDIR}/pg_xlog

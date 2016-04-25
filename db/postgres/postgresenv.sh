@@ -1,7 +1,18 @@
 #!/bin/bash -evx
 
-POSTGRES_MOUNT=/media/data/postgres
+PGVERSION=$1
+
+# default postgres version to install
 POSTGRES_VERSION=9.5
+
+# If the version number is specified, then override the default version number.
+if [ -n "$PGVERSION" ]; then
+  POSTGRES_VERSION=${PGVERSION}
+fi
+
+
+POSTGRES_MOUNT=/media/data/postgres
+
 POSTGRESDBDIR=${POSTGRES_MOUNT}/db/pgdata
 POSTGRESBINDIR=/usr/lib/postgresql/${POSTGRES_VERSION}/bin
 POSTGREX_XLOG=${POSTGRES_MOUNT}/xlog/transactions

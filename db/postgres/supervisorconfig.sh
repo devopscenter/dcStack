@@ -1,6 +1,7 @@
 #!/bin/bash -evx
 
-. ./postgresenv.sh
+PGVERSION=$1
+. ./postgresenv.sh $PGVERSION
 
 #SUPERVISORD
 sudo cp ./conf/rsyslogd.conf /etc/supervisor/conf.d/rsyslogd.conf
