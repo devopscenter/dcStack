@@ -12,6 +12,8 @@ if [ -n "$PGVERSION" ]; then
   POSTGRES_VERSION=${PGVERSION}
 fi
 
+echo "Passed in pg version ${PGVERSION}, install pg version ${POSTGRES_VERSION}"
+
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo apt-get -qq update

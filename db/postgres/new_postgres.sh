@@ -27,6 +27,8 @@ cd ~/docker-stack/db/postgres/ || exit
 sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 sudo ./mount.sh
 
+echo "postgres version: "+"${PGVERSION}"
+
 # install postgres and other tasks
 sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}" "${PGVERSION}"
 
