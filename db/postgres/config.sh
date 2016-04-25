@@ -33,5 +33,5 @@ cp "${POSTGRESDBDIR}"/postgresql.conf "$POSTGRES_WALE_CONF"
 cat ./conf/wale.conf >> "$POSTGRES_WALE_CONF"
 
 # HSTORE
-./hstore.sh
+./hstore.sh $POSTGRES_VERSION
 
