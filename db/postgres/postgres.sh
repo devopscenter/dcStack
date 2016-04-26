@@ -20,7 +20,7 @@ sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim
 
 # install supervisor from pip, to get latest version
 pushd ~/docker-stack/buildtools/utils
-sudo ./install-supervisor.sh
+sudo ./install-supervisor.sh normal
 popd
 
 # Add the PostgreSQL PGP key to verify their Debian packages.

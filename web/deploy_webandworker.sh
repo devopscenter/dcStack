@@ -23,7 +23,7 @@ cd ~/docker-stack/python/ || exit
 sudo ./python.sh
 
 cd ~/docker-stack/buildtools/utils || exit
-sudo ./install-supervisor.sh
+sudo ./install-supervisor.sh custom
 
 # enable logging
 cd ~/docker-stack/logging/ || exit
