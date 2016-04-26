@@ -33,7 +33,8 @@ set -x \
 && sudo make --silent \
 && sudo make --silent install \
 && sudo rm -rf /usr/src/redis \
-&& sudo apt-get purge -y --auto-remove $buildDeps
+&& sudo apt-get purge -y --auto-remove $buildDeps \
+&& popd
 
 sudo mkdir -p /etc/redis
 sudo curl -sSL https://raw.githubusercontent.com/antirez/redis/$REDIS_VERSION/redis.conf -o /etc/redis/redis.conf
