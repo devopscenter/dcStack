@@ -21,3 +21,10 @@ sudo cp ~/docker-stack/buildtools/utils/supervisord.conf /etc/supervisor/
 
 # Now make sure that it starts up upon reboot
 sudo update-rc.d supervisor defaults
+
+# Finally set up symlinks if installed in the custom location
+if [[ $1 == "custom" ]]; then
+  sudo ln -s /etc/supervisor/supervisord.conf /etc/supervisord.conf
+  sudo ln -s /usr/local/opt/python/bin/supervisord /usr/bin/supervisord
+  sudo ln -s /usr/local/opt/python/bin/supervisorctl /usr/bin/supervisorctl
+fi
