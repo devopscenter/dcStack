@@ -34,6 +34,7 @@ set -x \
 && sudo make --silent install \
 && sudo rm -rf /usr/src/redis \
 && sudo apt-get purge -y --auto-remove $buildDeps \
+&& popd \
 && popd
 
 sudo mkdir -p /etc/redis
