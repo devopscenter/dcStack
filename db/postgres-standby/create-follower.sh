@@ -35,8 +35,8 @@ cat "$TMP_ETC_HOSTS" | sudo tee /etc/hosts > /dev/null
 rm -f "$TMP_ETC_HOSTS"
 }
 
-etc_hosts_check "$PGMASTER_PRIVATEIP" postgresmaster_1
-etc_hosts_check "$PGFOLLOWER_PRIVATEIP" postgresstandby_1
+#etc_hosts_check "$PGMASTER_PRIVATEIP" postgresmaster_1
+#etc_hosts_check "$PGFOLLOWER_PRIVATEIP" postgresstandby_1
 
 ~/docker-stack/db/postgres-standby/init-standby.sh
 
