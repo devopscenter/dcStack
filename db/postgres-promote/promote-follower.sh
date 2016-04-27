@@ -28,10 +28,10 @@ cat "$TMP_ETC_HOSTS" | sudo tee /etc/hosts > /dev/null
 rm -f "$TMP_ETC_HOSTS"
 }
 
-etc_hosts_remove "$OLD_MASTER_PRIVATEIP" postgresmaster_1
-etc_hosts_remove "$OLD_FOLLOWER_PRIVATEIP" postgresstandby_1
+#etc_hosts_remove "$OLD_MASTER_PRIVATEIP" postgresmaster_1
+#etc_hosts_remove "$OLD_FOLLOWER_PRIVATEIP" postgresstandby_1
 
-echo "${OLD_FOLLOWER_PRIVATEIP} postgressmaster_1" | sudo tee -a /etc/hosts > /dev/null
+#echo "${OLD_FOLLOWER_PRIVATEIP} postgressmaster_1" | sudo tee -a /etc/hosts > /dev/null
 
 # update wal-e archive command to point to correct/current hostname
 sudo sed -E -i "s/(^archive_command\b.*s3:\/\/.*\/)([a-zA-Z]+-[a-zA-Z0-9]+)([[:blank:]]+)/\1${HOSTNAME}\3/g" /media/data/postgres/db/pgdata/postgresql.conf

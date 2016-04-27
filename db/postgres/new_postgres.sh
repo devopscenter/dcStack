@@ -18,9 +18,9 @@ cd ~/docker-stack/buildtools/utils/ || exit
 sudo ./base-utils.sh
 
 # add private IP to /etc/hosts
-if ! (grep -q "^${PRIVATE_IP}\b.*\bpostgresmaster_1\b" /etc/hosts); then
-  echo "${PRIVATE_IP} postgresmaster_1" | sudo tee -a /etc/hosts > /dev/null
-fi
+#if ! (grep -q "^${PRIVATE_IP}\b.*\bpostgresmaster_1\b" /etc/hosts); then
+#  echo "${PRIVATE_IP} postgresmaster_1" | sudo tee -a /etc/hosts > /dev/null
+#fi
 
 # mount volumes and remove instance attached store from /mnt
 cd ~/docker-stack/db/postgres/ || exit
