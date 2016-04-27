@@ -51,7 +51,7 @@ pcp_socket_dir = '/var/run/postgresql'
 
 # - Backend Connection Settings -
 
-backend_hostname0 = 'postgresmaster_1'
+backend_hostname0 = 'pgmaster-1’
                                    # Host name or IP address to connect to for backend 0
 backend_port0 = 5432
                                    # Port number for backend 0
@@ -62,13 +62,13 @@ backend_data_directory0 = '/data'
 backend_flag0 = 'ALLOW_TO_FAILOVER'
                                    # Controls various backend behavior
                                    # ALLOW_TO_FAILOVER or DISALLOW_TO_FAILOVER
-backend_hostname1 = 'postgresstandby_1'
+backend_hostname1 = 'pgstandby-1’
 backend_port1 = 5432
 backend_weight1 = 1
 backend_data_directory1 = '/data'
 backend_flag1 = 'ALLOW_TO_FAILOVER'
 
-backend_hostname1 = 'postgresstandby_2'
+backend_hostname1 = 'pgstandby-2’
 backend_port1 = 5432
 backend_weight1 = 1
 backend_data_directory1 = '/data'
