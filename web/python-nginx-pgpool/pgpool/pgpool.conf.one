@@ -51,7 +51,7 @@ pcp_socket_dir = '/var/run/postgresql'
 
 # - Backend Connection Settings -
 
-backend_hostname0 = 'pgmaster-1’
+backend_hostname0 = pgmaster-1
                                    # Host name or IP address to connect to for backend 0
 backend_port0 = 5432
                                    # Port number for backend 0
