@@ -33,7 +33,9 @@ set -x \
 && sudo make --silent \
 && sudo make --silent install \
 && sudo rm -rf /usr/src/redis \
-&& sudo apt-get purge -y --auto-remove $buildDeps
+&& sudo apt-get purge -y --auto-remove $buildDeps \
+&& popd \
+&& popd
 
 sudo mkdir -p /etc/redis
 sudo curl -sSL https://raw.githubusercontent.com/antirez/redis/$REDIS_VERSION/redis.conf -o /etc/redis/redis.conf
@@ -42,3 +44,6 @@ sudo chown redis:redis /media/data/redis/data
 
 sudo cat conf/redis.conf | sudo tee --append /etc/redis/redis.conf
 sudo cp conf/supervisor-redis.conf /etc/supervisor/conf.d/redis.conf
+
+# restart supervisor so that it reads in the new config
+sudo /etc/init.d/supervisor restart

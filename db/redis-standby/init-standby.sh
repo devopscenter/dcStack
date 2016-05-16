@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
@@ -13,17 +14,9 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.
+# limitatioo "slaveof redismaster 6379" >> /etc/redis/redis.confs under the License.
 #
 
-FROM devopscenter/python-apache:devops_version
-MAINTAINER josh < josh [at] devops {dot} center>
+sudo echo "slaveof redismaster-1 6379" >> /etc/redis/redis.conf
 
-ADD pgpool /installs/pgpool
-ADD pgpoolenv.sh /installs/pgpoolenv.sh
-ADD pgpool.sh /installs/pgpool.sh
-WORKDIR /installs
-RUN ./pgpool.sh
-
-
-CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"
+sudo supervisorctl restart redis

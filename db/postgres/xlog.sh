@@ -1,9 +1,11 @@
 #!/bin/bash -e
 
-. ./postgresenv.sh
+PGVERSION=$1
+. ./postgresenv.sh $PGVERSION
 
-sudo rsync -av /media/data/postgres/db/pgdata/pg_xlog/ /media/data/postgres/xlog/transactions/
-sudo rm -rf /media/data/postgres/db/pgdata/pg_xlog
-sudo ln -s /media/data/postgres/xlog/transactions /media/data/postgres/db/pgdata/pg_xlog
-sudo chown -R postgres:postgres /media/data/postgres/xlog/transactions
+
+sudo rsync -av ${POSTGRESDBDIR}/pg_xlog/ ${POSTGREX_XLOG}/
+sudo rm -rf ${POSTGRESDBDIR}/pg_xlog
+sudo ln -s ${POSTGREX_XLOG} ${POSTGRESDBDIR}/pg_xlog
+sudo chown -R postgres:postgres ${POSTGREX_XLOG}
 

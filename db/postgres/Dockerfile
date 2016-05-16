@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM baseimageversion
+#FROM baseimageversion
+FROM devopscenter/base:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD postgres.sh /installs/postgres.sh
@@ -31,19 +32,10 @@ WORKDIR /installs
 
 RUN ./postgres.sh
 
-#USER postgres
-
-#RUN ./config.sh
-
-#USER root
-
-#RUN ./xlog.sh
-#RUN ./supervisorconfig.sh
-
 # Set the default command to run when starting the container
 CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
 
 # Add VOLUMEs to allow backup of config, logs and datas
-VOLUME  ["/media/data/postgres/db/pgdata", "/media/data/postgres/xlog/transactions"]
+#VOLUME  ["/media/data/postgres/db/pgdata", "/media/data/postgres/xlog/transactions"]
 
 EXPOSE 5432

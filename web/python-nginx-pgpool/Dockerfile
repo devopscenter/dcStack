@@ -16,16 +16,15 @@
 # limitations under the License.
 #
 
-#FROM baseimageversion
-FROM devopscenter/base:devops_version
+FROM devopscenter/python-nginx:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-
-ENV PATH /usr/local/opt/python/bin:$PATH
-
-ADD python.sh /installs/python.sh
-
+ADD pgpool /installs/pgpool
+ADD pgpoolenv.sh /installs/pgpoolenv.sh
+ADD pgpool.sh /installs/pgpool.sh
+ADD pgpool.conf /installs/pgpool.conf
 WORKDIR /installs
-RUN ./python.sh
+RUN ./pgpool.sh
 
-#VOLUME ["/usr/local/opt/python"]
+
+CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"

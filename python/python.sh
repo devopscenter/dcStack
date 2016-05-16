@@ -1,5 +1,7 @@
 #!/bin/bash -evx
 
+echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
+
 sudo apt-get -qq update && apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo apt-get -qq update
@@ -9,7 +11,7 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq -y install apt-fast
 
 export GIT_VERSION=2.1.2
-export PYTHON_VERSION=2.7.10
+export PYTHON_VERSION=2.7.11
 
 sudo apt-fast -qq update
 sudo apt-fast -qq -y install wget sudo vim curl build-essential
