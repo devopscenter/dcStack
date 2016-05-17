@@ -29,7 +29,7 @@ find . -name "Dockerfile" -type f -exec sed -i -e "s~baseimageversion~$baseimage
 #build containers
 
 function base {
-    docker build -rm -t "devopscenter/base:${devops_version}" ./docker-stack
+    docker build --rm -t "devopscenter/base:${devops_version}" .
 }
 
 function db {
@@ -102,9 +102,9 @@ function web {
     docker build --rm -t "devopscenter/python:${devops_version}" python
     time newrelic &> newrelic.log &
     time backups &> backups.log &
-    docker build --rm -t "devopscenter/python-apache:${devops_version}" web/python-apache
-    docker build --rm -t "devopscenter/python-apache-pgpool:${devops_version}" web/python-apache-pgpool
-    docker build --rm -t "devopscenter/python-apache-pgpool-redis:${devops_version}" web/python-apache-pgpool-redis
+    docker build --rm -t "devopscenter/python-nginx:${devops_version}" web/python-nginx
+    docker build --rm -t "devopscenter/python-nginx-pgpool:${devops_version}" web/python-nginx-pgpool
+    docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${devops_version}" web/python-nginx-pgpool-redis
     buildtools &> buildtools.log
     rm -rf stack1.log
     time stack1 &> stack1.log &
