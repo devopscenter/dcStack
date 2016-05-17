@@ -28,6 +28,10 @@ find . -name "Dockerfile" -type f -exec sed -i -e "s~baseimageversion~$baseimage
 
 #build containers
 
+function base {
+    docker build -rm -t "devopscenter/base:${devops_version}" ./docker-stack
+}
+
 function db {
     #rm -rf postgres.log
     docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
@@ -110,6 +114,7 @@ function web {
     time stack3 &> stack3.log &
 }
 
+base
 time misc &> misc.log &
 web &
 time db &> db.log &
