@@ -17,7 +17,7 @@ while read -r i; do
       if (echo "$i"|grep -Eq "^[0-9]+.[0-9]+.[0-9]+.[0-9]+\b[[:blank:]]*\b${HOSTS_NAME}\b[[:space:]]*$"); then
         echo "$i" | sed "s/^[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}[[:blank:]]*\b${HOSTS_NAME}\b[[:space:]]*$/#&/" | sudo tee -a "$TMP_ETC_HOSTS"
         continue
-      # if other hostnames are associated with an IP, remove postgresmaster_1 and any whitespace before it
+      # if other hostnames are associated with an IP, remove pgmaster-1 and any whitespace before it
       elif (echo "$i"|grep -Eq "^[0-9]+.[0-9]+.[0-9]+.[0-9]+\b[[:blank:]]*.*\b${HOSTS_NAME}\b[[:blank:]]*"); then
         echo "$i" | sed "s/[[:blank:]]*\b${HOSTS_NAME}\b//g" | sudo tee -a "$TMP_ETC_HOSTS"
         continue
@@ -35,8 +35,8 @@ cat "$TMP_ETC_HOSTS" | sudo tee /etc/hosts > /dev/null
 rm -f "$TMP_ETC_HOSTS"
 }
 
-#etc_hosts_check "$PGMASTER_PRIVATEIP" postgresmaster_1
-#etc_hosts_check "$PGFOLLOWER_PRIVATEIP" postgresstandby_1
+#etc_hosts_check "$PGMASTER_PRIVATEIP" pgsmaster-1
+#etc_hosts_check "$PGFOLLOWER_PRIVATEIP" pgstandby-1
 
 ~/docker-stack/db/postgres-standby/init-standby.sh
 
