@@ -20,6 +20,15 @@ sudo mkdir /etc/supervisor/conf.d
 sudo mkdir /var/log/supervisor
 sudo cp ~/docker-stack/buildtools/utils/supervisord.conf /etc/supervisor/
 
+# Install the supervisor logging plug-in
+# https://github.com/Supervisor/supervisor/issues/446
+sudo pip install supervisor-logging
+
+# if present, remvoe spurious rsyslogd config file (so that it does not run under supervisor!)
+if [[ -f /etc/supervisor/conf.d/rsyslogd.conf ]]; then
+    sudo rm /etc/supervisor/conf.d/rsyslogd.conf
+fi
+
 # make a symlink so that the pip-installed supervisor can find the configuration file
 sudo ln -s /etc/supervisor/supervisord.conf /etc/supervisord.conf
 
