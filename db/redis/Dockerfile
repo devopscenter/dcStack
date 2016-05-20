@@ -17,13 +17,14 @@
 #
 
 
-FROM baseimageversion
+FROM devopscenter/base:devops_version
+
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN apt-get update
 RUN apt-get -y install supervisor
 
-#ADD redis.conf /etc/supervisor/conf.d/redis.conf
+WORKDIR /installs/utils
+RUN ./install-supervisor.sh normal
 
 ADD redisinstall.sh /installs/redisinstall.sh
 ADD conf /installs/conf
