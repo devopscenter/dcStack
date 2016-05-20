@@ -18,16 +18,6 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
 
 sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim
 
-# install supervisor from pip, to get latest version
-if [[ -e utils ]]; then
-    pushd utils                     # running within a container
-else
-    pushd ../../buildtools/utils    # running in an instance
-fi
-
-sudo ./install-supervisor.sh normal
-popd
-
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
@@ -43,8 +33,6 @@ sudo apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8 && \
     sudo dpkg-reconfigure locales
-
-
 
 ###WAL-E
 #USER root

@@ -16,8 +16,12 @@
 # limitations under the License.
 #
 
-FROM devopscenter/base:devops_version
+FROM devopscenter/base:v2.0b1
 MAINTAINER josh < josh [at] devops {dot} center>
+
+# Install supervisor via pip to get latest version
+WORKDIR /installs/utils
+RUN ./install-supervisor.sh normal
 
 ADD postgres.sh /installs/postgres.sh
 ADD config.sh /installs/config.sh
@@ -28,7 +32,6 @@ ADD postgresenv.sh /installs/postgresenv.sh
 ADD supervisorconfig.sh /installs/supervisorconfig.sh
 
 WORKDIR /installs
-
 RUN ./postgres.sh
 
 # Set the default command to run when starting the container

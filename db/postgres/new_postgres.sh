@@ -17,6 +17,13 @@ fi
 cd ~/docker-stack/buildtools/utils/ || exit
 sudo ./base-utils.sh
 
+cd ~/docker-stack/buildtools/utils || exit
+sudo ./install-supervisor.sh normal
+
+# enable logging
+cd ~/docker-stack/logging/ || exit
+./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
+
 # add private IP to /etc/hosts
 #if ! (grep -q "^${PRIVATE_IP}\b.*\bpgmaster-1\b" /etc/hosts); then
 #  echo "${PRIVATE_IP} pgmaster-1" | sudo tee -a /etc/hosts > /dev/null
@@ -52,10 +59,6 @@ cd /media/data/tmp || exit
 #sudo pgtune -i /media/data/postgres/db/pgdata/postgresql.conf -o postgresql.conf.pgtune
 #sudo cp postgresql.conf.pgtune /media/data/postgres/db/pgdata/postgresql.conf
 #sudo supervisorctl restart postgres
-
-# enable logging
-cd ~/docker-stack/logging/ || exit
-./enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 # enable ssl
 #sudo supervisorctl stop postgres
