@@ -17,12 +17,11 @@
 #
 
 
-FROM devopscenter/base:devops_version
+FROM devopscenter/base:v2.0b1
 
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN apt-get -y install supervisor
-
+# Install pip-installed supervisor to get latest version
 WORKDIR /installs/utils
 RUN ./install-supervisor.sh normal
 
