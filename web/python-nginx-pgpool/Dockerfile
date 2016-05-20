@@ -21,10 +21,13 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD pgpool /installs/pgpool
 ADD pgpoolenv.sh /installs/pgpoolenv.sh
+ADD sudo-postgres /installs/sudo-postgres
+ADD supervisor-pgpool.conf /installs/supervisor-pgpool.conf
+ADD run_pgpool.sh /installs/run_pgpool.sh
+
 ADD pgpool.sh /installs/pgpool.sh
-ADD pgpool.conf /installs/pgpool.conf
+
 WORKDIR /installs
 RUN ./pgpool.sh
-
 
 CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"
