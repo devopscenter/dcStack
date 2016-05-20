@@ -23,8 +23,8 @@ source BASEIMAGE
 echo "BaseImage=${baseimageversion}"
 
 #replace variable devops_version with the VERSION we are building
-find . -name "Dockerfile" -type f -exec sed -i -e "s/devops_version/$devops_version/g" {} \;
-find . -name "Dockerfile" -type f -exec sed -i -e "s~baseimageversion~$baseimageversion~g" {} \;
+find . -name "Dockerfile" -type f -print -exec sed -i -e "s/devops_version/$devops_version/g" {} \;
+find . -name "Dockerfile" -type f -print -exec sed -i -e "s~baseimageversion~$baseimageversion~g" {} \;
 
 #build containers
 
@@ -100,21 +100,22 @@ function buildtools {
 
 function web {
     docker build --rm -t "devopscenter/python:${devops_version}" python
-    time newrelic &> newrelic.log &
-    time backups &> backups.log &
+#    time newrelic &> newrelic.log &
+#    time backups &> backups.log &
     docker build --rm -t "devopscenter/python-nginx:${devops_version}" web/python-nginx
     docker build --rm -t "devopscenter/python-nginx-pgpool:${devops_version}" web/python-nginx-pgpool
     docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${devops_version}" web/python-nginx-pgpool-redis
+    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${devops_version}" web/python-nginx-pgpool-libsodium
     buildtools &> buildtools.log
-    rm -rf stack1.log
-    time stack1 &> stack1.log &
-    rm -rf stack2.log
-    time stack2 &> stack2.log &
+#    rm -rf stack1.log
+#    time stack1 &> stack1.log &
+#    rm -rf stack2.log
+#    time stack2 &> stack2.log &
     rm -rf stack3.log
     time stack3 &> stack3.log &
 }
 
 base
-time misc &> misc.log &
+#time misc &> misc.log &
 web &
 time db &> db.log &
