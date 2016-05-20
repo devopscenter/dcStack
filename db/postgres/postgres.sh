@@ -19,7 +19,12 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
 sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim
 
 # install supervisor from pip, to get latest version
-pushd ~/docker-stack/buildtools/utils
+if [[ -e utils ]]; then
+    pushd utils                     # running within a container
+else
+    pushd ../../buildtools/utils    # running in an instance
+fi
+
 sudo ./install-supervisor.sh normal
 popd
 

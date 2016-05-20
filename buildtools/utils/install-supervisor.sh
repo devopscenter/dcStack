@@ -9,16 +9,16 @@
 sudo pip install supervisor
 if [[ $1 == "custom" ]]; then
   export PATH="${1}/:${PATH}"
-  sudo cp ~/docker-stack/buildtools/utils/initd-supervisor-custom /etc/init.d/supervisor
+  sudo cp initd-supervisor-custom /etc/init.d/supervisor
 else
-  sudo cp ~/docker-stack/buildtools/utils/initd-supervisor /etc/init.d/supervisor
+  sudo cp initd-supervisor /etc/init.d/supervisor
 fi
 
 # Create the config directory structure that the ubuntu-packaged supervisor uses.
 sudo mkdir /etc/supervisor
 sudo mkdir /etc/supervisor/conf.d
 sudo mkdir /var/log/supervisor
-sudo cp ~/docker-stack/buildtools/utils/supervisord.conf /etc/supervisor/
+sudo cp supervisord.conf /etc/supervisor/
 
 # Install the supervisor logging plug-in
 # https://github.com/Supervisor/supervisor/issues/446

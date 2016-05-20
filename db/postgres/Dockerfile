@@ -16,8 +16,7 @@
 # limitations under the License.
 #
 
-#FROM baseimageversion
-FROM devopscenter/base:devops_version
+FROM devopscenter/base:v2.0b1
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD postgres.sh /installs/postgres.sh
