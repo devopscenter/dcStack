@@ -27,7 +27,7 @@ sudo ./install-supervisor.sh custom
 
 # enable logging
 cd ~/docker-stack/logging/ || exit
-./enable-logging.sh "$PAPERTRAIL_ADDRESS"
+./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 cd ~/docker-stack/web/python-nginx/ || exit
 sudo ./nginx.sh
