@@ -26,7 +26,9 @@ ENV PIP_FIND_LINKS=/wheelhouse
 VOLUME /wheelhouse
 VOLUME /application
 
-ENTRYPOINT cd /application; \
+WORKDIR /application
+
+ENTRYPOINT \
     pip wheel -r app1.requirements.txt; \
     pip wheel -r app1.science.txt; \
     pip wheel -r app2.requirements.txt; \
