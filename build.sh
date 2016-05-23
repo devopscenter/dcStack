@@ -59,21 +59,21 @@ function backups {
 
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
-    cp "${PWD}/buildtools/pythonwheel/wheelhouse/*" 0099FF-stack/web/wheelhouse
+    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 0099FF-stack/web/wheelhouse
     docker build --rm -t "devopscenter/0099ff.web:${devops_version}" 0099FF-stack/web
     docker build --rm -t "devopscenter/0099ff.worker:${devops_version}" 0099FF-stack/worker
 }
 
 function stack2 {
     mkdir -p 66CCFF-stack/web/wheelhouse 
-    cp "${PWD}/buildtools/pythonwheel/wheelhouse/*" 66CCFF-stack/web/wheelhouse
+    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 66CCFF-stack/web/wheelhouse
     docker build --rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web
     docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
 }
 
 function stack3 {
     mkdir -p 007acc-stack/web/wheelhouse
-    cp "${PWD}/buildtools/pythonwheel/wheelhouse/*" 007acc-stack/web/wheelhouse
+    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 007acc-stack/web/wheelhouse
     docker build --rm -t "devopscenter/007acc.web:${devops_version}" 007acc-stack/web
     docker build --rm -t "devopscenter/007acc.worker:${devops_version}" 007acc-stack/worker
 }
