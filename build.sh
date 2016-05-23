@@ -93,7 +93,7 @@ function buildtools {
     cp 007acc-stack/web/science.txt buildtools/pythonwheel/application/app3.science.txt
     docker run --rm \
         -v "${PWD}/buildtools/pythonwheel/application":/application \
-        -v "${PWD}/buildtools/wheelhouse":/wheelhouse \
+        -v "${PWD}/buildtools/pythonwheel/wheelhouse":/wheelhouse \
         "devopscenter/buildtools:${devops_version}"
 }
 
