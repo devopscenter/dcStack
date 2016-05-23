@@ -33,11 +33,10 @@ function base {
 }
 
 function db {
-    #rm -rf postgres.log
     docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
     docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
     docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
-    #docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
+#   docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
     docker build --rm -t "devopscenter/db_redis:${devops_version}" db/redis
     docker build --rm -t "devopscenter/db_redis-standby:${devops_version}" db/redis-standby
 }
@@ -47,8 +46,8 @@ function misc {
     docker build --rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &> sentry.log &
     docker build --rm -t "devopscenter/monitor_nagios:${devops_version}" monitor/nagios &> nagios.log &
 }
-#docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
-#docker build --rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
+# docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
+# docker build --rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
 
 function newrelic {
     docker build --rm -t "devopscenter/monitor_newrelic:${devops_version}" monitor/newrelic &
@@ -60,21 +59,21 @@ function backups {
 
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
-    cp /data/wheelhouse/* 0099FF-stack/web/wheelhouse
+    cp "${PWD}/buildtools/wheelhouse/*" 0099FF-stack/web/wheelhouse
     docker build --rm -t "devopscenter/0099ff.web:${devops_version}" 0099FF-stack/web
     docker build --rm -t "devopscenter/0099ff.worker:${devops_version}" 0099FF-stack/worker
 }
 
 function stack2 {
     mkdir -p 66CCFF-stack/web/wheelhouse 
-    cp /data/wheelhouse/* 66CCFF-stack/web/wheelhouse
+    cp "${PWD}/buildtools/wheelhouse/*" 66CCFF-stack/web/wheelhouse
     docker build --rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web
     docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
 }
 
 function stack3 {
     mkdir -p 007acc-stack/web/wheelhouse
-    cp /data/wheelhouse/* 007acc-stack/web/wheelhouse
+    cp "${PWD}/buildtools/wheelhouse/*" 007acc-stack/web/wheelhouse
     docker build --rm -t "devopscenter/007acc.web:${devops_version}" 007acc-stack/web
     docker build --rm -t "devopscenter/007acc.worker:${devops_version}" 007acc-stack/worker
 }
@@ -93,29 +92,29 @@ function buildtools {
     cp 007acc-stack/web/requirements.txt buildtools/pythonwheel/application/app3.requirements.txt
     cp 007acc-stack/web/science.txt buildtools/pythonwheel/application/app3.science.txt
     docker run --rm \
-        -v "/home/ubuntu/devopscenter/docker-stack/buildtools/pythonwheel/application":/application \
-        -v /data/wheelhouse:/wheelhouse \
+        -v "${PWD}/buildtools/pythonwheel/application":/application \
+        -v "${PWD}/buildtools/wheelhouse":/wheelhouse \
         "devopscenter/buildtools:${devops_version}"
 }
 
 function web {
     docker build --rm -t "devopscenter/python:${devops_version}" python
-#    time newrelic &> newrelic.log &
-#    time backups &> backups.log &
+    time newrelic &> newrelic.log &
+    time backups &> backups.log &
     docker build --rm -t "devopscenter/python-nginx:${devops_version}" web/python-nginx
     docker build --rm -t "devopscenter/python-nginx-pgpool:${devops_version}" web/python-nginx-pgpool
     docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${devops_version}" web/python-nginx-pgpool-redis
-    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${devops_version}" web/python-nginx-pgpool-libsodium
+#   docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${devops_version}" web/python-nginx-pgpool-libsodium
     buildtools &> buildtools.log
-#    rm -rf stack1.log
-#    time stack1 &> stack1.log &
-#    rm -rf stack2.log
-#    time stack2 &> stack2.log &
+    rm -rf stack1.log
+    time stack1 &> stack1.log &
+    rm -rf stack2.log
+    time stack2 &> stack2.log &
     rm -rf stack3.log
     time stack3 &> stack3.log &
 }
 
 base
-#time misc &> misc.log &
-web &
+time misc &> misc.log &
+time web &> web.log &
 time db &> db.log &
