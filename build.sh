@@ -104,7 +104,7 @@ function web {
     docker build --rm -t "devopscenter/python-nginx:${devops_version}" web/python-nginx
     docker build --rm -t "devopscenter/python-nginx-pgpool:${devops_version}" web/python-nginx-pgpool
     docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${devops_version}" web/python-nginx-pgpool-redis
-    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${devops_version}" web/python-nginx-pgpool-libsodium
+#    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${devops_version}" web/python-nginx-pgpool-libsodium
     buildtools &> buildtools.log
 #    rm -rf stack1.log
 #    time stack1 &> stack1.log &
