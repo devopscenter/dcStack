@@ -62,13 +62,13 @@ backend_data_directory0 = '/data'
 backend_flag0 = 'ALLOW_TO_FAILOVER'
                                    # Controls various backend behavior
                                    # ALLOW_TO_FAILOVER or DISALLOW_TO_FAILOVER
-backend_hostname1=pgstandby-1
+backend_hostname1=pgfollower-1
 backend_port1 = 5432
 backend_weight1 = 1
 backend_data_directory1 = '/data'
 backend_flag1 = 'ALLOW_TO_FAILOVER'
 
-backend_hostname1=pgstandby-2
+backend_hostname1=pgfollower-2
 backend_port1 = 5432
 backend_weight1 = 1
 backend_data_directory1 = '/data'
