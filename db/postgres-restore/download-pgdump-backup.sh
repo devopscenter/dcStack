@@ -59,5 +59,14 @@ S3_YEAR=$(echo "$S3_FILE"|awk -F/ '{print $5}')
 S3_MONTH=$(echo "$S3_FILE"|awk -F/ '{print $6}')
 
 LOCAL_BACKUP_FILE="${BACKUP_DIR}/${S3_BACKUP_FILE}.download"
+if [[ -f "$LOCAL_BACKUP_FILE" ]]; then
+  while [[ -z "$OVERWRITE" ]] || [[ "$OVERWRITE" != 'y' ]]; do
+    echo -e "\nFile $LOCAL_BACKUP_FILE already exists.  Overwrite [y/n]?"
+    read OVERWRITE
+    if [[ "$OVERWRITE" == 'n' ]]; then
+      exit 1
+    fi
+  done
+fi
 sudo s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${S3_BACKUP_FILE}" "$LOCAL_BACKUP_FILE"
 export LOCAL_BACKUP_FILE

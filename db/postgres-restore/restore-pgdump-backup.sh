@@ -1,11 +1,8 @@
 #!/bin/bash
 
-LOCAL_BACKUP_FILE=$1
-DB_NAME=$2
-
 function usage
 {
-  echo "usage: ./restore-pgdump-backup.sh [--schema-only] local-backup-filename database-name"
+  echo "usage: ./restore-pgdump-backup.sh [--schema-only] [--backup local-backup-filename] database-name"
 }
 
 if [[ -z $1 ]]; then
@@ -16,19 +13,21 @@ fi
 while [[ $# -gt 0 ]]; do
   case $1 in
     --schema-only ) SCHEMA_ONLY=1
-                   ;;
-    [!-]* )        if [[ $# -eq 2 ]]; then
-                     LOCAL_BACKUP_FILE=$1
-                     DB_NAME=$2
-                     shift;
-                   else
-                     echo "Too many/few of the 2 required parameters."
-                     usage
-                     exit 1
-                   fi
-                   ;;
-    * )            usage
-                   exit 1
+                    ;;
+    --backup )      shift
+                    LOCAL_BACKUP_FILE=$1
+                    ;;
+    [!-]* )         if [[ $# -eq 1 ]]; then
+                      DB_NAME=$1
+                      shift;
+                    else
+                      echo "Too many/few of the 1 required parameters."
+                      usage
+                      exit 1
+                    fi
+                    ;;
+    * )             usage
+                    exit 1
   esac
   shift
 done
@@ -41,6 +40,15 @@ sudo -u postgres psql -U postgres postgres -c "create database $DB_NAME"
 # turn off archive_mode for the restore and restart postgres
 sudo sed -i "s/^\barchive_mode\b[[:blank:]]\+=[[:blank:]]\+\bon\b/archive_mode = off/g" /media/data/postgres/db/pgdata/postgresql.conf
 sudo supervisorctl restart postgres
+
+# if no backup file is provided, look for the most recent pgdump file in the backup dir
+if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
+  LOCAL_BACKUP_FILE="$(find /home/ubuntu -maxdepth 1 -iname "*.download"|tail -1)"
+  if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
+    echo "No local backup found, exiting."
+    exit 1
+  fi
+fi
 
 # schema-only restore if --schema-only is passed, otherwise do full restore
 echo "Postgresql restore started at " && date
