@@ -19,8 +19,4 @@
 FROM devopscenter/0099ff.web:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN useradd celery
-
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
-ADD flower.conf /etc/supervisor/conf.d/flower.conf
-ADD celery.conf /etc/supervisor/conf.d/celery.conf
