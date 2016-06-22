@@ -105,10 +105,10 @@ function web {
     buildtools &> buildtools.log
     rm -rf stack1.log
     time stack1 &> stack1.log &
-#    rm -rf stack2.log
-#    time stack2 &> stack2.log &
-#    rm -rf stack3.log
-#    time stack3 &> stack3.log &
+    rm -rf stack2.log
+    time stack2 &> stack2.log &
+    rm -rf stack3.log
+    time stack3 &> stack3.log &
 }
 
 base
