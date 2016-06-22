@@ -4,7 +4,7 @@ BACKUP_DIR='/media/data/postgres/backup'
 
 function usage
 {
-  echo "usage: ./download-pgdump-backup.sh [--s3backupfile s3-backup-file] [--list] s3bucket database"
+  echo "usage: ./download-pgdump-backup.sh [--s3backupfile s3-backup-file] [--list] [-n] s3bucket database"
 }
 
 if [[ -z $1 ]]; then
@@ -18,6 +18,8 @@ while [[ $# -gt 0 ]]; do
                      S3_BACKUP_FILE=$1
                      ;;
     --list )         LIST=1
+                     ;;
+    -n )             NO_OVERWRITE=1
                      ;;
     [!-]* )          if [[ $# -eq 2 ]]; then
                        S3_BUCKET=$1
@@ -59,14 +61,9 @@ S3_YEAR=$(echo "$S3_FILE"|awk -F/ '{print $5}')
 S3_MONTH=$(echo "$S3_FILE"|awk -F/ '{print $6}')
 
 LOCAL_BACKUP_FILE="${BACKUP_DIR}/${S3_BACKUP_FILE}.download"
-if [[ -f "$LOCAL_BACKUP_FILE" ]]; then
-  while [[ -z "$OVERWRITE" ]] || [[ "$OVERWRITE" != 'y' ]]; do
-    echo -e "\nFile $LOCAL_BACKUP_FILE already exists.  Overwrite [y/n]?"
-    read OVERWRITE
-    if [[ "$OVERWRITE" == 'n' ]]; then
-      exit 1
-    fi
-  done
+if [[ -f "$LOCAL_BACKUP_FILE" ]] && [[ -z "$NO_OVERWRITE" ]]; then
+  echo -e "\nFile $LOCAL_BACKUP_FILE already exists and -n option was given. Skipping."
+else
+  sudo s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${S3_BACKUP_FILE}" "$LOCAL_BACKUP_FILE"
 fi
-sudo s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${S3_BACKUP_FILE}" "$LOCAL_BACKUP_FILE"
 export LOCAL_BACKUP_FILE
