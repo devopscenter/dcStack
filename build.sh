@@ -85,12 +85,9 @@ function buildtools {
     docker build --rm -t "devopscenter/buildtools:${devops_version}" buildtools/pythonwheel
     rm -rf buildtools/pythonwheel/application/app*
     mkdir -p buildtools/pythonwheel/application
-#    cp 0099FF-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
-#    cp 0099FF-stack/web/science.txt buildtools/pythonwheel/application/app1.science.txt
-#    cp 66CCFF-stack/web/requirements.txt buildtools/pythonwheel/application/app2.requirements.txt
-#    cp 66CCFF-stack/web/science.txt buildtools/pythonwheel/application/app2.science.txt
+    cp 0099FF-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
+    cp 66CCFF-stack/web/requirements.txt buildtools/pythonwheel/application/app2.requirements.txt
     cp 007acc-stack/web/requirements.txt buildtools/pythonwheel/application/app3.requirements.txt
-    cp 007acc-stack/web/science.txt buildtools/pythonwheel/application/app3.science.txt
     docker run --rm \
         -v "${PWD}/buildtools/pythonwheel/application":/application \
         -v "${PWD}/buildtools/pythonwheel/wheelhouse":/wheelhouse \
