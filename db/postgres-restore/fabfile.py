@@ -19,10 +19,12 @@ def start_test_schema_stop(instance_id,s3_bucket_host,db_name):
 @task
 def start_host(instance_id):
   local("aws ec2 start-instances --instance-ids %s" % (instance_id))
+  local("aws ec2 wait instance-running --instance-ids %s" % (instance_id))
 
 @task
 def stop_host(instance_id):
   local("aws ec2 stop-instances --instance-ids %s" % (instance_id))
+  local("aws ec2 wait instance-stopped --instance-ids %s" % (instance_id))
 
 @task
 def download_pgdump_backup(s3_bucket_host,db_name):
