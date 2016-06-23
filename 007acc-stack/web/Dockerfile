@@ -19,8 +19,8 @@
 FROM devopscenter/python-nginx-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ADD science.txt /installs/science.txt
-
+ADD requirements.txt /installs/requirements.txt
 ADD web.sh /installs/web.sh
 WORKDIR /installs
+
 RUN ./web.sh
