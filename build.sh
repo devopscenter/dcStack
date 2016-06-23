@@ -81,6 +81,9 @@ function stack3 {
 function buildtools {
     echo "Running buildtools"
     docker build --rm -t "devopscenter/jenkins:${devops_version}" buildtools/jenkins &> jenkins.log &
+#
+# Build all packages for specific stacks as wheels, to be shared when building the containers for the specific stacks
+#
     mkdir -p buildtools/pythonwheel/wheelhouse
     docker build --rm -t "devopscenter/buildtools:${devops_version}" buildtools/pythonwheel
     rm -rf buildtools/pythonwheel/application/app*
@@ -102,7 +105,9 @@ function web {
     docker build --rm -t "devopscenter/python-nginx-pgpool:${devops_version}" web/python-nginx-pgpool
     docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${devops_version}" web/python-nginx-pgpool-redis
 #    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${devops_version}" web/python-nginx-pgpool-libsodium
+    echo "built common containers"
     buildtools &> buildtools.log
+    echo "built all wheels for specific stacks"
     rm -rf stack1.log
     time stack1 &> stack1.log &
     rm -rf stack2.log
