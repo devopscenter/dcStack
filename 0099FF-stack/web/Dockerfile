@@ -20,6 +20,7 @@ FROM devopscenter/python-nginx-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD requirements.txt /installs/requirements.txt
+ADD requirements2.txt /installs/requirements2.txt
 ADD web.sh /installs/web.sh
 WORKDIR /installs
 
