@@ -80,7 +80,7 @@ function stack3 {
 
 function buildtools {
     echo "Running buildtools"
-#    docker build --rm -t "devopscenter/jenkins:${devops_version}" buildtools/jenkins &> jenkins.log &
+    docker build --rm -t "devopscenter/jenkins:${devops_version}" buildtools/jenkins &> jenkins.log &
 #
 # Build all packages for specific stacks as wheels, to be shared when building the containers for the specific stacks
 #
