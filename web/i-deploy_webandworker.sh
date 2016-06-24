@@ -52,7 +52,9 @@ fi
 # Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
 
 if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
-  ~/utils/environments/deployenv.sh $SUFFIX $ENV
+  pushd ~/utils/
+  ./environments/deployenv.sh linux $ENV
+  popd
 fi
 
 # Restart supervisor, so that all services are now running.
