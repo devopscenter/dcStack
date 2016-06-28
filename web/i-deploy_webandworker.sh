@@ -53,7 +53,7 @@ fi
 
 if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
   pushd ~/utils/
-  ./environments/deployenv.sh linux $ENV
+  ./environments/deployenv.sh linux alol$ENV
   popd
 fi
 
