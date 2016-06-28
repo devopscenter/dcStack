@@ -24,10 +24,15 @@ function buildtools {
     docker push  "devopscenter/jenkins:${devops_version}" &
 }
 
+functon base {
+    docker push  "devopscenter/base:${devops_version}"
+}
+
 function db {
     docker push  "devopscenter/db_postgres:${devops_version}"  
-    docker push  "devopscenter/db_postgres-standby:${devops_version}" 
-    #docker push  "devopscenter/db_postgres-restore:${devops_version}" 
+    docker push  "devopscenter/db_postgres-standby:${devops_version}"
+    docker push  "devopscenter/db_postgres-repmgr:${devops_version}"
+#   docker push  "devopscenter/db_postgres-restore:${devops_version}"
     docker push  "devopscenter/db_redis:${devops_version}"
     docker push  "devopscenter/db_redis-standby:${devops_version}"
 }
@@ -56,9 +61,9 @@ function stack3 {
 function web {
     docker push  "devopscenter/python:${devops_version}"
     docker push  "devopscenter/monitor_newrelic:${devops_version}"  &
-    docker push  "devopscenter/python-apache:${devops_version}"
-    docker push  "devopscenter/python-apache-pgpool:${devops_version}"
-    docker push  "devopscenter/python-apache-pgpool-redis:${devops_version}"
+    docker push  "devopscenter/python-nginx:${devops_version}"
+    docker push  "devopscenter/python-nginx-pgpool:${devops_version}"
+    docker push  "devopscenter/python-nginx-pgpool-redis:${devops_version}"
     rm -rf stack1push.log
     time stack1 &> stack1push.log &
     rm -rf stack2push.log
@@ -67,6 +72,7 @@ function web {
     time stack3 &> stack3push.log &
 }
 
+base
 time buildtools &> buildtoolspush.log &
 time misc &> miscpush.log &
 time web &> webpush.log &
