@@ -24,7 +24,7 @@ function buildtools {
     docker push  "devopscenter/jenkins:${devops_version}" &
 }
 
-functon base {
+function base {
     docker push  "devopscenter/base:${devops_version}"
 }
 

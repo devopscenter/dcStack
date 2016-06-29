@@ -33,6 +33,7 @@ function base {
 }
 
 function db {
+    docker build --rm -t "devopscenter/base_db:${devops_version}" db
     docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
     docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
     docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
@@ -116,7 +117,7 @@ function web {
     time stack3 &> stack3.log &
 }
 
-base
+base > base.log 
 time misc &> misc.log &
 time web &> web.log &
 time db &> db.log &

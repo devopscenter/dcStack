@@ -16,12 +16,10 @@
 # limitations under the License.
 #
 
-FROM devopscenter/base:devops_version
+FROM devopscenter/base_db:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-# Install supervisor via pip to get latest version
 WORKDIR /installs/utils
-RUN ./install-supervisor.sh normal
 
 ADD postgres.sh /installs/postgres.sh
 ADD config.sh /installs/config.sh

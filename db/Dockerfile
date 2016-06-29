@@ -16,19 +16,14 @@
 # limitations under the License.
 #
 
+FROM devopscenter/base:devops_version
+MAINTAINER bob < bob [at] devops {dot} center>
 
-FROM devopscenter/base_db:devops_version
+# Install pip
+RUN sudo apt-get -y python-pip
 
-MAINTAINER josh < josh [at] devops {dot} center>
-
+# Install supervisor via pip to get latest version
 WORKDIR /installs/utils
+RUN ./install-supervisor.sh normal
 
-ADD redisinstall.sh /installs/redisinstall.sh
-ADD conf /installs/conf
-WORKDIR /installs
-RUN ./redisinstall.sh
 
-VOLUME /media/data/redis
-WORKDIR /media/data/redis
-EXPOSE 6379
-CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
