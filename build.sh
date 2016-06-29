@@ -33,7 +33,7 @@ function base {
 }
 
 function db {
-    docker build --rm -t "devopscenter/base_db:${devops_version}" db
+    docker build --rm -t "devopscenter/db_base:${devops_version}" db
     docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
     docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
     docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
