@@ -29,6 +29,7 @@ function base {
 }
 
 function db {
+    docker push  "devopscenter/db_base:${devops_version}"
     docker push  "devopscenter/db_postgres:${devops_version}"  
     docker push  "devopscenter/db_postgres-standby:${devops_version}"
     docker push  "devopscenter/db_postgres-repmgr:${devops_version}"
