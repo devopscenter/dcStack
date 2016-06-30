@@ -33,7 +33,7 @@ WORKDIR /installs
 RUN ./postgres.sh
 
 # Set the default command to run when starting the container
-CMD /etc/init.d/supervisor start
+CMD ["/usr/bin/supervisord"]
 
 # Add VOLUMEs to allow backup of config, logs and datas
 #VOLUME  ["/media/data/postgres/db/pgdata", "/media/data/postgres/xlog/transactions"]

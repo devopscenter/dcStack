@@ -31,4 +31,4 @@ RUN ./redisinstall.sh
 VOLUME /media/data/redis
 WORKDIR /media/data/redis
 EXPOSE 6379
-CMD /etc/init.d/supervisor start
+CMD ["/usr/bin/supervisord"]
