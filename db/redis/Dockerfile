@@ -31,4 +31,6 @@ RUN ./redisinstall.sh
 VOLUME /media/data/redis
 WORKDIR /media/data/redis
 EXPOSE 6379
-CMD ["/usr/bin/supervisord"]
+
+# Run supervisor in this container, in foreground mode
+CMD /usr/local/bin/supervisord -n

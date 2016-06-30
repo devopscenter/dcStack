@@ -32,8 +32,8 @@ ADD supervisorconfig.sh /installs/supervisorconfig.sh
 WORKDIR /installs
 RUN ./postgres.sh
 
-# Set the default command to run when starting the container
-CMD ["/usr/bin/supervisord"]
+# Run supervisor in this container, in foreground mode
+CMD /usr/local/bin/supervisord -n
 
 # Add VOLUMEs to allow backup of config, logs and datas
 #VOLUME  ["/media/data/postgres/db/pgdata", "/media/data/postgres/xlog/transactions"]
