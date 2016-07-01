@@ -11,5 +11,5 @@ PAPERTRAIL_PORT=$(echo "$PAPERTRAIL_ADDRESS"|awk -F':' '{print $2}')
 ./papertrail.sh
 
 # Set the papertrail destination in rsyslogd and supervisor.
-./set-destination.sh $PAPERTRAI_ADDRESS
+./set-destination.sh $PAPERTRAIL_ADDRESS
 
