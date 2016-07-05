@@ -19,7 +19,6 @@ while [[ $# -gt 0 ]]; do
                     ;;
     [!-]* )         if [[ $# -eq 1 ]]; then
                       DB_NAME=$1
-                      shift;
                     else
                       echo "Too many/few of the 1 required parameters."
                       usage

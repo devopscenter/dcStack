@@ -43,7 +43,7 @@ fi
 
 # restore the backup or schema
 if [[ -z "$SCHEMA_ONLY" ]]; then
-  ./restore-pgdump-backup.sh "$LOCAL_BACKUP_FILE" "$DB_NAME"
+  ./restore-pgdump-backup.sh --backup "$LOCAL_BACKUP_FILE" "$DB_NAME"
 else
-  ./restore-pgdump-backup.sh --schema-only "$LOCAL_BACKUP_FILE" "$DB_NAME"
+  ./restore-pgdump-backup.sh --schema-only --backup "$LOCAL_BACKUP_FILE" "$DB_NAME"
 fi
