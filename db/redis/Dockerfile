@@ -32,5 +32,5 @@ VOLUME /media/data/redis
 WORKDIR /media/data/redis
 EXPOSE 6379
 
-# Run supervisor in this container, in foreground mode
-CMD /usr/local/bin/supervisord -n
+# Run redis
+CMD /usr/local/bin/redis-server /etc/redis/redis.conf
