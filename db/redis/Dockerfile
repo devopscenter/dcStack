@@ -17,7 +17,7 @@
 #
 
 
-FROM devopscenter/db_base:v2.0b1
+FROM devopscenter/db_base:devops_version
 
 MAINTAINER josh < josh [at] devops {dot} center>
 
