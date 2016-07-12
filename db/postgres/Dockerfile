@@ -17,7 +17,9 @@
 #
 
 FROM devopscenter/db_base:devops_version
-MAINTAINER josh < josh [at] devops {dot} center>
+MAINTAINER bob < bob [at] devops {dot} center>
+
+ENV POSTGRES_VERSION 9.5
 
 WORKDIR /installs/utils
 
@@ -30,7 +32,7 @@ ADD postgresenv.sh /installs/postgresenv.sh
 ADD supervisorconfig.sh /installs/supervisorconfig.sh
 
 WORKDIR /installs
-RUN ./postgres.sh
+RUN ./postgres.sh $POSTGRES_VERSION
 
 # Run supervisor in this container, in foreground mode
 CMD /usr/local/bin/supervisord -n
