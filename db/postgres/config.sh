@@ -11,16 +11,15 @@ VPC_CIDR=$3
 
 cat ./conf/hba.conf >> "${POSTGRESDBDIR}"/pg_hba.conf
 
-# if passed in VPC_CIDR then replace VPC_CIDR in pg_hba.conf and uncomment lines if necessary
-if [ -n "${VPC_CIDR}" ]
-then
+# if VPC_CIDR passed in, then replace VPC_CIDR in pg_hba.conf and uncomment lines if necessary
+if [[ -n "${VPC_CIDR}" ]]; then
   VPC_CIDR_ESCAPED=$(echo ${VPC_CIDR}|awk -F/ '{print $1 "\\""/" $2}')
   sed -i "s/<VPC_CIDR>/${VPC_CIDR_ESCAPED}/g" "${POSTGRESDBDIR}"/pg_hba.conf
   sed -i "s/\(#\)\(.*${VPC_CIDR_ESCAPED}.*\)/\2/g" "${POSTGRESDBDIR}"/pg_hba.conf
 fi
 
 # if passed in DATABASE then replace VPC_CIDR in pg_hba.conf and uncomment lines if necessary
-if [ -n "$(DATABASE}" ]; then
+if [[ -n "${DATABASE}" ]]; then
   sed -i "s/<DATABASE>/${DATABASE}/g" "${POSTGRESDBDIR}"/pg_hba.conf
   sed -i "s/\(#\)\(.*${DATABASE}.*\)/\2/g" "${POSTGRESDBDIR}"/pg_hba.conf
 fi
