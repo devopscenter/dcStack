@@ -1,8 +1,9 @@
 #!/bin/bash -ex
 
-VPC_CIDR=$1
+PGVERSION=$1
 DATABASE=$2
-PGVERSION=$3
+VPC_CIDR=$3
+
 
 . ./postgresenv.sh $PGVERSION
 
@@ -10,15 +11,18 @@ PGVERSION=$3
 
 cat ./conf/hba.conf >> "${POSTGRESDBDIR}"/pg_hba.conf
 
-#Check if passed in VPC_CIDR
+# if passed in VPC_CIDR then replace VPC_CIDR in pg_hba.conf and uncomment lines if necessary
 if [ -n "${VPC_CIDR}" ]
 then
-# replace VPC_CIDR and DATABASE in pg_hba.conf and uncomment lines if necessary
-VPC_CIDR_ESCAPED=$(echo ${VPC_CIDR}|awk -F/ '{print $1 "\\""/" $2}')
-sed -i "s/<VPC_CIDR>/${VPC_CIDR_ESCAPED}/g" "${POSTGRESDBDIR}"/pg_hba.conf
-sed -i "s/\(#\)\(.*${VPC_CIDR_ESCAPED}.*\)/\2/g" "${POSTGRESDBDIR}"/pg_hba.conf
-sed -i "s/<DATABASE>/${DATABASE}/g" "${POSTGRESDBDIR}"/pg_hba.conf
-sed -i "s/\(#\)\(.*${DATABASE}.*\)/\2/g" "${POSTGRESDBDIR}"/pg_hba.conf
+  VPC_CIDR_ESCAPED=$(echo ${VPC_CIDR}|awk -F/ '{print $1 "\\""/" $2}')
+  sed -i "s/<VPC_CIDR>/${VPC_CIDR_ESCAPED}/g" "${POSTGRESDBDIR}"/pg_hba.conf
+  sed -i "s/\(#\)\(.*${VPC_CIDR_ESCAPED}.*\)/\2/g" "${POSTGRESDBDIR}"/pg_hba.conf
+fi
+
+# if passed in DATABASE then replace VPC_CIDR in pg_hba.conf and uncomment lines if necessary
+if [ -n "$(DATABASE}" ]; then
+  sed -i "s/<DATABASE>/${DATABASE}/g" "${POSTGRESDBDIR}"/pg_hba.conf
+  sed -i "s/\(#\)\(.*${DATABASE}.*\)/\2/g" "${POSTGRESDBDIR}"/pg_hba.conf
 fi
 
 cat ./conf/pg.conf >> "${POSTGRESDBDIR}"/postgresql.conf

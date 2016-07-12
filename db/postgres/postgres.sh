@@ -1,8 +1,8 @@
 #!/bin/bash -ex
 
-VPC_CIDR=$1
+PGVERSION=$1
 DATABASE=$2
-PGVERSION=$3
+VPC_CIDR=$3
 
 . ./postgresenv.sh $PGVERSION
 
@@ -51,7 +51,7 @@ sudo chown -R postgres:postgres /media/data/postgres
 sudo chown -R postgres:postgres /var/lib/postgresql
 
 
-sudo su -c "./config.sh ${VPC_CIDR} ${DATABASE} ${POSTGRES_VERSION}" -s /bin/sh postgres
+sudo su -c "./config.sh ${POSTGRES_VERSION} ${DATABASE} ${VPC_CIDR} " -s /bin/sh postgres
 
 ./xlog.sh $POSTGRES_VERSION
 ./supervisorconfig.sh $POSTGRES_VERSION

@@ -35,7 +35,7 @@ sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 sudo ./mount.sh
 
 # install postgres and other tasks
-sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}" "${PGVERSION}"
+sudo ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
 
 # get instance type to determine which base postgresql.conf to use
 INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
