@@ -45,5 +45,11 @@ sudo chown redis:redis /media/data/redis/data
 sudo cat conf/redis.conf | sudo tee --append /etc/redis/redis.conf
 sudo cp conf/supervisor-redis.conf /etc/supervisor/conf.d/redis.conf
 
-# restart supervisor so that it reads in the new config
-sudo /etc/init.d/supervisor restart
+# Restart supervisor (if running) so that it reads in the new config.
+# Note that supervisor not running if constructing a container image.
+if sudo /etc/init.d/supervisor restart; then
+  echo "supervisor restarted"
+else
+  echo "supervisor not restarted, as it was not running"
+  exit 0
+fi
