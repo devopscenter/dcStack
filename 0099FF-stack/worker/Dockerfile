@@ -17,9 +17,9 @@
 #
 
 FROM devopscenter/0099ff.web:devops_version
-MAINTAINER josh < josh [at] devops {dot} center>
+MAINTAINER bob < bob [at] devops {dot} center>
 
-# Don’t run nginx and uwsgi in this container
-RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
+# Run a single django-rq worker in this container
+CMD python manage.py rqworker default
 
 
