@@ -25,3 +25,8 @@ ADD web.sh /installs/web.sh
 WORKDIR /installs
 
 RUN ./web.sh
+
+# Run supervisor in this container, in foreground mode
+CMD supervisord -n
+
+
