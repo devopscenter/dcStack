@@ -19,7 +19,16 @@
 FROM devopscenter/0099ff.web:devops_version
 MAINTAINER bob < bob [at] devops {dot} center>
 
-# Run a single django-rq worker in this container
-CMD python manage.py rqworker default
+ADD supervisor-djangorq-worker.conf /installs/supervisor-djangorq-worker.conf
+
+# Run pgpool and a single django-rq worker in this container
+# (though this requires supervisor)
+RUN rm /etc/supervisor/conf.d/nginx.conf && \
+    rm /etc/supervisor/conf.d/uwsgi.conf && \
+    cp supervisor-djangorq-worker.conf /etc/supervisor/conf.d/djangorq-worker.conf
+
+# Finally, run supervisor in this container, in foreground mode
+
+CMD supervisord -n
 
 
