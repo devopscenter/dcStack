@@ -623,7 +623,7 @@ unix_socket_directories = '/var/run/postgresql'
 stats_temp_directory = '/var/run/postgresql/postgres-main.pg_stat_tmp'
 listen_addresses='*'
 
-log_destination = ‘stderr’
+log_destination = ‘syslog’
 syslog_facility = 'LOCAL0'
 syslog_ident = 'postgres'
 
@@ -635,6 +635,6 @@ wal_level = hot_standby          # minimal, archive, or hot_standby
 max_wal_senders = 20      # max number of walsender processes
 #checkpoint_segments=16
 
-archive_mode = on
-archive_command = '/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://<client>-postgres-wale-<target>/<hostname> wal-push %p'
-archive_timeout = 60
+#archive_mode = on
+#archive_command = '/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://<client>-postgres-wale-<target>/<hostname> wal-push %p'
+#archive_timeout = 60
