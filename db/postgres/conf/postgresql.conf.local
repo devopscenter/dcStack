@@ -623,12 +623,12 @@ unix_socket_directories = '/var/run/postgresql'
 stats_temp_directory = '/var/run/postgresql/postgres-main.pg_stat_tmp'
 listen_addresses='*'
 
-log_destination = ‘syslog’
+log_destination = 'syslog'
 syslog_facility = 'LOCAL0'
 syslog_ident = 'postgres'
 
-# ssl not needed for now. also gives error on boot2docker
-ssl = false                       # (change requires restart)
+# ssl not needed for now.
+ ssl = off                       # (change requires restart)
 
 hot_standby = on            # 'on' allows queries during recovery
 wal_level = hot_standby          # minimal, archive, or hot_standby
