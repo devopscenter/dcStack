@@ -7,7 +7,7 @@ VPC_CIDR=$3
 
 . ./postgresenv.sh $PGVERSION
 
-"${POSTGRESBINDIR}"/initdb -D "${POSTGRESDBDIR}"
+"${POSTGRESBINDIR}"/initdb -D "${POSTGRESDBDIR}" --locale=en_US.UTF-8
 
 cat ./conf/hba.conf >> "${POSTGRESDBDIR}"/pg_hba.conf
 
