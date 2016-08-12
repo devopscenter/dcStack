@@ -5,7 +5,7 @@ BUCKET_NAME=$1
 TIMESTAMP=$(date +%F_%T | tr ':' '-')
 YEAR=$(date +%Y)
 MONTH=$(date +%m)
-S3_FILE="${BUCKET_NAME}/${HOSTNAME}/${YEAR}/${MONTH}/jenkins.tar.gz-${TIMESTAMP}"
+S3_FILE="${BUCKET_NAME}/${HOSTNAME}/${YEAR}/${MONTH}/jenkins-${TIMESTAMP}.tar.gz"
 
 # create temporary tar file
 JENKINS_BACKUP_FILE=$(mktemp /tmp/jenkins.tar.gz.XXXXX)
