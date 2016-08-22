@@ -27,6 +27,11 @@ def stop_host(instance_id):
   local("/usr/local/bin/aws ec2 wait instance-stopped --instance-ids %s" % (instance_id))
 
 @task
+def install_postgres(private_ip,papertrail_address,vpc_cidr,database,s3_backup_bucket,s3_wale_bucket,pgversion):
+  run("cd ~/docker-stack && git pull origin hotfix/pgrestore-separation")
+  run("~/docker-stack/db/postgres && ./new_postgres.sh %s %s %s %s %s %s %s" % (private_ip,papertrail_address,vpc_cidr,database,s3_backup_bucket,s3_wale_bucket,pgversion))
+
+@task
 def download_pgdump_backup(s3_bucket_host,db_name):
   run("cd ~/docker-stack && git pull origin hotfix/pgrestore-separation")
   run("~/docker-stack/db/postgres-restore/download-pgdump-backup.sh %s %s" % (s3_bucket_host, db_name))
