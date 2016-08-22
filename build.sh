@@ -43,6 +43,7 @@ function db {
 }
 
 function misc {
+    docker build --rm -t "devopscenter/syslog:${devops_version}" logging/. &> syslog.log &
     docker build --rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &> papertrail.log &
     docker build --rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &> sentry.log &
     docker build --rm -t "devopscenter/monitor_nagios:${devops_version}" monitor/nagios &> nagios.log &
