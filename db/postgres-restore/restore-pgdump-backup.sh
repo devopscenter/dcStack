@@ -54,7 +54,7 @@ echo "Postgresql restore started at " && date
 if ! [[ -z "$SCHEMA_ONLY" ]]; then
   sudo -u postgres pg_restore -U postgres -s --exit-on-error -j 1 -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE"
   sudo -u postgres pg_restore -U postgres --data-only -t django_migrations -j 1 -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE"
-  sudo psql -U postgres -d topopps -c "SELECT setval('django_migrations_id_seq', COALESCE((SELECT MAX(id)+1 FROM django_migrations), 1), false);"
+  sudo psql -U postgres -d "$DB_NAME" -c "SELECT setval('django_migrations_id_seq', COALESCE((SELECT MAX(id)+1 FROM django_migrations), 1), false);"
 else
   sudo -u postgres pg_restore -U postgres --exit-on-error -j 1 -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE"
 fi
