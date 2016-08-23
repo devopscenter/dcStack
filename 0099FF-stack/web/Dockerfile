@@ -27,6 +27,6 @@ WORKDIR /installs
 RUN ./web.sh
 
 # Run supervisor in this container, in foreground mode
-CMD supervisord -n
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log && supervisord -n
 
 

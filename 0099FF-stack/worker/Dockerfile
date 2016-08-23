@@ -21,7 +21,7 @@ MAINTAINER bob < bob [at] devops {dot} center>
 
 ADD supervisor-djangorq-worker.conf /installs/supervisor-djangorq-worker.conf
 
-# Run pgpool and a single django-rq worker in this container
+# Setup config to run pgpool and a single django-rq worker in this container
 # (though this requires supervisor)
 RUN rm /etc/supervisor/conf.d/nginx.conf && \
     rm /etc/supervisor/conf.d/uwsgi.conf && \
@@ -29,6 +29,6 @@ RUN rm /etc/supervisor/conf.d/nginx.conf && \
 
 # Finally, run supervisor in this container, in foreground mode
 
-CMD supervisord -n
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log && supervisord -n
 
 
