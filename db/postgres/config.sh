@@ -4,7 +4,6 @@ PGVERSION=$1
 DATABASE=$2
 VPC_CIDR=$3
 
-
 . ./postgresenv.sh $PGVERSION
 
 "${POSTGRESBINDIR}"/initdb -D "${POSTGRESDBDIR}" --locale=en_US.UTF-8
