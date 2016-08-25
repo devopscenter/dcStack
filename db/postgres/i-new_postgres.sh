@@ -29,8 +29,8 @@ fi
 cd ~/docker-stack/buildtools/utils/ || exit
 sudo ./base-utils.sh
 
-cd ~/docker-stack/python/ || exit
-sudo ./python.sh
+# install python and pip directly rather than via python/python.sh
+sudo apt-fast -qq -y install python-dev python-pip
 
 cd ~/docker-stack/buildtools/utils || exit
 sudo ./install-supervisor.sh normal
