@@ -29,6 +29,9 @@ fi
 cd ~/docker-stack/buildtools/utils/ || exit
 sudo ./base-utils.sh
 
+cd ~/docker-stack/python/ || exit
+sudo ./python.sh
+
 cd ~/docker-stack/buildtools/utils || exit
 sudo ./install-supervisor.sh normal
 
