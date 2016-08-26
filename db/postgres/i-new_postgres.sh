@@ -39,6 +39,8 @@ sudo ./install-supervisor.sh normal
 cd ~/utils || exit
 ./environments/deployenv.sh linux common
 
+sudo /etc/init.d/supervisor start
+
 # enable logging
 cd ~/docker-stack/logging/ || exit
 ./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
