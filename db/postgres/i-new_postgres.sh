@@ -53,6 +53,9 @@ sudo ./mount.sh
 # install postgres and other tasks
 sudo ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
 
+# restart supervisor to pick up new postgres files in conf.d
+sudo /etc/init.d/supervisor restart
+
 # get instance type to determine which base postgresql.conf to use
 INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
 if [[ -f ~/docker-stack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE} ]]; then
