@@ -44,6 +44,10 @@ cd ~/docker-stack/db/postgres/ || exit
 sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 sudo ./mount.sh
 
+# create env variables so supervisor can start
+cd ~/utils || exit
+./environments/deployenv.sh linux common
+
 # install postgres and other tasks
 sudo ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
 
