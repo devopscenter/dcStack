@@ -35,6 +35,10 @@ sudo apt-fast -qq -y install python-dev python-pip
 cd ~/docker-stack/buildtools/utils || exit
 sudo ./install-supervisor.sh normal
 
+# create env variables so supervisor can start
+cd ~/utils || exit
+./environments/deployenv.sh linux common
+
 # enable logging
 cd ~/docker-stack/logging/ || exit
 ./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
@@ -43,10 +47,6 @@ cd ~/docker-stack/logging/ || exit
 cd ~/docker-stack/db/postgres/ || exit
 sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 sudo ./mount.sh
-
-# create env variables so supervisor can start
-cd ~/utils || exit
-./environments/deployenv.sh linux common
 
 # install postgres and other tasks
 sudo ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
