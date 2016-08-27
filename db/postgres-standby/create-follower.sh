@@ -38,7 +38,7 @@ rm -f "$TMP_ETC_HOSTS"
 
 # skipped when using route53 for dns
 if [[ "$DNS_METHOD" = 'etchosts' ]]; then
-  etc_hosts_check "$PGMASTER_PRIVATEIP" pgsmaster-1
+  etc_hosts_check "$PGMASTER_PRIVATEIP" pgmaster-1
   etc_hosts_check "$PGFOLLOWER_PRIVATEIP" pgstandby-1
 fi
 
