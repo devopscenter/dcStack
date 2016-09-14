@@ -42,7 +42,7 @@ sudo supervisorctl restart postgres
 
 # if no backup file is provided, look for the most recent pgdump file in the backup dir
 if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
-  LOCAL_BACKUP_FILE="$(find /media/data/postgres/backup -maxdepth 1 -iname "*.download"|tail -1)"
+  LOCAL_BACKUP_FILE="$(find /media/data/postgres/backup -maxdepth 1 -iname "*.download"| sort |tail -1)"
   if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
     echo "No local backup found, exiting."
     exit 1

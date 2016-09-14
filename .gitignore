@@ -3,6 +3,8 @@ docker-enter*
 log.txt
 *swp
 *-e
+base.log
+syslog.log
 push.log
 build.log
 postgres.log
@@ -25,3 +27,4 @@ stack*log
 buildtools.log
 jenkins.log
 buildtoolspush.log
+buildtools/pythonwheel/wheelhouse/*
