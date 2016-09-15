@@ -65,7 +65,7 @@ if [[ -f "$LOCAL_BACKUP_FILE" ]] && ! [[ -z "$NO_OVERWRITE" ]]; then
   echo -e "\nFile $LOCAL_BACKUP_FILE already exists and -n option was given. Skipping."
 else
 # A little housecleaning- deleting any previous downloaded backups before gettign the new one. At some point this could be made optional (e.g. a -noclean option)
-  sudo -u postgres rm -f "${BACKUP_DIR}/*.download"
+  sudo -u postgres rm "${BACKUP_DIR}/*.download"
   sudo -u postgres s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${S3_BACKUP_FILE}" "$LOCAL_BACKUP_FILE"
 fi
 export LOCAL_BACKUP_FILE
