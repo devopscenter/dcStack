@@ -67,5 +67,6 @@ else
 # A little housecleaning- deleting any previous downloaded backups before gettign the new one. At some point this could be made optional (e.g. a -noclean option)
   rm -f "${BACKUP_DIR}/*.download"
   sudo s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${S3_BACKUP_FILE}" "$LOCAL_BACKUP_FILE"
+  sudo chown postgres:postgres ${LOCAL_BACKUP_FILE}
 fi
 export LOCAL_BACKUP_FILE
