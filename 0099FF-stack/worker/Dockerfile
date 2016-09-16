@@ -27,8 +27,15 @@ RUN rm /etc/supervisor/conf.d/nginx.conf && \
     rm /etc/supervisor/conf.d/uwsgi.conf && \
     cp supervisor-djangorq-worker.conf /etc/supervisor/conf.d/djangorq-worker.conf
 
-# Finally, run supervisor in this container, in foreground mode
 
-CMD ln -sf /var/run/rsyslog/dev/log /dev/log && supervisord -n
+# Run supervisor in this container, in foreground mode. However first establish link for logging container,
+# then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
+
+CMD /bin/bash -c ”ln -sf /var/run/rsyslog/dev/log /dev/log && \
+                  rm -rf /var/run/pgpool/.s.* && \
+                  rm -rf /tmp/.s.* && \
+                  rm -rf /var/run/pgpool/pgpool.pid && \
+                  rm -rf /var/run/postgresql/.s.* && \
+                  supervisord -n"
 
 
