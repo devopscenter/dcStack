@@ -29,6 +29,6 @@ RUN rm /etc/supervisor/conf.d/nginx.conf && \
 
 # Finally, run supervisor in this container, in foreground mode
 
-CMD supervisord -n
-
+#CMD supervisord -n
+CMD /bin/bash -c "rm -rf /var/run/pgpool/.s.* && rm -rf /tmp/.s.* && rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && supervisord -n"
 
