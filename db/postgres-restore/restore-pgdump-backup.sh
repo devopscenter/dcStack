@@ -85,9 +85,11 @@ done
 
 for value in {1..3}
 do
+    #echo "Dropping database ${DB_NAME}"
+    echo "Dropping database foobarbaz"
     #sudo -u postgres dropdb -U postgres "${DB_NAME}" --if-exists
-    echo "Dropping database ${DB_NAME}"
-    sudo -u postgres dropdb -U postgres "${DB_NAME}"
+    #sudo -u postgres dropdb -U postgres "${DB_NAME}"
+    sudo -u postgres dropdb -U postgres foobarbaz
     if [ $? -gt 0 ]
     then 
         if [ $value -eq 3 ] 
