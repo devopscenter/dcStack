@@ -102,13 +102,22 @@ do
     fi
 done
 
-sudo -u postgres psql -U postgres postgres -c "create database $DB_NAME"
-if [ $? -gt 0 ] 
-then
-    echo "Terminating because the create database failed to execute properly"
-    exit 1
-fi
-
+for value in {1..3}
+do
+    sudo -u postgres psql -U postgres postgres -c "create database $DB_NAME"
+    if [ $? -gt 0 ]
+    then 
+        if [ $value -eq 3 ] 
+        then
+            echo "Terminating because the create database failed to execute properly"
+            exit 1
+        else 
+            sleep 1
+        fi
+    else
+        break
+    fi
+done
 
 # turn off archive_mode for the restore and restart postgres
 sudo sed -i "s/^\barchive_mode\b[[:blank:]]\+=[[:blank:]]\+\bon\b/archive_mode = off/g" /media/data/postgres/db/pgdata/postgresql.conf
