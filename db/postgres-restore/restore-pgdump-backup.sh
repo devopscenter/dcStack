@@ -85,8 +85,8 @@ done
 
 for value in {1..3}
 do
-    #sudo -u postgres dropdb -U postgres "${DB_NAME}" --if-exists
     echo "Dropping database ${DB_NAME}"
+    #sudo -u postgres dropdb -U postgres "${DB_NAME}" --if-exists
     sudo -u postgres dropdb -U postgres "${DB_NAME}"
     if [ $? -gt 0 ]
     then 
