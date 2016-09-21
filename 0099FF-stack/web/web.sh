@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-pushd /installs
+#pushd /installs
 sudo pip install -r requirements.txt
 
 #
@@ -10,6 +10,6 @@ sudo pip install -r requirements.txt
 #
 sudo pip install -r requirements2.txt
 
-popd
+#popd
 
 echo "Installed customer-specific web and worker portion"
