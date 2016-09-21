@@ -2,6 +2,7 @@
 
 PGMASTER_PRIVATEIP=$1
 PGFOLLOWER_PRIVATEIP=$2
+DNS_METHOD=$3
 
 function etc_hosts_check
 {
@@ -35,8 +36,11 @@ cat "$TMP_ETC_HOSTS" | sudo tee /etc/hosts > /dev/null
 rm -f "$TMP_ETC_HOSTS"
 }
 
-#etc_hosts_check "$PGMASTER_PRIVATEIP" pgsmaster-1
-#etc_hosts_check "$PGFOLLOWER_PRIVATEIP" pgstandby-1
+# skipped when using route53 for dns
+if [[ "$DNS_METHOD" = 'etchosts' ]]; then
+  etc_hosts_check "$PGMASTER_PRIVATEIP" pgmaster-1
+  etc_hosts_check "$PGFOLLOWER_PRIVATEIP" pgstandby-1
+fi
 
 ~/docker-stack/db/postgres-standby/init-standby.sh
 

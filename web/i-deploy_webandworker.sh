@@ -44,16 +44,17 @@ sudo ./redis-client-install.sh
 cd ~/docker-stack/${STACK}-stack/web/ || exit
 sudo ./web.sh
 
-if [[ "$SUFFIX" = "worker" ]]; then
-  cd ~/docker-stack/${STACK}-stack/worker/ || exit
-  sudo ./worker.sh
-fi
+# guessing this was intended to eventually point to a file, but it doesn't currently exist.
+#if [[ "$SUFFIX" = "worker" ]]; then
+#  cd ~/docker-stack/${STACK}-stack/worker/ || exit
+#  sudo ./worker.sh
+#fi
 
 # Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
 
 if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
   pushd ~/utils/
-  ./environments/deployenv.sh linux alol$ENV
+  ./environments/deployenv.sh linux $ENV
   popd
 fi
 
