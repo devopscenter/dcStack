@@ -1,0 +1,10 @@
+1. from the cli, install from jenkins-install.sh
+2. go to <server IP>:8080 in a browser
+ - set up security if installing version < 2.0, (go to Manage Jenkins -> Configure Global Security, check Enable security, check Jenkins' own user database, uncheck allow users to sign up, check Prevent Cross Site Request Forgery exploits)
+ - add new admin user or get admin password from the file specified by Jenkins if using version >= 2.0
+ - install plugins
+3. from the cli
+ - add .ssh/private key file
+ - add AWS keys if needed
+4. from the cli of hosts targeted by jenkins
+ - add jenkins' public key to .ssh/authorized_keys
