@@ -16,7 +16,6 @@
 # limitations under the License.
 #
 
-#FROM baseimageversion
 FROM devopscenter/base:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
@@ -28,4 +27,9 @@ ADD python.sh /installs/python.sh
 WORKDIR /installs
 RUN ./python.sh
 
-#VOLUME ["/usr/local/opt/python"]
+# Install supervisor via pip to get latest version, using the custom python location
+#
+WORKDIR /installs/utils
+RUN ./install-supervisor.sh custom
+
+WORKDIR /installs

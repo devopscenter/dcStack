@@ -7,20 +7,43 @@ DATABASE=$4
 S3_BACKUP_BUCKET=$5
 S3_WALE_BUCKET=$6
 PGVERSION=$7
+DNS_METHOD=$8
 
-if [[ -z $PRIVATE_IP ]] || [[ -z $PAPERTRAIL_ADDRESS ]]; then
-  echo "usage: new_postgres.sh <private ip address> <papertrailurl:port>"
+if [[ -z "$PRIVATE_IP" ]] || [[ -z "$PAPERTRAIL_ADDRESS" ]] || [[ -z "$VPC_CIDR" ]] || [[ -z "$DATABASE" ]] || [[ -z "$S3_BACKUP_BUCKET" ]] || [[ -z "$S3_WALE_BUCKET" ]] || [[ -z "$PGVERSION" ]]; then
+  echo -e "usage: i-new_postgres.sh <private ip address> <papertrailurl:port> <vpc cidr> <database> <s3 backup bucket> <s3 wale bucket> <postgresql version> [<dns method>]\n"
+  echo -e "Examples:"
+  echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
+  echo -e "Postgresql 9.5 using Route53 for DNS:      ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.5\n"
+  echo -e "Note: to use Route53 for DNS, you can omit the last argument.  To use the /etc/hosts file, add etchosts as the 8th and final argument."
   exit 1
+fi
+
+# if not using route53, add private IP to /etc/hosts
+if [[ "$DNS_METHOD" = 'etchosts' ]]; then
+  if ! (grep -q "^${PRIVATE_IP}\b.*\bpgmaster-1\b" /etc/hosts); then
+    echo "${PRIVATE_IP} pgmaster-1" | sudo tee -a /etc/hosts > /dev/null
+  fi
 fi
 
 # install standard packages/utilities
 cd ~/docker-stack/buildtools/utils/ || exit
 sudo ./base-utils.sh
 
-# add private IP to /etc/hosts
-#if ! (grep -q "^${PRIVATE_IP}\b.*\bpostgresmaster_1\b" /etc/hosts); then
-#  echo "${PRIVATE_IP} postgresmaster_1" | sudo tee -a /etc/hosts > /dev/null
-#fi
+# install python and pip directly rather than via python/python.sh
+sudo apt-fast -qq -y install python-dev python-pip
+
+cd ~/docker-stack/buildtools/utils || exit
+sudo ./install-supervisor.sh normal
+
+# create env variables so supervisor can start
+cd ~/utils || exit
+./environments/deployenv.sh linux common
+
+sudo /etc/init.d/supervisor start
+
+# enable logging
+cd ~/docker-stack/logging/ || exit
+./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 # mount volumes and remove instance attached store from /mnt
 cd ~/docker-stack/db/postgres/ || exit
@@ -28,7 +51,10 @@ sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 sudo ./mount.sh
 
 # install postgres and other tasks
-sudo ./postgres.sh "${VPC_CIDR}" "${DATABASE}" "${PGVERSION}"
+sudo ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
+
+# restart supervisor to pick up new postgres files in conf.d
+sudo /etc/init.d/supervisor restart
 
 # get instance type to determine which base postgresql.conf to use
 INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
@@ -46,16 +72,6 @@ if [[ ! -d /media/data/tmp ]]; then
 fi
 sudo chown ubuntu:ubuntu /media/data/tmp
 cd /media/data/tmp || exit
-
-# update postgresql.conf with pgtuned parameters
-#sudo apt-fast -y install pgtune
-#sudo pgtune -i /media/data/postgres/db/pgdata/postgresql.conf -o postgresql.conf.pgtune
-#sudo cp postgresql.conf.pgtune /media/data/postgres/db/pgdata/postgresql.conf
-#sudo supervisorctl restart postgres
-
-# enable logging
-cd ~/docker-stack/logging/ || exit
-./enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 # enable ssl
 #sudo supervisorctl stop postgres

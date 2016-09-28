@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool-redis:devops_version
+FROM devopscenter/python-nginx-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD wheelhouse /wheelhouse

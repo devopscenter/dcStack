@@ -25,9 +25,17 @@ sudo ./python.sh
 cd ~/docker-stack/buildtools/utils || exit
 sudo ./install-supervisor.sh custom
 
+# Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
+
+if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
+  pushd ~/utils/
+  ./environments/deployenv.sh linux $ENV
+  popd
+fi
+
 # enable logging
 cd ~/docker-stack/logging/ || exit
-./enable-logging.sh "$PAPERTRAIL_ADDRESS"
+./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 cd ~/docker-stack/web/python-nginx/ || exit
 sudo ./nginx.sh
@@ -44,16 +52,11 @@ sudo ./redis-client-install.sh
 cd ~/docker-stack/${STACK}-stack/web/ || exit
 sudo ./web.sh
 
-if [[ "$SUFFIX" = "worker" ]]; then
-  cd ~/docker-stack/${STACK}-stack/worker/ || exit
-  sudo ./worker.sh
-fi
-
-# Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
-
-if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
-  ~/utils/environments/deployenv.sh $SUFFIX $ENV
-fi
+# guessing this was intended to eventually point to a file, but it doesn't currently exist.
+#if [[ "$SUFFIX" = "worker" ]]; then
+#  cd ~/docker-stack/${STACK}-stack/worker/ || exit
+#  sudo ./worker.sh
+#fi
 
 # Restart supervisor, so that all services are now running.
 

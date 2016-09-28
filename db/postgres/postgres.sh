@@ -1,8 +1,8 @@
 #!/bin/bash -ex
 
-VPC_CIDR=$1
+PGVERSION=$1
 DATABASE=$2
-PGVERSION=$3
+VPC_CIDR=$3
 
 . ./postgresenv.sh $PGVERSION
 
@@ -17,11 +17,6 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
 sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim
-
-# install supervisor from pip, to get latest version
-pushd ~/docker-stack/buildtools/utils
-sudo ./install-supervisor.sh normal
-popd
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -38,8 +33,6 @@ sudo apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8 && \
     sudo dpkg-reconfigure locales
-
-
 
 ###WAL-E
 #USER root
@@ -58,7 +51,7 @@ sudo chown -R postgres:postgres /media/data/postgres
 sudo chown -R postgres:postgres /var/lib/postgresql
 
 
-sudo su -c "./config.sh ${VPC_CIDR} ${DATABASE} ${POSTGRES_VERSION}" -s /bin/sh postgres
+sudo su -c "./config.sh ${POSTGRES_VERSION} ${DATABASE} ${VPC_CIDR} " -s /bin/sh postgres
 
 ./xlog.sh $POSTGRES_VERSION
 ./supervisorconfig.sh $POSTGRES_VERSION

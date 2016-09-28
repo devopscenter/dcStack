@@ -16,19 +16,14 @@
 # limitations under the License.
 #
 
-FROM devopscenter/0099ff.web:devops_version
+FROM devopscenter/base:devops_version
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ADD supervisor-djangorq-worker.conf /installs/supervisor-djangorq-worker.conf
+# Install pip
+RUN sudo apt-get -y install python-pip
 
-# Run pgpool and a single django-rq worker in this container
-# (though this requires supervisor)
-RUN rm /etc/supervisor/conf.d/nginx.conf && \
-    rm /etc/supervisor/conf.d/uwsgi.conf && \
-    cp supervisor-djangorq-worker.conf /etc/supervisor/conf.d/djangorq-worker.conf
+# Install supervisor via pip to get latest version
+WORKDIR /installs/utils
+RUN ./install-supervisor.sh normal
 
-# Finally, run supervisor in this container, in foreground mode
-
-#CMD supervisord -n
-CMD /bin/bash -c "rm -rf /var/run/pgpool/.s.* && rm -rf /tmp/.s.* && rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && supervisord -n"
 

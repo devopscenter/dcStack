@@ -34,8 +34,6 @@ RUN sudo apt-fast update
 
 RUN sudo apt-fast -y -q install postgresql-client-$POSTGRES_VERSION libpq5 libpq-dev
 
-RUN sudo apt-fast -y install supervisor
-
 RUn sudo pip install s3cmd==1.5.2
 
 #ADD backup.sh /usr/local/bin/backup.sh

@@ -34,8 +34,6 @@ RUN sudo apt-fast update
 
 RUN sudo apt-fast -y -q install postgresql-client-$POSTGRES_VERSION libpq5 libpq-dev
 
-RUN sudo apt-fast -y install supervisor
-
 RUN pip install git+https://github.com/josh-devops-center/newrelic-plugin-agent@5f1ec79094815486d26bc66a55b5ff1d1e97b6c7#egg=newrelic-plugin-agent
 RUN pip install newrelic-plugin-agent[postgresql]
 

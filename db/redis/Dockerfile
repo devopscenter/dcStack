@@ -17,13 +17,11 @@
 #
 
 
-FROM baseimageversion
+FROM devopscenter/db_base:devops_version
+
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN apt-get update
-RUN apt-get -y install supervisor
-
-#ADD redis.conf /etc/supervisor/conf.d/redis.conf
+WORKDIR /installs/utils
 
 ADD redisinstall.sh /installs/redisinstall.sh
 ADD conf /installs/conf
@@ -33,4 +31,6 @@ RUN ./redisinstall.sh
 VOLUME /media/data/redis
 WORKDIR /media/data/redis
 EXPOSE 6379
-CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
+
+# Run redis
+CMD /usr/local/bin/redis-server /etc/redis/redis.conf
