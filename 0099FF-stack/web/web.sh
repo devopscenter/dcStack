@@ -1,6 +1,5 @@
 #!/bin/bash -e
 
-#pushd /installs
 sudo pip install -r requirements.txt
 
 #
@@ -9,7 +8,5 @@ sudo pip install -r requirements.txt
 # This also means that they cannot be built as wheels, so they are not in the normal requirements.txt file
 #
 sudo pip install -r requirements2.txt
-
-#popd
 
 echo "Installed customer-specific web and worker portion"
