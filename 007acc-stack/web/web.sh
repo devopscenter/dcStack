@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
-pushd /installs
+echo $PWD
 sudo pip install -r requirements.txt
+pushd /installs
 
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 
