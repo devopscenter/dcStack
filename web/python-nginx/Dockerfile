@@ -19,7 +19,7 @@
 FROM devopscenter/python:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-EXPOSE 80 8000
+EXPOSE 80 8000 443
 
 ADD nginxenv.sh /installs/nginxenv.sh
 ADD nginx.sh /installs/nginx.sh
