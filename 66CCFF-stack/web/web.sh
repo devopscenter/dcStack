@@ -2,7 +2,7 @@
 
 sudo apt-fast -y install libfontconfig-dev libxrender-dev libxtst6
 
-curl -sL https://deb.nodesource.com/setup_6.x | sudo bash -
+curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -
 
 sudo apt-get install -y nodejs
 
