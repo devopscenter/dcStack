@@ -19,7 +19,7 @@
 FROM devopscenter/db_base:devops_version
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.5
+ENV POSTGRES_VERSION 9.4
 
 WORKDIR /installs/utils
 

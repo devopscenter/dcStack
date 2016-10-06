@@ -19,7 +19,7 @@
 FROM devopscenter/python-nginx:devops_version
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.5
+ENV POSTGRES_VERSION 9.4
 
 ADD pgpool /installs/pgpool
 ADD pgpoolenv.sh /installs/pgpoolenv.sh
