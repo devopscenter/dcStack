@@ -27,9 +27,11 @@ WORKDIR /installs
 RUN ./web.sh
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
-# then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
+# copy over a local nginx config file (if it exists), then remove stale PIDs which prevented pgpool from
+# successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
+    if [ -e /utils/conf/nginx.conf ]; then cp /utils/conf/nginx.conf /usr/local/nginx/conf/; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \

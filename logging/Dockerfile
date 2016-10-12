@@ -1,4 +1,4 @@
-FROM baseimageversion
+FROM baseimageversion 
 MAINTAINER Bob Lozano <bob@devops.center>
 
 RUN apt-get update && \
