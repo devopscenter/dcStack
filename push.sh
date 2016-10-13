@@ -39,15 +39,16 @@ function db {
 }
 
 function misc {
-    docker push  "devopscenter/monitor_papertrail:${devops_version}"  &
-    docker push  "devopscenter/monitor_sentry:${devops_version}"  &
-    docker push  "devopscenter/monitor_nagios:${devops_version}"  &
+    docker push  "devopscenter/syslog:${devops_version}"
+    docker push  "devopscenter/monitor_papertrail:${devops_version}"
+    docker push  "devopscenter/monitor_sentry:${devops_version}"
+    docker push  "devopscenter/monitor_nagios:${devops_version}"
+    docker push  "devopscenter/monitor_newrelic:${devops_version}" 
 }
 
 function stack1 {
     docker push  "devopscenter/0099ff.web:${devops_version}" 
     docker push  "devopscenter/0099ff.worker:${devops_version}" 
-    docker push  "devopscenter/0099ff.worker_standby:${devops_version}"
 }
 
 function stack2 {
@@ -61,7 +62,6 @@ function stack3 {
 }
 function web {
     docker push  "devopscenter/python:${devops_version}"
-    docker push  "devopscenter/monitor_newrelic:${devops_version}"  &
     docker push  "devopscenter/python-nginx:${devops_version}"
     docker push  "devopscenter/python-nginx-pgpool:${devops_version}"
     docker push  "devopscenter/python-nginx-pgpool-redis:${devops_version}"
@@ -77,4 +77,4 @@ base
 time buildtools &> buildtoolspush.log &
 time misc &> miscpush.log &
 time web &> webpush.log &
-time db &> dbpush.log &
+ime db &> dbpush.log &
