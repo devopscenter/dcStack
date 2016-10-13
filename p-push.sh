@@ -74,7 +74,7 @@ function web {
 }
 
 base
-buildtools
-misc
-web
-db
+time buildtools &> buildtoolspush.log &
+time misc &> miscpush.log &
+time web &> webpush.log &
+time db &> dbpush.log &
