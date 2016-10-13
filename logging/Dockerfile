@@ -4,7 +4,8 @@ MAINTAINER Bob Lozano <bob@devops.center>
 RUN apt-get update && \
     apt-get install rsyslog --no-install-recommends -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    rm /etc/rsyslog.d/50-default.conf
 
 COPY rsyslog.conf /etc/rsyslog.conf
 
