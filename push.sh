@@ -42,7 +42,7 @@ function misc {
     docker push  "devopscenter/syslog:${devops_version}"
     docker push  "devopscenter/monitor_papertrail:${devops_version}"
     docker push  "devopscenter/monitor_sentry:${devops_version}"
-    docker push  "devopscenter/monitor_nagios:${devops_version}"
+#    docker push  "devopscenter/monitor_nagios:${devops_version}"
     docker push  "devopscenter/monitor_newrelic:${devops_version}" 
 }
 
