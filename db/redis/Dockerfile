@@ -33,4 +33,4 @@ WORKDIR /media/data/redis
 EXPOSE 6379
 
 # Run redis
-CMD /usr/local/bin/redis-server /etc/redis/redis.conf
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log && /usr/local/bin/redis-server /etc/redis/redis.conf

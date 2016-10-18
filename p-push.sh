@@ -42,7 +42,7 @@ function misc {
     docker push  "devopscenter/syslog:${devops_version}"
     docker push  "devopscenter/monitor_papertrail:${devops_version}"
     docker push  "devopscenter/monitor_sentry:${devops_version}"
-#    docker push  "devopscenter/monitor_nagios:${devops_version}"
+    docker push  "devopscenter/monitor_nagios:${devops_version}"
     docker push  "devopscenter/monitor_newrelic:${devops_version}" 
 }
 
@@ -74,7 +74,7 @@ function web {
 }
 
 base
-buildtools
-misc
-web
-db
+time buildtools &> buildtoolspush.log &
+time misc &> miscpush.log &
+time web &> webpush.log &
+time db &> dbpush.log &

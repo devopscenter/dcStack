@@ -19,7 +19,7 @@
 FROM devopscenter/db_base:devops_version
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.5
+ENV POSTGRES_VERSION 9.4
 
 WORKDIR /installs/utils
 
@@ -36,11 +36,11 @@ RUN ./postgres.sh $POSTGRES_VERSION && \
     cp conf/postgresql.conf.local /media/data/postgres/db/pgdata/postgresql.conf
 
 # Run supervisor in this container, in foreground mode
-CMD /usr/local/bin/supervisord -n
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log && /usr/local/bin/supervisord -n
 
 # Add VOLUMEs to allow backup of config, logs and datas 
 VOLUME  ["/media/data/postgres/db/pgdata", \
-	 ”/media/data/postgres/xlog”, \
-	 “/media/data/postgres/backup”]
+	 "/media/data/postgres/xlog", \
+	 "/media/data/postgres/backup"]
 
 EXPOSE 5432
