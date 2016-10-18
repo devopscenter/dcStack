@@ -17,10 +17,25 @@
 #
 
 FROM devopscenter/0099ff.web:devops_version
-MAINTAINER josh < josh [at] devops {dot} center>
+MAINTAINER bob < bob [at] devops {dot} center>
 
-RUN useradd celery
+ADD supervisor-djangorq-worker.conf /installs/supervisor-djangorq-worker.conf
 
-RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
-ADD flower.conf /etc/supervisor/conf.d/flower.conf
-ADD celery.conf /etc/supervisor/conf.d/celery.conf
+# Setup config to run pgpool and a single django-rq worker in this container
+# (though this requires supervisor)
+RUN rm -rf /etc/supervisor/conf.d/nginx.conf && \
+    rm -rf /etc/supervisor/conf.d/uwsgi.conf && \
+    cp supervisor-djangorq-worker.conf /etc/supervisor/conf.d/djangorq-worker.conf
+
+
+# Run supervisor in this container, in foreground mode. However first establish link for logging container,
+# then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
+
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
+    rm -rf /var/run/pgpool/.s.* && \
+    rm -rf /tmp/.s.* && \
+    rm -rf /var/run/pgpool/pgpool.pid && \
+    rm -rf /var/run/postgresql/.s.* && \
+    supervisord -n
+
+

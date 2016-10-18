@@ -3,6 +3,8 @@ docker-enter*
 log.txt
 *swp
 *-e
+*.log
+*.whl
 base.log
 syslog.log
 push.log

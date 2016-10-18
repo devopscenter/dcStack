@@ -16,7 +16,7 @@ export PYTHON_VERSION=2.7.11
 sudo apt-fast -qq update
 sudo apt-fast -qq -y install wget sudo vim curl build-essential
 
-sudo apt-fast -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+sudo apt-fast -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev libffi-dev python-dev
 pushd /tmp
 sudo wget --quiet https://www.kernel.org/pub/software/scm/git/git-2.1.2.tar.gz
 sudo tar -xvf git-2.1.2.tar.gz

@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM baseimageversion
+FROM devopscenter/base:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD jenkins.sh /installs/jenkins.sh

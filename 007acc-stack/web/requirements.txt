@@ -18,3 +18,5 @@ requests==2.7.0
 uwsgi==2.0.11.1
 xlrd==0.9.4
 xlwt==1.0.0
+numpy==1.9.2
+

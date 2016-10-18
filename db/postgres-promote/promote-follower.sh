@@ -28,8 +28,8 @@ cat "$TMP_ETC_HOSTS" | sudo tee /etc/hosts > /dev/null
 rm -f "$TMP_ETC_HOSTS"
 }
 
-#etc_hosts_remove "$OLD_MASTER_PRIVATEIP" postgresmaster_1
-#etc_hosts_remove "$OLD_FOLLOWER_PRIVATEIP" postgresstandby_1
+#etc_hosts_remove "$OLD_MASTER_PRIVATEIP" pgmaster-1
+#etc_hosts_remove "$OLD_FOLLOWER_PRIVATEIP" pgstandby-1
 
 #echo "${OLD_FOLLOWER_PRIVATEIP} postgressmaster_1" | sudo tee -a /etc/hosts > /dev/null
 

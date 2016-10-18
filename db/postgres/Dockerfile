@@ -16,9 +16,12 @@
 # limitations under the License.
 #
 
-#FROM baseimageversion
-FROM devopscenter/base:devops_version
-MAINTAINER josh < josh [at] devops {dot} center>
+FROM devopscenter/db_base:devops_version
+MAINTAINER bob < bob [at] devops {dot} center>
+
+ENV POSTGRES_VERSION 9.4
+
+WORKDIR /installs/utils
 
 ADD postgres.sh /installs/postgres.sh
 ADD config.sh /installs/config.sh
@@ -29,13 +32,15 @@ ADD postgresenv.sh /installs/postgresenv.sh
 ADD supervisorconfig.sh /installs/supervisorconfig.sh
 
 WORKDIR /installs
+RUN ./postgres.sh $POSTGRES_VERSION && \
+    cp conf/postgresql.conf.local /media/data/postgres/db/pgdata/postgresql.conf
 
-RUN ./postgres.sh
+# Run supervisor in this container, in foreground mode
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log && /usr/local/bin/supervisord -n
 
-# Set the default command to run when starting the container
-CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"
-
-# Add VOLUMEs to allow backup of config, logs and datas
-#VOLUME  ["/media/data/postgres/db/pgdata", "/media/data/postgres/xlog/transactions"]
+# Add VOLUMEs to allow backup of config, logs and datas 
+VOLUME  ["/media/data/postgres/db/pgdata", \
+	 "/media/data/postgres/xlog", \
+	 "/media/data/postgres/backup"]
 
 EXPOSE 5432

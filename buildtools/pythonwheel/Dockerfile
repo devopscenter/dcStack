@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool-redis:devops_version
+FROM devopscenter/python-nginx-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV WHEELHOUSE=/wheelhouse
@@ -26,10 +26,9 @@ ENV PIP_FIND_LINKS=/wheelhouse
 VOLUME /wheelhouse
 VOLUME /application
 
-ENTRYPOINT cd /application; \
+WORKDIR /application
+
+ENTRYPOINT \
     pip wheel -r app1.requirements.txt; \
-    pip wheel -r app1.science.txt; \
     pip wheel -r app2.requirements.txt; \
-    pip wheel -r app2.science.txt; \
-    pip wheel -r app3.requirements.txt; \
-    pip wheel -r app3.science.txt;
+    pip wheel -r app3.requirements.txt;

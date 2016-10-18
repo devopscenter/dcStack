@@ -19,4 +19,4 @@
 FROM devopscenter/db_redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-RUN echo "slaveof redismaster 6379" >> /etc/redis/redis.conf
+RUN echo "slaveof redismaster-1 6379" >> /etc/redis/redis.conf

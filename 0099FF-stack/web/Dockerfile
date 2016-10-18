@@ -16,9 +16,24 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-apache-pgpool-redis:devops_version
+FROM devopscenter/python-nginx-pgpool-redis:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ADD science.txt /installs/science.txt
+ADD requirements.txt /installs/requirements.txt
+ADD requirements2.txt /installs/requirements2.txt
+ADD web.sh /installs/web.sh
 WORKDIR /installs
-RUN sudo pip install -r science.txt
+
+RUN ./web.sh
+
+# Run supervisor in this container, in foreground mode. However first establish link for logging container,
+# copy over a local nginx config file (if it exists), then remove stale PIDs which prevented pgpool from
+# successfully running from a container that is restarted.
+
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
+    if [ -e /utils/conf/nginx.conf ]; then cp /utils/conf/nginx.conf /usr/local/nginx/conf/; fi && \
+    rm -rf /var/run/pgpool/.s.* && \
+    rm -rf /tmp/.s.* && \
+    rm -rf /var/run/pgpool/pgpool.pid && \
+    rm -rf /var/run/postgresql/.s.* && \
+    supervisord -n
