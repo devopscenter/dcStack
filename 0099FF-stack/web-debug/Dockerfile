@@ -19,11 +19,12 @@
 FROM devopscenter/0099ff.web:devops_version
 MAINTAINER bob < bob [at] devops {dot} center>
 
+ENV IS_DC_WEB_DEBUG=1
+
 # Setup config to run pgpool in this container
 # (requires supervisor)
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && \
-    rm -rf /etc/supervisor/conf.d/uwsgi.conf && \
-    export IS_DC_WEB_DEBUG=1
+    rm -rf /etc/supervisor/conf.d/uwsgi.conf
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
