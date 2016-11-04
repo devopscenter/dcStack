@@ -1,7 +1,12 @@
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
-# Copyright 2014 devops.center
+# WEB-DEBUG Container
+#   This container is designed to provide an interactive debugging environment for the first step in a dev
+#   workflow. Provides a connection to the db (via pgpool), and an additional ENV var (IS_DC_WEB_DEBUG) to
+#   permit settings.py to install the django sslserver, etc for interactive dev.
+#
+# Copyright 2014 - 2016 devops.center
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +21,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/0099ff.web:devops_version
+FROM devopscenter/0099ff.web:v2.0b1
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV IS_DC_WEB_DEBUG=1
