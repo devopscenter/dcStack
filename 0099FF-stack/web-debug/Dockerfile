@@ -21,7 +21,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/0099ff.web:v2.0b1
+FROM devopscenter/0099ff.web:devops_version
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV IS_DC_WEB_DEBUG=1
