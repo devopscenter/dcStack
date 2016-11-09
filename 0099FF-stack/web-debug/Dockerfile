@@ -9,9 +9,9 @@
 # Notes
 # - django ssl server: https://github.com/teddziuba/django-sslserver
 # - to start the ssl server: "python manage.py runsslserver 0.0.0.0:8000"
-# - set the django site_base_url to "0.0.0.0:8000"
-# - responding on any ip address is needed because localhost means something different to the host, host vm (if any), 
-#   within each container.
+#   responding on any ip address is needed because localhost means something different to the host, 
+#   host vm (if any), and within each container. 
+# - set the django site_base_url to "127.0.0.0:8000"
 #
 # Copyright 2014 - 2016 devops.center
 #
