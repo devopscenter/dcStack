@@ -28,3 +28,4 @@ selenium==2.52.0
 objgraph==3.0.0
 enum34==1.1.2
 django-extensions==1.6.1
+djangorestframework>=3.1.0
