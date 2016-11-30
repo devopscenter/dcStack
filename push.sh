@@ -48,7 +48,7 @@ function misc {
 
 function stack1 {
     docker push  "devopscenter/0099ff.web:${devops_version}" 
-    docker push  "devopscenter/0099ff.web:${devops_version}"
+    docker push  "devopscenter/0099ff.web-debug:${devops_version}"
     docker push  "devopscenter/0099ff.worker:${devops_version}" 
 }
 

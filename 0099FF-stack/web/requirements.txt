@@ -4,7 +4,6 @@ dj-static==0.0.6
 django-rq==0.6.1
 gunicorn==19.1.1
 httplib2==0.8
-numpy==1.8.1
 pandas==0.14.1
 xlwt==0.7.5
 psycopg2==2.5.1
@@ -28,3 +27,4 @@ selenium==2.52.0
 objgraph==3.0.0
 enum34==1.1.2
 django-extensions==1.6.1
+djangorestframework>=3.1.0
