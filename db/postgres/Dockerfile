@@ -38,8 +38,11 @@ RUN ./postgres.sh $POSTGRES_VERSION && \
 # Run supervisor in this container, in foreground mode
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && /usr/local/bin/supervisord -n
 
-# Add VOLUMEs to allow backup of config, logs and datas 
-VOLUME  ["/media/data/postgres/db/pgdata", \
+# Add mountpoints for VOLUMES to be created. Note that these mirror what is established
+# when these are created in instances. Each of the four mountpoints are different types of data,
+# and so can conceivably be put on different types of volumes.
+VOLUME  ["/media/data/postgres", \
+	 "/media/data/postgres/db/pgdata", \
 	 "/media/data/postgres/xlog", \
 	 "/media/data/postgres/backup"]
 
