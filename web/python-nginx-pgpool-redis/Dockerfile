@@ -36,6 +36,6 @@ ONBUILD ADD requirements.txt /installs/requirements.txt
 ONBUILD ENV WHEELHOUSE=/wheelhouse
 ONBUILD ENV PIP_WHEEL_DIR=/wheelhouse
 ONBUILD ENV PIP_FIND_LINKS=/wheelhouse
-ONBUILD RUN cd /installs && pip install --no-index -r requirements.txt
+ONBUILD RUN cd /installs && pip install -r requirements.txt
 
 
