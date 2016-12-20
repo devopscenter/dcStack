@@ -7,6 +7,7 @@ django-debug-toolbar==1.2.1
 django_extensions==1.3.11
 flower==0.7.2
 httpagentparser==1.7.8
+ipython==5.1
 pandas==0.19.1
 jinja2==2.8
 jsonschema==2.5.1
@@ -18,7 +19,7 @@ raven==5.1.1
 redis==2.10.3
 requests==2.12.0
 simplejson==3.6.3
-south==1.02
+south==1.0.2
 sqlparse==0.2.2
 xlutils==2.0.0
 xlwt==1.1.2
