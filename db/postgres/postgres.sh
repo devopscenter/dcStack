@@ -16,7 +16,11 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
-sudo apt-fast -qq -y install git python-dev python-pip wget sudo vim
+sudo apt-fast -qq -y install git python-dev wget sudo vim
+
+pushd /tmp
+sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
+popd
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -63,4 +67,3 @@ sudo update-rc.d postgresql disable
 
 sudo pip install s3cmd==1.6.0
 sudo pip install -U setuptools
-sudo pip install -U pip

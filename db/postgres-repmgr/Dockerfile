@@ -19,11 +19,10 @@ FROM devopscenter/db_postgres:devops_version
 MAINTAINER josh < josh [at] devops {dot} center>
 
 USER root
-RUN cd /tmp && wget http://www.repmgr.org/download/repmgr-2.0.tar.gz && tar -xvf repmgr-2.0.tar.gz
-#RUN cd /tmp && wget https://github.com/2ndQuadrant/repmgr/archive/devops_version.1.zip
+RUN cd /tmp && wget http://www.repmgr.org/download/repmgr-3.1.2.tar.gz && tar -xvf repmgr-3.1.2.tar.gz
 RUN sudo apt-fast -y install libpam-dev libxml2-dev libxslt-dev
-RUN sudo apt-fast -y install libedit-dev libselinux-dev
-RUN cd /tmp/repmgr-2.0 && make USE_PGXS=1
-RUN cd /tmp/repmgr-2.0 && make USE_PGXS=1 install
+RUN sudo apt-fast -y install libedit-dev
+RUN cd /tmp/repmgr-3.1.2 && make USE_PGXS=1
+RUN cd /tmp/repmgr-3.1.2 && make USE_PGXS=1 install
 
 USER postgres
