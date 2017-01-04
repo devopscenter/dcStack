@@ -76,7 +76,7 @@ fi
 #-------------------------------------------------------------------------------
 # install standard packages/utilities
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/buildtools/utils/ || exit
+cd ~/dcStack/buildtools/utils/ || exit
 sudo ./base-utils.sh
 
 #-------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ sudo ./base-utils.sh
 #-------------------------------------------------------------------------------
 sudo apt-fast -qq -y install python-dev python-pip
 
-cd ~/docker-stack/buildtools/utils || exit
+cd ~/dcStack/buildtools/utils || exit
 sudo ./install-supervisor.sh normal
 
 #-------------------------------------------------------------------------------
@@ -101,13 +101,13 @@ sudo /etc/init.d/supervisor start
 #-------------------------------------------------------------------------------
 # enable logging
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/logging/ || exit
+cd ~/dcStack/logging/ || exit
 ./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 #-------------------------------------------------------------------------------
 # mount volumes and remove instance attached store from /mnt
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/db/postgres/ || exit
+cd ~/dcStack/db/postgres/ || exit
 sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 sudo ./mount.sh
 
@@ -125,10 +125,10 @@ sudo /etc/init.d/supervisor restart
 # get instance type to determine which base postgresql.conf to use
 #-------------------------------------------------------------------------------
 INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
-if [[ -f ~/docker-stack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE} ]]; then
-    sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf."${INSTANCE_TYPE}" /media/data/postgres/db/pgdata/postgresql.conf
+if [[ -f ~/dcStack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE} ]]; then
+    sudo cp ~/dcStack/db/postgres/conf/postgresql.conf."${INSTANCE_TYPE}" /media/data/postgres/db/pgdata/postgresql.conf
 else
-    sudo cp ~/docker-stack/db/postgres/conf/postgresql.conf /media/data/postgres/db/pgdata/postgresql.conf
+    sudo cp ~/dcStack/db/postgres/conf/postgresql.conf /media/data/postgres/db/pgdata/postgresql.conf
 fi
 sudo chown postgres:postgres /media/data/postgres/db/pgdata/postgresql.conf
 
@@ -197,7 +197,7 @@ PG_PWD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 psql -U postgres -c "ALTER USER Postgres WITH PASSWORD '${PG_PWD}';"
 echo "postgres user password: ${PG_PWD}"
 
-cd ~/docker-stack/db/postgres-backup/ || exit
+cd ~/dcStack/db/postgres-backup/ || exit
 ./enable-backup.sh "$S3_BACKUP_BUCKET"
 
 #-------------------------------------------------------------------------------
