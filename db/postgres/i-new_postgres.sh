@@ -210,7 +210,8 @@ fi
 #-------------------------------------------------------------------------------
 # create backup-push file
 #-------------------------------------------------------------------------------
-echo "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
+echo "export TMPDIR=/media/data/postgres/backup/wal-e-backups" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
+echo "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
 sudo chmod +x /media/data/postgres/backup/backup-push.sh
 sudo chown postgres:postgres /media/data/postgres/backup/backup-push.sh
 
