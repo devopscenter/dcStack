@@ -42,7 +42,7 @@ if [[ "$DNS_METHOD" = 'etchosts' ]]; then
   etc_hosts_check "$PGFOLLOWER_PRIVATEIP" pgstandby-1
 fi
 
-~/docker-stack/db/postgres-standby/init-standby.sh
+~/dcStack/db/postgres-standby/init-standby.sh
 
 echo "trigger_file = '/media/data/postgres/trigger_promote'" | sudo tee -a /media/data/postgres/db/pgdata/recovery.conf
 

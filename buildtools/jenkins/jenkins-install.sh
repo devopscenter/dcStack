@@ -4,7 +4,7 @@
 echo -e '#!/bin/bash\nexit 101' | sudo tee /usr/sbin/policy-rc.d
 sudo chmod +x /usr/sbin/policy-rc.d
 
-cd docker-stack
+cd dcStack
 
 # install dependencies
 ./buildtools/utils/base-utils.sh

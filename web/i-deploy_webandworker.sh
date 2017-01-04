@@ -53,16 +53,16 @@ fi
 #-------------------------------------------------------------------------------
 # install standard packages/utilities
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/buildtools/utils/ || exit
+cd ~/dcStack/buildtools/utils/ || exit
 sudo ./base-utils.sh
 
 #-------------------------------------------------------------------------------
 # install stack common to web and workers
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/python/ || exit
+cd ~/dcStack/python/ || exit
 sudo ./python.sh
 
-cd ~/docker-stack/buildtools/utils || exit
+cd ~/dcStack/buildtools/utils || exit
 sudo ./install-supervisor.sh custom
 
 #-------------------------------------------------------------------------------
@@ -77,36 +77,36 @@ fi
 #-------------------------------------------------------------------------------
 # enable logging
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/logging/ || exit
+cd ~/dcStack/logging/ || exit
 ./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
 
 #-------------------------------------------------------------------------------
 #  install nginx
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/web/python-nginx/ || exit
+cd ~/dcStack/web/python-nginx/ || exit
 sudo ./nginx.sh
 
 #-------------------------------------------------------------------------------
 # install pgpool
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/web/python-nginx-pgpool/ || exit
+cd ~/dcStack/web/python-nginx-pgpool/ || exit
 sudo ./pgpool.sh "$PGVERSION"
 
 #-------------------------------------------------------------------------------
 # install redis client
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/web/python-nginx-pgpool-redis/ || exit
+cd ~/dcStack/web/python-nginx-pgpool-redis/ || exit
 sudo ./redis-client-install.sh
 
 #-------------------------------------------------------------------------------
 # Install customer-specific stack - all get the web portion.
 #-------------------------------------------------------------------------------
-cd ~/docker-stack/${STACK}-stack/web/ || exit
+cd ~/dcStack/${STACK}-stack/web/ || exit
 sudo ./web.sh
 
 # guessing this was intended to eventually point to a file, but it doesn't currently exist.
 #if [[ "$SUFFIX" = "worker" ]]; then
-#  cd ~/docker-stack/${STACK}-stack/worker/ || exit
+#  cd ~/dcStack/${STACK}-stack/worker/ || exit
 #  sudo ./worker.sh
 #fi
 

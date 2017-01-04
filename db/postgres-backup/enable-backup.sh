@@ -10,7 +10,7 @@ S3_BUCKET=$1
 sudo pip install s3cmd
 
 # copy over backup script and config, update s3 bucket in config.
-cd ~/docker-stack/db/postgres-backup/
+cd ~/dcStack/db/postgres-backup/
 sudo cp pg_backup.config /media/data/postgres/backup/pg_backup.config
 sudo cp pg_backup_rotated.sh /media/data/postgres/backup/pg_backup_rotated.sh
 sudo chmod 0755 /media/data/postgres/backup/pg_backup_rotated.sh
