@@ -1,4 +1,4 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: i-new_postgres.sh
@@ -26,16 +26,18 @@
 #       CREATED: 09/29/2016 09:11:12
 #      REVISION:  ---
 #===============================================================================
+set -vx
 
-PRIVATE_IP=$1
-PAPERTRAIL_ADDRESS=$2
-VPC_CIDR=$3
-DATABASE=$4
-S3_BACKUP_BUCKET=$5
-S3_WALE_BUCKET=$6
-PGVERSION=$7
-DNS_METHOD=$8
-ENV=$9
+CUST_APP_NAME=$1
+PRIVATE_IP=$2
+PAPERTRAIL_ADDRESS=$3
+VPC_CIDR=$4
+DATABASE=$5
+S3_BACKUP_BUCKET=$6
+S3_WALE_BUCKET=$7
+PGVERSION=$8
+DNS_METHOD=$9
+ENV=$10
 
 if  [[ -z "$PRIVATE_IP" ]] || 
     [[ -z "$PAPERTRAIL_ADDRESS" ]] || 
@@ -90,9 +92,10 @@ sudo ./install-supervisor.sh normal
 #-------------------------------------------------------------------------------
 # create env variables so supervisor can start
 #-------------------------------------------------------------------------------
-if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
+if [[ (-n "${ENV}") && (-e "~/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/environments") ]]; then
     pushd ~/utils/
-    ./environments/deployenv.sh linux $ENV
+    #./environments/deployenv.sh linux $ENV
+    ./dcUtils/deployenv.sh --type instance --env $ENV --customerAppName ${CUST_APP_NAME}
     popd
 fi
 
