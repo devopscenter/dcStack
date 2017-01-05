@@ -37,7 +37,7 @@ S3_BACKUP_BUCKET=$6
 S3_WALE_BUCKET=$7
 PGVERSION=$8
 DNS_METHOD=$9
-ENV=$10
+ENV=${10}
 
 if  [[ -z "$PRIVATE_IP" ]] || 
     [[ -z "$PAPERTRAIL_ADDRESS" ]] || 
@@ -93,9 +93,9 @@ sudo ./install-supervisor.sh normal
 # create env variables so supervisor can start
 #-------------------------------------------------------------------------------
 if [[ (-n "${ENV}") && (-e "~/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/environments") ]]; then
-    pushd ~/utils/
+    pushd ~/dcUtils/
     #./environments/deployenv.sh linux $ENV
-    ./dcUtils/deployenv.sh --type instance --env $ENV --customerAppName ${CUST_APP_NAME}
+    ./deployenv.sh --type instance --env $ENV --customerAppName ${CUST_APP_NAME}
     popd
 fi
 
