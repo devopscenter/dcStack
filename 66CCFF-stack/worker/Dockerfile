@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/66ccff.web:devops_version
+FROM devopscenter/66ccff.web:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf

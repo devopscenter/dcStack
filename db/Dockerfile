@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/base:devops_version
+FROM devopscenter/base:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 # Install pip

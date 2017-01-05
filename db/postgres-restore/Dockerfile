@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM devopscenter/db_postgres-repmgr:devops_version
+FROM devopscenter/db_postgres-repmgr:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 USER root

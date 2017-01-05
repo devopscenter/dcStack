@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/db_base:devops_version
+FROM devopscenter/db_base:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.4

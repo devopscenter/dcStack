@@ -1,10 +1,10 @@
 #!/bin/bash -e
 
 source VERSION
-echo "Version=${devops_version}"
+echo "Version=${dcSTACK_VERSION}"
 source BASEIMAGE
 echo "BaseImage=${baseimageversion}"
 
-#replace variable devops_version with the VERSION we are building
-find . -name "Dockerfile" -type f -exec sed -i -e "s/devops_version/$devops_version/g" {} \;
+#replace variable dcSTACK_VERSION with the VERSION we are building
+find . -name "Dockerfile" -type f -exec sed -i -e "s/dcSTACK_VERSION/$dcSTACK_VERSION/g" {} \;
 find . -name "Dockerfile" -type f -exec sed -i -e "s~baseimageversion~$baseimageversion~g" {} \;

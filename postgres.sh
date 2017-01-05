@@ -2,6 +2,6 @@
 
 . ./setup.sh
 
-docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
-docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
-docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
+docker build --rm -t "devopscenter/db_postgres:${dcSTACK_VERSION}" db/postgres
+docker build --rm -t "devopscenter/db_postgres-standby:${dcSTACK_VERSION}" db/postgres-standby
+docker build --rm -t "devopscenter/db_postgres-repmgr:${dcSTACK_VERSION}" db/postgres-repmgr

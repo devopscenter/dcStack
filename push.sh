@@ -18,54 +18,54 @@
 #
 
 source VERSION
-echo "Version=${devops_version}"
+echo "Version=${dcSTACK_VERSION}"
 
 function buildtools {
-    docker push  "devopscenter/jenkins:${devops_version}" &
+    docker push  "devopscenter/jenkins:${dcSTACK_VERSION}" &
 }
 
 function base {
-    docker push  "devopscenter/base:${devops_version}"
+    docker push  "devopscenter/base:${dcSTACK_VERSION}"
 }
 
 function db {
-    docker push  "devopscenter/db_base:${devops_version}"
-    docker push  "devopscenter/db_postgres:${devops_version}"  
-    docker push  "devopscenter/db_postgres-standby:${devops_version}"
-    docker push  "devopscenter/db_postgres-repmgr:${devops_version}"
-#   docker push  "devopscenter/db_postgres-restore:${devops_version}"
-    docker push  "devopscenter/db_redis:${devops_version}"
-    docker push  "devopscenter/db_redis-standby:${devops_version}"
+    docker push  "devopscenter/db_base:${dcSTACK_VERSION}"
+    docker push  "devopscenter/db_postgres:${dcSTACK_VERSION}"  
+    docker push  "devopscenter/db_postgres-standby:${dcSTACK_VERSION}"
+    docker push  "devopscenter/db_postgres-repmgr:${dcSTACK_VERSION}"
+#   docker push  "devopscenter/db_postgres-restore:${dcSTACK_VERSION}"
+    docker push  "devopscenter/db_redis:${dcSTACK_VERSION}"
+    docker push  "devopscenter/db_redis-standby:${dcSTACK_VERSION}"
 }
 
 function misc {
-    docker push  "devopscenter/syslog:${devops_version}"
-    docker push  "devopscenter/monitor_papertrail:${devops_version}"
-    docker push  "devopscenter/monitor_sentry:${devops_version}"
-#    docker push  "devopscenter/monitor_nagios:${devops_version}"
-    docker push  "devopscenter/monitor_newrelic:${devops_version}" 
+    docker push  "devopscenter/syslog:${dcSTACK_VERSION}"
+    docker push  "devopscenter/monitor_papertrail:${dcSTACK_VERSION}"
+    docker push  "devopscenter/monitor_sentry:${dcSTACK_VERSION}"
+#    docker push  "devopscenter/monitor_nagios:${dcSTACK_VERSION}"
+    docker push  "devopscenter/monitor_newrelic:${dcSTACK_VERSION}" 
 }
 
 function stack1 {
-    docker push  "devopscenter/0099ff.web:${devops_version}" 
-    docker push  "devopscenter/0099ff.web-debug:${devops_version}"
-    docker push  "devopscenter/0099ff.worker:${devops_version}" 
+    docker push  "devopscenter/0099ff.web:${dcSTACK_VERSION}" 
+    docker push  "devopscenter/0099ff.web-debug:${dcSTACK_VERSION}"
+    docker push  "devopscenter/0099ff.worker:${dcSTACK_VERSION}" 
 }
 
 function stack2 {
-    docker push  "devopscenter/66ccff.web:${devops_version}" 
-    docker push  "devopscenter/66ccff.worker:${devops_version}" 
+    docker push  "devopscenter/66ccff.web:${dcSTACK_VERSION}" 
+    docker push  "devopscenter/66ccff.worker:${dcSTACK_VERSION}" 
 }
 
 function stack3 {
-    docker push  "devopscenter/007acc.web:${devops_version}"
-    docker push  "devopscenter/007acc.worker:${devops_version}"
+    docker push  "devopscenter/007acc.web:${dcSTACK_VERSION}"
+    docker push  "devopscenter/007acc.worker:${dcSTACK_VERSION}"
 }
 function web {
-    docker push  "devopscenter/python:${devops_version}"
-    docker push  "devopscenter/python-nginx:${devops_version}"
-    docker push  "devopscenter/python-nginx-pgpool:${devops_version}"
-    docker push  "devopscenter/python-nginx-pgpool-redis:${devops_version}"
+    docker push  "devopscenter/python:${dcSTACK_VERSION}"
+    docker push  "devopscenter/python-nginx:${dcSTACK_VERSION}"
+    docker push  "devopscenter/python-nginx-pgpool:${dcSTACK_VERSION}"
+    docker push  "devopscenter/python-nginx-pgpool-redis:${dcSTACK_VERSION}"
     rm -rf stack1push.log
     time stack1 &> stack1push.log &
     rm -rf stack2push.log

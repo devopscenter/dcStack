@@ -17,7 +17,7 @@
 #
 
 
-FROM devopscenter/db_base:devops_version
+FROM devopscenter/db_base:dcSTACK_VERSION
 
 MAINTAINER josh < josh [at] devops {dot} center>
 

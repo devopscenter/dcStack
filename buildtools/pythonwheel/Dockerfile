@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool-redis:devops_version
+FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV WHEELHOUSE=/wheelhouse

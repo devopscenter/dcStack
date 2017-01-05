@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/base:devops_version
+FROM devopscenter/base:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 

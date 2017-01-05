@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool:devops_version
+FROM devopscenter/python-nginx-pgpool:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 #flower port

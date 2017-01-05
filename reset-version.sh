@@ -18,9 +18,9 @@
 #
 
 source VERSION
-echo "Version=${devops_version}"
+echo "Version=${dcSTACK_VERSION}"
 source BASEIMAGE
 echo "BaseImage=${baseimageversion}"
 
-find . -name "Dockerfile" -type f -print -exec sed -i -e "s/$devops_version/devops_version/g" {} \;
+find . -name "Dockerfile" -type f -print -exec sed -i -e "s/$dcSTACK_VERSION/dcSTACK_VERSION/g" {} \;
 find . -name "Dockerfile" -type f -print -exec sed -i -e "s~$baseimageversion~baseimageversion~g" {} \;

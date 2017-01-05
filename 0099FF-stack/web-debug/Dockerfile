@@ -28,7 +28,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/0099ff.web:devops_version
+FROM devopscenter/0099ff.web:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV IS_DC_WEB_DEBUG=1

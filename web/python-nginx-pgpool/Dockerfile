@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx:devops_version
+FROM devopscenter/python-nginx:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.4

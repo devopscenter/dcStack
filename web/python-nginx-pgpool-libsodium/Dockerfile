@@ -1,4 +1,4 @@
-FROM devopscenter/python-nginx-pgpool:devops_version
+FROM devopscenter/python-nginx-pgpool:dcSTACK_VERSION
 
 RUN mkdir /repos
 WORKDIR /repos

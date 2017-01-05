@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/db_redis:devops_version
+FROM devopscenter/db_redis:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN echo "slaveof redismaster-1 6379" >> /etc/redis/redis.conf

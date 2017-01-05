@@ -18,77 +18,77 @@
 #
 
 source VERSION
-echo "Version=${devops_version}"
+echo "Version=${dcSTACK_VERSION}"
 source BASEIMAGE
 echo "BaseImage=${baseimageversion}"
 
-#replace variable devops_version with the VERSION we are building
-find . -name "Dockerfile" -type f -print -exec sed -i -e "s/devops_version/$devops_version/g" {} \;
+#replace variable dcSTACK_VERSION with the VERSION we are building
+find . -name "Dockerfile" -type f -print -exec sed -i -e "s/dcSTACK_VERSION/$dcSTACK_VERSION/g" {} \;
 find . -name "Dockerfile" -type f -print -exec sed -i -e "s~baseimageversion~$baseimageversion~g" {} \;
 
 #build containers
 
 function base {
-    docker build --rm -t "devopscenter/base:${devops_version}" .
+    docker build --rm -t "devopscenter/base:${dcSTACK_VERSION}" .
 }
 
 function db {
-    docker build --rm -t "devopscenter/db_base:${devops_version}" db
-    docker build --rm -t "devopscenter/db_postgres:${devops_version}" db/postgres
-    docker build --rm -t "devopscenter/db_postgres-standby:${devops_version}" db/postgres-standby
-#   docker build --rm -t "devopscenter/db_postgres-repmgr:${devops_version}" db/postgres-repmgr
-#   docker build --rm -t "devopscenter/db_postgres-restore:${devops_version}" db/postgres-restore
-    docker build --rm -t "devopscenter/db_redis:${devops_version}" db/redis
-    docker build --rm -t "devopscenter/db_redis-standby:${devops_version}" db/redis-standby
+    docker build --rm -t "devopscenter/db_base:${dcSTACK_VERSION}" db
+    docker build --rm -t "devopscenter/db_postgres:${dcSTACK_VERSION}" db/postgres
+    docker build --rm -t "devopscenter/db_postgres-standby:${dcSTACK_VERSION}" db/postgres-standby
+#   docker build --rm -t "devopscenter/db_postgres-repmgr:${dcSTACK_VERSION}" db/postgres-repmgr
+#   docker build --rm -t "devopscenter/db_postgres-restore:${dcSTACK_VERSION}" db/postgres-restore
+    docker build --rm -t "devopscenter/db_redis:${dcSTACK_VERSION}" db/redis
+    docker build --rm -t "devopscenter/db_redis-standby:${dcSTACK_VERSION}" db/redis-standby
 }
 
 function misc {
-    docker build --rm -t "devopscenter/syslog:${devops_version}" logging/. &> syslog.log &
-    docker build --rm -t "devopscenter/monitor_papertrail:${devops_version}" monitor/papertrail &> papertrail.log &
-    docker build --rm -t "devopscenter/monitor_sentry:${devops_version}" monitor/sentry &> sentry.log &
-    docker build --rm -t "devopscenter/monitor_nagios:${devops_version}" monitor/nagios &> nagios.log &
+    docker build --rm -t "devopscenter/syslog:${dcSTACK_VERSION}" logging/. &> syslog.log &
+    docker build --rm -t "devopscenter/monitor_papertrail:${dcSTACK_VERSION}" monitor/papertrail &> papertrail.log &
+    docker build --rm -t "devopscenter/monitor_sentry:${dcSTACK_VERSION}" monitor/sentry &> sentry.log &
+    docker build --rm -t "devopscenter/monitor_nagios:${dcSTACK_VERSION}" monitor/nagios &> nagios.log &
 }
-# docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${devops_version}" loadbalancer/ssl-termination
-# docker build --rm -t "devopscenter/loadbalancer_haproxy:${devops_version}" loadbalancer/haproxy
+# docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${dcSTACK_VERSION}" loadbalancer/ssl-termination
+# docker build --rm -t "devopscenter/loadbalancer_haproxy:${dcSTACK_VERSION}" loadbalancer/haproxy
 
 function newrelic {
-    docker build --rm -t "devopscenter/monitor_newrelic:${devops_version}" monitor/newrelic &
+    docker build --rm -t "devopscenter/monitor_newrelic:${dcSTACK_VERSION}" monitor/newrelic &
 }
 
 function backups {
-    docker build --rm -t "devopscenter/db_postgres-backup:${devops_version}" db/postgres-backup
+    docker build --rm -t "devopscenter/db_postgres-backup:${dcSTACK_VERSION}" db/postgres-backup
 }
 
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
     cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 0099FF-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/0099ff.web:${devops_version}" 0099FF-stack/web
-    docker build --rm -t "devopscenter/0099ff.web-debug:${devops_version}" 0099FF-stack/web-debug
-    docker build --rm -t "devopscenter/0099ff.worker:${devops_version}" 0099FF-stack/worker
+    docker build --rm -t "devopscenter/0099ff.web:${dcSTACK_VERSION}" 0099FF-stack/web
+    docker build --rm -t "devopscenter/0099ff.web-debug:${dcSTACK_VERSION}" 0099FF-stack/web-debug
+    docker build --rm -t "devopscenter/0099ff.worker:${dcSTACK_VERSION}" 0099FF-stack/worker
 }
 
 function stack2 {
     mkdir -p 66CCFF-stack/web/wheelhouse 
     cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 66CCFF-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/66ccff.web:${devops_version}" 66CCFF-stack/web
-    docker build --rm -t "devopscenter/66ccff.worker:${devops_version}" 66CCFF-stack/worker
+    docker build --rm -t "devopscenter/66ccff.web:${dcSTACK_VERSION}" 66CCFF-stack/web
+    docker build --rm -t "devopscenter/66ccff.worker:${dcSTACK_VERSION}" 66CCFF-stack/worker
 }
 
 function stack3 {
     mkdir -p 007acc-stack/web/wheelhouse
     cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 007acc-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/007acc.web:${devops_version}" 007acc-stack/web
-    docker build --rm -t "devopscenter/007acc.worker:${devops_version}" 007acc-stack/worker
+    docker build --rm -t "devopscenter/007acc.web:${dcSTACK_VERSION}" 007acc-stack/web
+    docker build --rm -t "devopscenter/007acc.worker:${dcSTACK_VERSION}" 007acc-stack/worker
 }
 
 function buildtools {
     echo "Running buildtools"
-    docker build --rm -t "devopscenter/jenkins:${devops_version}" buildtools/jenkins &> jenkins.log &
+    docker build --rm -t "devopscenter/jenkins:${dcSTACK_VERSION}" buildtools/jenkins &> jenkins.log &
 #
 # Build all packages for specific stacks as wheels, to be shared when building the containers for the specific stacks
 #
     mkdir -p buildtools/pythonwheel/wheelhouse
-    docker build --rm -t "devopscenter/buildtools:${devops_version}" buildtools/pythonwheel
+    docker build --rm -t "devopscenter/buildtools:${dcSTACK_VERSION}" buildtools/pythonwheel
     rm -rf buildtools/pythonwheel/application/app*
     mkdir -p buildtools/pythonwheel/application
     cp 0099FF-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
@@ -97,17 +97,17 @@ function buildtools {
     docker run --rm \
         -v "${PWD}/buildtools/pythonwheel/application":/application \
         -v "${PWD}/buildtools/pythonwheel/wheelhouse":/wheelhouse \
-        "devopscenter/buildtools:${devops_version}"
+        "devopscenter/buildtools:${dcSTACK_VERSION}"
 }
 
 function web {
-    docker build --rm -t "devopscenter/python:${devops_version}" python
+    docker build --rm -t "devopscenter/python:${dcSTACK_VERSION}" python
     time newrelic &> newrelic.log &
     time backups &> backups.log &
-    docker build --rm -t "devopscenter/python-nginx:${devops_version}" web/python-nginx
-    docker build --rm -t "devopscenter/python-nginx-pgpool:${devops_version}" web/python-nginx-pgpool
-    docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${devops_version}" web/python-nginx-pgpool-redis
-#    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${devops_version}" web/python-nginx-pgpool-libsodium
+    docker build --rm -t "devopscenter/python-nginx:${dcSTACK_VERSION}" web/python-nginx
+    docker build --rm -t "devopscenter/python-nginx-pgpool:${dcSTACK_VERSION}" web/python-nginx-pgpool
+    docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${dcSTACK_VERSION}" web/python-nginx-pgpool-redis
+#    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${dcSTACK_VERSION}" web/python-nginx-pgpool-libsodium
     echo "built common containers"
     buildtools &> buildtools.log
     echo "built all wheels for specific stacks"

@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python:devops_version
+FROM devopscenter/python:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.5
