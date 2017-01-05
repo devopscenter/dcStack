@@ -92,7 +92,7 @@ sudo ./install-supervisor.sh normal
 #-------------------------------------------------------------------------------
 # create env variables so supervisor can start
 #-------------------------------------------------------------------------------
-if [[ (-n "${ENV}") && (-e "~/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/environments/${ENV}.env") ]]; then
+if [[ (-n "${ENV}") && (-e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/environments/${ENV}.env") ]]; then
     pushd ~/dcUtils/
     #./environments/deployenv.sh linux $ENV
     ./deployenv.sh --type instance --env $ENV --customerAppName ${CUST_APP_NAME}
