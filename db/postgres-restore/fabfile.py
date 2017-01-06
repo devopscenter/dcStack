@@ -37,6 +37,11 @@ def download_pgdump_backup(s3_bucket_host,db_name):
   # run("~/dcStack/db/postgres-restore/download-pgdump-backup.sh %s %s" % (s3_bucket_host, db_name))
 
 @task
+def test_tracer(s3_bucket_host,db_name):
+  run("pwd %s %s" % (s3_bucket_host, db_name))
+  
+
+@task
 def restore_pgdump_backup(db_name):
   run("~/dcStack/db/postgres-restore/restore-pgdump-backup.sh %s" % (db_name))
 
