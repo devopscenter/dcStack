@@ -33,13 +33,7 @@ def install_postgres(private_ip,papertrail_address,vpc_cidr,database,s3_backup_b
 
 @task
 def download_pgdump_backup(s3_bucket_host,db_name):
-  run("./download-pgdump-backup.sh %s %s" % (s3_bucket_host, db_name))
-  # run("~/dcStack/db/postgres-restore/download-pgdump-backup.sh %s %s" % (s3_bucket_host, db_name))
-
-@task
-def test_tracer(s3_bucket_host,db_name):
-  run("pwd %s %s" % (s3_bucket_host, db_name))
-  
+  run("~/dcStack/db/postgres-restore/download-pgdump-backup.sh %s %s" % (s3_bucket_host, db_name))
 
 @task
 def restore_pgdump_backup(db_name):
