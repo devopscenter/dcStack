@@ -215,7 +215,7 @@ fi
 #-------------------------------------------------------------------------------
 NEWBACKUPDIR="/media/data/postgres/backup/wal-e-backups"
 if [ ! -d ${NEWBACKUPDIR} ]; then
-    mkdir ${NEWBACKUPDIR}
+    sudo mkdir -m 777 ${NEWBACKUPDIR}
 fi
 echo "export TMPDIR=${NEWBACKUPDIR}" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
 echo "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
