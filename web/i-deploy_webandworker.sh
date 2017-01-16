@@ -1,12 +1,12 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: i-deploy_webandworker.sh
-# 
-#         USAGE: ./i-deploy_webandworker.sh 
-# 
-#   DESCRIPTION: 
-# 
+#
+#         USAGE: ./i-deploy_webandworker.sh
+#
+#   DESCRIPTION:
+#
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #                PRIVATE_IP=$1
@@ -32,12 +32,14 @@ STACK=$3
 SUFFIX=$4
 ENV=$5
 PGVERSION=$6
+CUST_APP_NAME=$7
 
-if  [[ -z ${PRIVATE_IP} ]] || 
+if  [[ -z ${PRIVATE_IP} ]] ||
     [[ -z ${PAPERTRAIL_ADDRESS} ]] ||
     [[ -z ${STACK} ]] ||
     [[ -z ${SUFFIX} ]] ||
     [[ -z ${ENV} ]] ||
+    [[ -z ${CUST_APP_NAME} ]] ||
     [[ -z ${PGVERSION} ]] ; then
 
     echo "6 Arguments are required: "
@@ -47,6 +49,7 @@ if  [[ -z ${PRIVATE_IP} ]] ||
     echo "    SUFFIX: ${SUFFIX}"
     echo "    ENV: ${ENV}"
     echo "    PGVERSION: ${PGVERSION}"
+    echo "    CUST_APP_NAME: ${CUST_APP_NAME}"
     exit 1
 fi
 
@@ -69,8 +72,8 @@ sudo ./install-supervisor.sh custom
 # Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
 #-------------------------------------------------------------------------------
 if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
-    pushd ~/utils/
-    ./environments/deployenv.sh linux $ENV
+    pushd ~/dcUtils/
+    ./deployenv.sh --type instance --env $ENV --customerAppName ${CUST_APP_NAME}
     popd
 fi
 
