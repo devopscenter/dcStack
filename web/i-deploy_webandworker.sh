@@ -71,7 +71,7 @@ sudo ./install-supervisor.sh custom
 #-------------------------------------------------------------------------------
 # Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
 #-------------------------------------------------------------------------------
-if [[ (-n "${ENV}") && (-e ~/utils/environments) ]]; then
+if [[ (-n "${ENV}") && (-e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/environments/${ENV}.env") ]]; then
     pushd ~/dcUtils/
     ./deployenv.sh --type instance --env $ENV --customerAppName ${CUST_APP_NAME}
     popd
