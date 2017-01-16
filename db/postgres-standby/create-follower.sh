@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 PGMASTER_PRIVATEIP=$1
 PGFOLLOWER_PRIVATEIP=$2
