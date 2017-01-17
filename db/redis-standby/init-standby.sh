@@ -17,6 +17,7 @@
 # limitatioo "slaveof redismaster 6379" >> /etc/redis/redis.confs under the License.
 #
 
-sudo echo "slaveof redismaster-1 6379" >> /etc/redis/redis.conf
+# sudo echo "slaveof redismaster-1 6379" >> /etc/redis/redis.conf
+echo "slaveof redismaster-1 6379" | sudo tee -a /etc/redis/redis.conf
 
 sudo supervisorctl restart redis
