@@ -2,6 +2,15 @@
 
 # Called at creation time for instances or containers (e.g. docker compose)
 
+# put the /etc/environment in the current env for this session...normally would have to log out and log in to get it.
+while IFS='' read -r line || [[ -n "${line}" ]]
+do
+	if [[ "${line}" && "${line}" != "#"* ]]; then
+		export "${line}"
+	fi
+done < /etc/environment
+
+
 PAPERTRAIL_ADDRESS="${SYSLOG_SERVER}:${SYSLOG_PORT}"
 echo "Papertrail destination -> " $PAPERTRAIL_ADDRESS
 
