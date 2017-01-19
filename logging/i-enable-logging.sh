@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "i-enable-logging.sh"
+echo "full env $(env)"
+echo "SYSLOG_SERVER=${SYSLOG_SERVER}"
+echo "SYSLOG_PORT=${SYSLOG_PORT}"
+echo "SYSLOG_PROTO=${SYSLOG_PROTO}"
+
 PAPERTRAIL_ADDRESS=$1
 PAPERTRAIL_SERVER=$(echo "$PAPERTRAIL_ADDRESS"|awk -F':' '{print $1}')
 PAPERTRAIL_PORT=$(echo "$PAPERTRAIL_ADDRESS"|awk -F':' '{print $2}')

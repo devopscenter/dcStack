@@ -7,7 +7,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm /etc/rsyslog.d/50-default.conf
 
-COPY rsyslog.conf /etc/rsyslog.conf
+COPY docker-rsyslog.conf /etc/rsyslog.conf
 
 VOLUME /var/run/rsyslog/dev
 EXPOSE 514/tcp 514/udp
