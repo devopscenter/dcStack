@@ -10,7 +10,6 @@
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #                PRIVATE_IP=$1
-#                PAPERTRAIL_ADDRESS=$2
 #                STACK=$3
 #                SUFFIX=$4
 #                ENV=$5
@@ -27,15 +26,13 @@
 # All 6 arguments are required
 
 PRIVATE_IP=$1
-PAPERTRAIL_ADDRESS=$2
-STACK=$3
-SUFFIX=$4
-ENV=$5
-PGVERSION=$6
-CUST_APP_NAME=$7
+STACK=$2
+SUFFIX=$3
+ENV=$4
+PGVERSION=$5
+CUST_APP_NAME=$6
 
 if  [[ -z ${PRIVATE_IP} ]] ||
-    [[ -z ${PAPERTRAIL_ADDRESS} ]] ||
     [[ -z ${STACK} ]] ||
     [[ -z ${SUFFIX} ]] ||
     [[ -z ${ENV} ]] ||
@@ -44,7 +41,6 @@ if  [[ -z ${PRIVATE_IP} ]] ||
 
     echo "6 Arguments are required: "
     echo "    PRIVATE_IP: ${PRIVATE_IP}"
-    echo "    PAPERTRAIL_ADDRESS: ${PAPERTRAIL_ADDRESS}"
     echo "    STACK: ${STACK}"
     echo "    SUFFIX: ${SUFFIX}"
     echo "    ENV: ${ENV}"
@@ -81,7 +77,7 @@ fi
 # enable logging
 #-------------------------------------------------------------------------------
 cd ~/dcStack/logging/ || exit
-./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
+./i-enable-logging.sh
 
 #-------------------------------------------------------------------------------
 #  install nginx

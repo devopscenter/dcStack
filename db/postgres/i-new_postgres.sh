@@ -10,7 +10,6 @@
 #       OPTIONS: ---
 #  REQUIREMENTS: 
 #                PRIVATE_IP=$1
-#                PAPERTRAIL_ADDRESS=$2
 #                VPC_CIDR=$3
 #                DATABASE=$4
 #                S3_BACKUP_BUCKET=$5
@@ -30,27 +29,24 @@
 
 CUST_APP_NAME=$1
 PRIVATE_IP=$2
-PAPERTRAIL_ADDRESS=$3
-VPC_CIDR=$4
-DATABASE=$5
-S3_BACKUP_BUCKET=$6
-S3_WALE_BUCKET=$7
-PGVERSION=$8
-DNS_METHOD=$9
-ENV=${10}
+VPC_CIDR=$3
+DATABASE=$4
+S3_BACKUP_BUCKET=$5
+S3_WALE_BUCKET=$6
+PGVERSION=$7
+DNS_METHOD=$8
+ENV=$9
 
-if  [[ -z "$PRIVATE_IP" ]] || 
-    [[ -z "$PAPERTRAIL_ADDRESS" ]] || 
-    [[ -z "$VPC_CIDR" ]] || 
-    [[ -z "$DATABASE" ]] || 
-    [[ -z "$S3_BACKUP_BUCKET" ]] || 
-    [[ -z "$S3_WALE_BUCKET" ]] || 
-    [[ -z "$PGVERSION" ]] || 
+if  [[ -z "$PRIVATE_IP" ]] ||
+    [[ -z "$VPC_CIDR" ]] ||
+    [[ -z "$DATABASE" ]] ||
+    [[ -z "$S3_BACKUP_BUCKET" ]] ||
+    [[ -z "$S3_WALE_BUCKET" ]] ||
+    [[ -z "$PGVERSION" ]] ||
     [[ -z "$ENV" ]]; then
 
     echo "9 Arguments are required: "
     echo "    PRIVATE_IP: ${PRIVATE_IP}"
-    echo "    PAPERTRAIL_ADDRESS: ${PAPERTRAIL_ADDRESS}"
     echo "    VPC_CIDR: ${VPC_CIDR}"
     echo "    DATABASE: ${DATABASE}"
     echo "    S3_BACKUP_BUCKET: ${S3_BACKUP_BUCKET}"
@@ -58,7 +54,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    PGVERSION: ${PGVERSION}"
     echo "    DNS_METHOD: ${DNS_METHOD}"
     echo "    ENV: ${ENV}"
-    echo 
+    echo
     echo -e "Examples:"
     echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
     echo -e "Postgresql 9.5 using Route53 for DNS:      ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.5\n"
@@ -105,7 +101,7 @@ sudo /etc/init.d/supervisor start
 # enable logging
 #-------------------------------------------------------------------------------
 cd ~/dcStack/logging/ || exit
-./i-enable-logging.sh "$PAPERTRAIL_ADDRESS"
+./i-enable-logging.sh
 
 #-------------------------------------------------------------------------------
 # mount volumes and remove instance attached store from /mnt
