@@ -9,13 +9,17 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
             sudo apt-get -qq -y install apt-fast
 
 sudo apt-fast -qq update
-sudo apt-fast -qq -y install wget sudo vim curl build-essential fontconfig libssl-dev libffi-dev python-dev
+sudo apt-fast -qq -y install build-essential fontconfig libssl-dev libffi-dev python-dev
 
 wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-fast -qq update
-sudo apt-fast -qq -y install jenkins python-pip python-dev
-sudo pip install fabric==1.10.2 gitpython ecdsa pycrypto s3cmd
+sudo apt-fast -qq -y install jenkins python-dev
+
+sudo apt-fast -qq -y install python-pip
+sudo pip install --upgrade pip
+sudo pip --version
+sudo pip install fabric==1.13.1 gitpython ecdsa pycrypto s3cmd
 
 #echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/environment
 echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
