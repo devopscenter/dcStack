@@ -1,12 +1,11 @@
 boto==2.38.0
-celery==3.1.18
-coverage==4.0a6
+celery==3.1.25
+overage==4.0a6
 czipfile==1.0.0
 Django==1.8.4
-django-celery==3.1.16
 django-configurations==0.8
 git+https://github.com/josh-devops-center/django-health-check@e9bcff0030c85dd97a7effa04a66a6a438fbe9c2#egg=django-health-check
-flower==0.8.3
+flower==0.9.1
 ipython==4.0.0
 jasmine==2.3.0
 lxml==3.4.4
@@ -18,5 +17,4 @@ requests==2.7.0
 uwsgi==2.0.11.1
 xlrd==0.9.4
 xlwt==1.0.0
-numpy==1.9.2
 
