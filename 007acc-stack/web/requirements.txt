@@ -1,6 +1,6 @@
 boto==2.38.0
 celery==3.1.25
-overage==4.0a6
+coverage==4.0a6
 czipfile==1.0.0
 Django==1.8.4
 django-configurations==0.8
