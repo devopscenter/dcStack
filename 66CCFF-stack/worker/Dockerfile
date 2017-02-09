@@ -27,6 +27,7 @@ RUN rm -rf /etc/supervisor/conf.d/nginx.conf && \
 
 ADD flower.conf /etc/supervisor/conf.d/flower.conf
 ADD celery.conf /etc/supervisor/conf.d/celery.conf
+RUN useradd celery
 
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
