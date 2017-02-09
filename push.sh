@@ -32,7 +32,7 @@ function db {
     docker push  "devopscenter/db_base:${dcSTACK_VERSION}"
     docker push  "devopscenter/db_postgres:${dcSTACK_VERSION}"  
     docker push  "devopscenter/db_postgres-standby:${dcSTACK_VERSION}"
-    docker push  "devopscenter/db_postgres-repmgr:${dcSTACK_VERSION}"
+#    docker push  "devopscenter/db_postgres-repmgr:${dcSTACK_VERSION}"
 #   docker push  "devopscenter/db_postgres-restore:${dcSTACK_VERSION}"
     docker push  "devopscenter/db_redis:${dcSTACK_VERSION}"
     docker push  "devopscenter/db_redis-standby:${dcSTACK_VERSION}"
