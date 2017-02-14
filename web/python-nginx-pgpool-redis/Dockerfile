@@ -19,9 +19,6 @@
 FROM devopscenter/python-nginx-pgpool:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
-#flower port
-EXPOSE 5555
-
 ADD redis-client-install.sh /installs/redis-client-install.sh
 ADD redisclientenv.sh /installs/redisclientenv.sh
 WORKDIR /installs
