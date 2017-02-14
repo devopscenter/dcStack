@@ -19,6 +19,9 @@
 FROM devopscenter/007acc.web:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
+# flower port
+EXPOSE 5555
+
 RUN useradd celery
 
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf
