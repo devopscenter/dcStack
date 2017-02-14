@@ -19,6 +19,9 @@
 FROM devopscenter/66ccff.web:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
+# Flower port
+EXPOSE 5555
+
 # Setup config to run pgpool, celery, and flower in this container
 # (this requires supervisor)
 
