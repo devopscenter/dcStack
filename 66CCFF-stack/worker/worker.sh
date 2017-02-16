@@ -1,14 +1,9 @@
 #!/bin/bash -e
 
-sudo apt-fast -y install libfontconfig-dev libxrender-dev libxtst6
+sudo useradd celery
 
-curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -
-
-sudo apt-get install -y nodejs
-
-curl -L https://npmjs.com/install.sh | sudo sh
-
-sudo npm install -g less
-
+# Required directories for f1
 sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
+sudo chown celery:celery /data/media/pdfcreator /data/media/reports /data/media/reports/pdf /data/scratch 
+
 
