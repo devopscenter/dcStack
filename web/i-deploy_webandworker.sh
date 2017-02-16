@@ -103,11 +103,13 @@ sudo ./redis-client-install.sh
 cd ~/dcStack/${STACK}-stack/web/ || exit
 sudo ./web.sh
 
-# guessing this was intended to eventually point to a file, but it doesn't currently exist.
-#if [[ "$SUFFIX" = "worker" ]]; then
-#  cd ~/dcStack/${STACK}-stack/worker/ || exit
-#  sudo ./worker.sh
-#fi
+# If there is a worker specific install, then invoke it.
+if [[ "$SUFFIX" = "worker" ]]; then
+    cd ~/dcStack/${STACK}-stack/worker/ || exit
+    if [[ -e worker.sh ]]; then
+        sudo ./worker.sh
+    fi
+fi
 
 #-------------------------------------------------------------------------------
 # Restart supervisor, so that all services are now running.
