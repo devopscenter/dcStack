@@ -16,27 +16,35 @@
 # limitations under the License.
 #
 
-FROM devopscenter/66ccff.web:dcSTACK_VERSION
+FROM devopscenter/66ccff.web:v2.0b5
 MAINTAINER josh < josh [at] devops {dot} center>
 
 # Flower port
 EXPOSE 5555
 
+ADD web.sh /installs/worker.sh
+WORKDIR /installs
+
+RUN ./worker.sh
+
 # Setup config to run pgpool, celery, and flower in this container
-# (this requires supervisor)
+# (basically don't run uwsgi)
 
-RUN rm -rf /etc/supervisor/conf.d/nginx.conf && \
-    rm -rf /etc/supervisor/conf.d/uwsgi.conf
+RUN rm -rf /etc/supervisor/conf.d/uwsgi.conf
 
-ADD flower.conf /etc/supervisor/conf.d/flower.conf
-ADD celery.conf /etc/supervisor/conf.d/celery.conf
-RUN useradd celery
+ADD conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
+ADD conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
+ADD conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
 
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
+# then grab any app-supplied configs for celery and flower (if present),
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
+    if [ -e /app-utils/conf/supervisor-celery.conf ]; then cp /app-utils/conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf; fi && \
+    if [ -e /app-utils/conf/supervisor-flower.conf ]; then cp /app-utils/conf/supervisor-flower.conf //etc/supervisor/conf.d/flower.conf; fi && \
+    if [ -e /app-utils/conf/run_celery.sh ]; then cp /app-utils/conf/run_celery.sh /etc/supervisor/conf.d/; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
