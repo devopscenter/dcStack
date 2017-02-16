@@ -22,7 +22,7 @@ MAINTAINER josh < josh [at] devops {dot} center>
 # Flower port
 EXPOSE 5555
 
-ADD web.sh /installs/worker.sh
+ADD worker.sh /installs/worker.sh
 WORKDIR /installs
 
 RUN ./worker.sh
