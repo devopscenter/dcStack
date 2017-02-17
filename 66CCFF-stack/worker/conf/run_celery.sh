@@ -11,8 +11,8 @@ fi
 
 
 # Create a worker for all queues
-/usr/local/opt/python/bin/python manage.py celery worker \
+sudo -Eu celery /usr/local/opt/python/bin/python manage.py celery worker \
                                            --loglevel=INFO --soft-time-limit=300  \
-                                           -c 4 -Q pdfprinttaskqueue,plangeneratorqueue,processhistoryqueue,processmidmonthqueue \
+                                           -c 2 -Q pdfprinttaskqueue,plangeneratorqueue,processhistoryqueue,processmidmonthqueue \
                                            -n pdf_printer@%n \
                                            --pidfile=/var/run/celery/pdf_printer.pid
