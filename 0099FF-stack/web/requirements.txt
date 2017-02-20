@@ -29,3 +29,4 @@ oauth2client==3.0.0
 google-api-python-client==1.5.3
 enum34==1.1.2
 django-extensions==1.6.1
+cryptography==1.2.3
