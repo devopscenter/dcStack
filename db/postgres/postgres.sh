@@ -36,7 +36,7 @@ sudo apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${
 
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8 && \
-    sudo dpkg-reconfigure locales
+    sudo dpkg-reconfigure --frontend=noninteractive locales
 
 ###WAL-E
 #USER root
