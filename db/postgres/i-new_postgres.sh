@@ -107,6 +107,8 @@ cd ~/dcStack/logging/ || exit
 #-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres/ || exit
 sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
+cat /etc/fstab
+exit
 sudo ./mount.sh
 
 #-------------------------------------------------------------------------------
