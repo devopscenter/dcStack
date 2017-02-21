@@ -30,7 +30,8 @@ function mount-volume
   fi
 
   # add to fstab to mount on boot
-  FSTAB_LINE="${MOUNTPATH}   ${DIRECTORY}     auto    defaults,nobootwait,comment=cloudconfig 0       2"
+  #FSTAB_LINE="${MOUNTPATH}   ${DIRECTORY}     auto    defaults,nobootwait,comment=cloudconfig 0       2"
+  FSTAB_LINE="${MOUNTPATH}   ${DIRECTORY}     auto    defaults,comment=cloudconfig 0       2"
   if ! (grep -q "$FSTAB_LINE" /etc/fstab); then
     echo "$FSTAB_LINE" | sudo tee -a /etc/fstab
   fi
