@@ -12,7 +12,7 @@ function mount-volume
 
   # add primary partition if it doesn't exist
   if ! (sudo parted "$MOUNTPATH" print|grep -q ext4); then
-    echo -e "n\np\n1\n\n\nw\ny\n" | sudo fdisk ${MOUNTPATH}
+    echo -e "n\np\n1\n\n\nw\n" | sudo fdisk ${MOUNTPATH}
   fi
 
   # create ext4 filesystem if it doesn't exist
@@ -20,7 +20,7 @@ function mount-volume
     if (sudo mount -t ext4|grep -q "$MOUNTPATH"); then
       sudo umount "$MOUNTPATH"
     fi
-    sudo mkfs -t ext4 "$MOUNTPATH"
+    echo -e "y\n" | sudo mkfs -t ext4 "$MOUNTPATH"
   fi
 
   # mount at the target directory
