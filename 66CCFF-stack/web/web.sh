@@ -12,3 +12,4 @@ sudo npm install -g less
 
 sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
 
+echo "Installed customer-specific web portion"
