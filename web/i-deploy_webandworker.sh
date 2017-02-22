@@ -69,7 +69,7 @@ sudo ./install-supervisor.sh custom
 #-------------------------------------------------------------------------------
 if [[ (-n "${ENV}") && (-e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/environments/${ENV}.env") ]]; then
     pushd ~/dcUtils/
-    ./deployenv.sh --type instance --env $ENV --customerAppName ${CUST_APP_NAME}
+    ./deployenv.sh --type instance --env $ENV --appName ${CUST_APP_NAME}
     popd
 fi
 
