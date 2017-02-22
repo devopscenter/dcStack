@@ -53,7 +53,7 @@ sudo chown -R postgres:postgres /etc/pgpool2
 
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8
-sudo dpkg-reconfigure locales
+sudo dpkg-reconfigure --frontend=noninteractive locales
 
 popd
 popd
