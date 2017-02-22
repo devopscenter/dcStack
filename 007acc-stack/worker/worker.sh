@@ -2,7 +2,8 @@
 
 sudo useradd celery
 
-sudo cp flower.conf /etc/supervisor/conf.d/flower.conf
-sudo cp celery.conf /etc/supervisor/conf.d/celery.conf
+# Required directories for f1
+sudo mkdir -p /data/deploy /data/media /data/scratch 
+sudo chown celery:celery /data/scratch 
 
-echo "Installed customer-specific worker portion"
+

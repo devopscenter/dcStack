@@ -14,4 +14,4 @@ sudo npm install -g less
 
 sudo npm install -g coffee-script
 
-echo "Installed customer-specific web and worker portion"
+echo "Installed customer-specific web portion"
