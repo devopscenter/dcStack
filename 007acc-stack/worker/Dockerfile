@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/66ccff.web:dcSTACK_VERSION
+FROM devopscenter/007acc.web:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 # Flower port
