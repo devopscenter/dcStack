@@ -1,6 +1,6 @@
 #!/bin/bash -ev
 
-REDIS_VERSION=3.0.3
+REDIS_VERSION=3.0.7
 
 WHEELHOUSE=/wheelhouse
 PIP_WHEEL_DIR=/wheelhouse

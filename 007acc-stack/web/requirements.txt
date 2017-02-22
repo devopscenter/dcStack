@@ -19,7 +19,7 @@ pandas==0.16.2
 psycopg2==2.6.1
 pubnub==3.7.3
 raven>=6.0.0
-redis==3.0.3
+redis==2.10.5
 requests==2.7.0
 xlrd==0.9.4
 xlwt==1.0.0
