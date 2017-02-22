@@ -3,7 +3,11 @@
 # This script is run by Supervisor to start PostgreSQL in foreground mode
  
 if [ -d /var/run/postgresql ]; then
-    chmod -R 2775 /var/run/postgresql /var/run/postgresql/postgres-main.pg_stat_tmp
+    if [ ! -d /var/run/postgresql/postgres-main.pg_stat_tmp ]; then
+        install -d -m 2775 -o postgres -g postgres /var/run/postgresql
+    else
+        chmod -R 2775 /var/run/postgresql /var/run/postgresql/postgres-main.pg_stat_tmp
+    fi
 else
     install -d -m 2775 -o postgres -g postgres /var/run/postgresql
     install -d -m 2775 -o postgres -g postgres /var/run/postgresql/postgres-main.pg_stat_tmp
