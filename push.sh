@@ -46,6 +46,12 @@ function misc {
     docker push  "devopscenter/monitor_newrelic:${dcSTACK_VERSION}" 
 }
 
+function stack0 {
+    docker push  "devopscenter/000000.web:${dcSTACK_VERSION}" 
+    docker push  "devopscenter/000000.web-debug:${dcSTACK_VERSION}"
+    docker push  "devopscenter/000000.worker:${dcSTACK_VERSION}" 
+}
+
 function stack1 {
     docker push  "devopscenter/0099ff.web:${dcSTACK_VERSION}" 
     docker push  "devopscenter/0099ff.web-debug:${dcSTACK_VERSION}"
@@ -66,6 +72,8 @@ function web {
     docker push  "devopscenter/python-nginx:${dcSTACK_VERSION}"
     docker push  "devopscenter/python-nginx-pgpool:${dcSTACK_VERSION}"
     docker push  "devopscenter/python-nginx-pgpool-redis:${dcSTACK_VERSION}"
+    rm -rf stack0push.log
+    time stack0 &> stack0push.log &
     rm -rf stack1push.log
     time stack1 &> stack1push.log &
     rm -rf stack2push.log

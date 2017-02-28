@@ -59,6 +59,14 @@ function backups {
     docker build --rm -t "devopscenter/db_postgres-backup:${dcSTACK_VERSION}" db/postgres-backup
 }
 
+function stack0 {
+    mkdir -p 000000-stack/web/wheelhouse
+    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 000000-stack/web/wheelhouse
+    docker build --rm -t "devopscenter/000000.web:${dcSTACK_VERSION}" 000000-stack/web
+    docker build --rm -t "devopscenter/000000.web-debug:${dcSTACK_VERSION}" 000000-stack/web-debug
+    docker build --rm -t "devopscenter/000000.worker:${dcSTACK_VERSION}" 000000-stack/worker
+}
+
 function stack1 {
     mkdir -p 0099FF-stack/web/wheelhouse
     cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 0099FF-stack/web/wheelhouse
@@ -111,6 +119,8 @@ function web {
     echo "built common containers"
     buildtools &> buildtools.log
     echo "built all wheels for specific stacks"
+    rm -rf stack0.log
+    time stack0 &> stack0.log &
     rm -rf stack1.log
     time stack1 &> stack1.log &
     rm -rf stack2.log
