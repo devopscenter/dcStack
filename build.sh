@@ -119,6 +119,12 @@ function web {
 #    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${dcSTACK_VERSION}" web/python-nginx-pgpool-libsodium
     echo "built common containers"
     buildtools &> buildtools.log
+
+# remove numpy and pandas wheels, which have strange dependencies between different builds.
+    rm buildtools/pythonwheel/wheelhouse/numpy*.*
+    rm buildtools/pythonwheel/wheelhouse/pandas*.*
+
+
     echo "built all wheels for specific stacks"
     rm -rf stack0.log
     time stack0 &> stack0.log &
