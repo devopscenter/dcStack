@@ -1,4 +1,24 @@
-#!/bin/bash
+#!/bin/bash - 
+#===============================================================================
+#
+#          FILE: mount.sh
+# 
+#         USAGE: ./mount.sh 
+# 
+#   DESCRIPTION: 
+# 
+#       OPTIONS: ---
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: ---
+#        AUTHOR: Gregg Jensen (), gjensen@devops.center
+#  ORGANIZATION: devops.center
+#       CREATED: 03/07/2017 17:52:43
+#      REVISION:  ---
+#===============================================================================
+
+#set -o nounset         # Treat unset variables as an error
+#set -x                 # Essentiall turn on debug mode
 
 # note that this is only run on an instance, not within a container.
 
@@ -37,16 +57,30 @@ function mount-volume
   fi
 }
 
-# make use of attached db volume if it exists, otherwise use instance-attached ssd
-if [ -b /dev/xvdg ]
-    then
-        DB_DEV=/dev/xvdg
+# make use of attached db, xlog, and backup volumes if they exist, otherwise use instance-attached ssd
+if [ -b /dev/xvdg ]; then
+    mount-volume "/dev/xvdg" "/media/data/postgres/db"
+else
+    if [ -b /dev/nvme0n1 ]; then
+        mount-volume "/dev/nvme0n1" "/media/data/postgres/db"
     else
-        DB_DEV=/dev/xvdb
+        mount-volume "/dev/xvdb" "/media/data/postgres/db"
+    fi
 fi
-mount-volume "$DB_DEV" "/media/data/postgres/db"
-mount-volume "/dev/xvdh" "/media/data/postgres/xlog"
-mount-volume "/dev/xvdi" "/media/data/postgres/backup"
+
+# mount the xlog volume if it is exists
+if [ -b /dev/xvdh ]; then
+    mount-volume "/dev/xvdh" "/media/data/postgres/xlog"
+fi
+
+# mount the backup volume if it is exists
+if [ -b /dev/xvdi ]; then
+    mount-volume "/dev/xvdi" "/media/data/postgres/backup"
+else
+    # looks like we need to create the directory if it doesn't exist.  The postgres install and configuration
+    # won't do it.
+    mkdir -p "/media/data/postgres/backup"
+fi
 
 # close up /etc/fstab again
 sudo chmod o-w /etc/fstab
