@@ -104,11 +104,22 @@ sudo ./redis-client-install.sh
 cd ~/dcStack/${STACK}-stack/web/ || exit
 sudo ./web.sh
 
+
+#-------------------------------------------------------------------------------
+# run the appliction specific web_commands.sh 
+#-------------------------------------------------------------------------------
+if [[ -e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}/web-commands.sh" ]]; then
+    sudo "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}/web-commands.sh"
+fi
+
 # Need to check if the web would want to add the worker features into itself
 if [[ ${COMBINED_WEB_WORKER} ]]; then
     cd ~/dcStack/${STACK}-stack/worker/ || exit
     if [[ -e worker.sh ]]; then
         sudo ./worker.sh
+    fi
+    if [[ -e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}/worker-commands.sh" ]]; then
+        sudo "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}/worker-commands.sh"
     fi
 fi
 
@@ -117,6 +128,9 @@ if [[ "$SUFFIX" = "worker" ]]; then
     cd ~/dcStack/${STACK}-stack/worker/ || exit
     if [[ -e worker.sh ]]; then
         sudo ./worker.sh
+    fi
+    if [[ -e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}/worker-commands.sh" ]]; then
+        sudo "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}/worker-commands.sh"
     fi
 fi
 
