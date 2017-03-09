@@ -33,11 +33,6 @@ RUN ./worker.sh
 RUN rm -rf /etc/supervisor/conf.d/uwsgi.conf && \
     rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
 
-ADD conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
-ADD conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
-ADD conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
-
-
 # f1 workers need to serve /data/media/pdfcreator as a static directory /pdfcreator
 ADD conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 

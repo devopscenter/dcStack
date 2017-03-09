@@ -34,11 +34,6 @@ RUN rm -rf /etc/supervisor/conf.d/uwsgi.conf && \
     rm -rf /etc/supervisor/conf.d/run_uwsgi.conf && \
     rm -rf /etc/supervisor/conf.d/nginx.conf
 
-ADD conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
-ADD conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
-ADD conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
-
-
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
 # then grab any app-supplied configs for celery and flower (if present),
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
