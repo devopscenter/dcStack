@@ -31,6 +31,7 @@ SUFFIX=$3
 ENV=$4
 PGVERSION=$5
 CUST_APP_NAME=$6
+COMBINED_WEB_WORKER=${7:-0}
 
 if  [[ -z ${PRIVATE_IP} ]] ||
     [[ -z ${STACK} ]] ||
@@ -102,6 +103,14 @@ sudo ./redis-client-install.sh
 #-------------------------------------------------------------------------------
 cd ~/dcStack/${STACK}-stack/web/ || exit
 sudo ./web.sh
+
+# Need to check if the web would want to add the worker features into itself
+if [[ ${COMBINED_WEB_WORKER} ]]; then
+    cd ~/dcStack/${STACK}-stack/worker/ || exit
+    if [[ -e worker.sh ]]; then
+        sudo ./worker.sh
+    fi
+fi
 
 # If there is a worker specific install, then invoke it.
 if [[ "$SUFFIX" = "worker" ]]; then
