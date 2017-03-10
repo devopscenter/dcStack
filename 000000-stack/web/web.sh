@@ -1,4 +1,17 @@
 #!/bin/bash -e
+CUST_APP_NAME=$1
+ENV=$2
+
+#-------------------------------------------------------------------------------
+# run the appliction specific web_commands.sh 
+#-------------------------------------------------------------------------------
+if [[ -e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}/web-commands.sh" ]]; then
+    sudo "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}/web-commands.sh"
+fi
+
+cp requirements.txt /installs/requirements.txt
+cp requirements2.txt /installs/requirements2.txt
+cp web.sh /installs/web.sh
 
 sudo pip install -r requirements.txt
 

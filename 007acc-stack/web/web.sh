@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+cp requirements.txt /installs/requirements.txt
+cp web.sh /installs/web.sh
+
 sudo pip install -r requirements.txt
 
 curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -

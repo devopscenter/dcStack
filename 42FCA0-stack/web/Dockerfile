@@ -16,27 +16,24 @@
 # limitations under the License.
 #
 
-FROM devopscenter/000000.web:dcSTACK_VERSION
-MAINTAINER bob < bob [at] devops {dot} center>
+FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
+MAINTAINER josh < josh [at] devops {dot} center>
 
-# Setup config to run pgpool and a single django-rq worker in this container
-ADD worker.sh /installs/worker.sh
-ADD conf /installs/app-conf
-run ./worker.sh
+ADD requirements.txt /installs/requirements.txt
+ADD requirements2.txt /installs/requirements2.txt
+ADD web.sh /installs/web.sh
+WORKDIR /installs
 
-# (though this requires supervisor)
-RUN rm -rf /etc/supervisor/conf.d/nginx.conf && \
-    rm -rf /etc/supervisor/conf.d/uwsgi.conf
+RUN ./web.sh
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
-# then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
+# copy over a local nginx config file (if it exists), then remove stale PIDs which prevented pgpool from
+# successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
-    if [ -e /app-utils/conf/local/worker-commands.sh ]; then  /app-utils/conf/local/worker-commands.sh; fi && \
+    if [ -e /app-utils/conf/nginx.conf ]; then cp /app-utils/conf/nginx.conf /usr/local/nginx/conf/; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
     rm -rf /var/run/postgresql/.s.* && \
     supervisord -n
-
-

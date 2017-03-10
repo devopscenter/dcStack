@@ -19,9 +19,6 @@
 FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
-ADD wheelhouse /wheelhouse
-ADD requirements.txt /installs/requirements.txt
-ADD web.sh /installs/web.sh
 WORKDIR /installs
 
 RUN ./web.sh

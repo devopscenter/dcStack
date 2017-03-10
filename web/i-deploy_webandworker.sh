@@ -104,7 +104,6 @@ sudo ./redis-client-install.sh
 cd ~/dcStack/${STACK}-stack/web/ || exit
 sudo ./web.sh
 
-
 #-------------------------------------------------------------------------------
 # run the appliction specific web_commands.sh 
 #-------------------------------------------------------------------------------
