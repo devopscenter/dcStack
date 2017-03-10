@@ -19,19 +19,22 @@
 FROM devopscenter/0099ff.web:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ADD supervisor-djangorq-worker.conf /installs/supervisor-djangorq-worker.conf
 
 # Setup config to run pgpool and a single django-rq worker in this container
+ADD worker.sh /installs/worker.sh
+ADD conf /installs/app-conf
+run ./worker.sh
+
 # (though this requires supervisor)
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && \
-    rm -rf /etc/supervisor/conf.d/uwsgi.conf && \
-    cp supervisor-djangorq-worker.conf /etc/supervisor/conf.d/djangorq-worker.conf
+    rm -rf /etc/supervisor/conf.d/uwsgi.conf
 
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
+    if [ -e /app-utils/conf/local/worker-commands.sh ]; then  /app-utils/conf/local/worker-commands.sh; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
