@@ -20,6 +20,8 @@ FROM devopscenter/000000.web:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 # Setup config to run pgpool and a single django-rq worker in this container
+ADD worker.sh /installs/worker.sh
+ADD conf /installs/app-conf
 run ./worker.sh
 
 # (though this requires supervisor)

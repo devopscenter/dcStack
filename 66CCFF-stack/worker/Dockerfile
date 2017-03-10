@@ -23,6 +23,7 @@ MAINTAINER josh < josh [at] devops {dot} center>
 EXPOSE 5555
 
 ADD worker.sh /installs/worker.sh
+ADD conf /installs/app-conf
 WORKDIR /installs
 
 RUN ./worker.sh
