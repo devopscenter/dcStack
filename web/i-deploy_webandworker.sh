@@ -102,7 +102,19 @@ sudo ./redis-client-install.sh
 # Install customer-specific stack - all get the web portion.
 #-------------------------------------------------------------------------------
 cd ~/dcStack/${STACK}-stack/web/ || exit
-sudo ./web.sh
+if [[ -f ./web.sh ]]; then
+    sudo ./web.sh
+fi
+
+#-------------------------------------------------------------------------------
+# Install customer-specific stack - all get the web portion.
+#-------------------------------------------------------------------------------
+if [[ "${SUFFIX}" = "worker" ]]; then
+    cd ~/dcStack/${STACK}-stack/worker/ || exit
+    if [[ -f ./worker.sh ]]; then
+        sudo ./worker.sh
+    fi
+fi
 
 #-------------------------------------------------------------------------------
 # run the appliction specific web_commands.sh 
