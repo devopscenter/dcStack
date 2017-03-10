@@ -36,6 +36,7 @@ S3_WALE_BUCKET=$6
 PGVERSION=$7
 DNS_METHOD=$8
 ENV=$9
+DCTYPE=${10}
 
 if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$VPC_CIDR" ]] ||
@@ -43,9 +44,10 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$S3_BACKUP_BUCKET" ]] ||
     [[ -z "$S3_WALE_BUCKET" ]] ||
     [[ -z "$PGVERSION" ]] ||
+    [[ -z "$DCTYPE}" ]] ||
     [[ -z "$ENV" ]]; then
 
-    echo "9 Arguments are required: "
+    echo "10 Arguments are required: "
     echo "    PRIVATE_IP: ${PRIVATE_IP}"
     echo "    VPC_CIDR: ${VPC_CIDR}"
     echo "    DATABASE: ${DATABASE}"
@@ -54,6 +56,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    PGVERSION: ${PGVERSION}"
     echo "    DNS_METHOD: ${DNS_METHOD}"
     echo "    ENV: ${ENV}"
+    echo "    DCTYPE: ${DCTYPE}"
     echo
     echo -e "Examples:"
     echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
@@ -123,8 +126,8 @@ sudo /etc/init.d/supervisor restart
 # get instance type to determine which base postgresql.conf to use
 #-------------------------------------------------------------------------------
 INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
-if [[ -f ~/dcStack/db/postgres/conf/postgresql.conf.${INSTANCE_TYPE} ]]; then
-    sudo cp ~/dcStack/db/postgres/conf/postgresql.conf."${INSTANCE_TYPE}" /media/data/postgres/db/pgdata/postgresql.conf
+if [[ -f ~/dcStack/db/postgres/conf/postgresql.conf.${DCTYPE} ]]; then
+    sudo cp ~/dcStack/db/postgres/conf/postgresql.conf."${DCTYPE}" /media/data/postgres/db/pgdata/postgresql.conf
 else
     sudo cp ~/dcStack/db/postgres/conf/postgresql.conf /media/data/postgres/db/pgdata/postgresql.conf
 fi

@@ -1,5 +1,5 @@
 # -----------------------------
-# PostgreSQL configuration file
+# PostgreSQL configuration file for devops.center type small-3
 # -----------------------------
 #
 # This file consists of lines of the form:
@@ -630,13 +630,13 @@ syslog_ident = 'postgres'
 # ssl not needed for now. also gives error on boot2docker
 ssl = true                              # (change requires restart)
 
-effective_cache_size = 5632MB # pgtune wizard 2016-02-18
+effective_cache_size = 22GB # pgtune wizard 2016-02-18
 default_statistics_target = 50 # pgtune wizard 2016-02-18
 constraint_exclusion = on # pgtune wizard 2016-02-18
 
-work_mem = 48MB # pgtune wizard 2016-02-18
-maintenance_work_mem = 480MB # pgtune wizard 2016-02-18
-shared_buffers = 1920MB # pgtune wizard 2016-02-18
+work_mem = 176MB # pgtune wizard 2016-02-18
+maintenance_work_mem = 1GB # pgtune wizard 2016-02-18
+shared_buffers = 7GB # pgtune wizard 2016-02-18
 
 hot_standby = on            # 'on' allows queries during recovery
 wal_level = hot_standby          # minimal, archive, or hot_standby

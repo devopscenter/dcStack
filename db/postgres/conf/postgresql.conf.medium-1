@@ -1,5 +1,5 @@
 # -----------------------------
-# PostgreSQL configuration file
+# PostgreSQL configuration file for devops.center type medium-1
 # -----------------------------
 #
 # This file consists of lines of the form:
@@ -630,13 +630,13 @@ syslog_ident = 'postgres'
 # ssl not needed for now. also gives error on boot2docker
 ssl = true                              # (change requires restart)
 
-effective_cache_size = 11GB # pgtune wizard 2016-02-18
+effective_cache_size = 44GB # pgtune wizard 2016-02-18
 default_statistics_target = 50 # pgtune wizard 2016-02-18
 constraint_exclusion = on # pgtune wizard 2016-02-18
 
-work_mem = 88MB # pgtune wizard 2016-02-18
-maintenance_work_mem = 896MB # pgtune wizard 2016-02-18
-shared_buffers = 3584MB # pgtune wizard 2016-02-18
+work_mem = 384MB # pgtune wizard 2016-02-18
+maintenance_work_mem = 1GB # pgtune wizard 2016-02-18
+shared_buffers = 15GB # pgtune wizard 2016-02-18
 
 hot_standby = on            # 'on' allows queries during recovery
 wal_level = hot_standby          # minimal, archive, or hot_standby
@@ -648,6 +648,21 @@ checkpoint_completion_target = 0.9 # pgtune wizard 2016-02-18
 archive_mode = on
 archive_command = '/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://<client>-postgres-wale-<target>/<hostname> wal-push %p'
 archive_timeout = 60
+
+#
+# Results of initial tuning on 1/12/16 - Bob Lozano
+#
+
+constraint_exclusion = partition
+default_statistics_target = 400
+effective_cache_size = 42GB
+work_mem = 1024MB
+checkpoint_segments = 32
+max_stack_depth = 6MB
+max_connections = 512
+wal_buffers = 16MB
+wal_keep_segments = 32
+random_page_cost = 1.0
 
 #------------------------------------------------------------------------------
 # AUTOVACUUM PARAMETERS
