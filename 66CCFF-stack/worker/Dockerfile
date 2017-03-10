@@ -42,10 +42,7 @@ ADD conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
-    if [ -e /app-utils/conf/supervisor-celery.conf ]; then cp /app-utils/conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf; fi && \
-    if [ -e /app-utils/conf/supervisor-flower.conf ]; then cp /app-utils/conf/supervisor-flower.conf //etc/supervisor/conf.d/flower.conf; fi && \
-    if [ -e /app-utils/conf/run_celery.sh ]; then cp /app-utils/conf/run_celery.sh /etc/supervisor/conf.d/; fi && \
-    if [ -e /app-utils/conf/nginx.conf ]; then cp /app-utils/conf/nginx.conf /usr/local/nginx/conf/; fi && \
+    if [ -e /app-utils/conf/local/worker-commands.sh ]; then  /app-utils/conf/local/worker-commands.sh; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
