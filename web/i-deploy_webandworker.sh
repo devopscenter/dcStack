@@ -124,6 +124,7 @@ if [[ -e "${STANDARD_APP_UTILS_DIR}/web-commands.sh" ]]; then
     sudo "${STANDARD_APP_UTILS_DIR}/web-commands.sh"
 fi
 
+set -x
 # Need to check if the web would want to add the worker features into itself
 if [[ ${COMBINED_WEB_WORKER} ]]; then
     if [[ -e "~/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
@@ -137,15 +138,16 @@ fi
 # If there is a worker specific install, then invoke it.
 if [[ "$SUFFIX" = "worker" ]]; then
     # first do the stack specific worker.sh script
-    if [[ -e "~/dcStack/${STACK}-stack/worker/worker.sh ${COMBINED_WEB_WORKER}" ]]; then
-        sudo "~/dcStack/${STACK}-stack/worker/worker.sh ${COMBINED_WEB_WORKER}"
+    if [[ -e "~/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
+        sudo "~/dcStack/${STACK}-stack/worker/worker.sh"
     fi
 
     # and now  do the stack specific worker.sh script
     if [[ -e "${STANDARD_APP_UTILS_DIR}/worker-commands.sh" ]]; then
-        sudo "${STANDARD_APP_UTILS_DIR}/worker-commands.sh ${COMBINED_WEB_WORKER}"
+        sudo "${STANDARD_APP_UTILS_DIR}/worker-commands.sh"
     fi
 fi
+set +x
 
 #-------------------------------------------------------------------------------
 # Restart supervisor, so that all services are now running.
