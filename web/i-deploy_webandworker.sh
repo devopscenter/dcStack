@@ -113,6 +113,7 @@ fi
 #-------------------------------------------------------------------------------
 STANDARD_APP_UTILS_DIR="/app-utils/conf"
 if [[ ! -d "${STANDARD_APP_UTILS_DIR}" ]]; then
+    sudo mkdir "/app-utils"
     # we will do a symbolic link since that is the most efficient
     sudo ln -s "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}" "${STANDARD_APP_UTILS_DIR}"
 fi
