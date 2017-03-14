@@ -37,6 +37,7 @@ PGVERSION=$7
 DNS_METHOD=$8
 ENV=$9
 DCTYPE=${10}
+REGION=${11}
 
 if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$VPC_CIDR" ]] ||
@@ -45,6 +46,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$S3_WALE_BUCKET" ]] ||
     [[ -z "$PGVERSION" ]] ||
     [[ -z "$DCTYPE}" ]] ||
+    [[ -z "$REGION}" ]] ||
     [[ -z "$ENV" ]]; then
 
     echo "10 Arguments are required: "
@@ -57,6 +59,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    DNS_METHOD: ${DNS_METHOD}"
     echo "    ENV: ${ENV}"
     echo "    DCTYPE: ${DCTYPE}"
+    echo "    REGION: ${REGION}"
     echo
     echo -e "Examples:"
     echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
@@ -168,7 +171,7 @@ function parameter-ensure
 #-------------------------------------------------------------------------------
 # parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
 #-------------------------------------------------------------------------------
-parameter-ensure archive_command "'/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
+parameter-ensure archive_command "'export AWS_REGION=${REGION}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
 #parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
 
 #-------------------------------------------------------------------------------
