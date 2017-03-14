@@ -46,7 +46,7 @@ sudo pip install --upgrade distribute
 sudo pip install -U six && \
     sudo pip install wal-e==0.9.2
 sudo apt-fast -qq install -y daemontools lzop pv
-sudo pip install -U requests
+sudo pip install -U requests==2.12.5
 
 sudo mkdir -p ${POSTGRESDBDIR}
 sudo mkdir -p /media/data/postgres/xlog/transactions
