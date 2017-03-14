@@ -44,7 +44,7 @@ sudo locale-gen en_US.UTF-8 && \
 sudo apt-fast -qq -y install libffi-dev
 sudo pip install --upgrade distribute
 sudo pip install -U six && \
-    sudo pip install wal-e==1.0.2
+    sudo pip install wal-e==0.9.2
 sudo apt-fast -qq install -y daemontools lzop pv
 sudo pip install -U requests
 
