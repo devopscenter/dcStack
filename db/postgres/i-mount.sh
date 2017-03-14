@@ -1,9 +1,9 @@
 #!/bin/bash - 
 #===============================================================================
 #
-#          FILE: mount.sh
+#          FILE: i-mount.sh
 # 
-#         USAGE: ./mount.sh 
+#         USAGE: ./i-mount.sh 
 # 
 #   DESCRIPTION: 
 # 
@@ -62,7 +62,7 @@ if [ -b /dev/xvdg ]; then
     mount-volume "/dev/xvdg" "/media/data/postgres/db"
 else
     if [ -b /dev/nvme0n1 ]; then
-        mount-volume "/dev/nvme0n1" "/media/data/postgres/db"
+        mount-volume "/dev/nvme0n1" "/media/data/"
     else
         mount-volume "/dev/xvdb" "/media/data/postgres/db"
     fi
