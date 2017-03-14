@@ -44,7 +44,7 @@ sudo locale-gen en_US.UTF-8 && \
 sudo apt-fast -qq -y install libffi-dev
 sudo pip install --upgrade distribute
 sudo pip install -U six && \
-    sudo pip install wal-e==0.8.1
+    sudo pip install wal-e==1.0.2
 sudo apt-fast -qq install -y daemontools lzop pv
 sudo pip install -U requests
 
@@ -65,5 +65,5 @@ sudo service postgresql stop
 #disable init.d autostart
 sudo update-rc.d postgresql disable
 
-sudo pip install s3cmd==1.6.0
+sudo pip install s3cmd==1.6.1
 sudo pip install -U setuptools
