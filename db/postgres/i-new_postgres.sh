@@ -38,6 +38,7 @@ DNS_METHOD=$8
 ENV=$9
 DCTYPE=${10}
 BACKUP_S3_REGION=${11}
+PUBLIC_IP=${12}
 
 if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$VPC_CIDR" ]] ||
@@ -60,6 +61,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    ENV: ${ENV}"
     echo "    DCTYPE: ${DCTYPE}"
     echo "    BACKUP_S3_REGION: ${BACKUP_S3_REGION}"
+    echo "    PUBLIC_IP: ${PUBLIC_IP}"
     echo
     echo -e "Examples:"
     echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
@@ -200,6 +202,8 @@ sudo supervisorctl restart postgres
 PG_PWD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 psql -U postgres -c "ALTER USER Postgres WITH PASSWORD '${PG_PWD}';"
 echo "postgres user password: ${PG_PWD}"
+echo "To be used to access the databaes using the public IP:"
+echo "postgres://postgres:${PG_PWD}@${PUBLIC_IP}/${CUST_APP_NAME}"
 
 cd ~/dcStack/db/postgres-backup/ || exit
 ./enable-backup.sh "$S3_BACKUP_BUCKET"
