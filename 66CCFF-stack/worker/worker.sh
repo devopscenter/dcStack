@@ -1,6 +1,9 @@
 #!/bin/bash -e
 set -x
 
+#
+# One time installation tasks for a 66CCFF worker
+#
 COMBINED_WEBANDWORKER=$1
 
 sudo useradd celery
@@ -15,11 +18,13 @@ if [[ ! COMBINED_WEBANDWORKER ]]; then
     sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 fi
 
-# Required directories for f1
+# 
+# Required directories for this app
+#
 sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
 sudo chown celery:celery /data/media/pdfcreator /data/media/reports /data/media/reports/pdf /data/scratch 
 
-sudo cp app-conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
-sudo cp app-conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
-sudo cp app-conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
+sudo cp conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
+sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
+sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
 
