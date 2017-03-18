@@ -1,7 +1,4 @@
 #!/bin/bash -e
-cp wheelhouse /wheelhouse
-cp requirements.txt /installs/requirements.txt
-cp web.sh /installs/web.sh
 
 sudo apt-fast -y install libfontconfig-dev libxrender-dev libxtst6
 

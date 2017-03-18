@@ -21,6 +21,9 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 WORKDIR /installs
 
+ADD web.sh /installs/web.sh
+ADD requirements.txt /installs/requirements.txt
+
 RUN ./web.sh
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
