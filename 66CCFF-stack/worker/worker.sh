@@ -10,6 +10,7 @@ sudo useradd celery
 
 #
 # Install libs that were apparently removed in ubuntu 16.04
+# https://www.cyberciti.biz/faq/debian-ubuntu-linux-wkhtmltopdf-error-while-loading-shared-libraries-libxrender-so-1/
 #
 sudo apt-get install libfontconfig1 libxrender1
 
