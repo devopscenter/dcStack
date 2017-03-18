@@ -6,7 +6,7 @@ COMBINED_WEBANDWORKER=$1
 sudo useradd celery
 
 #
-# If this is purely a worker, then we don't need uwsgi (F1 still requires nginx)
+# If this is purely a worker, then we don't need uwsgi (F1 still requires nginx, though with a specialized config)
 #
 
 if [[ ! COMBINED_WEBANDWORKER ]]; then
