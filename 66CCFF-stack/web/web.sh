@@ -10,6 +10,8 @@ curl -L https://npmjs.com/install.sh | sudo sh
 
 sudo npm install -g less
 
+sudo pip install -r requirements.txt
+
 sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
 
 echo "Installed customer-specific web portion"
