@@ -9,10 +9,16 @@ COMBINED_WEBANDWORKER=$1
 sudo useradd celery
 
 #
+# Install libs that were apparently removed in ubuntu 16.04
+#
+sudo apt-get install libfontconfig1 libxrender1
+
+
+#
 # If this is purely a worker, then we don't need uwsgi (F1 still requires nginx, though with a specialized config)
 #
 
-if [[ ! COMBINED_WEBANDWORKER ]]; then
+if [[ ! $COMBINED_WEBANDWORKER ]]; then
     sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
     sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
     sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
