@@ -28,15 +28,6 @@ WORKDIR /installs
 
 RUN ./worker.sh
 
-# Setup config to run pgpool, celery, and flower in this container
-# (basically don't run uwsgi)
-
-RUN rm -rf /etc/supervisor/conf.d/uwsgi.conf && \
-    rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
-
-# f1 workers need to serve /data/media/pdfcreator as a static directory /pdfcreator
-ADD conf/nginx.conf /usr/local/nginx/conf/nginx.conf
-
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
 # then grab any app-supplied configs for celery and flower (if present),
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
