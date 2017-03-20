@@ -139,7 +139,7 @@ if [[ "$SUFFIX" = "worker" ]]; then
 fi
 
 # Need to check if the web would want to add the worker features into itself
-if [[ ${COMBINED_WEB_WORKER} ]]; then
+if [[ ${COMBINED_WEB_WORKER} == "true" ]]; then
     if [[ -e "~/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
         sudo "~/dcStack/${STACK}-stack/worker/worker.sh ${COMBINED_WEB_WORKER}"
     fi
