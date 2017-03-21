@@ -7,10 +7,12 @@ set -x
 #
 COMBINED_WEBANDWORKER=$1
 
+echo "Begin: install of customer-specific worker, combo: ",COMBINED_WEBANDWORKER
+
 sudo useradd celery
 
 #
-# If this is purely a worker, then we don't need uwsgi (F1 still requires nginx, though with a specialized config)
+# If this is purely a worker, then we don't need uwsgi (this app still requires nginx, though with a specialized config)
 #
 
 if [[ ! $COMBINED_WEBANDWORKER ]]; then
@@ -29,3 +31,4 @@ sudo cp conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf
 sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
 sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
 
+echo "End: install of customer-specific worker, combo: ", COMBINED_WEBANDWORKER

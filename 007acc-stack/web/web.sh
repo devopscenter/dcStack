@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
-cp requirements.txt /installs/requirements.txt
-cp web.sh /installs/web.sh
+#
+# App-specific web install for 007ACC
+#
+
+echo "Begin: install of customer-specific web portion"
 
 sudo pip install -r requirements.txt
 
@@ -17,4 +20,4 @@ sudo npm install -g less
 
 sudo npm install -g coffee-script
 
-echo "Installed customer-specific web portion"
+echo "End: install of customer-specific web portion"
