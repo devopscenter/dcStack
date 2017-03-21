@@ -19,7 +19,7 @@
 
 #set -o nounset                             # Treat unset variables as an error
 
-source ../../dcENV.sh                       # initalize logging environment
+source ../../dcEnv.sh                       # initalize logging environment
 
 COMBINED_WEBANDWORKER=$1
 

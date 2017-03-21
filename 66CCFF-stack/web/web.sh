@@ -19,7 +19,7 @@
 
 #set -o nounset                             # Treat unset variables as an error
 
-source ../../dcENV.sh                       # initalize logging environment
+source ../../dcEnv.sh                       # initalize logging environment
 
 dcStartLog "install of customer-specific worker, combo: ${COMBINED_WEBANDWORKER}"
 
