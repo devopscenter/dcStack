@@ -26,7 +26,7 @@ ADD worker.sh /installs/worker.sh
 ADD conf /installs/app-conf
 WORKDIR /installs
 
-RUN ./worker.sh FALSE           # container is never a combined web and worker
+RUN ./worker.sh "false"           # container is never a combined web and worker
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
 # then grab any app-supplied configs for celery and flower (if present),
