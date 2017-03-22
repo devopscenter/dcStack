@@ -38,12 +38,12 @@ dcLog()
 dcStartLog()
 {
     msg=$1
-    dcLog ${msg} "START"
+    dcLog "${msg}" "START"
 }
 
 dcEndLog()
 {
     msg=$1
-    dcLog ${msg} "END"
+    dcLog "${msg}" "END"
 }
 
