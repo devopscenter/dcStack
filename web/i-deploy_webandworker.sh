@@ -31,7 +31,7 @@ SUFFIX=$3
 ENV=$4
 PGVERSION=$5
 CUST_APP_NAME=$6
-COMBINED_WEB_WORKER=${7:-0}
+COMBINED_WEB_WORKER=${7}
 
 if  [[ -z ${PRIVATE_IP} ]] ||
     [[ -z ${STACK} ]] ||
@@ -115,8 +115,10 @@ STANDARD_APP_UTILS_DIR="/app-utils/conf"
 if [[ ! -d "${STANDARD_APP_UTILS_DIR}" ]]; then
     sudo mkdir "/app-utils"
     # we will do a symbolic link since that is the most efficient
-    sudo ln -s "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}" "${STANDARD_APP_UTILS_DIR}"
 fi
+set -x
+sudo ln -s "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}" "${STANDARD_APP_UTILS_DIR}"
+set +x
 
 #-------------------------------------------------------------------------------
 # run the appliction specific web_commands.sh 
