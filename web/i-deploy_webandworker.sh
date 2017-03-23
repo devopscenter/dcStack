@@ -149,7 +149,7 @@ if [[ ${COMBINED_WEB_WORKER} == "true" ]]; then
         cd ${HOME}/dcStack/${STACK}-stack/worker
         sudo ./worker.sh ${COMBINED_WEB_WORKER}
     fi
-    if [[ -f "${STANDARD_APP_UTILS_DIR}/worker-commands.sh ]]; then
+    if [[ -f ${STANDARD_APP_UTILS_DIR}/worker-commands.sh ]]; then
         cd ${STANDARD_APP_UTILS_DIR}
         sudo ./worker-commands.sh ${COMBINED_WEB_WORKER}
     fi
