@@ -15,11 +15,14 @@ sudo apt-fast -y install ncdu ntp fail2ban htop
 sudo apt-fast -y install tmux-next
 #sudo apt-get install -yqq tmux-next=2.3~20160913~bzr3547+20-1ubuntu1~ppa0~ubuntu16.04.1
 sudo mv /usr/bin/tmux-next /usr/bin/tmux
+set -x
+cp tmux.conf $HOME/.tmux.conf
 pushd $HOME
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tmux-pain-control ~/.tmux/plugins/tmux-pain-control
 git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
 popd
+set +x
 
 pushd /tmp
 curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
