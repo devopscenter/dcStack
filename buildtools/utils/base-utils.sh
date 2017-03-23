@@ -1,7 +1,7 @@
 #!/bin/bash -ev
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-    sudo add-apt-repository -yu ppa:pi-rho/dev \
+    sudo add-apt-repository -yu ppa:pi-rho/dev  && \
     sudo apt-get -qq update
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa && \
