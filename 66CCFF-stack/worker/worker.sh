@@ -21,9 +21,9 @@
 
 source ../../dcEnv.sh                       # initalize logging environment
 
-COMBINED_WEBANDWORKER=$1
+COMBINED_WEB_WORKER="${1}""
 
-dcStartLog "install of customer-specific worker, combo: ${COMBINED_WEBANDWORKER}"
+dcStartLog "install of customer-specific worker, combo: ${COMBINED_WEB_WORKER}"
 
 sudo useradd celery
 
@@ -31,7 +31,9 @@ sudo useradd celery
 # If this is purely a worker, then we don't need uwsgi (this app still requires nginx, though with a specialized config)
 #
 
-if [[ ! "${COMBINED_WEBANDWORKER}" = "true" ]]; then
+if [[ "${COMBINED_WEB_WORKER}" = "true" ]]; then
+	sudo cp conf/nginx-combo.conf /usr/local/nginx/conf/nginx.conf
+elif [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
     sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
     sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
     sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
@@ -51,5 +53,5 @@ sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
 sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
 
 
-dcEndLog "install of customer-specific worker, combo: ${COMBINED_WEBANDWORKER}"
+dcEndLog "install of customer-specific worker, combo: ${COMBINED_WEB_WORKER}"
 
