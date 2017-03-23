@@ -118,7 +118,6 @@ if [[ ! -d "${STANDARD_APP_UTILS_DIR}" ]]; then
 fi
 set -x
 sudo ln -s "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}" "${STANDARD_APP_UTILS_DIR}"
-set +x
 
 #-------------------------------------------------------------------------------
 # run the appliction specific web_commands.sh 
@@ -149,6 +148,7 @@ if [[ ${COMBINED_WEB_WORKER} == "true" ]]; then
         sudo "${STANDARD_APP_UTILS_DIR}/worker-commands.sh ${COMBINED_WEB_WORKER}"
     fi
 fi
+set +x
 
 #-------------------------------------------------------------------------------
 # Restart supervisor, so that all services are now running.
