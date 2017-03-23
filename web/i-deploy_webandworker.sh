@@ -130,13 +130,13 @@ fi
 # If there is a worker specific install, then invoke it.
 if [[ "$SUFFIX" = "worker" ]]; then
     # first do the stack specific worker.sh script
-    if [[ -e "~/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
+    if [[ -f "~/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
         cd ~/dcStack/${STACK}-stack/worker
         sudo "./worker.sh"
     fi
 
     # and now  do the stack specific worker.sh script
-    if [[ -e "${STANDARD_APP_UTILS_DIR}/worker-commands.sh" ]]; then
+    if [[ -f "${STANDARD_APP_UTILS_DIR}/worker-commands.sh" ]]; then
         cd ${STANDARD_APP_UTILS_DIR}
         sudo "./worker-commands.sh"
     fi
@@ -144,11 +144,11 @@ fi
 
 # Need to check if the web would want to add the worker features into itself
 if [[ ${COMBINED_WEB_WORKER} == "true" ]]; then
-    if [[ -e "~/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
+    if [[ -f "~/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
         cd ~/dcStack/${STACK}-stack/worker
         sudo "./worker.sh ${COMBINED_WEB_WORKER}"
     fi
-    if [[ -e "${STANDARD_APP_UTILS_DIR}/worker-commands.sh" ]]; then
+    if [[ -f "${STANDARD_APP_UTILS_DIR}/worker-commands.sh" ]]; then
         cd ${STANDARD_APP_UTILS_DIR}
         sudo "${STANDARD_APP_UTILS_DIR}/worker-commands.sh ${COMBINED_WEB_WORKER}"
     fi
