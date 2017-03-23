@@ -21,7 +21,7 @@
 
 source ../../dcEnv.sh                       # initalize logging environment
 
-COMBINED_WEB_WORKER="${1}""
+COMBINED_WEB_WORKER="${1}"
 
 dcStartLog "install of customer-specific worker, combo: ${COMBINED_WEB_WORKER}"
 
