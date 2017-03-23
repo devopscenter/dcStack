@@ -150,7 +150,7 @@ if [[ ${COMBINED_WEB_WORKER} == "true" ]]; then
     fi
     if [[ -f "${STANDARD_APP_UTILS_DIR}/worker-commands.sh" ]]; then
         cd ${STANDARD_APP_UTILS_DIR}
-        sudo "${STANDARD_APP_UTILS_DIR}/worker-commands.sh ${COMBINED_WEB_WORKER}"
+        sudo "./worker-commands.sh ${COMBINED_WEB_WORKER}"
     fi
 fi
 set +x
