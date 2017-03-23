@@ -12,7 +12,7 @@ sudo apt-fast -qq -y install git wget sudo vim unzip curl language-pack-en
 
 sudo apt-fast -y install ncdu ntp fail2ban htop
 
-sudo apt-get install tmux-next
+sudo apt-fast -y install tmux-next
 #sudo apt-get install -yqq tmux-next=2.3~20160913~bzr3547+20-1ubuntu1~ppa0~ubuntu16.04.1
 sudo mv /usr/bin/tmux-next /usr/bin/tmux
 
