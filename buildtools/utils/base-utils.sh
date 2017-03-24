@@ -25,13 +25,15 @@ echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | 
 sudo apt-fast -y install unattended-upgrades
 
 set -x
-echo "Need to copy tmux.conf to $HOME/.tmux.conf"
-pwd
-#cp tmux.conf $HOME/.tmux.conf
 pushd $HOME
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tmux-pain-control ~/.tmux/plugins/tmux-pain-control
 git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
+popd
+
+pushd ~/dcStack/buildtools/utils
+echo "Need to copy tmux.conf to $HOME/.tmux.conf"
+cp tmux.conf $HOME/.tmux.conf
 popd
 set +x
 
