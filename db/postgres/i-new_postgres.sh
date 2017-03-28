@@ -206,7 +206,7 @@ echo "To be used to access the databaes using the public IP:"
 echo "postgres://postgres:${PG_PWD}@${PUBLIC_IP}/${CUST_APP_NAME}"
 
 cd ~/dcStack/db/postgres-backup/ || exit
-./enable-backup.sh "$S3_BACKUP_BUCKET ${BACKUP_S3_REGION}"
+./enable-backup.sh "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}"
 
 #-------------------------------------------------------------------------------
 # create wal-e bucket if it doesn't exist
