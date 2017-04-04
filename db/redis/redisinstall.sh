@@ -1,6 +1,6 @@
 #!/bin/bash -evx
 
-export REDIS_VERSION=3.0.7
+export REDIS_VERSION=3.2.8
 export REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
 
 sudo apt-get -qq update && sudo apt-get -y install python-software-properties software-properties-common && \
