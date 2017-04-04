@@ -1,12 +1,45 @@
-#!/bin/bash -e
-
-sudo pip install -r requirements.txt
-
+#!/bin/bash - 
+#===============================================================================
 #
-# Scipy and Sckit-learn must be installed AFTER numpy, in a separate pip install step
-# (https://github.com/scikit-learn/scikit-learn/issues/4164#issuecomment-100391246)
-# This also means that they cannot be built as wheels, so they are not in the normal requirements.txt file
-#
-sudo pip install -r requirements2.txt
+#          FILE: web.sh
+# 
+#         USAGE: ./web.sh 
+# 
+#   DESCRIPTION: Executes when at the "building for application stack" phase
+#                (ie, as opposed to "building for runtime or application utilities
+#                     specific time")
+# 
+#       OPTIONS: ---
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: ---
+#        AUTHOR: Gregg Jensen (), gjensen@devops.center
+#  ORGANIZATION: devops.center
+#       CREATED: 03/21/2017 10:27:55
+#      REVISION:  ---
+#===============================================================================
 
-echo "Installed customer-specific web and worker portion"
+#set -o nounset           # Treat unset variables as an error
+set -o errexit            # exit immediately if command exists with a non-zero status
+set -x                    # essentially debug mode
+
+
+#-------------------------------------------------------------------------------
+# set up the logging framework
+#-------------------------------------------------------------------------------
+dcENV_FILE="../../dcEnv.sh"
+if [[ -e "${dcENV_FILE}" ]]; then
+    source "${dcENV_FILE}"
+else
+    dcLog(){ echo "${1}"; }
+    dcStartLog(){ dcLog "${1}"; }
+    dcEndLog(){ dcLog "${1}"; }
+fi
+#-------------------------------------------------------------------------------
+# END setting up the logging framework
+#-------------------------------------------------------------------------------
+
+
+dcStartLog "Starting stack-specific web portion"
+
+dcEndLog "Finished stack-specific web portion"
