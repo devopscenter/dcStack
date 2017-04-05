@@ -42,6 +42,9 @@ sudo curl -sSL https://raw.githubusercontent.com/antirez/redis/$REDIS_VERSION/re
 sudo mkdir -p /media/data/redis/data
 sudo chown redis:redis /media/data/redis /media/data/redis/data
 
+# comment out the bind 127.0.0.1 in /etc/redis/redis.conf
+sudo sed -e '/^bind 127.0.0.1/ s/bind 127.0.0.1/#bind 127.0.0.1/' -i /etc/redis/redis.conf
+
 sudo cat conf/redis.conf | sudo tee --append /etc/redis/redis.conf
 sudo cp conf/supervisor-redis.conf /etc/supervisor/conf.d/redis.conf
 
