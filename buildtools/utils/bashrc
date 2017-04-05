@@ -28,5 +28,8 @@ shopt -s autocd
 # variable when the shell exits, rather than overwriting the file.
 shopt -s histappend
 
+# to enhance the set -x debugging experience
+export PS4='(${BASH_SOURCE}:${LINENO}):${FUNCNAME[0]}:$?] '
+
 
 
