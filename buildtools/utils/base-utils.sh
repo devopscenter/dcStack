@@ -32,4 +32,6 @@ popd
 
 pushd ~/dcStack/buildtools/utils
 cp tmux.conf $HOME/.tmux.conf
+cp bash_profile $HOME/.bash_profile
+cp bashrc $HOME/.bashrc
 popd

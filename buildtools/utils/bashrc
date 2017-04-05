@@ -1,0 +1,32 @@
+alias vi='vim'
+alias h='history'
+alias ls='ls --color'
+alias lf='ls -aCF'
+alias ll='ls -al'
+
+# for spelling typos
+alias xs='cd'
+alias vf='cd'
+
+# turn off the bell in favor of just a visible short term flash
+set bell-style visible
+
+# set the command line editing to use "vi"-like keys
+set -o vi
+
+# Minor errors in the spelling of a directory component in a cd command will
+# be corrected. The errors checked for are transposed characters, a missing character,
+# and a character too many. If a correction is found, the corrected path is printed, 
+# and the command proceeds. This option is only used by interactive shells.
+shopt -s cdspell 
+
+# A command name that is the name of a directory is executed as if it were
+# the argument to the cd command. This option is only used by interactive shells.
+shopt -s autocd
+
+# the history list is appended to the file named by the value of the HISTFILE 
+# variable when the shell exits, rather than overwriting the file.
+shopt -s histappend
+
+
+
