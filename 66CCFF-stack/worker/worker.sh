@@ -5,7 +5,7 @@
 # 
 #         USAGE: worker/worker.sh  COMBINED_WEBANDWORKER
 # 
-#   DESCRIPTION: 66CCFF stack, install worker-specific components.
+#   DESCRIPTION: 66ccff stack, install worker-specific components.
 # 
 #       OPTIONS: if COMBINED_WEBANDWORKER="true", then web and worker on a single instance/container; otherwise, separate instances/containers.
 #  REQUIREMENTS: ---

@@ -68,18 +68,18 @@ function stack0 {
 }
 
 function stack1 {
-    mkdir -p 0099FF-stack/web/wheelhouse
-    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 0099FF-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/0099ff.web:${dcSTACK_VERSION}" 0099FF-stack/web
-    docker build --rm -t "devopscenter/0099ff.web-debug:${dcSTACK_VERSION}" 0099FF-stack/web-debug
-    docker build --rm -t "devopscenter/0099ff.worker:${dcSTACK_VERSION}" 0099FF-stack/worker
+    mkdir -p 0099ff-stack/web/wheelhouse
+    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 0099ff-stack/web/wheelhouse
+    docker build --rm -t "devopscenter/0099ff.web:${dcSTACK_VERSION}" 0099ff-stack/web
+    docker build --rm -t "devopscenter/0099ff.web-debug:${dcSTACK_VERSION}" 0099ff-stack/web-debug
+    docker build --rm -t "devopscenter/0099ff.worker:${dcSTACK_VERSION}" 0099ff-stack/worker
 }
 
 function stack2 {
-    mkdir -p 66CCFF-stack/web/wheelhouse 
-    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 66CCFF-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/66ccff.web:${dcSTACK_VERSION}" 66CCFF-stack/web
-    docker build --rm -t "devopscenter/66ccff.worker:${dcSTACK_VERSION}" 66CCFF-stack/worker
+    mkdir -p 66ccff-stack/web/wheelhouse 
+    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 66ccff-stack/web/wheelhouse
+    docker build --rm -t "devopscenter/66ccff.web:${dcSTACK_VERSION}" 66ccff-stack/web
+    docker build --rm -t "devopscenter/66ccff.worker:${dcSTACK_VERSION}" 66ccff-stack/worker
 }
 
 function stack3 {
@@ -100,8 +100,8 @@ function buildtools {
     rm -rf buildtools/pythonwheel/application/app*
     mkdir -p buildtools/pythonwheel/application
     cp 000000-stack/web/requirements.txt buildtools/pythonwheel/application/app0.requirements.txt
-    cp 0099FF-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
-    cp 66CCFF-stack/web/requirements.txt buildtools/pythonwheel/application/app2.requirements.txt
+    cp 0099ff-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
+    cp 66ccff-stack/web/requirements.txt buildtools/pythonwheel/application/app2.requirements.txt
     cp 007acc-stack/web/requirements.txt buildtools/pythonwheel/application/app3.requirements.txt
     docker run --rm \
         -v "${PWD}/buildtools/pythonwheel/application":/application \

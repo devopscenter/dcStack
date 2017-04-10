@@ -5,7 +5,7 @@
 # 
 #         USAGE: web/web.sh
 # 
-#   DESCRIPTION: 66CCFF stack, install web-specific components.
+#   DESCRIPTION: 66ccff stack, install web-specific components.
 # 
 #       OPTIONS: ===
 #  REQUIREMENTS: ---
