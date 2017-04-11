@@ -32,6 +32,7 @@ ENV=$4
 PGVERSION=$5
 CUST_APP_NAME=$6
 COMBINED_WEB_WORKER=${7}
+SCRATCHVOLUME=$8
 
 if  [[ -z ${PRIVATE_IP} ]] ||
     [[ -z ${STACK} ]] ||
@@ -48,6 +49,15 @@ if  [[ -z ${PRIVATE_IP} ]] ||
     echo "    PGVERSION: ${PGVERSION}"
     echo "    CUST_APP_NAME: ${CUST_APP_NAME}"
     exit 1
+fi
+
+#-------------------------------------------------------------------------------
+# mount volumes and remove instance attached store from /mnt
+#-------------------------------------------------------------------------------
+if [[ ${SCRATCHVOLUME} == "true" ]]; then
+    cd ~/dcStack/db/postgres/ || exit
+    sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
+    sudo ./i-mount.sh
 fi
 
 #-------------------------------------------------------------------------------
