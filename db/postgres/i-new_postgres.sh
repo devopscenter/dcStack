@@ -115,7 +115,7 @@ cd ~/dcStack/logging/ || exit
 #-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres/ || exit
 sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
-sudo ./i-mount.sh
+sudo ./i-mount.sh "/media/data/postgres/db"
 
 #-------------------------------------------------------------------------------
 # install postgres and other tasks

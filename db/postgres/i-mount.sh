@@ -22,6 +22,9 @@
 
 # note that this is only run on an instance, not within a container.
 
+# check to see if they have entered a path for the XVDG partition
+MAIN_MOUNT_PATH=${1:-"empty"}
+
 # enable us to modify /etc/fstab
 sudo chmod o+w /etc/fstab
 
@@ -59,12 +62,12 @@ function mount-volume
 
 # make use of attached db, xlog, and backup volumes if they exist, otherwise use instance-attached ssd
 if [ -b /dev/xvdg ]; then
-    mount-volume "/dev/xvdg" "/media/data/postgres/db"
+    mount-volume "/dev/xvdg" ${MAIN_MOUNT_PATH}
 else
     if [ -b /dev/nvme0n1 ]; then
         mount-volume "/dev/nvme0n1" "/media/data/"
     else
-        mount-volume "/dev/xvdb" "/media/data/postgres/db"
+        mount-volume "/dev/xvdb" ${MAIN_MOUNT_PATH}
     fi
 fi
 
