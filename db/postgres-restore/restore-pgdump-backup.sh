@@ -59,48 +59,55 @@ done
 
 
 #-------------------------------------------------------------------------------
-# kill any existing connections, then drop and recreate the db
-# note for the following sections, due to an issue with the database not being ready
-# at various times after the dropdb, there is a loop around each of the commands. 
-# This loop will ensure the action takes place at least one and if the return value
-# is an error than try again after a brief pause.
+# First check to see if the database exists
 #-------------------------------------------------------------------------------
-set -x
-for value in {1..3}
-do
-    sudo -u postgres psql -U postgres -d "$DB_NAME" -c "select pg_terminate_backend(pg_stat_activity.pid) from pg_stat_activity where pg_stat_activity.datname = '${DB_NAME}' and pid <> pg_backend_pid();"
-    if [ $? -gt 0 ]
-    then 
-        if [ $value -eq 3 ] 
-        then
-            echo "Terminating because pg_terminate_backend failed to execute properly"
-            exit 1
-        else 
-            sleep 1
-        fi
-    else
-        break
-    fi
-done
+DB_EXISTS=$(psql -lqt | cut -d \| -f 1 | grep -qw ${DB_NAME} )
 
-for value in {1..3}
-do
-    echo "Dropping database ${DB_NAME}"
-    #sudo -u postgres dropdb -U postgres "${DB_NAME}" --if-exists
-    sudo -u postgres dropdb -U postgres "${DB_NAME}"
-    if [ $? -gt 0 ]
-    then 
-        if [ $value -eq 3 ] 
-        then
-            echo "Terminating because dropdb failed to execute properly"
-            exit 1
-        else 
-            sleep 1
+if [[ ${DB_EXISTS} ]]; then
+    #-------------------------------------------------------------------------------
+    # kill any existing connections, then drop and recreate the db
+    # note for the following sections, due to an issue with the database not being ready
+    # at various times after the dropdb, there is a loop around each of the commands. 
+    # This loop will ensure the action takes place at least one and if the return value
+    # is an error than try again after a brief pause.
+    #-------------------------------------------------------------------------------
+    set -x
+    for value in {1..3}
+    do
+        sudo -u postgres psql -U postgres -d "$DB_NAME" -c "select pg_terminate_backend(pg_stat_activity.pid) from pg_stat_activity where pg_stat_activity.datname = '${DB_NAME}' and pid <> pg_backend_pid();"
+        if [ $? -gt 0 ]
+        then 
+            if [ $value -eq 3 ] 
+            then
+                echo "Terminating because pg_terminate_backend failed to execute properly"
+                exit 1
+            else 
+                sleep 1
+            fi
+        else
+            break
         fi
-    else
-        break
-    fi
-done
+    done
+
+    for value in {1..3}
+    do
+        echo "Dropping database ${DB_NAME}"
+        #sudo -u postgres dropdb -U postgres "${DB_NAME}" --if-exists
+        sudo -u postgres dropdb -U postgres "${DB_NAME}"
+        if [ $? -gt 0 ]
+        then 
+            if [ $value -eq 3 ] 
+            then
+                echo "Terminating because dropdb failed to execute properly"
+                exit 1
+            else 
+                sleep 1
+            fi
+        else
+            break
+        fi
+    done
+fi # end if database exists check
 
 for value in {1..3}
 do
