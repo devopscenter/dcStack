@@ -23,7 +23,7 @@ source ../../dcEnv.sh                       # initalize logging environment
 
 COMBINED_WEB_WORKER="${1}"
 
-dcStartLog "install of customer-specific worker, combo: ${COMBINED_WEB_WORKER}"
+dcStartLog "install of app-specific worker for 66ccff, combo: ${COMBINED_WEB_WORKER}"
 
 sudo useradd celery
 
@@ -42,8 +42,17 @@ fi
 # 
 # Required directories for this app
 #
-sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
-sudo chown celery:celery /data/media/pdfcreator /data/media/reports /data/media/reports/pdf /data/scratch 
+
+if [[ attached-volume = "true" ]]; then
+    sudo ln -s /media/data /data/media 
+    sudo ln -s /media/data/deploy /data/deploy 
+    sudo ln -s /media/data/scratch /data/scratch
+
+    sudo mkdir -p /data/media/pdfcreator /data/media/reports/pdf
+else
+    # put everything on the root volume
+    sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
+fi
 
 #
 # Setup supervisor to run flower and celery
@@ -53,5 +62,5 @@ sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
 sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
 
 
-dcEndLog "install of customer-specific worker, combo: ${COMBINED_WEB_WORKER}"
+dcEndLog "install of app-specific worker for 66ccff, combo: ${COMBINED_WEB_WORKER}"
 

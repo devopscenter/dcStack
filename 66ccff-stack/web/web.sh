@@ -21,7 +21,7 @@
 
 source ../../dcEnv.sh                       # initalize logging environment
 
-dcStartLog "install of customer-specific web"
+dcStartLog "install of app-specific web for 66ccff"
 
 # Some equired packages for rendering
 sudo apt-fast -y install libfontconfig-dev libxrender-dev libxtst6
@@ -38,4 +38,4 @@ sudo pip install -r requirements.txt
 # prepare required directories for this app
 sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
 
-dcEndLog "install of customer-specific web"
+dcEndLog "install of app-specific web for 66ccff"
