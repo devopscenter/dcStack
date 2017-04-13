@@ -58,6 +58,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 
+set -x
 #-------------------------------------------------------------------------------
 # First check to see if the database exists
 #-------------------------------------------------------------------------------
@@ -71,7 +72,6 @@ if [[ ${DB_EXISTS} ]]; then
     # This loop will ensure the action takes place at least one and if the return value
     # is an error than try again after a brief pause.
     #-------------------------------------------------------------------------------
-    set -x
     for value in {1..3}
     do
         sudo -u postgres psql -U postgres -d "$DB_NAME" -c "select pg_terminate_backend(pg_stat_activity.pid) from pg_stat_activity where pg_stat_activity.datname = '${DB_NAME}' and pid <> pg_backend_pid();"
