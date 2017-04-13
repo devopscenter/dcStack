@@ -1,5 +1,5 @@
 from fabric.api import run, task, local, env
-#from django_code_deploy import fabfile as deploy
+from django_code_deploy import fabfile as deploy
 
 env.user = "ubuntu"
 
