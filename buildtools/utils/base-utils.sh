@@ -24,14 +24,16 @@ popd
 echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | sudo debconf-set-selections
 sudo apt-fast -y install unattended-upgrades
 
+#
+# Tmux install and config.
+#
+
 pushd $HOME
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tmux-pain-control ~/.tmux/plugins/tmux-pain-control
 git clone https://github.com/tmux-plugins/tmux-yank ~/.tmux/plugins/tmux-yank
 popd
 
-pushd ~/dcStack/buildtools/utils
 cp tmux.conf $HOME/.tmux.conf
 cp bash_profile $HOME/.bash_profile
 cp bashrc $HOME/.bashrc
-popd

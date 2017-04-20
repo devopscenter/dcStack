@@ -9,6 +9,11 @@ RUN apt-get update && \
 # basic stuff for the base container
 ADD buildtools/utils/base-utils.sh /installs/base-utils.sh
 
+# Add the files needed to install & configure tmux
+ADD buildtools/utils/tmux.conf /installs/tmux.conf
+ADD buildtools/utils/bash_profile /installs/bash_profile
+ADD buildtools/utils/bashrc /installs/bashrc
+
 
 # Add the files needed to pip-install supervisor, later.
 ADD buildtools/utils/install-supervisor.sh /installs/utils/install-supervisor.sh
