@@ -58,13 +58,12 @@ while [[ $# -gt 0 ]]; do
 done
 
 
-set -x
 #-------------------------------------------------------------------------------
 # First check to see if the database exists
 #-------------------------------------------------------------------------------
 DB_EXISTS=$(sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -c ${DB_NAME} )
 
-if [[ ${DB_EXISTS} ]]; then
+if [[ ${DB_EXISTS} -ne 0 ]]; then
     #-------------------------------------------------------------------------------
     # kill any existing connections, then drop and recreate the db
     # note for the following sections, due to an issue with the database not being ready
@@ -129,7 +128,6 @@ done
 # turn off archive_mode for the restore and restart postgres
 sudo sed -i "s/^\barchive_mode\b[[:blank:]]\+=[[:blank:]]\+\bon\b/archive_mode = off/g" /media/data/postgres/db/pgdata/postgresql.conf
 sudo supervisorctl restart postgres
-set +x
 
 # if no backup file is provided, look for the most recent pgdump file in the backup dir
 if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
