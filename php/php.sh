@@ -24,7 +24,7 @@ set -x                    # essentially debug mode
 #-------------------------------------------------------------------------------
 # START set up the logging framework
 #-------------------------------------------------------------------------------
-dcENV_FILE="../dcEnv.sh"
+dcENV_FILE="/usr/local/bin/dcEnv.sh"
 if [[ -e "${dcENV_FILE}" ]]; then
     source "${dcENV_FILE}"
 else

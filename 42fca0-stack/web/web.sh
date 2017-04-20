@@ -27,19 +27,13 @@ set -x                    # essentially debug mode
 #-------------------------------------------------------------------------------
 # set up the logging framework
 #-------------------------------------------------------------------------------
-dcENV_FILE="../../dcEnv.sh"
-if [[ -e "${dcENV_FILE}" ]]; then
-    source "${dcENV_FILE}"
-else
-    dcLog(){ echo "${1}"; }
-    dcStartLog(){ dcLog "${1}"; }
-    dcEndLog(){ dcLog "${1}"; }
-fi
+source /usr/local/bin/dcEnv.sh                       # initalize logging environment
+dcStartLog "install of app-specific web for 42fca0"
+
+
 #-------------------------------------------------------------------------------
 # END setting up the logging framework
 #-------------------------------------------------------------------------------
 
 
-dcStartLog "Starting stack-specific web portion"
-
-dcEndLog "Finished stack-specific web portion"
+dcEndLog "install of app-specific web for 42fca0"
