@@ -1,4 +1,33 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+#===============================================================================
+#
+#          FILE: download-pgdump-backup.sh
+# 
+#         USAGE: ./download-pgdump-backup.sh 
+# 
+#   DESCRIPTION: This script will allow the user to download a database backup
+#                from AWS S3 storage.  You can get a list of the backups by
+#                providing the --list option and it will display a list of the
+#                backups with the most recent one last. There are four columes
+#                to the list output, date, time, size of backup, and the name.
+#                you can copy the name and add it as the --s3backupfile option
+#                or you can leave off that option and just provide the s3bucket
+#                and database name.  This will go through that list and automatically
+#                get the lastest one and down load it.
+# 
+#       OPTIONS: ---
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: ---
+#        AUTHOR: Gregg Jensen (), gjensen@devops.center
+#  ORGANIZATION: devops.center
+#       CREATED: 04/20/2017 11:33:18
+#      REVISION:  ---
+#===============================================================================
+
+#set -o nounset       # Treat unset variables as an error
+#set -x               # essentially debug mode
+
 
 BACKUP_DIR='/media/data/postgres/backup'
 
@@ -11,6 +40,7 @@ if [[ -z $1 ]]; then
   usage
   exit 1
 fi
+
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -37,35 +67,52 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-sudo pip install s3cmd
-
+#-------------------------------------------------------------------------------
 # store list of backups from s3 bucket
-  S3_LIST=$(s3cmd ls -r s3://"${S3_BUCKET}"/|grep "${DB_NAME}".sql.gz)
+#-------------------------------------------------------------------------------
+S3_AS_STRING=$(aws s3 ls --recursive s3://"${S3_BUCKET}"/|grep "${DB_NAME}".sql.gz)
+S3_SORTED_AS_STRING=$(echo "${S3_AS_STRING}" | sort -V)
+# turn the string into an array
+IFS=$'\n'; S3_LIST=($S3_SORTED_AS_STRING); unset IFS;
 
+
+#-------------------------------------------------------------------------------
 # if --list is specified, print list and exit
+#-------------------------------------------------------------------------------
 if ! [[ -z "$LIST" ]]; then
-  echo "S3 backups, with most recent listed last"
-  echo "$S3_LIST"|awk -F/ '{print $7}'|sort -V
-  exit
+    echo "S3 backups, with most recent listed last"
+    for item in "${S3_LIST[@]}"; do
+        echo "${item}"
+    done
+    exit
 fi
 
+#-------------------------------------------------------------------------------
 # if the backup file name is given, download the specified file
-if [[ "$S3_BACKUP_FILE" ]]; then
-  S3_FILE=$(echo "$S3_LIST"|grep "${S3_BACKUP_FILE}"|awk '{print $4}')
-# if backup file name isn't given, download the most recent
-else
-  S3_FILE=$(echo "$S3_LIST"|sort -r -k1,2|head -1|awk '{print $4}')
-  S3_BACKUP_FILE=$(echo "$S3_LIST"|sort -r -k1,2|head -1|awk -F/ '{print $7}')
+#-------------------------------------------------------------------------------
+if [[ -z "$S3_BACKUP_FILE" ]]; then
+    # download the most recent
+    numItems=$((${#S3_LIST[@]}-1))
+    S3_BACKUP_FILE=$(echo ${S3_LIST[${numItems}]} | cut -d ' ' -f 4)
 fi
-S3_YEAR=$(echo "$S3_FILE"|awk -F/ '{print $5}')
-S3_MONTH=$(echo "$S3_FILE"|awk -F/ '{print $6}')
 
-LOCAL_BACKUP_FILE="${BACKUP_DIR}/${S3_BACKUP_FILE}.download"
+#-------------------------------------------------------------------------------
+# save off, from the end, everything up the last slash to get just the database backup name
+#-------------------------------------------------------------------------------
+JUST_THE_BACKUP_NAME=${S3_BACKUP_FILE##*/}
+LOCAL_BACKUP_FILE="${BACKUP_DIR}/${JUST_THE_BACKUP_NAME}.download"
+
 if [[ -f "$LOCAL_BACKUP_FILE" ]] && ! [[ -z "$NO_OVERWRITE" ]]; then
-  echo -e "\nFile $LOCAL_BACKUP_FILE already exists and -n option was given. Skipping."
+    echo -e "\nFile $LOCAL_BACKUP_FILE already exists and -n option was given. Skipping."
 else
-# A little housecleaning- deleting any previous downloaded backups before gettign the new one. At some point this could be made optional (e.g. a -noclean option)
-  sudo -u postgres rm -f ${BACKUP_DIR}/*.download
-  sudo -u postgres s3cmd --force get "s3://${S3_BUCKET}/${S3_YEAR}/${S3_MONTH}/${S3_BACKUP_FILE}" "$LOCAL_BACKUP_FILE"
+    #-------------------------------------------------------------------------------
+    # A little housecleaning- deleting any previous downloaded backups before getting the new one.
+    # At some point this could be made optional (e.g. a -noclean option)
+    #-------------------------------------------------------------------------------
+    sudo -u postgres rm -f ${BACKUP_DIR}/*.download
+    echo "Getting the backup file: ${S3_BACKUP_FILE} from the s3bucket: ${S3_BUCKET}"
+    sudo -u postgres s3cmd --force get "s3://${S3_BUCKET}/${S3_BACKUP_FILE}" "$LOCAL_BACKUP_FILE"
 fi
 export LOCAL_BACKUP_FILE
+
+# vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
