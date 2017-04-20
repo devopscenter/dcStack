@@ -67,6 +67,11 @@ function stack3 {
     docker push  "devopscenter/007acc.web:${dcSTACK_VERSION}"
     docker push  "devopscenter/007acc.worker:${dcSTACK_VERSION}"
 }
+function stack4 {
+    docker push  "devopscenter/9900af.web:${dcSTACK_VERSION}"
+    docker push  "devopscenter/9900af.worker:${dcSTACK_VERSION}"
+}
+
 function web {
     docker push  "devopscenter/python:${dcSTACK_VERSION}"
     docker push  "devopscenter/python-nginx:${dcSTACK_VERSION}"

@@ -89,6 +89,13 @@ function stack3 {
     docker build --rm -t "devopscenter/007acc.worker:${dcSTACK_VERSION}" 007acc-stack/worker
 }
 
+function stack4 {
+    mkdir -p 9900af-stack/web/wheelhouse
+    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 9900af-stack/web/wheelhouse
+    docker build --rm -t "devopscenter/007acc.web:${dcSTACK_VERSION}" 9900af-stack/web
+    docker build --rm -t "devopscenter/007acc.worker:${dcSTACK_VERSION}" 9900af-stack/worker
+}
+
 function buildtools {
     echo "Running buildtools"
     docker build --rm -t "devopscenter/jenkins:${dcSTACK_VERSION}" buildtools/jenkins &> jenkins.log &
@@ -134,6 +141,8 @@ function web {
     time stack2 &> stack2.log &
     rm -rf stack3.log
     time stack3 &> stack3.log &
+    rm -rf stack4.log
+    time stack4 &> stack4.log &
 }
 
 base > base.log 
