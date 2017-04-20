@@ -18,6 +18,7 @@
 #===============================================================================
 
 #set -o nounset                             # Treat unset variables as an error
+#set -x
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
 dcStartLog "install of app-specific web for 66ccff"

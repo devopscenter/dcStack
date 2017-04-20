@@ -18,6 +18,7 @@
 #===============================================================================
 
 #set -o nounset                             # Treat unset variables as an error
+#set -x
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
 
@@ -32,11 +33,11 @@ sudo useradd celery
 #
 
 if [[ "${COMBINED_WEB_WORKER}" = "true" ]]; then
-	sudo cp conf/nginx-combo.conf /usr/local/nginx/conf/nginx.conf
+	sudo cp app-conf/nginx-combo.conf /usr/local/nginx/conf/nginx.conf
 elif [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
     sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
     sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
-    sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
+    sudo cp app-conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 fi
 
 # 
@@ -57,9 +58,9 @@ fi
 #
 # Setup supervisor to run flower and celery
 #
-sudo cp conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
-sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
-sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
+sudo cp app-conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
+sudo cp app-conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
+sudo cp app-conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
 
 
 dcEndLog "install of app-specific worker for 66ccff, combo: ${COMBINED_WEB_WORKER}"
