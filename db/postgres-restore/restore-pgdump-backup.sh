@@ -133,15 +133,17 @@ set +x
 
 # if no backup file is provided, look for the most recent pgdump file in the backup dir
 if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
-  LOCAL_BACKUP_FILE="$(find /media/data/postgres/backup -maxdepth 1 -iname "*.download"| sort |tail -1)"
-  if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
-    echo "No local backup found, exiting."
-    exit 1
-  fi
+
+    echo "Looking for backupfile: /media/data/postgres/backup/${DB_NAME}*.download"
+    LOCAL_BACKUP_FILE="$(find /media/data/postgres/backup -maxdepth 1 -iname "${DB_NAME}*.download"| sort |tail -1)"
+    if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
+        echo "No local backup found, exiting."
+        exit 1
+    fi
 fi
 
 # schema-only restore if --schema-only is passed, otherwise do full restore
-echo "Postgresql restore started at " && date
+echo "Postgresql restore of backup: ${LOCAL_BACKUP_FILE} started at " && date
 if ! [[ -z "$SCHEMA_ONLY" ]]; then
   sudo -u postgres pg_restore -U postgres -s --exit-on-error -j 1 -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE" || exit 1
   sudo -u postgres pg_restore -U postgres --data-only -t django_migrations -j 1 -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE"
