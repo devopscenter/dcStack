@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool-redis:v2.0b7
+FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
 MAINTAINER admin < admin [at] devops {dot} center>
 
 ADD web.sh /installs/web.sh
