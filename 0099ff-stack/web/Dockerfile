@@ -20,8 +20,12 @@ FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 WORKDIR /installs
-
 ADD web.sh /installs/web.sh
+ADD requirements.txt /installs/requirements.txt
+
+# the config files specific to this app stack
+# (note that the config files specific to the ENV are mounted in docker-compose)
+ADD conf /installs/conf
 ADD requirements.txt /installs/requirements.txt
 
 RUN ./web.sh
@@ -31,7 +35,7 @@ RUN ./web.sh
 # successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
-    if [ -e /app-utils/conf/local/web-commands.sh ]; then  /app-utils/conf/local/web-commands.sh; fi && \
+    if [ -e /app-utils/conf/web-commands.sh ]; then  /app-utils/conf/web-commands.sh; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
