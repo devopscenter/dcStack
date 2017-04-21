@@ -20,8 +20,8 @@
 #===============================================================================
 
 #set -o nounset           # Treat unset variables as an error
-set -o errexit            # exit immediately if command exists with a non-zero status
-set -x                    # essentially debug mode
+#set -o errexit            # exit immediately if command exists with a non-zero status
+#set -x                    # essentially debug mode
 
 
 #-------------------------------------------------------------------------------
