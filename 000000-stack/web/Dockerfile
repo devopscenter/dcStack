@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool-redis:v2.0b7
+FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs
