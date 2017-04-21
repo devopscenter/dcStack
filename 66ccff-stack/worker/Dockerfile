@@ -1,7 +1,7 @@
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
-# Copyright 2014 devops.center
+# Copyright 2014 - 2017 devops.center
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,19 +22,23 @@ MAINTAINER josh < josh [at] devops {dot} center>
 # Flower port
 EXPOSE 5555
 
-ADD worker.sh /installs/worker.sh
-ADD conf /installs/app-conf
 WORKDIR /installs
+ADD worker.sh /installs/worker.sh
+
+# the config files specific to this app stack
+# (note that the config files specific to the ENV are mounted in docker-compose)
+ADD conf /installs/conf
 
 # container is never a combined web and worker
 RUN ./worker.sh "false"           
 
-# Run supervisor in this container, in foreground mode. However first establish link for logging container,
-# then grab any app-supplied configs for celery and flower (if present),
+# Run supervisor in this container, in foreground mode. 
+# However first establish link for logging container,
+# then grab any app-supplied configs (if present),
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
-    if [ -e /app-utils/conf/local/worker-commands.sh ]; then  /app-utils/conf/local/worker-commands.sh; fi && \
+    if [ -e /app-utils/conf/worker-commands.sh ]; then  /app-utils/conf/worker-commands.sh; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
