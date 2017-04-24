@@ -92,8 +92,8 @@ function stack3 {
 function stack4 {
     mkdir -p 9900af-stack/web/wheelhouse
     cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 9900af-stack/web/wheelhouse
-    docker build --rm -t "devopscenter/007acc.web:${dcSTACK_VERSION}" 9900af-stack/web
-    docker build --rm -t "devopscenter/007acc.worker:${dcSTACK_VERSION}" 9900af-stack/worker
+    docker build --rm -t "devopscenter/9900af.web:${dcSTACK_VERSION}" 9900af-stack/web
+    docker build --rm -t "devopscenter/9900af.worker:${dcSTACK_VERSION}" 9900af-stack/worker
 }
 
 function buildtools {

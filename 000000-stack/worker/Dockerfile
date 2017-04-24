@@ -1,7 +1,7 @@
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
-# Copyright 2014 devops.center
+# Copyright 2014 - 2017 devops.center
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,19 +20,23 @@ FROM devopscenter/000000.web:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 # Setup config to run pgpool and a single django-rq worker in this container
-ADD worker.sh /installs/worker.sh
-ADD conf /installs/app-conf
-run ./worker.sh
 
-# (though this requires supervisor)
-RUN rm -rf /etc/supervisor/conf.d/nginx.conf && \
-    rm -rf /etc/supervisor/conf.d/uwsgi.conf
+WORKDIR /installs
+ADD worker.sh /installs/worker.sh
+
+# the config files specific to this app stack
+# (note that the config files specific to the ENV are mounted in docker-compose)
+ADD conf /installs/conf
+
+# container is never a combined web and worker
+RUN ./worker.sh "false"  
+
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
-    if [ -e /app-utils/conf/local/worker-commands.sh ]; then  /app-utils/conf/local/worker-commands.sh; fi && \
+    if [ -e /app-utils/conf/worker-commands.sh ]; then  /app-utils/conf/worker-commands.sh; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \

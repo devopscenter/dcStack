@@ -18,8 +18,9 @@
 #===============================================================================
 
 #set -o nounset                             # Treat unset variables as an error
+#set -x
 
-source ../../dcEnv.sh                       # initalize logging environment
+source /usr/local/bin/dcEnv.sh                       # initalize logging environment
 
 COMBINED_WEB_WORKER="${1}"
 

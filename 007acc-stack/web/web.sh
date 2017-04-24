@@ -4,7 +4,9 @@
 # App-specific web install for 007ACC
 #
 
-echo "Begin: install of customer-specific web portion"
+source /usr/local/bin/dcEnv.sh                       # initalize logging environment
+dcStartLog "install of app-specific web for 007acc"
+
 
 sudo pip install -r requirements.txt
 
@@ -20,4 +22,4 @@ sudo npm install -g less
 
 sudo npm install -g coffee-script
 
-echo "End: install of customer-specific web portion"
+dcEndLog "install of app-specific web for 007acc"

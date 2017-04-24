@@ -1,7 +1,7 @@
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
-# Copyright 2014 devops.center
+# Copyright 2014 - 2017 devops.center
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,32 +17,28 @@
 #
 
 FROM devopscenter/007acc.web:dcSTACK_VERSION
-MAINTAINER josh < josh [at] devops {dot} center>
+MAINTAINER bob < bob [at] devops {dot} center>
 
 # Flower port
 EXPOSE 5555
 
-ADD worker.sh /installs/worker.sh
-ADD conf /installs/app-conf
 WORKDIR /installs
+ADD worker.sh /installs/worker.sh
 
-RUN ./worker.sh
+# the config files specific to this app stack
+# (note that the config files specific to the ENV are mounted in docker-compose)
+ADD conf /installs/conf
 
-# Setup config to run pgpool, celery, and flower in this container
-# (basically don't run nginx and uwsgi)
+# container is never a combined web and worker
+RUN ./worker.sh "false" 
 
-RUN rm -rf /etc/supervisor/conf.d/uwsgi.conf && \
-    rm -rf /etc/supervisor/conf.d/run_uwsgi.conf && \
-    rm -rf /etc/supervisor/conf.d/nginx.conf
 
 # Run supervisor in this container, in foreground mode. However first establish link for logging container,
 # then grab any app-supplied configs for celery and flower (if present),
 # then remove stale PIDs which prevented pgpool from successfully running from a container that is restarted.
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
-    if [ -e /app-utils/conf/supervisor-celery.conf ]; then cp /app-utils/conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf; fi && \
-    if [ -e /app-utils/conf/supervisor-flower.conf ]; then cp /app-utils/conf/supervisor-flower.conf //etc/supervisor/conf.d/flower.conf; fi && \
-    if [ -e /app-utils/conf/run_celery.sh ]; then cp /app-utils/conf/run_celery.sh /etc/supervisor/conf.d/; fi && \
+    if [ -e /app-utils/conf/worker-commands.sh ]; then  /app-utils/conf/worker-commands.sh; fi && \
     rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \

@@ -25,6 +25,12 @@ echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | 
 sudo apt-fast -y install unattended-upgrades
 
 #
+# Copy logging framework to a known place
+#
+sudo cp dcEnv.sh /usr/local/bin/dcEnv.sh
+sudo chmod 755 /usr/local/bin/dcEnv.sh
+
+#
 # Tmux install and config.
 #
 

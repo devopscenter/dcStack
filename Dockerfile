@@ -8,6 +8,7 @@ RUN apt-get update && \
 
 # basic stuff for the base container
 ADD buildtools/utils/base-utils.sh /installs/base-utils.sh
+ADD buildtools/utils/dcEnv.sh /installs/dcEnv.sh
 
 # Add the files needed to install & configure tmux
 ADD buildtools/utils/tmux.conf /installs/tmux.conf
