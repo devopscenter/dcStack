@@ -32,27 +32,12 @@ sudo useradd celery
 # If this is purely a worker, then we don't need uwsgi (this app still requires nginx, though with a specialized config)
 #
 
-if [[ "${COMBINED_WEB_WORKER}" = "true" ]]; then
+if [[ "${COMBINED_WEB_WORKER}" == "true" ]]; then
 	sudo cp conf/nginx-combo.conf /usr/local/nginx/conf/nginx.conf
-elif [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
+elif [[ "${COMBINED_WEB_WORKER}" == "false" ]]; then
     sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
     sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
     sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
-fi
-
-# 
-# Required directories for this app
-#
-
-if [[ attached-volume = "true" ]]; then
-    sudo ln -s /media/data /data/media 
-    sudo ln -s /media/data/deploy /data/deploy 
-    sudo ln -s /media/data/scratch /data/scratch
-
-    sudo mkdir -p /data/media/pdfcreator /data/media/reports/pdf
-else
-    # put everything on the root volume
-    sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
 fi
 
 #

@@ -20,6 +20,8 @@
 #set -o nounset                             # Treat unset variables as an error
 #set -x
 
+SCRATCHVOLUME=$1
+
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
 dcStartLog "install of app-specific web for 66ccff"
 
@@ -35,7 +37,22 @@ sudo npm install -g less
 # Install required packages
 sudo pip install -r requirements.txt
 
-# prepare required directories for this app
-sudo mkdir -p /data/deploy /data/media /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
+# 
+# Required directories for this app
+#
+
+if [[ "${SCRATCHVOLUME}" == "true" ]]; then
+    sudo mkdir /media/data/scratch
+
+    sudo ln -s /media/data /data/media 
+    sudo ln -s /media/data/scratch /data/scratch
+
+    sudo mkdir -p /data/media/pdfcreator /data/media/reports/pdf
+else
+    # put everything on the root volume
+    sudo mkdir -p /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
+fi
+sudo chmod 777 -R /data/media
+sudo chmod 777 -R /data/scratch
 
 dcEndLog "install of app-specific web for 66ccff"
