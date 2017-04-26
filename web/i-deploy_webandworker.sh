@@ -52,12 +52,20 @@ if  [[ -z ${PRIVATE_IP} ]] ||
 fi
 
 #-------------------------------------------------------------------------------
-# mount volumes and remove instance attached store from /mnt
+# If this will have an attached scratch volume, then prepare and mount it,
+# create a standard tmp directory that's open to all users, then make sure that 
+# code deploys go onto the scratch volume as well.
 #-------------------------------------------------------------------------------
 if [[ ${SCRATCHVOLUME} == "true" ]]; then
-    cd ~/dcStack/db/postgres/ || exit
-    sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
+    pushd ~/dcStack/db/postgres/
     sudo ./i-mount.sh "/media/data"
+
+    sudo mkdir /media/data/tmp
+    sudo chmod 777 /media/data/tmp
+
+    sudo mkdir /media/data/deploy
+    sudo ln -s /media/data/deploy /data/deploy 
+    popd
 fi
 
 #-------------------------------------------------------------------------------
@@ -109,11 +117,11 @@ cd ~/dcStack/web/python-nginx-pgpool-redis/ || exit
 sudo ./redis-client-install.sh
 
 #-------------------------------------------------------------------------------
-# Install customer-specific stack - all get the web portion.
+# Install customer-specific stack - all (both web and worker) get the web portion.
 #-------------------------------------------------------------------------------
 cd ~/dcStack/${STACK}-stack/web/ || exit
 if [[ -f ./web.sh ]]; then
-    sudo ./web.sh
+    sudo ./web.sh ${SCRATCHVOLUME} 
 fi
 
 #-------------------------------------------------------------------------------
@@ -139,31 +147,20 @@ if [[ -e "${STANDARD_APP_UTILS_DIR}/web-commands.sh" ]]; then
 fi
 
 # If there is a worker specific install, then invoke it.
-if [[ "$SUFFIX" = "worker" ]]; then
+if [[ "${SUFFIX}" == "worker" || "${COMBINED_WEB_WORKER}" == "true" ]]; then
     # first do the stack specific worker.sh script
     if [[ -f "${HOME}/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
         cd ${HOME}/dcStack/${STACK}-stack/worker
-        sudo ./worker.sh
+        sudo ./worker.sh ${COMBINED_WEB_WORKER} ${SCRATCHVOLUME} 
     fi
 
     # and now  do the stack specific worker.sh script
     if [[ -f "${STANDARD_APP_UTILS_DIR}/worker-commands.sh" ]]; then
         cd ${STANDARD_APP_UTILS_DIR}
-        sudo ./worker-commands.sh
-    fi
-fi
-
-# Need to check if the web would want to add the worker features into itself
-if [[ ${COMBINED_WEB_WORKER} == "true" ]]; then
-    if [[ -f ${HOME}/dcStack/${STACK}-stack/worker/worker.sh ]]; then
-        cd ${HOME}/dcStack/${STACK}-stack/worker
-        sudo ./worker.sh ${COMBINED_WEB_WORKER}
-    fi
-    if [[ -f ${STANDARD_APP_UTILS_DIR}/worker-commands.sh ]]; then
-        cd ${STANDARD_APP_UTILS_DIR}
         sudo ./worker-commands.sh ${COMBINED_WEB_WORKER}
     fi
 fi
+
 set +x
 
 #-------------------------------------------------------------------------------
