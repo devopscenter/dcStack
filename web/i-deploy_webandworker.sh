@@ -54,6 +54,11 @@ if  [[ -z ${PRIVATE_IP} ]] ||
     exit 1
 fi
 
+#
+# All web and worker instances use /data for code deploys, some for other stuff
+#
+sudo mkdir /data 
+
 #-------------------------------------------------------------------------------
 # If this will have an attached scratch volume, then prepare and mount it,
 # create a standard tmp directory that's open to all users, then make sure that 
