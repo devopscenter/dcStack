@@ -18,7 +18,7 @@
 #===============================================================================
 
 #set -o nounset         # Treat unset variables as an error
-set -x                 # Essentiall turn on debug mode
+#set -x                 # Essentiall turn on debug mode
 
 # note that this is only run on an instance, not within a container.
 
