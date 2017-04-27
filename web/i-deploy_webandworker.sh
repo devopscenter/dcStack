@@ -23,6 +23,9 @@
 #      REVISION:  ---
 #===============================================================================
 
+#set -o nounset                             # Treat unset variables as an error
+set -x
+
 # All 6 arguments are required
 
 PRIVATE_IP=$1
