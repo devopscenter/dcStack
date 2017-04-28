@@ -67,3 +67,9 @@ sudo update-rc.d postgresql disable
 
 sudo pip install s3cmd==1.6.1
 sudo pip install -U setuptools
+
+# Create a couple of standard temp directories
+sudo mkdir -p /media/data/tmp
+sudo chmod 777 /media/data/tmp
+sudo mkdir -p /media/data/db_restore
+sudo chmod 777 /media/data/db_restore

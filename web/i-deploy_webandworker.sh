@@ -76,9 +76,13 @@ fi
 
 # Create standard temp directory, then set up a symlink
 # to a previous standard, for compatibility reasons
+# Also create a standard directory for db restores.
 sudo mkdir -p /media/data/tmp
 sudo chmod 777 /media/data/tmp
 sudo ln -s /media/data/tmp /data/scratch
+
+sudo mkdir -p /media/data/db_restore
+sudo chmod 777 /media/data/db_restore
 
 #-------------------------------------------------------------------------------
 # install standard packages/utilities
