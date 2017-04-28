@@ -40,20 +40,13 @@ sudo pip install -r requirements.txt
 # 
 # Required directories for this app
 #
-
 if [[ "${SCRATCHVOLUME}" == "true" ]]; then
-    sudo mkdir /media/data/scratch
-
     sudo ln -s /media/data /data/media 
-    sudo ln -s /media/data/scratch /data/scratch
-
-    sudo mkdir -p /data/media/pdfcreator /data/media/reports/pdf
-else
-    # put everything on the root volume
-    sudo mkdir -p /data/media/pdfcreator /data/media/reports/pdf /data/scratch 
 fi
-sudo chmod 777 -R /media/data/reports
+
+sudo mkdir -p /data/media/pdfcreator /data/media/reports/pdf
+
 sudo chmod 777 -R /media/data/pdfcreator
-sudo chmod 777 -R /media/data/scratch
+sudo chmod 777 -R /media/data/reports
 
 dcEndLog "install of app-specific web for 66ccff"
