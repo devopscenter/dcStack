@@ -51,6 +51,8 @@ sudo mkdir -p /wheelhouse
 sudo apt-fast -qq -y install libncurses5-dev
 sudo pip install readline==6.2.4.1
 
-sudo mkdir -p /data/scratch && \
+# Create a scratch directory, if it doesn't already exist
+if [[ ! realpath -eq /data/scratch ]]; then
+    sudo mkdir -p /data/scratch
     sudo chmod -R 777 /data/scratch
-
+fi

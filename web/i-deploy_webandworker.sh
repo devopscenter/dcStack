@@ -61,20 +61,24 @@ sudo mkdir /data
 
 #-------------------------------------------------------------------------------
 # If this will have an attached scratch volume, then prepare and mount it,
-# create a standard tmp directory that's open to all users, then make sure that 
-# code deploys go onto the scratch volume as well.
+# then make sure that code deploys go onto the scratch volume as well.
 #-------------------------------------------------------------------------------
 if [[ ${SCRATCHVOLUME} == "true" ]]; then
     pushd ~/dcStack/db/postgres/
     sudo ./i-mount.sh "/media/data"
 
-    sudo mkdir /media/data/tmp
-    sudo chmod 777 /media/data/tmp
-
     sudo mkdir /media/data/deploy
     sudo ln -s /media/data/deploy /data/deploy 
     popd
+else
+    sudo mkdir -p /data/deploy
 fi
+
+# Create standard temp directory, then set up a symlink
+# to a previous standard, for compatibility reasons
+sudo mkdir -p /media/data/tmp
+sudo chmod 777 /media/data/tmp
+sudo ln -s /media/data/tmp /data/scratch
 
 #-------------------------------------------------------------------------------
 # install standard packages/utilities
