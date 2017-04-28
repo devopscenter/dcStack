@@ -26,6 +26,8 @@
 #      REVISION:  ---
 #===============================================================================
 
+BACKUP_DIR='/media/data/db_restore'
+
 function usage
 {
   echo "usage: ./restore-pgdump-backup.sh [--schema-only] [--backup local-backup-filename] database-name"
@@ -132,8 +134,8 @@ sudo supervisorctl restart postgres
 # if no backup file is provided, look for the most recent pgdump file in the backup dir
 if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
 
-    echo "Looking for backupfile: /media/data/postgres/backup/${DB_NAME}*.download"
-    LOCAL_BACKUP_FILE="$(find /media/data/postgres/backup -maxdepth 1 -iname "${DB_NAME}*.download"| sort |tail -1)"
+    echo "Looking for backupfile: ${BACKUP_DIR}/${DB_NAME}*.download"
+    LOCAL_BACKUP_FILE="$(find ${BACKUP_DIR} -maxdepth 1 -iname "${DB_NAME}*.download"| sort |tail -1)"
     if [[ -z "$LOCAL_BACKUP_FILE" ]]; then
         echo "No local backup found, exiting."
         exit 1

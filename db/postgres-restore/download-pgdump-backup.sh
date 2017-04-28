@@ -29,7 +29,7 @@
 #set -x               # essentially debug mode
 
 
-BACKUP_DIR='/media/data/postgres/backup'
+BACKUP_DIR='/media/data/db_restore'
 
 function usage
 {
