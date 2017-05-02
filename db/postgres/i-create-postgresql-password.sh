@@ -28,6 +28,6 @@ CUST_APP_NAME=$2
 #-------------------------------------------------------------------------------
 PG_PWD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 psql -U postgres -c "ALTER USER Postgres WITH PASSWORD '${PG_PWD}';"
-#echo "postgres user password: ${PG_PWD}"
-#echo "To be used to access the database using the public IP:"
+echo "postgres user password: ${PG_PWD}"
+echo "To be used to access the database using the public IP:"
 echo "postgres://postgres:${PG_PWD}@${PUBLIC_IP}/${CUST_APP_NAME}"
