@@ -196,6 +196,15 @@ sudo chown postgres:postgres /media/data/postgres/db/pgdata/server.crt /media/da
 
 sudo supervisorctl restart postgres
 
+
+#-------------------------------------------------------------------------------
+# Now that the database is running lets create the users database
+#-------------------------------------------------------------------------------
+createdb ${DATABASE,,}
+
+#-------------------------------------------------------------------------------
+# enable backups
+#-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres-backup/ || exit
 ./enable-backup.sh "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}"
 
