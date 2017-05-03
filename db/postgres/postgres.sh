@@ -73,6 +73,3 @@ sudo mkdir -p /media/data/tmp
 sudo chmod 777 /media/data/tmp
 sudo mkdir -p /media/data/db_restore
 sudo chmod 777 /media/data/db_restore
-
-# create the database in lowercase
-createdb ${DATABASE,,}
