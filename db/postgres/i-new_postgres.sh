@@ -200,7 +200,7 @@ sudo supervisorctl restart postgres
 #-------------------------------------------------------------------------------
 # Now that the database is running lets create the users database
 #-------------------------------------------------------------------------------
-createdb ${DATABASE,,}
+sudo -u postgres createdb ${DATABASE,,}
 
 #-------------------------------------------------------------------------------
 # enable backups

@@ -1,5 +1,6 @@
 #!/bin/bash -evx
 
+set -x
 PGVERSION=$1
 DATABASE=$2
 VPC_CIDR=$3
@@ -66,10 +67,14 @@ echo calling xlog.sh and supervisorconfig
 ./xlog.sh $POSTGRES_VERSION
 ./supervisorconfig.sh $POSTGRES_VERSION
 
-sudo service postgresql stop
+# stop the systemd postgresql so that it can be disabled and removed
+sudo servicectl stop postgresql
 
 #disable init.d autostart
 sudo update-rc.d postgresql disable
+# and finally remove it
+sudo update-rc.d postgresql remove
+set +x
 
 sudo pip install s3cmd==1.6.1
 sudo pip install -U setuptools
