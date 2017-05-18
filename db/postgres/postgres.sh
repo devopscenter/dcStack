@@ -5,6 +5,8 @@ PGVERSION=$1
 DATABASE=$2
 VPC_CIDR=$3
 
+PS4='(${BASH_SOURCE}:${LINENO}):${FUNCNAME[0]}: $?] '
+
 . ./postgresenv.sh $PGVERSION
 
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
