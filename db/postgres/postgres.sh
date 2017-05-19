@@ -43,8 +43,8 @@ sudo locale-gen en_US.UTF-8 && \
 #https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
 sudo apt-fast -qq -y install libffi-dev
 sudo pip install --upgrade distribute
-sudo pip install -U six && \
-    sudo pip install wal-e==0.9.2
+sudo pip install -U six
+#    sudo pip install wal-e==0.9.2
 sudo apt-fast -qq install -y daemontools lzop pv
 sudo pip install -U requests==2.12.5
 
