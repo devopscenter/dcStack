@@ -20,7 +20,7 @@ sudo apt-fast -qq -y install git python-dev wget sudo vim
 
 # Install python3 tools for the wal-e install
 sudo apt-get -y install python3-pip
-pip3 install --upgrade pip
+sudo pip3 install --upgrade pip
 
 pushd /tmp
 sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
@@ -50,6 +50,7 @@ sudo pip install --upgrade distribute
 sudo pip install -U six
 
 # wal-e v1 and later now require python3
+sudo pip3 install boto
 sudo pip3 install wal-e
 
 sudo apt-fast -qq install -y daemontools lzop pv
