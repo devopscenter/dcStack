@@ -18,6 +18,10 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
 
 sudo apt-fast -qq -y install git python-dev wget sudo vim
 
+# Install python3 tools for the wal-e install
+sudo apt-get -y install python3-pip
+sudo pip3 install --upgrade pip
+
 pushd /tmp
 sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
 popd
@@ -43,8 +47,12 @@ sudo locale-gen en_US.UTF-8 && \
 #https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
 sudo apt-fast -qq -y install libffi-dev
 sudo pip install --upgrade distribute
-sudo pip install -U six && \
-    sudo pip install wal-e==0.9.2
+sudo pip install -U six
+
+# wal-e v1 and later now require python3
+sudo pip3 install boto
+sudo pip3 install wal-e
+
 sudo apt-fast -qq install -y daemontools lzop pv
 sudo pip install -U requests==2.12.5
 
