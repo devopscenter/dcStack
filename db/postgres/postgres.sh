@@ -76,7 +76,6 @@ sudo servicectl stop postgresql
 sudo update-rc.d postgresql disable
 # and finally remove it
 sudo update-rc.d postgresql remove
-set +x
 
 sudo pip install s3cmd==1.6.1
 sudo pip install -U setuptools
