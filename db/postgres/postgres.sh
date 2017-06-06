@@ -78,7 +78,7 @@ echo calling xlog.sh and supervisorconfig
 ./supervisorconfig.sh $POSTGRES_VERSION
 
 # stop the systemd postgresql so that it can be disabled and removed
-sudo servicectl stop postgresql
+sudo service postgresql stop
 
 #disable init.d autostart
 sudo update-rc.d postgresql disable
