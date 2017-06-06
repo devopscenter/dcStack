@@ -122,6 +122,14 @@ sudo ./i-mount.sh "/media/data/postgres/db"
 #-------------------------------------------------------------------------------
 sudo ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
 
+
+#-------------------------------------------------------------------------------
+# link the db download.sh and restore.sh from dcUtils to the newly recreated
+# /media/data/db_restore (created in postgres.sh)
+#-------------------------------------------------------------------------------
+ln -s $HOME/dcUtils/db/download.sh /media/data/db_restore/
+ln -s $HOME/dcUtils/db/restore.sh /media/data/db_restore/
+
 #-------------------------------------------------------------------------------
 # restart supervisor to pick up new postgres files in conf.d
 #-------------------------------------------------------------------------------
