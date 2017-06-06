@@ -1,0 +1,5 @@
+# In order to build scipy and scikit-learn in a way compatible with numpy, they need to be done in a 2nd step using --no-use-wheel.
+# https://stackoverflow.com/questions/40845304/runtimewarning-numpy-dtype-size-changed-may-indicate-binary-incompatibility
+
+scipy==0.14.0
+scikit-learn==0.15.1
