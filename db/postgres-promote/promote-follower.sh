@@ -2,11 +2,11 @@
 #===============================================================================
 #
 #          FILE: promote-follower.sh
-# 
-#         USAGE: ./promote-follower.sh 
-# 
-#   DESCRIPTION: 
-# 
+#
+#         USAGE: ./promote-follower.sh
+#
+#   DESCRIPTION:
+#
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
@@ -18,7 +18,7 @@
 #===============================================================================
 
 #set -o nounset                              # Treat unset variables as an error
-#set -x 
+#set -x
 
 OLD_MASTER_PRIVATEIP=$1
 OLD_FOLLOWER_PRIVATEIP=$2
@@ -28,8 +28,8 @@ OLD_FOLLOWER_PRIVATEIP=$2
 #---  FUNCTION  ----------------------------------------------------------------
 #          NAME:  etc_hosts_remove
 #   DESCRIPTION:  function to clean up etc/hosts if we end up using it over route53
-#    PARAMETERS:  
-#       RETURNS:  
+#    PARAMETERS:
+#       RETURNS:
 #-------------------------------------------------------------------------------
 etc_hosts_remove()
 {
@@ -62,13 +62,34 @@ etc_hosts_remove()
 
 
 #---  FUNCTION  ----------------------------------------------------------------
-#          NAME:  cleanup_route53
-#   DESCRIPTION:  manage the changes in route53 for the switch
-#    PARAMETERS:  
-#       RETURNS:  
+#          NAME:  modify_route53
+#   DESCRIPTION:  manage the changes in route53 for the switch of db follower to master
+#    PARAMETERS:
+#       RETURNS:
 #-------------------------------------------------------------------------------
-cleanup_route53()
+modify_route53()
 {
+    #TODO need to know if the "old" pgmaster-1 will be turned into a follower or what 
+    # happens to it?
+
+    # delete the record set for the pgmaster-1
+    # delete the record set for the pgfollower-1
+    # create pgmaster-1 with $OLD_FOLLOWER_PRIVATEIP
+    # create pgfollower-1 with $OLD_MASTER_PRIVATEIP
+
+}
+
+#---  FUNCTION  ----------------------------------------------------------------
+#          NAME:  modify_security_groups
+#   DESCRIPTION:  manage the changes to the security group
+#                 NOTE: might just be better to remove and recreate
+#    PARAMETERS:
+#       RETURNS:
+#-------------------------------------------------------------------------------
+modify_security_groups()
+{
+# NOTE!!!    change the security groups for all instances to reflect the pgmaster-1
+# pgfollower-1 state.  Does this mean that each security group will need to editted?
 }
 
 
