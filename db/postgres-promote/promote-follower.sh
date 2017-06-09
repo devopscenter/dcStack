@@ -61,38 +61,6 @@ etc_hosts_remove()
 #echo "${OLD_FOLLOWER_PRIVATEIP} postgressmaster_1" | sudo tee -a /etc/hosts > /dev/null
 
 
-#---  FUNCTION  ----------------------------------------------------------------
-#          NAME:  modify_route53
-#   DESCRIPTION:  manage the changes in route53 for the switch of db follower to master
-#    PARAMETERS:
-#       RETURNS:
-#-------------------------------------------------------------------------------
-modify_route53()
-{
-    #TODO need to know if the "old" pgmaster-1 will be turned into a follower or what 
-    # happens to it?
-
-    # delete the record set for the pgmaster-1
-    # delete the record set for the pgfollower-1
-    # create pgmaster-1 with $OLD_FOLLOWER_PRIVATEIP
-    # create pgfollower-1 with $OLD_MASTER_PRIVATEIP
-
-}
-
-#---  FUNCTION  ----------------------------------------------------------------
-#          NAME:  modify_security_groups
-#   DESCRIPTION:  manage the changes to the security group
-#                 NOTE: might just be better to remove and recreate
-#    PARAMETERS:
-#       RETURNS:
-#-------------------------------------------------------------------------------
-modify_security_groups()
-{
-# NOTE!!!    change the security groups for all instances to reflect the pgmaster-1
-# pgfollower-1 state.  Does this mean that each security group will need to editted?
-}
-
-
 # update wal-e archive command to point to correct/current hostname
 sudo sed -E -i "s/(^archive_command\b.*s3:\/\/.*\/)([a-zA-Z]+-[a-zA-Z0-9]+)([[:blank:]]+)/\1${HOSTNAME}\3/g" /media/data/postgres/db/pgdata/postgresql.conf
 
@@ -101,7 +69,7 @@ sudo su -c "/usr/lib/postgresql/9.4/bin/pg_ctl promote -D /media/data/postgres/d
 
 # enable s3 backups
 if ! (sudo crontab -l -u postgres|grep -q '^[^#].*pg_backup_rotated.sh\b.*'); then
-  (sudo crontab -u postgres -l 2>/dev/null; echo "01 04  *   *   *     /media/data/postgres/backup/pg_backup_rotated.sh -c /media/data/postgres/backup/pg_backup.config") | sudo crontab -u postgres -
+    (sudo crontab -u postgres -l 2>/dev/null; echo "01 04  *   *   *     /media/data/postgres/backup/pg_backup_rotated.sh -c /media/data/postgres/backup/pg_backup.config") | sudo crontab -u postgres -
 fi
 
 # push base backup to s3 to enable immediate wal-e restore
