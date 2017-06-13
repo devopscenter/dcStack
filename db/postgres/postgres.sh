@@ -83,7 +83,7 @@ sudo service postgresql stop
 #disable init.d autostart
 sudo update-rc.d postgresql disable
 # and finally remove it
-sudo update-rc.d postgresql remove
+#sudo update-rc.d postgresql remove
 
 sudo pip install s3cmd==1.6.1
 sudo pip install -U setuptools
