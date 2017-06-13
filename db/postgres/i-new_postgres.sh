@@ -204,12 +204,6 @@ sudo chown postgres:postgres /media/data/postgres/db/pgdata/server.crt /media/da
 
 sudo supervisorctl restart postgres
 
-
-#-------------------------------------------------------------------------------
-# Now that the database is running lets create the users database
-#-------------------------------------------------------------------------------
-sudo -u postgres createdb ${DATABASE,,}
-
 #-------------------------------------------------------------------------------
 # enable backups
 #-------------------------------------------------------------------------------
@@ -252,3 +246,8 @@ fi
 # NEED TO CHANGE CONFIG.SH TO NOT ADD INSECURE OPTIONS TO THE FILE
 #host replication postgres <VPC SUBNET?> trust
 #hostssl <DB NAME> all 0.0.0.0/0 password
+
+#-------------------------------------------------------------------------------
+# Now that the database is running lets create the users database
+#-------------------------------------------------------------------------------
+sudo -u postgres createdb ${DATABASE,,}
