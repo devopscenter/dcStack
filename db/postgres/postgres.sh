@@ -1,11 +1,8 @@
 #!/bin/bash -evx
 
-set -x
 PGVERSION=$1
 DATABASE=$2
 VPC_CIDR=$3
-
-PS4='(${BASH_SOURCE}:${LINENO}):${FUNCNAME[0]}: $?] '
 
 . ./postgresenv.sh $PGVERSION
 
@@ -29,7 +26,6 @@ pushd /tmp
 sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
 popd
 
-echo "add the PostgreSQL PGP key"
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
