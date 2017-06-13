@@ -36,12 +36,14 @@ sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_rele
 
 sudo apt-fast -qq update
 
+echo "installing postgres ver: ${POSTGRES_VERSION}"
 sudo apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev postgresql-${POSTGRES_VERSION}-postgis-2.2
 
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8 && \
     sudo dpkg-reconfigure --frontend=noninteractive locales
 
+echo "installing wal-e"
 ###WAL-E
 #USER root
 #https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
@@ -56,6 +58,7 @@ sudo pip3 install wal-e
 sudo apt-fast -qq install -y daemontools lzop pv
 sudo pip install -U requests==2.12.5
 
+echo "mkdir /media/data/postgres"
 sudo mkdir -p ${POSTGRESDBDIR}
 sudo mkdir -p /media/data/postgres/xlog/transactions
 sudo chown -R postgres:postgres /media/data/postgres
@@ -63,15 +66,20 @@ sudo chown -R postgres:postgres /media/data/postgres
 sudo chown -R postgres:postgres /var/lib/postgresql
 
 
+echo "calling config.sh"
 sudo su -c "./config.sh ${POSTGRES_VERSION} ${DATABASE} ${VPC_CIDR} " -s /bin/sh postgres
 
+echo calling xlog.sh and supervisorconfig
 ./xlog.sh $POSTGRES_VERSION
 ./supervisorconfig.sh $POSTGRES_VERSION
 
+# stop the systemd postgresql so that it can be disabled and removed
 sudo service postgresql stop
 
 #disable init.d autostart
 sudo update-rc.d postgresql disable
+# and finally remove it
+#sudo update-rc.d postgresql remove
 
 sudo pip install s3cmd==1.6.1
 sudo pip install -U setuptools

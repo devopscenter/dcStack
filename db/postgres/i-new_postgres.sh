@@ -122,6 +122,14 @@ sudo ./i-mount.sh "/media/data/postgres/db"
 #-------------------------------------------------------------------------------
 sudo ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
 
+
+#-------------------------------------------------------------------------------
+# link the db download.sh and restore.sh from dcUtils to the newly recreated
+# /media/data/db_restore (created in postgres.sh)
+#-------------------------------------------------------------------------------
+ln -s $HOME/dcUtils/db/download.sh /media/data/db_restore/
+ln -s $HOME/dcUtils/db/restore.sh /media/data/db_restore/
+
 #-------------------------------------------------------------------------------
 # restart supervisor to pick up new postgres files in conf.d
 #-------------------------------------------------------------------------------
@@ -196,12 +204,6 @@ sudo chown postgres:postgres /media/data/postgres/db/pgdata/server.crt /media/da
 
 sudo supervisorctl restart postgres
 
-
-#-------------------------------------------------------------------------------
-# Now that the database is running lets create the users database
-#-------------------------------------------------------------------------------
-sudo -u postgres createdb ${DATABASE,,}
-
 #-------------------------------------------------------------------------------
 # enable backups
 #-------------------------------------------------------------------------------
@@ -244,3 +246,8 @@ fi
 # NEED TO CHANGE CONFIG.SH TO NOT ADD INSECURE OPTIONS TO THE FILE
 #host replication postgres <VPC SUBNET?> trust
 #hostssl <DB NAME> all 0.0.0.0/0 password
+
+#-------------------------------------------------------------------------------
+# Now that the database is running lets create the users database
+#-------------------------------------------------------------------------------
+sudo -u postgres createdb ${DATABASE,,}
