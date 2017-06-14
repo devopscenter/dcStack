@@ -47,3 +47,19 @@ dcEndLog()
     dcLog "${msg}" "END"
 }
 
+dcTrackEvent()
+{
+    CUSTOMER_NAME=$1
+    CUSTOMER_APP_NAME=$2
+    EVENT=$3
+    MSG=$4
+    TRACKING_FILE="${GOOGLE_DIR}/devops.center/monitoring/dcEventTracking.txt"
+
+    if [[ ! -f ${TRACKING_FILE} ]]; then
+        dcLog "ERROR: $TRACKING_FILE not found, the event will not be written"
+    else
+        TIMESTAMP=$(date +%F_%T)
+        JSONTOWRITE="{\"date\": \"${TIMESTAMP}\", \"customer\": \"${CUSTOMER_NAME}\", \"appname\": \"${CUSTOMER_APP_NAME}\", \"event\": \"${EVENT}\", \"msg\": \"${MSG}\"} "
+        echo "${JSONTOWRITE}" >> "${TRACKING_FILE}"
+    fi
+}
