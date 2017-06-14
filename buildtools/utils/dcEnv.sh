@@ -20,6 +20,8 @@
 
 #set -o nounset                              # Treat unset variables as an error
 
+GOOGLE_DIR=$(cd $HOME/Googl*;pwd)
+
 dcLog()
 {
     msg=$1
