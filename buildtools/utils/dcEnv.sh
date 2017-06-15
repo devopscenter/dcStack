@@ -61,7 +61,7 @@ dcTrackEvent()
         dcLog "ERROR: $TRACKING_FILE not found, the event will not be written"
     else
         TIMESTAMP=$(date +%F_%T)
-        JSONTOWRITE="{\"date\": \"${TIMESTAMP}\", \"customer\": \"${CUSTOMER_NAME}\", \"appname\": \"${CUSTOMER_APP_NAME}\", \"event\": \"${EVENT}\", \"msg\": \"${MSG}\"} "
+        JSONTOWRITE="{\"date\": \"${TIMESTAMP}\", \"customer\": \"${CUSTOMER_NAME}\", \"instancename\": \"${CUSTOMER_APP_NAME}\", \"event\": \"${EVENT}\", \"msg\": \"${MSG}\"} "
         echo "${JSONTOWRITE}" >> "${TRACKING_FILE}"
     fi
 }
