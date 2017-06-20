@@ -1,0 +1,11 @@
+Django==1.11
+dj-database-url==0.3.0
+httplib2==0.10.3
+pre-commit==0.13.2
+psycopg2==2.7.1
+python-dateutil==2.6.0
+raven==6.0.0
+redis==2.10.5
+fabric==1.13.2
+paramiko
+s3cmd

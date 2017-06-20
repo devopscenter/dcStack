@@ -1,7 +1,7 @@
 #
 # Docker Stack - Docker stack to manage infrastructures
 #
-# Copyright 2015 devops.center
+# Copyright 2015 - 2017 devops.center
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 #
 
 FROM devopscenter/base:dcSTACK_VERSION
-MAINTAINER josh < josh [at] devops {dot} center>
+MAINTAINER bob < bob [at] devops {dot} center>
 
-ADD jenkins.sh /installs/jenkins.sh
+ADD jenkins.sh /installs/jenkins-install.sh
 
 WORKDIR /installs
-RUN ./jenkins.sh
+RUN ./jenkins-install.sh
