@@ -8,8 +8,7 @@ This app-stack is intended to easily stand-up a Jenkins instance in a standardiz
 Support is included for local pre-commit processing (grunt, python), though not particularly
 counting on a db instance. This includes a backup facility which writes to an s3 bucket.
 
-Configuration:
-web
+Configuration: web
 
 Major Components:
 jenkins
