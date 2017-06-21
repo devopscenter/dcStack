@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
