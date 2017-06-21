@@ -20,7 +20,7 @@
 
 #set -o nounset                              # Treat unset variables as an error
 
-GOOGLE_DIR=$(cd $HOME/Googl*;pwd)
+GOOGLE_DIR=$(find $HOME -type d -maxdepth 1 -name Googl*)
 
 dcLog()
 {
@@ -55,13 +55,17 @@ dcTrackEvent()
     CUSTOMER_APP_NAME=$2
     EVENT=$3
     MSG=$4
-    TRACKING_FILE="${GOOGLE_DIR}/devops.center/monitoring/dcEventTracking.txt"
+    if [[ -n ${GOOGLE_DIR} ]]; then
+        TRACKING_FILE="${GOOGLE_DIR}/devops.center/monitoring/dcEventTracking.txt"
 
-    if [[ ! -f ${TRACKING_FILE} ]]; then
-        dcLog "ERROR: $TRACKING_FILE not found, the event will not be written"
+        if [[ ! -f ${TRACKING_FILE} ]]; then
+            dcLog "ERROR: $TRACKING_FILE not found, the event will not be written"
+        else
+            TIMESTAMP=$(date +%F_%T)
+            JSONTOWRITE="{\"date\": \"${TIMESTAMP}\", \"customer\": \"${CUSTOMER_NAME}\", \"instancename\": \"${CUSTOMER_APP_NAME}\", \"event\": \"${EVENT}\", \"msg\": \"${MSG}\"} "
+            echo "${JSONTOWRITE}" >> "${TRACKING_FILE}"
+        fi
     else
-        TIMESTAMP=$(date +%F_%T)
-        JSONTOWRITE="{\"date\": \"${TIMESTAMP}\", \"customer\": \"${CUSTOMER_NAME}\", \"instancename\": \"${CUSTOMER_APP_NAME}\", \"event\": \"${EVENT}\", \"msg\": \"${MSG}\"} "
-        echo "${JSONTOWRITE}" >> "${TRACKING_FILE}"
+        echo "Could not save event, file not available"
     fi
 }
