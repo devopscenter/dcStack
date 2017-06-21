@@ -10,13 +10,14 @@ sudo mkdir -p /media/data/jenkins
 sudo chown -R jenkins:jenkins /media/data/jenkins
 
 sudo usermod -d /media/data/jenkins jenkins
-echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
 
 # install jenkins
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
 sudo apt-get -y install jenkins
+
+echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
 
 # copy the configs for running jenkins
 sudo cp -a conf/program_jenkins.conf /etc/supervisor/conf.d/program_jenkins.conf
