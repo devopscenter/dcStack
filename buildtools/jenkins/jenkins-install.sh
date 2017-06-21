@@ -3,6 +3,7 @@
 # Assumes that this is being installed on top of a dcStack web proto
 # (supervisor, base-utils, python, etc)
 
+set -x
 
 # prevent services from starting automatically after package install
 echo -e '#!/bin/bash\nexit 101' | sudo tee /usr/sbin/policy-rc.d
