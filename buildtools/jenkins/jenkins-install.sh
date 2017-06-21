@@ -3,14 +3,11 @@
 # Assumes that this is being installed on top of a dcStack web proto
 # (supervisor, base-utils, python, etc)
 
-set -x
-
 # prevent services from starting automatically after package install
 echo -e '#!/bin/bash\nexit 101' | sudo tee /usr/sbin/policy-rc.d
 sudo chmod +x /usr/sbin/policy-rc.d
 
-sudo addgroup jenkins
-sudo adduser jenkins --ingroup jenkins
+sudo useradd jenkins
 
 # install jenkins
 wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
