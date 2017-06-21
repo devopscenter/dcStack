@@ -22,7 +22,7 @@ sudo cp -a conf/program_jenkins.conf /etc/supervisor/conf.d/program_jenkins.conf
 sudo cp -a conf/run_jenkins.sh /etc/supervisor/conf.d/run_jenkins.sh
 
 # install grunt-cli
-curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo npm install -g grunt-cli
 
