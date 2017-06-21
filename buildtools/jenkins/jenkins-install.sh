@@ -3,15 +3,12 @@
 # Assumes that this is being installed on top of a dcStack web proto
 # (supervisor, base-utils, python, etc)
 
-# prevent services from starting automatically after package install
-echo -e '#!/bin/bash\nexit 101' | sudo tee /usr/sbin/policy-rc.d
-sudo chmod +x /usr/sbin/policy-rc.d
 
 sudo useradd jenkins
 
 # install jenkins
-wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
 sudo apt-get -y install jenkins
 
@@ -29,6 +26,13 @@ sudo cp -a conf/run_jenkins.sh /etc/supervisor/conf.d/run_jenkins.sh
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo npm install -g grunt-cli
+
+# prevent services from starting automatically after package install
+# stop the systemd jenkins so that it can be disabled and removed
+sudo service jenkins stop
+
+#disable init.d autostart
+sudo update-rc.d jenkins disable
 
 # start/restart supervisor to start jenkins
 sudo /etc/init.d/supervisor restart
