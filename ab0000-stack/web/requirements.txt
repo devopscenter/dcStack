@@ -10,3 +10,6 @@ fabric==1.13.2
 django-code-deploy
 paramiko
 s3cmd
+awscli
+gitpython
+boto
