@@ -20,7 +20,7 @@
 
 #set -o nounset                              # Treat unset variables as an error
 
-GOOGLE_DIR=$(find $HOME -type d -maxdepth 1 -name Googl*)
+GOOGLE_DIR=$(find $HOME -maxdepth 1 -type d -name Googl*)
 
 dcLog()
 {
