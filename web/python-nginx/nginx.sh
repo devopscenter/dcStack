@@ -11,7 +11,7 @@ sudo apt-fast install -y rsyslog-gnutls
 pushd /tmp
 wget --quiet ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.41.tar.bz2 && \
     tar -xvf pcre-8.41.tar.bz2
-pushd pcre-8.39 
+pushd pcre-8.41
 ./configure && make --silent -j 3 && sudo make --silent install
 popd
 
