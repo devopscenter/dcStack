@@ -38,7 +38,11 @@ sudo npm install -g less
 sudo pip install -r requirements.txt
 
 # 
-# Required directories for this app
+# Required directories for this app. Note that this app requires a /media/data mountpoint prior to the execution
+# of this script, whether provided by docker-compose (in containers) or by the instance creation.
+# While simply creating a /media/data directory in the case where there is no temp volume would permit the app to run,
+# the lackof space on the normal root volume would result in app failure fairly soon.
+# Consequently, the best solution for this app is to simply specify an adequate scratch volume, mounted on /media/data.
 #
 if [[ "${SCRATCHVOLUME}" == "true" ]]; then
     sudo ln -s /media/data /data/media 
