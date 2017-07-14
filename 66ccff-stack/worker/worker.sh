@@ -45,7 +45,7 @@ fi
 #
 sudo cp conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
 sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
-sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
+sudo cp conf/run_*.sh /etc/supervisor/conf.d/
 
 
 dcEndLog "install of app-specific worker for 66ccff, combo: ${COMBINED_WEB_WORKER}"
