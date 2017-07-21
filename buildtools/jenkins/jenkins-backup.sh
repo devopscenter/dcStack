@@ -7,8 +7,14 @@ YEAR=$(date +%Y)
 MONTH=$(date +%m)
 S3_FILE="${BUCKET_NAME}/${HOSTNAME}/${YEAR}/${MONTH}/jenkins-${TIMESTAMP}.tar.gz"
 
+# create the temporary directory if it doesn't exist
+if [[ ~ -d /media/data/tmp ]]; then
+    sudo mkdir /media/data/tmp
+    sudo chmod 777 /media/data/tmp
+fi
+
 # create temporary tar file
-JENKINS_BACKUP_FILE=$(mktemp /tmp/jenkins.tar.gz.XXXXX)
+JENKINS_BACKUP_FILE=$(mktemp /media/data/tmp/jenkins.tar.gz.XXXXX)
 
 # create s3 bucket if it doesn't already exist
 /usr/local/bin/s3cmd mb "s3://${BUCKET_NAME}"
