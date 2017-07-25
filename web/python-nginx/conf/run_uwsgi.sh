@@ -12,4 +12,5 @@ exec /usr/local/opt/python/bin/uwsgi \
         --enable-threads \
         --master-fifo /tmp/uwsgififo \
         --lazy-apps \
+        --hook-post-fork="chdir:/data/deploy/current" \
         /data/deploy/current/uwsgi.ini
