@@ -12,6 +12,7 @@ fi
 
 # Create a worker for all queues
 sudo -Eu celery /usr/local/opt/python/bin/celery worker -A rmsasite \
-                                           --loglevel=INFO --soft-time-limit=300  \
-                                           -c 3 \
+                                           --loglevel=INFO --soft-time-limit=3600  \
+                                           -c 4 \
+                                           --Ofair \
                                            --pidfile=/var/run/celery/pdf_printer.pid
