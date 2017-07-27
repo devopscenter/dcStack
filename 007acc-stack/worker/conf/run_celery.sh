@@ -14,5 +14,5 @@ fi
 sudo -Eu celery /usr/local/opt/python/bin/celery worker -A rmsasite \
                                            --loglevel=INFO --soft-time-limit=3600  \
                                            -c 4 \
-                                           --Ofair \
+                                           -Ofair \
                                            --pidfile=/var/run/celery/pdf_printer.pid
