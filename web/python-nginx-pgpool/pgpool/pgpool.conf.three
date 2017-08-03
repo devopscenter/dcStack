@@ -115,7 +115,7 @@ ssl = off
 num_init_children = 4 
                                    # Number of pools
                                    # (change requires restart)
-max_pool = 15 
+max_pool = 16 
                                    # Number of connections per pool
                                    # (change requires restart)
 
