@@ -11,6 +11,8 @@ fi
 exec /usr/local/opt/python/bin/uwsgi \
         --enable-threads \
         --master-fifo /tmp/uwsgififo \
+        --workers=${UWSGI_WORKERS} \
+        --max-requests=${UWSGI_MAX_REQUESTS} \
         --lazy-apps \
         --hook-post-fork="chdir:/data/deploy/current" \
         /data/deploy/current/uwsgi.ini
