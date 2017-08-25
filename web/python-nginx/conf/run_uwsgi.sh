@@ -8,6 +8,10 @@ if [ ! -e /var/run/uwsgi ]; then
     sudo install -d -m 755 -o uwsgi /var/run/uwsgi
 fi
 
+if [ -e /tmp/uwsgififo ]; then
+    sudo rm /tmp/uwsgififo
+fi
+
 exec /usr/local/opt/python/bin/uwsgi \
         --enable-threads \
         --master-fifo /tmp/uwsgififo \
