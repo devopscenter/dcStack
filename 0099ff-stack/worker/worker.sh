@@ -18,6 +18,7 @@ fi
 #
 # Setup supervisor to run django-rq worker(s)
 #
-cp conf/supervisor-djangorq-worker.conf /etc/supervisor/conf.d/djangorq-worker.conf
+sudo cp conf/supervisor-djangorq-worker.conf /etc/supervisor/conf.d/djangorq-worker.conf
+sudo cp conf/run_djangorq.sh /etc/supervisor/conf.d/
 
 dcEndLog "install of app-specific worker for 0099ff, combo: ${COMBINED_WEB_WORKER}"
