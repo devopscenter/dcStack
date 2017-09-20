@@ -248,6 +248,15 @@ fi
 #hostssl <DB NAME> all 0.0.0.0/0 password
 
 #-------------------------------------------------------------------------------
+# run the appliction specific web_commands.sh 
+#-------------------------------------------------------------------------------
+STANDARD_APP_UTILS_DIR="/app-utils/conf"
+if [[ -e "${STANDARD_APP_UTILS_DIR}/db-commands.sh" ]]; then
+    cd ${STANDARD_APP_UTILS_DIR}
+    sudo ./db-commands.sh ${DCTYPE}
+fi
+
+#-------------------------------------------------------------------------------
 # Now that the database is running lets create the users database
 #-------------------------------------------------------------------------------
 sudo -u postgres createdb ${DATABASE,,}
