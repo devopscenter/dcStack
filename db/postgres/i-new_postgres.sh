@@ -39,6 +39,7 @@ ENV=$9
 DCTYPE=${10}
 BACKUP_S3_REGION=${11}
 PUBLIC_IP=${12}
+ROLE=${13}
 
 if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$VPC_CIDR" ]] ||
@@ -50,7 +51,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$BACKUP_S3_REGION}" ]] ||
     [[ -z "$ENV" ]]; then
 
-    echo "10 Arguments are required: "
+    echo "12 Arguments are required: "
     echo "    PRIVATE_IP: ${PRIVATE_IP}"
     echo "    VPC_CIDR: ${VPC_CIDR}"
     echo "    DATABASE: ${DATABASE}"
@@ -62,6 +63,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    DCTYPE: ${DCTYPE}"
     echo "    BACKUP_S3_REGION: ${BACKUP_S3_REGION}"
     echo "    PUBLIC_IP: ${PUBLIC_IP}"
+    echo "    ROLE: ${ROLE}"
     echo
     echo -e "Examples:"
     echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
@@ -168,6 +170,7 @@ function parameter-ensure
     P_KEY=$1
     P_VALUE=$2
     P_FILE=$3
+    A_DIR=$4
     if (sudo grep -q "^${P_KEY}[[:blank:]]*=" "${P_FILE}"); then
         if ! (sudo grep -q "^${P_KEY}[[:blank:]]*=[[:blank:]]*${P_VALUE}\b" "${P_FILE}"); then
             sudo sed -i "s/${P_KEY}[[:blank:]]*=/#&/g" "${P_FILE}"
@@ -176,12 +179,18 @@ function parameter-ensure
     else
         echo "${P_KEY} = ${P_VALUE}"|sudo tee -a "${P_FILE}"
     fi
+    # need to stick this in a separate file so it can be added if a different postresql.conf overwrites
+    # an existing postgresql.conf.  And this new postgresql.conf doesn't have the archive command since we
+    # do this step outside of the config.  So, we write out the archive command to a separate file so that
+    # this later process can use it just like it is used here.
+    # archive_cmd.txt
+    echo "${P_KEY} = ${P_VALUE}" >  ${A_DIR}/archive_cmd.txt
 }
 
 #-------------------------------------------------------------------------------
 # parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
 #-------------------------------------------------------------------------------
-parameter-ensure archive_command "'export AWS_REGION=${BACKUP_S3_REGION}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf
+parameter-ensure archive_command "'export AWS_REGION=${BACKUP_S3_REGION}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
 #parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
 
 #-------------------------------------------------------------------------------
@@ -253,7 +262,7 @@ fi
 STANDARD_APP_UTILS_DIR="/app-utils/conf"
 if [[ -e "${STANDARD_APP_UTILS_DIR}/db-commands.sh" ]]; then
     cd ${STANDARD_APP_UTILS_DIR}
-    sudo ./db-commands.sh ${DCTYPE}
+    sudo ./db-commands.sh ${DCTYPE} ${ROLE}
 fi
 
 #-------------------------------------------------------------------------------
