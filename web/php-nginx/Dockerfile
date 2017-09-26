@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/php:v2.0b6
+FROM devopscenter/php:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 EXPOSE 80 8000 443
