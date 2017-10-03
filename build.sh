@@ -60,69 +60,36 @@ function backups {
 }
 
 function stack0 {
-    mkdir -p 000000-stack/web/wheelhouse
-    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 000000-stack/web/wheelhouse
     docker build --rm -t "devopscenter/000000.web:${dcSTACK_VERSION}" 000000-stack/web
     docker build --rm -t "devopscenter/000000.web-debug:${dcSTACK_VERSION}" 000000-stack/web-debug
     docker build --rm -t "devopscenter/000000.worker:${dcSTACK_VERSION}" 000000-stack/worker
 }
 
 function stack1 {
-    mkdir -p 0099ff-stack/web/wheelhouse
-    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 0099ff-stack/web/wheelhouse
     docker build --rm -t "devopscenter/0099ff.web:${dcSTACK_VERSION}" 0099ff-stack/web
     docker build --rm -t "devopscenter/0099ff.web-debug:${dcSTACK_VERSION}" 0099ff-stack/web-debug
     docker build --rm -t "devopscenter/0099ff.worker:${dcSTACK_VERSION}" 0099ff-stack/worker
 }
 
 function stack2 {
-    mkdir -p 66ccff-stack/web/wheelhouse 
-    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 66ccff-stack/web/wheelhouse
     docker build --rm -t "devopscenter/66ccff.web:${dcSTACK_VERSION}" 66ccff-stack/web
     docker build --rm -t "devopscenter/66ccff.worker:${dcSTACK_VERSION}" 66ccff-stack/worker
 }
 
 function stack3 {
-    mkdir -p 007acc-stack/web/wheelhouse
-    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 007acc-stack/web/wheelhouse
     docker build --rm -t "devopscenter/007acc.web:${dcSTACK_VERSION}" 007acc-stack/web
     docker build --rm -t "devopscenter/007acc.worker:${dcSTACK_VERSION}" 007acc-stack/worker
 }
 
 function stack4 {
-    mkdir -p 9900af-stack/web/wheelhouse
-    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* 9900af-stack/web/wheelhouse
     docker build --rm -t "devopscenter/9900af.web:${dcSTACK_VERSION}" 9900af-stack/web
     docker build --rm -t "devopscenter/9900af.worker:${dcSTACK_VERSION}" 9900af-stack/worker
 }
 
 function stack5 {
-    mkdir -p ab0000-stack/web/wheelhouse
-    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* ab0000-stack/web/wheelhouse
     docker build --rm -t "devopscenter/ab0000.web:${dcSTACK_VERSION}" ab0000-stack/web
 }
 
-function buildtools {
-    echo "Running buildtools"
-    # this may not be needed since we have an app stack that builds a jenkins image
-    #docker build --rm -t "devopscenter/jenkins:${dcSTACK_VERSION}" buildtools/jenkins &> jenkins.log &
-#
-# Build all packages for specific stacks as wheels, to be shared when building the containers for the specific stacks
-#
-    mkdir -p buildtools/pythonwheel/wheelhouse
-    docker build --rm -t "devopscenter/buildtools:${dcSTACK_VERSION}" buildtools/pythonwheel
-    rm -rf buildtools/pythonwheel/application/app*
-    mkdir -p buildtools/pythonwheel/application
-    cp 000000-stack/web/requirements.txt buildtools/pythonwheel/application/app0.requirements.txt
-    cp 0099ff-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
-    cp 66ccff-stack/web/requirements.txt buildtools/pythonwheel/application/app2.requirements.txt
-    cp 007acc-stack/web/requirements.txt buildtools/pythonwheel/application/app3.requirements.txt
-    cp ab0000-stack/web/requirements.txt buildtools/pythonwheel/application/app4.requirements.txt
-    docker run --rm \
-        -v "${PWD}/buildtools/pythonwheel/application":/application \
-        -v "${PWD}/buildtools/pythonwheel/wheelhouse":/wheelhouse \
-        "devopscenter/buildtools:${dcSTACK_VERSION}"
-}
 
 function web {
     docker build --rm -t "devopscenter/python:${dcSTACK_VERSION}" python
@@ -133,14 +100,8 @@ function web {
     docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${dcSTACK_VERSION}" web/python-nginx-pgpool-redis
 #    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${dcSTACK_VERSION}" web/python-nginx-pgpool-libsodium
     echo "built common containers"
-    buildtools &> buildtools.log
-
-# remove numpy and pandas wheels, which have strange dependencies between different builds.
-    rm buildtools/pythonwheel/wheelhouse/numpy*.*
-    rm buildtools/pythonwheel/wheelhouse/pandas*.*
 
 
-    echo "built all wheels for specific stacks"
     rm -rf stack0.log
     time stack0 &> stack0.log &
     rm -rf stack1.log
