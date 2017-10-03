@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python:v2.0b6
+FROM devopscenter/python:dcSTACK_VERSION
 MAINTAINER josh < josh [at] devops {dot} center>
 
 

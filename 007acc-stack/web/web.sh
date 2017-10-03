@@ -16,7 +16,7 @@ sudo apt-get install -y nodejs
 
 sudo apt-get install -y build-essential 
 
-curl -L https://npmjs.com/install.sh | sudo sh
+#curl -L https://npmjs.com/install.sh | sudo sh
 
 sudo npm install -g less
 

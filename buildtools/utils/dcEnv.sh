@@ -7,6 +7,9 @@
 # 
 #   DESCRIPTION: script to include in other scripts that set up the environment
 #                and provides some basic utility functions
+#                NOTE: this script differs from the one in dcUils in that this is
+#                meant for instances that do not know about a shared drive.
+#                And doesn't have the function to track events
 # 
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -19,8 +22,6 @@
 #===============================================================================
 
 #set -o nounset                              # Treat unset variables as an error
-
-GOOGLE_DIR=$(find $HOME -maxdepth 1 -type d -name Googl*)
 
 dcLog()
 {
@@ -47,25 +48,4 @@ dcEndLog()
 {
     msg=$1
     dcLog "${msg}" "END"
-}
-
-dcTrackEvent()
-{
-    CUSTOMER_NAME=$1
-    CUSTOMER_APP_NAME=$2
-    EVENT=$3
-    MSG=$4
-    if [[ -n ${GOOGLE_DIR} ]]; then
-        TRACKING_FILE="${GOOGLE_DIR}/devops.center/monitoring/dcEventTracking.txt"
-
-        if [[ ! -f ${TRACKING_FILE} ]]; then
-            dcLog "ERROR: $TRACKING_FILE not found, the event will not be written"
-        else
-            TIMESTAMP=$(date +%F_%T)
-            JSONTOWRITE="{\"date\": \"${TIMESTAMP}\", \"customer\": \"${CUSTOMER_NAME}\", \"instancename\": \"${CUSTOMER_APP_NAME}\", \"event\": \"${EVENT}\", \"msg\": \"${MSG}\"} "
-            echo "${JSONTOWRITE}" >> "${TRACKING_FILE}"
-        fi
-    else
-        echo "Could not save event, file not available"
-    fi
 }

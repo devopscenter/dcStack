@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM cpuguy83/nagios:latest
+FROM jasonrivers/nagios
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN apt-get -qq update && apt-get -qq -y install python-software-properties software-properties-common && \
@@ -26,6 +26,8 @@ apt-get -qq update
 RUN add-apt-repository -y ppa:saiarcot895/myppa && \
 apt-get -qq update && \
 apt-get -qq -y install apt-fast
+
+RUN apt-get install sudo
 
 ENV POSTGRES_VERSION 9.4
 

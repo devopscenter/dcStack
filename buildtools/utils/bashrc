@@ -31,5 +31,14 @@ shopt -s histappend
 # to enhance the set -x debugging experience
 export PS4='(${BASH_SOURCE}:${LINENO}):${FUNCNAME[0]}:$?] '
 
+if [[ -d /media/data/db_restore ]]; then
+    if [[ ! -e /media/data/db_restore/download.sh ]]; then
+        ln -s ~/dcUtils/db/download.sh /media/data/db_restore/
+    fi
 
+    if [[ ! -e /media/data/db_restore/restore.sh ]]; then
+        ln -s ~/dcUtils/db/restore.sh /media/data/db_restore/
+    fi
+fi
 
+PATH=$HOME/dcUtils:$PATH

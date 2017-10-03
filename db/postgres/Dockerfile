@@ -21,17 +21,16 @@ MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.4
 
-WORKDIR /installs/utils
+WORKDIR /root/installs
 
-ADD postgres.sh /installs/postgres.sh
-ADD config.sh /installs/config.sh
-ADD xlog.sh /installs/xlog.sh
-ADD conf /installs/conf
-ADD hstore.sh /installs/hstore.sh
-ADD postgresenv.sh /installs/postgresenv.sh
-ADD supervisorconfig.sh /installs/supervisorconfig.sh
+ADD postgres.sh /root/installs/postgres.sh
+ADD config.sh /root/installs/config.sh
+ADD xlog.sh /root/installs/xlog.sh
+ADD conf /root/installs/conf
+ADD hstore.sh /root/installs/hstore.sh
+ADD postgresenv.sh /root/installs/postgresenv.sh
+ADD supervisorconfig.sh /root/installs/supervisorconfig.sh
 
-WORKDIR /installs
 RUN ./postgres.sh $POSTGRES_VERSION && \
     cp conf/postgresql.conf.local /media/data/postgres/db/pgdata/postgresql.conf
 
@@ -46,4 +45,5 @@ VOLUME  ["/media/data/postgres", \
 	 "/media/data/postgres/xlog", \
 	 "/media/data/postgres/backup"]
 
+WORKDIR /root
 EXPOSE 5432

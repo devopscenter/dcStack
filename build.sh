@@ -96,9 +96,16 @@ function stack4 {
     docker build --rm -t "devopscenter/9900af.worker:${dcSTACK_VERSION}" 9900af-stack/worker
 }
 
+function stack5 {
+    mkdir -p ab0000-stack/web/wheelhouse
+    cp ${PWD}/buildtools/pythonwheel/wheelhouse/* ab0000-stack/web/wheelhouse
+    docker build --rm -t "devopscenter/ab0000.web:${dcSTACK_VERSION}" ab0000-stack/web
+}
+
 function buildtools {
     echo "Running buildtools"
-    docker build --rm -t "devopscenter/jenkins:${dcSTACK_VERSION}" buildtools/jenkins &> jenkins.log &
+    # this may not be needed since we have an app stack that builds a jenkins image
+    #docker build --rm -t "devopscenter/jenkins:${dcSTACK_VERSION}" buildtools/jenkins &> jenkins.log &
 #
 # Build all packages for specific stacks as wheels, to be shared when building the containers for the specific stacks
 #
@@ -110,6 +117,7 @@ function buildtools {
     cp 0099ff-stack/web/requirements.txt buildtools/pythonwheel/application/app1.requirements.txt
     cp 66ccff-stack/web/requirements.txt buildtools/pythonwheel/application/app2.requirements.txt
     cp 007acc-stack/web/requirements.txt buildtools/pythonwheel/application/app3.requirements.txt
+    cp ab0000-stack/web/requirements.txt buildtools/pythonwheel/application/app4.requirements.txt
     docker run --rm \
         -v "${PWD}/buildtools/pythonwheel/application":/application \
         -v "${PWD}/buildtools/pythonwheel/wheelhouse":/wheelhouse \
@@ -143,6 +151,8 @@ function web {
     time stack3 &> stack3.log &
     rm -rf stack4.log
     time stack4 &> stack4.log &
+    rm -rf stack5.log
+    time stack5 &> stack5.log &
 }
 
 base > base.log 

@@ -15,7 +15,7 @@ sudo pip install -r requirements.txt
 # disable unused services (at least initially)
 #
 sudo mv /etc/supervisor/conf.d/nginx.conf /etc/supervisor/conf.d/nginx.save
-sudo mv /etc/superivosr/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
+sudo mv /etc/superviosr/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 sudo mv /etc/supervisor/conf.d/pgpool.conf /etc/supervisor/conf.d/pgpool.save
 
 

@@ -16,12 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# To do a push you will have to  login to docker up with: docker login
 
 source VERSION
 echo "Version=${dcSTACK_VERSION}"
 
 function buildtools {
-    docker push  "devopscenter/jenkins:${dcSTACK_VERSION}" &
+    # this may not be needed since we have an app stack that builds a jenkins image
+    #docker push  "devopscenter/jenkins:${dcSTACK_VERSION}" &
+    echo "Nothing to do pushing buildtools"
 }
 
 function base {
@@ -67,9 +70,14 @@ function stack3 {
     docker push  "devopscenter/007acc.web:${dcSTACK_VERSION}"
     docker push  "devopscenter/007acc.worker:${dcSTACK_VERSION}"
 }
+
 function stack4 {
     docker push  "devopscenter/9900af.web:${dcSTACK_VERSION}"
     docker push  "devopscenter/9900af.worker:${dcSTACK_VERSION}"
+}
+
+function stack5 {
+    docker push  "devopscenter/ab0000.web:${dcSTACK_VERSION}"
 }
 
 function web {
@@ -85,6 +93,10 @@ function web {
     time stack2 &> stack2push.log &
     rm -rf stack3push.log
     time stack3 &> stack3push.log &
+    rm -rf stack4push.log
+    time stack4 &> stack4push.log &
+    rm -rf stack5push.log
+    time stack5 &> stack5push.log &
 }
 
 base
