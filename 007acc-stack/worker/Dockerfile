@@ -43,4 +43,5 @@ CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
     rm -rf /var/run/postgresql/.s.* && \
+    rm -rf /var/run/celery/*.pid && \
     supervisord -n
