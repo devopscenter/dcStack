@@ -21,12 +21,6 @@
 source VERSION
 echo "Version=${dcSTACK_VERSION}"
 
-function buildtools {
-    # this may not be needed since we have an app stack that builds a jenkins image
-    #docker push  "devopscenter/jenkins:${dcSTACK_VERSION}" &
-    echo "Nothing to do pushing buildtools"
-}
-
 function base {
     docker push  "devopscenter/base:${dcSTACK_VERSION}"
 }
@@ -100,7 +94,6 @@ function web {
 }
 
 base
-buildtools
 misc
 web
 db

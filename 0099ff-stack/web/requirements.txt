@@ -33,10 +33,9 @@ cryptography==1.2.3
 #
 # These four have intricate inter-dependencies. Note that these versions are fairly old (4 years), currently constrained
 # by the versions supported on Heroku via this buildpack: https://github.com/thenovices/heroku-buildpack-scipy
-# In order to build scipy and scikit-learn in a way compatible with numpy, they need to be done in a 2nd step using --no-use-wheel.
+# In order to build scipy and scikit-learn in a way compatible with numpy, all four need to be done in a 2nd step using --no-use-wheel.
 # https://stackoverflow.com/questions/40845304/runtimewarning-numpy-dtype-size-changed-may-indicate-binary-incompatibility
-numpy==1.8.1
-pandas==0.14.1
-
+#numpy==1.8.1
+#pandas==0.14.1
 #scipy==0.14.0
 #scikit-learn==0.15.1

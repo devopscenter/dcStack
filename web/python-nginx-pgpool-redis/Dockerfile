@@ -24,15 +24,6 @@ ADD redisclientenv.sh /installs/redisclientenv.sh
 WORKDIR /installs
 RUN ./redis-client-install.sh
 
-VOLUME  ["/wheelhouse"]
 
-#onbuild requires images to extend to have these files, so place in this dockerfile instead of python dockerfile
-ONBUILD ADD wheelhouse /wheelhouse
-ONBUILD ADD requirements.txt /installs/requirements.txt
-
-ONBUILD ENV WHEELHOUSE=/wheelhouse
-ONBUILD ENV PIP_WHEEL_DIR=/wheelhouse
-ONBUILD ENV PIP_FIND_LINKS=/wheelhouse
-ONBUILD RUN cd /installs && pip install -r requirements.txt
 
 
