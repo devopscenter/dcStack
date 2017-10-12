@@ -23,6 +23,8 @@ WORKDIR /installs
 ADD web.sh /installs/web.sh
 ADD requirements.txt /installs/requirements.txt
 
+VOLUME /media/data
+
 # the config files specific to this app stack
 # (note that the config files specific to the ENV are mounted in docker-compose)
 ADD conf /installs/conf

@@ -45,10 +45,12 @@ sudo pip install -r requirements.txt
 # Consequently, the best solution for this app is to simply specify an adequate scratch volume, mounted on /media/data.
 #
 if [[ "${SCRATCHVOLUME}" == "true" ]]; then
+    sudo mkdir /media/data
     sudo ln -s /media/data /data/media 
 fi
 
 sudo mkdir -p /data/media/pdfcreator /data/media/reports/pdf
+
 
 sudo chmod 777 -R /media/data/pdfcreator
 sudo chmod 777 -R /media/data/reports
