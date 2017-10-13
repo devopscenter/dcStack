@@ -19,8 +19,6 @@
 FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
-VOLUME /media/data
-
 WORKDIR /installs
 ADD web.sh /installs/web.sh
 ADD requirements.txt /installs/requirements.txt

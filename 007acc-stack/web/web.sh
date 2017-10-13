@@ -22,4 +22,7 @@ sudo npm install -g less
 
 sudo npm install -g coffee-script
 
+# scratch volume
+sudo mkdir -p /media/data
+
 dcEndLog "install of app-specific web for 007acc"
