@@ -33,7 +33,9 @@ WORKDIR /media/data/redis
 EXPOSE 6379
 
 # Run redis
-CMD ln -sf /var/run/rsyslog/dev/log /dev/log && /usr/local/bin/redis-server /etc/redis/redis.conf
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log &&  \
+    rm -rf /var/run/rsyslogd.pid && \
+    /usr/local/bin/redis-server /etc/redis/redis.conf
 
 # Add named volume for stability of redis data across container invocations
 VOLUME	["/media/data/redis"]
