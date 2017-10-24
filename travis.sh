@@ -57,6 +57,10 @@ pushd python
 ./python.sh > /dev/null
 popd
 
+pushd buildtools/utils
+./install-supervisor.sh custom
+popd
+
 pushd web/python-nginx
 ./nginx.sh > /dev/null
 popd
