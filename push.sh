@@ -1,8 +1,23 @@
-#!/bin/bash -evx
+#!/usr/bin/env bash
+#===============================================================================
 #
-# Docker Stack - Docker stack to manage infrastructures
+#          FILE: drop-index.sh
 #
-# Copyright 2014 devops.center
+#         USAGE: ./drop-index.sh
+#
+#   DESCRIPTION: push the dcStack containers to docker hub
+#
+#       OPTIONS: ---
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: ---
+#        AUTHOR: Gregg Jensen (), gjensen@devops.center
+#                Bob Lozano (), bob@devops.center
+#  ORGANIZATION: devops.center
+#       CREATED: 11/21/2016 15:13:37
+#      REVISION:  ---
+#
+# Copyright 2014-2017 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +31,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# To do a push you will have to  login to docker up with: docker login
+# NOTE: To do a push you will have to  login to docker up with: docker login
+#===============================================================================
+
+#set -o nounset     # Treat unset variables as an error
+set -o errexit      # exit immediately if command exits with a non-zero status
+set -x             # essentially debug mode
+set -o verbose
 
 source VERSION
 echo "Version=${dcSTACK_VERSION}"

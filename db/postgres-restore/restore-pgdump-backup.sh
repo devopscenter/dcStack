@@ -1,30 +1,49 @@
-#!/bin/bash - 
+#!/usr/bin/env bash
 #===============================================================================
 #
 #          FILE: restore-pgdump-backup.sh
-# 
-#         USAGE: ./restore-pgdump-backup.sh 
-# 
+#
+#         USAGE: ./restore-pgdump-backup.sh
+#
 #   DESCRIPTION: This script will put the postgresql database in a state that will
 #                allow it to receive the restore of data from a backup of the prod
 #                database.
 #
-#                NOTE: the shebang bash at the top of the file does not have 
-#                a -e that would make the script exit on a failed command within 
-#                this script.  As there may be a command that will fail and we 
-#                need to do something more intelligent with that knowledge that 
+#                NOTE: the shebang bash at the top of the file does not have
+#                a -e that would make the script exit on a failed command within
+#                this script.  As there may be a command that will fail and we
+#                need to do something more intelligent with that knowledge that
 #                exit (like try the command again or pause...).
-# 
+#
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
-#        AUTHOR: Original author unknown
-#       AUTHOR2: Gregg Jensen (), gjensen@devops.center
+#       AUTHOR: Gregg Jensen (), gjensen@devops.center
+#                Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
 #       CREATED: 09/20/2016 12:48:37
 #      REVISION:  ---
+#
+# Copyright 2014-2017 devops.center llc
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 #===============================================================================
+
+#set -o nounset     # Treat unset variables as an error
+#set -o errexit      # exit immediately if command exits with a non-zero status
+#set -x             # essentially debug mode
 
 BACKUP_DIR='/media/data/db_restore'
 
