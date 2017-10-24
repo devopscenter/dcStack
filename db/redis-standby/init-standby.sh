@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
+#===============================================================================
 #
-# Docker Stack - Docker stack to manage infrastructures
+#          FILE: init-standby.sh
 #
-# Copyright 2014 devops.center
+#         USAGE: init-standby.sh
+#
+#   DESCRIPTION: create a secondary redis that is a slave to the redis master
+#
+#       OPTIONS: ---
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: ---
+#        AUTHOR: Gregg Jensen (), gjensen@devops.center
+#                Bob Lozano (), bob@devops.center
+#  ORGANIZATION: devops.center
+#       CREATED: 11/21/2016 15:13:37
+#      REVISION:  ---
+#
+# Copyright 2014-2017 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,8 +29,14 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitatioo "slaveof redismaster 6379" >> /etc/redis/redis.confs under the License.
+# limitations under the License.
 #
+#===============================================================================
+
+#set -o nounset     # Treat unset variables as an error
+#set -o errexit      # exit immediately if command exits with a non-zero status
+#set -x             # essentially debug mode
+
 
 # sudo echo "slaveof redismaster-1 6379" >> /etc/redis/redis.conf
 echo "slaveof redismaster-1 6379" | sudo tee -a /etc/redis/redis.conf
