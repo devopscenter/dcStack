@@ -7,7 +7,7 @@ web:
     python:
         build: python
         image: devopsscion/python
-    python-nginx
+    python-nginx:
         build: web/python-nginx
         image: devopsscion/python-nginx
     python-nginx-pgpool:
