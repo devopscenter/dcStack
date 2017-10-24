@@ -1,4 +1,4 @@
-#!/bin/bash -
+#!/usr/bin/env bash
 #===============================================================================
 #
 #          FILE: i-new_postgres.sh
@@ -19,13 +19,33 @@
 #                ENV=$9
 #          BUGS: ---
 #         NOTES: ---
-#        AUTHOR2: Josh, Bob & Trey
 #        AUTHOR: Gregg Jensen (), gjensen@devops.center
+#                Bob Lozano (), bob@devops.center
+#        AUTHOR2: Josh, Trey
 #  ORGANIZATION: devops.center
 #       CREATED: 09/29/2016 09:11:12
 #      REVISION:  ---
+#
+# Copyright 2014-2017 devops.center llc
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 #===============================================================================
-set -vx
+
+#set -o nounset     # Treat unset variables as an error
+#set -o errexit      # exit immediately if command exits with a non-zero status
+set -x             # essentially debug mode
+set -o verbose
 
 CUST_APP_NAME=$1
 PRIVATE_IP=$2

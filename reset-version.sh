@@ -1,8 +1,25 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+#===============================================================================
 #
-# Docker Stack - Docker stack to manage infrastructures
+#          FILE: reset-version.sh
 #
-# Copyright 2014 devops.center
+#         USAGE: reset-version.sh
+#
+#   DESCRIPTION: resets that header information in the Dockerfiles so that they
+#                don't have to be saved into the reposistory unless there is 
+#                something else that has changed in the file.
+#
+#       OPTIONS: ---
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: ---
+#        AUTHOR: Gregg Jensen (), gjensen@devops.center
+#                Bob Lozano (), bob@devops.center
+#  ORGANIZATION: devops.center
+#       CREATED: 11/21/2016 15:13:37
+#      REVISION:  ---
+#
+# Copyright 2014-2017 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +33,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+#===============================================================================
+
+#set -o nounset     # Treat unset variables as an error
+set -o errexit      # exit immediately if command exits with a non-zero status
+#set -x             # essentially debug mode
+
 
 source VERSION
 echo "Version=${dcSTACK_VERSION}"

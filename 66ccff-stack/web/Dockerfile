@@ -19,7 +19,6 @@
 FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
-
 WORKDIR /installs
 ADD web.sh /installs/web.sh
 ADD requirements.txt /installs/requirements.txt
@@ -28,7 +27,7 @@ ADD requirements.txt /installs/requirements.txt
 # (note that the config files specific to the ENV are mounted in docker-compose)
 ADD conf /installs/conf
 
-RUN ./web.sh
+RUN ./web.sh true
 
 # Run supervisor in this container, in foreground mode. 
 # However first establish link for logging container, then copy over a local config filed (if present), 
