@@ -1,9 +1,11 @@
 version: '3'
-basecontainer:
+services:
+    #base
     base:
         build: .
         image: devopsscion/base
-web:
+
+    #python
     python:
         build: python
         image: devopsscion/python
