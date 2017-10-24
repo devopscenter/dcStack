@@ -41,6 +41,9 @@ set -o verbose
 echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
 . /etc/environment
 
+
+docker-compose -f docker-compose-build.yml build
+
 pushd buildtools/utils
 ./base-utils.sh
 popd

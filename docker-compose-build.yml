@@ -1,0 +1,15 @@
+version: '3'
+basecontainer:
+    base:
+        build: .
+        image: devopsscion/base
+web:
+    python:
+        build: python
+        image: devopsscion/python
+    python-nginx
+        build: web/python-nginx
+        image: devopsscion/python-nginx
+    python-nginx-pgpool:
+        build: web/python-nginx-pgpool
+        image: devopsscion/python-nginx-pgpool
