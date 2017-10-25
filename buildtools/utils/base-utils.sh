@@ -51,6 +51,7 @@ sudo apt-fast -qq -y install git wget sudo vim unzip curl language-pack-en jq
 
 sudo apt-fast -y install ncdu ntp fail2ban htop
 
+
 ./tmuxinstall.sh
 #sudo apt-fast -y install tmux-next
 #sudo mv /usr/bin/tmux-next /usr/bin/tmux

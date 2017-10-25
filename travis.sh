@@ -44,6 +44,7 @@ echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
 #https://docs.docker.com/compose/reference/push/
 #build and then push
 ./name.sh
+./env-docker.sh
 docker-compose -f docker-compose-build.yml build
 
 pushd buildtools/utils
