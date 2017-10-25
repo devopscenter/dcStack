@@ -3,21 +3,21 @@ services:
     #base
     base:
         build: .
-        image: devopsscion/base
+        image: ${dcPREFIX}/base:${dcSTACK_VERSION}
 
     #python
     python:
         build: python
-        image: devopsscion/python
+        image: ${dcPREFIX}/python:${dcSTACK_VERSION}
         depends_on: 
           - base
     python-nginx:
         build: web/python-nginx
-        image: devopsscion/python-nginx
+        image: ${dcPREFIX}/python-nginx:${dcSTACK_VERSION}
         depends_on:
           - python
     python-nginx-pgpool:
         build: web/python-nginx-pgpool
-        image: devopsscion/python-nginx-pgpool
+        image: ${dcPREFIX}/python-nginx-pgpool:${dcSTACK_VERSION}
         depends_on:
           - python-nginx

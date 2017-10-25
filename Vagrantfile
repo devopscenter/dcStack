@@ -69,48 +69,11 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-     pushd /home/encoders
-     pushd haggle
-     ./dependencies_ubuntu.sh
-     popd
-     sudo apt-get -y install gcc-4.9
-     sudo apt-get -y install g++-4.9
-     sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 49 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
-     sudo update-alternatives --set gcc "/usr/bin/gcc-4.9"
-  SHELL
-
-  $haggleinstall=<<-SCRIPT
-    pushd /home/encoders
-    pushd charm
-    ./build_ubuntu.sh
-    popd
-    pushd haggle 
-    ./build_ubuntu.sh
-    popd
-  SCRIPT
-
-  $evaluationinstall=<<-SCRIPT
-    pushd /home/ubuntu
-    git clone https://github.com/internetofvehicles/ENCODERS encodersevaluation
-    pushd encodersevaluation
-    git checkout evaluation
-    git pull
-    pushd setup/tools/
-    ./dependencies_ubuntu.sh
-    ./install_ubuntu.sh
-    popd
-    #make sure execute permissions set for scripts
-    find ./ -name "*.sh" -exec chmod +x {} \;
-  SCRIPT
-
   $dockerinstall=<<-SCRIPT
     pushd /vagrant
     ./install_docker.sh 
     popd
   SCRIPT
 
-  #config.vm.provision "shell", inline: $haggleinstall, privileged: false
-  #config.vm.provision "shell", inline: $evaluationinstall, privileged: false
   config.vm.provision "shell", inline: $dockerinstall, privileged: false
 end
