@@ -16,7 +16,7 @@ jasmine==2.3.0
 lxml==3.4.4
 oauthlib==2.0.0
 pandas==0.16.2
-psycopg2==2.6.1
+psycopg2==2.7.3.2
 pubnub==3.7.3
 raven>=6.0.0
 redis==2.10.5
