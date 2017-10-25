@@ -9,9 +9,15 @@ services:
     python:
         build: python
         image: devopsscion/python
+        depends_on: 
+          - base
     python-nginx:
         build: web/python-nginx
         image: devopsscion/python-nginx
+        depends_on:
+          - python
     python-nginx-pgpool:
         build: web/python-nginx-pgpool
         image: devopsscion/python-nginx-pgpool
+        depends_on:
+          - python-nginx

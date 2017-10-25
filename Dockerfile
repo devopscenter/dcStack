@@ -11,6 +11,7 @@ ADD buildtools/utils/base-utils.sh /installs/base-utils.sh
 ADD buildtools/utils/dcEnv.sh /installs/dcEnv.sh
 
 # Add the files needed to install & configure tmux
+ADD buildtools/utils/tmuxinstall.sh /installs/tmuxinstall.sh
 ADD buildtools/utils/tmux.conf /installs/tmux.conf
 ADD buildtools/utils/bash_profile /installs/bash_profile
 ADD buildtools/utils/bashrc /installs/bashrc
