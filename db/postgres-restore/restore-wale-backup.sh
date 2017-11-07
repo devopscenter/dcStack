@@ -122,7 +122,7 @@ set -x
 if ! [[ -z "$LIST" ]]; then
     #dcLog "Giving a list of wal-e backups only and exiting"
     echo "Giving a list of wal-e backups only and exiting"
-    sudo -u postgres export $AWS_REGION; wal-e --aws-instance-profile --s3-prefix s3://${S3BASE}-postgres-wale/${AWS_HOSTNAME} backup-list
+    sudo su -s /bin/sh postgres -c "export AWS_REGION=$AWS_REGION; wal-e --aws-instance-profile --s3-prefix s3://${S3BASE}-postgres-wale/${AWS_HOSTNAME} backup-list"
     exit 1
 fi
 
@@ -141,6 +141,12 @@ if [[ ! -d /media/data/postgres/xlog/transactions ]]; then
     sudo chown postgres:postgres /media/data/postgres/xlog/transactions
 fi
 
+#-------------------------------------------------------------------------------
+# make copies of files needed for wal-e restore
+#-------------------------------------------------------------------------------
+sudo cp --preserve /media/data/postgres/db/pgdata/postgresql.conf /media/data/postgres/backup/
+sudo cp --preserve /media/data/postgres/db/pgdata/pg_ident.conf /media/data/postgres/backup/
+sudo cp --preserve /media/data/postgres/db/pgdata/pg_hba.conf /media/data/postgres/backup/
 
 #-------------------------------------------------------------------------------
 # in order to get ready for the backup-fetch the database directory needs to be
