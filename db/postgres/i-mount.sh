@@ -35,13 +35,13 @@
 
 #set -o nounset     # Treat unset variables as an error
 #set -o errexit      # exit immediately if command exits with a non-zero status
-set -x             # essentially debug mode
+#set -x             # essentially debug mode
 
 # note that this is only run on an instance, not within a container.
 
 # check to see if they have entered a path for the XVDG partition
 MAIN_MOUNT_PATH=${1:-"empty"}
-ENCRYPT_FS=${2:-"no"}
+ENCRYPT_FS=${2:-"false"}
 
 # enable us to modify /etc/fstab
 sudo chmod o+w /etc/fstab
@@ -52,13 +52,11 @@ sudo chmod o+w /etc/fstab
 #    PARAMETERS:  
 #       RETURNS:  
 #-------------------------------------------------------------------------------
-mount-volume()
-{
+mount-volume() {
     MOUNTPATH="$1"
     DIRECTORY="$2"
-    ENCRYPT_FS=$3
 
-    if [[ ${ENCRYPT_FS} != "no" ]]; then
+    if [[ ${ENCRYPT_FS} != "false" ]]; then
         mount-volume-encrypted ${MOUNTPATH} ${DIRECTORY}
     else
         # add primary partition if it doesn't exist
@@ -96,11 +94,11 @@ mount-volume()
 #    PARAMETERS:  
 #       RETURNS:  
 #-------------------------------------------------------------------------------
-mount-volume-encrypted()
-{
+mount-volume-encrypted() {
     MOUNTPATH="$1"
     DIRECTORY="$2"
 
+    set -x
     # create it like normal
     # add primary partition if it doesn't exist
     if ! (sudo parted "$MOUNTPATH" print|grep -q ext4); then
@@ -157,6 +155,7 @@ mount-volume-encrypted()
     if ! (grep -q "$FSTAB_LINE" /etc/fstab); then
         echo "$FSTAB_LINE" | sudo tee -a /etc/fstab
     fi
+    set +x
 }
 
 # make use of attached db, xlog, and backup volumes if they exist, otherwise use instance-attached ssd
@@ -164,8 +163,7 @@ if [ -b /dev/xvdg ]; then
     mount-volume "/dev/xvdg" ${MAIN_MOUNT_PATH}
 else
     if [ -b /dev/nvme0n1 ]; then
-        ENCRYPT_FS="yes"
-        mount-volume "/dev/nvme0n1" "/media/data/"  ${ENCRYPT_FS}
+        mount-volume "/dev/nvme0n1" "/media/data/"
     else
         mount-volume "/dev/xvdb" ${MAIN_MOUNT_PATH}
     fi
