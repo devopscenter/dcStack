@@ -245,7 +245,12 @@ cd ~/dcStack/db/postgres-backup/ || exit
 # create wal-e bucket if it doesn't exist
 #-------------------------------------------------------------------------------
 if ! s3cmd ls s3://"$S3_WALE_BUCKET" > /dev/null 2>&1; then
-    s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"$S3_WALE_BUCKET"
+    if [[ ${ENCRYPT_FS} == "true" ]]; then
+        s3cmd --bucket-location=${BACKUP_S3_REGION} --server-side-encryption mb s3://"$S3_WALE_BUCKET"
+    else
+        s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"$S3_WALE_BUCKET"
+    fi
+
 fi
 
 #-------------------------------------------------------------------------------
