@@ -57,10 +57,12 @@ sudo sed -i "s/^BUCKET_NAME=.*/BUCKET_NAME=${S3_BUCKET}/" /media/data/postgres/b
 
 # create bucket if it doesn't exist
 if ! s3cmd ls s3://"$S3_BUCKET" > /dev/null 2>&1; then
-    if [[ -z ${ENCRYPT_FS} ]]; then
-        s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"$S3_BUCKET"
-    else
-        s3cmd --bucket-location=${BACKUP_S3_REGION} --server-side-encryption mb s3://"$S3_BUCKET"
+    s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"$S3_WALE_BUCKET"
+    if [[ ${ENCRYPT_FS} == "true" ]]; then
+        # create a json string that represents the structure needed to define the
+        # default encryption for the S3 bucket
+        ENCRYPT_JSON='"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]"'
+        aws --region ${BACKUP_S3_REGION} s3api put_bucket_encryption --bucket s3://"$S3_WALE_BUCKET" --server-side-encryption-configuration ${ENCRYPT_JSON}
     fi
 fi
 
