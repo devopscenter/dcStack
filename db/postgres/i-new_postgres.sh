@@ -61,6 +61,7 @@ BACKUP_S3_REGION=${11}
 PUBLIC_IP=${12}
 ROLE=${13}
 ENCRYPT_FS=${14}
+PROFILE=${15}
 
 if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$VPC_CIDR" ]] ||
@@ -239,18 +240,18 @@ sudo supervisorctl restart postgres
 # enable backups
 #-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres-backup/ || exit
-./enable-backup.sh "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}"
+./enable-backup.sh "${PROFILE} ${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION} ${ENCRYPT_FS}"
 
 #-------------------------------------------------------------------------------
 # create wal-e bucket if it doesn't exist
 #-------------------------------------------------------------------------------
-if ! s3cmd ls s3://"$S3_WALE_BUCKET" > /dev/null 2>&1; then
-    s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"$S3_WALE_BUCKET"
+if ! s3cmd ls s3://"${S3_WALE_BUCKET}" > /dev/null 2>&1; then
+    s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"${S3_WALE_BUCKET}"
     if [[ ${ENCRYPT_FS} == "true" ]]; then
         # create a json string that represents the structure needed to define the
         # default encryption for the S3 bucket
         ENCRYPT_JSON='{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
-        aws --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket s3://"$S3_WALE_BUCKET" --server-side-encryption-configuration ${ENCRYPT_JSON}
+        aws --profile ${PROFILE} --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_WALE_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
     fi
 fi
 
