@@ -39,6 +39,7 @@
 
 S3_BUCKET=$1
 BACKUP_S3_REGION=$2
+ENCRYPT_FS=$3
 #CRON_MINUTE=$2
 #CRON_HOUR=$3
 #CRON_MONTHDAY=$4
@@ -56,7 +57,11 @@ sudo sed -i "s/^BUCKET_NAME=.*/BUCKET_NAME=${S3_BUCKET}/" /media/data/postgres/b
 
 # create bucket if it doesn't exist
 if ! s3cmd ls s3://"$S3_BUCKET" > /dev/null 2>&1; then
-  s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"$S3_BUCKET"
+    if [[ -z ${ENCRYPT_FS} ]]; then
+        s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"$S3_BUCKET"
+    else
+        s3cmd --bucket-location=${BACKUP_S3_REGION} --server-side-encryption mb s3://"$S3_BUCKET"
+    fi
 fi
 
 # add cron job to run the backup daily
