@@ -252,7 +252,6 @@ if ! s3cmd ls s3://"$S3_WALE_BUCKET" > /dev/null 2>&1; then
         ENCRYPT_JSON='"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]"'
         aws --region ${BACKUP_S3_REGION} s3api put_bucket_encryption --bucket s3://"$S3_WALE_BUCKET" --server-side-encryption-configuration ${ENCRYPT_JSON}
     fi
-
 fi
 
 #-------------------------------------------------------------------------------
