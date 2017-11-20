@@ -48,7 +48,7 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
 # install the tools for encrypting the filesystem
-sudo apt-fast -y cryptsetup-bin
+sudo apt-fast -y install cryptsetup-bin
 
 sudo apt-fast -qq -y install git wget sudo vim unzip curl language-pack-en jq
 
