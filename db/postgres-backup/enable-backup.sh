@@ -57,6 +57,7 @@ sudo chmod 0755 /media/data/postgres/backup/pg_backup_rotated.sh
 sudo sed -i "s/^BUCKET_NAME=.*/BUCKET_NAME=${S3_BUCKET}/" /media/data/postgres/backup/pg_backup.config
 
 # create bucket if it doesn't exist
+set -x
 if ! s3cmd ls s3://"$S3_BUCKET" > /dev/null 2>&1; then
     s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"${S3_BUCKET}"
     if [[ ${ENCRYPT_FS} == "true" ]]; then
@@ -66,6 +67,7 @@ if ! s3cmd ls s3://"$S3_BUCKET" > /dev/null 2>&1; then
         aws --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
     fi
 fi
+set +x
 
 # add cron job to run the backup daily
 #sudo (crontab -u postgres -l 2>/dev/null; echo "$1 $2 $3 $4 $5 /path/to/job -with args") | crontab -u postgres -
