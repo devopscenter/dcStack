@@ -45,7 +45,7 @@
 #set -o nounset     # Treat unset variables as an error
 #set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
-set -o verbose
+#set -o verbose
 
 CUST_APP_NAME=$1
 PRIVATE_IP=$2
