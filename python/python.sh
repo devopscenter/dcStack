@@ -66,10 +66,10 @@ popd
 sudo apt-fast -qq -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev libatlas-dev subversion
 
 pushd /tmp
-sudo wget --quiet https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz -O /tmp/Python-${PYTHON_VERSION}.tgz
-sudo tar -xvf Python-${PYTHON_VERSION}.tgz
+wget --quiet https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz -O /tmp/Python-${PYTHON_VERSION}.tgz
+tar -xvf Python-${PYTHON_VERSION}.tgz
 pushd Python-${PYTHON_VERSION}
-sudo ./configure CFLAGSFORSHARED="-fPIC" CCSHARED="-fPIC" --quiet CCSHARED="-fPIC" --prefix=/usr/local/opt/python --exec-prefix=/usr/local/opt/python CCSHARED="-fPIC" \
+./configure CFLAGSFORSHARED="-fPIC" CCSHARED="-fPIC" --quiet CCSHARED="-fPIC" --prefix=/usr/local/opt/python --exec-prefix=/usr/local/opt/python CCSHARED="-fPIC" \
             && make clean && make --silent -j3 && sudo make --silent install
 popd
 
@@ -78,8 +78,9 @@ sudo ln -s /usr/local/opt/python/bin/python /usr/local/bin/python
 which python && python --version
 
 pushd /tmp
-sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
-sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
+wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
+#force overwrite
+sudo ln -fs /usr/local/opt/python/bin/pip /usr/local/bin/pip
 
 sudo pip install -U setuptools-git wheel virtualenv
 

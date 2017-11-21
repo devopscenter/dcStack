@@ -1,0 +1,23 @@
+version: '3'
+services:
+    #base
+    base:
+        build: .
+        image: ${dcPREFIX}/base:${dcSTACK_VERSION}
+
+    #python
+    python:
+        build: python
+        image: ${dcPREFIX}/python:${dcSTACK_VERSION}
+        depends_on: 
+          - base
+    python-nginx:
+        build: web/python-nginx
+        image: ${dcPREFIX}/python-nginx:${dcSTACK_VERSION}
+        depends_on:
+          - python
+    python-nginx-pgpool:
+        build: web/python-nginx-pgpool
+        image: ${dcPREFIX}/python-nginx-pgpool:${dcSTACK_VERSION}
+        depends_on:
+          - python-nginx

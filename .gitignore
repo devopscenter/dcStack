@@ -30,3 +30,6 @@ buildtools.log
 jenkins.log
 buildtoolspush.log
 buildtools/pythonwheel/wheelhouse/*
+
+.vagrant/
+.env
