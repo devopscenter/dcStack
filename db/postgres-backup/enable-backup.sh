@@ -63,7 +63,7 @@ if ! s3cmd ls s3://"$S3_BUCKET" > /dev/null 2>&1; then
         # create a json string that represents the structure needed to define the
         # default encryption for the S3 bucket
         ENCRYPT_JSON='{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
-        aws --profile ${PROFILE} --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
+        aws --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
     fi
 fi
 
