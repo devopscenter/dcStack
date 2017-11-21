@@ -61,7 +61,6 @@ BACKUP_S3_REGION=${11}
 PUBLIC_IP=${12}
 ROLE=${13}
 ENCRYPT_FS=${14}
-PROFILE=${15}
 
 if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$VPC_CIDR" ]] ||
@@ -240,7 +239,7 @@ sudo supervisorctl restart postgres
 # enable backups
 #-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres-backup/ || exit
-./enable-backup.sh "${PROFILE}" "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}" "${ENCRYPT_FS}"
+./enable-backup.sh "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}" "${ENCRYPT_FS}"
 
 #-------------------------------------------------------------------------------
 # create wal-e bucket if it doesn't exist

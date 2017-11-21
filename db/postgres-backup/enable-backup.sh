@@ -37,10 +37,9 @@
 #set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
-PROFILE=$1
-S3_BUCKET=$2
-BACKUP_S3_REGION=$3
-ENCRYPT_FS=$4
+S3_BUCKET=$1
+BACKUP_S3_REGION=$2
+ENCRYPT_FS=$3
 #CRON_MINUTE=$2
 #CRON_HOUR=$3
 #CRON_MONTHDAY=$4
