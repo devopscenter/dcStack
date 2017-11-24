@@ -12,7 +12,7 @@ pandas==0.19.1
 jinja2==2.8
 jsonschema==2.5.1
 openpyxl==2.4.0
-psycopg2==2.6.2
+psycopg2==2.7.3.2
 pyPdf==1.13
 python_dateutil==2.6
 raven==5.1.1

@@ -5,7 +5,7 @@ django-rq==0.6.1
 
 httplib2==0.8
 xlwt==0.7.5
-psycopg2==2.5.1
+psycopg2==2.7.3.2
 python-dateutil==2.2
 pytz==2012d
 raven==6.2.1
