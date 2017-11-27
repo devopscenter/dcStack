@@ -45,7 +45,7 @@
 #set -o nounset     # Treat unset variables as an error
 #set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
-set -o verbose
+#set -o verbose
 
 CUST_APP_NAME=$1
 PRIVATE_IP=$2
@@ -60,6 +60,7 @@ DCTYPE=${10}
 BACKUP_S3_REGION=${11}
 PUBLIC_IP=${12}
 ROLE=${13}
+ENCRYPT_FS=${14}
 
 if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$VPC_CIDR" ]] ||
@@ -71,7 +72,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$BACKUP_S3_REGION}" ]] ||
     [[ -z "$ENV" ]]; then
 
-    echo "12 Arguments are required: "
+    echo "14 Arguments are required: "
     echo "    PRIVATE_IP: ${PRIVATE_IP}"
     echo "    VPC_CIDR: ${VPC_CIDR}"
     echo "    DATABASE: ${DATABASE}"
@@ -84,6 +85,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    BACKUP_S3_REGION: ${BACKUP_S3_REGION}"
     echo "    PUBLIC_IP: ${PUBLIC_IP}"
     echo "    ROLE: ${ROLE}"
+    echo "    ENCRYPT_FS: ${ENCRYPT_FS}"
     echo
     echo -e "Examples:"
     echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
@@ -137,7 +139,7 @@ cd ~/dcStack/logging/ || exit
 #-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres/ || exit
 sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
-sudo ./i-mount.sh "/media/data/postgres/db"
+sudo ./i-mount.sh "/media/data/postgres/db" ${ENCRYPT_FS}
 
 #-------------------------------------------------------------------------------
 # install postgres and other tasks
@@ -237,13 +239,19 @@ sudo supervisorctl restart postgres
 # enable backups
 #-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres-backup/ || exit
-./enable-backup.sh "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}"
+./enable-backup.sh "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}" "${ENCRYPT_FS}"
 
 #-------------------------------------------------------------------------------
 # create wal-e bucket if it doesn't exist
 #-------------------------------------------------------------------------------
-if ! s3cmd ls s3://"$S3_WALE_BUCKET" > /dev/null 2>&1; then
-    s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"$S3_WALE_BUCKET"
+if ! s3cmd ls s3://"${S3_WALE_BUCKET}" > /dev/null 2>&1; then
+    s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"${S3_WALE_BUCKET}"
+    if [[ ${ENCRYPT_FS} == "true" ]]; then
+        # create a json string that represents the structure needed to define the
+        # default encryption for the S3 bucket
+        ENCRYPT_JSON='{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
+        aws --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_WALE_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
+    fi
 fi
 
 #-------------------------------------------------------------------------------
