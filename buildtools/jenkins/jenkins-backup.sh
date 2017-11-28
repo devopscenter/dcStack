@@ -45,7 +45,7 @@ MONTH=$(date +%m)
 S3_FILE="${BUCKET_NAME}/${HOSTNAME}/${YEAR}/${MONTH}/jenkins-${TIMESTAMP}.tar.gz"
 
 # create the temporary directory if it doesn't exist
-if [[ ~ -d /media/data/tmp ]]; then
+if [[ ! -d /media/data/tmp ]]; then
     sudo mkdir /media/data/tmp
     sudo chmod 777 /media/data/tmp
 fi
