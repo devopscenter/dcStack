@@ -55,6 +55,7 @@ sudo apt-get update
 sudo apt-get -y install jenkins
 
 set -x
+mkdir /media/data/jenkins/.ssh
 echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
 echo "AWS_KEYS=/media/data/jenkins/.ssh" | sudo tee -a /etc/defaults/jenkins
 
