@@ -44,6 +44,7 @@ YEAR=$(date +%Y)
 MONTH=$(date +%m)
 S3_FILE="${BUCKET_NAME}/${HOSTNAME}/${YEAR}/${MONTH}/jenkins-${TIMESTAMP}.tar.gz"
 
+logger "jenkins backup started"
 # create the temporary directory if it doesn't exist
 if [[ ! -d /media/data/tmp ]]; then
     sudo mkdir /media/data/tmp
@@ -68,3 +69,4 @@ s3cmd put "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
 if [[ -f "$JENKINS_BACKUP_FILE" ]]; then
   rm "$JENKINS_BACKUP_FILE"
 fi
+logger "jenkins backup finished"
