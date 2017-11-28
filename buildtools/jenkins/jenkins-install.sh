@@ -62,6 +62,16 @@ echo "AWS_KEYS=/media/data/jenkins/.ssh" | sudo tee -a /etc/default/jenkins
 sudo cp -a conf/program_jenkins.conf /etc/supervisor/conf.d/program_jenkins.conf
 sudo cp -a conf/run_jenkins.sh /etc/supervisor/conf.d/run_jenkins.sh
 
+#-------------------------------------------------------------------------------
+# set up a nightly jenkins backup
+#-------------------------------------------------------------------------------
+set -x
+theHostName=$(hostname)
+if ! (crontab -l |grep '^[^#].*jenkins-backup.sh\b.*'); then
+    (crontab -l 2>/dev/null; echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}") | crontab -
+fi
+set +x 
+
 # install grunt-cli
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -77,11 +87,3 @@ sudo update-rc.d jenkins disable
 # start/restart supervisor to start jenkins
 sudo /etc/init.d/supervisor restart
 
-#-------------------------------------------------------------------------------
-# run a nightly jenkins backup
-#-------------------------------------------------------------------------------
-set -x
-theHostName=$(hostname)
-if ! (crontab -l |grep '^[^#].*jenkins-backup.sh\b.*'); then
-    (crontab -l 2>/dev/null; echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}") | crontab -
-fi
