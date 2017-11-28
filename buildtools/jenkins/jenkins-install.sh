@@ -75,3 +75,12 @@ sudo update-rc.d jenkins disable
 
 # start/restart supervisor to start jenkins
 sudo /etc/init.d/supervisor restart
+
+#-------------------------------------------------------------------------------
+# run a nightly jenkins backup
+#-------------------------------------------------------------------------------
+theHostName=$(hostname)
+if ! (sudo crontab -l |grep '^[^#].*jenkins-backup.sh\b.*'); then
+    (sudo crontab -l 2>/dev/null; echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}") | sudo crontab -
+fi
+
