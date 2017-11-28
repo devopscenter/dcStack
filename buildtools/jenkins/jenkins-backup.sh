@@ -54,13 +54,15 @@ fi
 JENKINS_BACKUP_FILE=$(mktemp /media/data/tmp/jenkins.tar.gz.XXXXX)
 
 # create s3 bucket if it doesn't already exist
-/usr/local/bin/s3cmd mb "s3://${BUCKET_NAME}"
+#/usr/local/bin/s3cmd mb "s3://${BUCKET_NAME}"
+s3cmd mb "s3://${BUCKET_NAME}"
 
 # tar both jenkins directories
 sudo tar czvf "$JENKINS_BACKUP_FILE" /media/data/jenkins /var/lib/jenkins
 
 # upload to s3
-/usr/local/bin/s3cmd put "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
+#/usr/local/bin/s3cmd put "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
+s3cmd put "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
 
 # remove temporary file
 if [[ -f "$JENKINS_BACKUP_FILE" ]]; then
