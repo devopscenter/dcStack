@@ -54,7 +54,6 @@ sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sour
 sudo apt-get update
 sudo apt-get -y install jenkins
 
-set -x
 mkdir /media/data/jenkins/.ssh
 echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
 echo "AWS_KEYS=/media/data/jenkins/.ssh" | sudo tee -a /etc/default/jenkins
@@ -85,4 +84,3 @@ theHostName=$(hostname)
 if ! (sudo crontab -l |grep '^[^#].*jenkins-backup.sh\b.*'); then
     (sudo crontab -l 2>/dev/null; echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}") | sudo crontab -
 fi
-set+x
