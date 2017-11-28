@@ -83,5 +83,5 @@ sudo /etc/init.d/supervisor restart
 set -x
 theHostName=$(hostname)
 if ! (crontab -l |grep '^[^#].*jenkins-backup.sh\b.*'); then
-    (crontab -l 2>/dev/null; echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}") | sudo crontab -
+    (crontab -l 2>/dev/null; echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}") | crontab -
 fi
