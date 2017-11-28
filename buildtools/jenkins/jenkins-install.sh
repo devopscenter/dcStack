@@ -80,6 +80,7 @@ sudo /etc/init.d/supervisor restart
 #-------------------------------------------------------------------------------
 # run a nightly jenkins backup
 #-------------------------------------------------------------------------------
+set -x
 theHostName=$(hostname)
 if ! (crontab -l |grep '^[^#].*jenkins-backup.sh\b.*'); then
     (crontab -l 2>/dev/null; echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}") | sudo crontab -
