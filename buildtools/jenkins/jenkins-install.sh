@@ -65,12 +65,12 @@ sudo cp -a conf/run_jenkins.sh /etc/supervisor/conf.d/run_jenkins.sh
 #-------------------------------------------------------------------------------
 # set up a nightly jenkins backup
 #-------------------------------------------------------------------------------
-set -x
 theHostName=$(hostname)
 if ! (crontab -l |grep '^[^#].*jenkins-backup.sh\b.*'); then
+    echo "MAILTO=\"\"" | crontab -
+    echo "PATH=/usr/local/opt/python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" | crontab -
     echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}" | crontab -
 fi
-set +x 
 
 # install grunt-cli
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
