@@ -68,7 +68,7 @@ sudo cp -a conf/run_jenkins.sh /etc/supervisor/conf.d/run_jenkins.sh
 set -x
 theHostName=$(hostname)
 if ! (sudo crontab -u jenkins -l |grep '^[^#].*jenkins-backup.sh\b.*'); then
-    (sudo crontab -u jenkins -l 2>/dev/null; echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}") | sudo crontab -u jenkins -
+    echo "11 03  *   *   *     /home/ubuntu/dcStack/buildtools/jenkins/jenkins-backup.sh ${theHostName}" | sudo crontab -u jenkins -
 fi
 set +x 
 
