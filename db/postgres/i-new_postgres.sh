@@ -212,7 +212,13 @@ function parameter-ensure
 #-------------------------------------------------------------------------------
 # parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
 #-------------------------------------------------------------------------------
-parameter-ensure archive_command "'export AWS_REGION=${BACKUP_S3_REGION}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
+if [[ "$BACKUP_S3_REGION)" == "us-east-1" ]]; then
+    WALE_S3_ENDPOINT=https+path://s3.amazonaws.com:443
+else
+    WALE_S3_ENDPOINT=https+path://s3-${BACKUP_S3_REGION}.amazonaws.com:443
+fi
+
+parameter-ensure archive_command "'export AWS_REGION=${BACKUP_S3_REGION}; export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
 #parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
 
 #-------------------------------------------------------------------------------
@@ -262,8 +268,8 @@ if [ ! -d ${NEWBACKUPDIR} ]; then
     sudo mkdir -m 777 ${NEWBACKUPDIR}
 fi
 echo "export TMPDIR=${NEWBACKUPDIR}" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
-echo "export AWS_REGION=${BACKUP_S3_REGION}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
-echo "export AWS_REGION=${BACKUP_S3_REGION}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} delete --confirm retain 30" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
+echo "export AWS_REGION=${BACKUP_S3_REGION}; export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
+echo "export AWS_REGION=${BACKUP_S3_REGION}; export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} delete --confirm retain 30" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
 sudo chmod +x /media/data/postgres/backup/backup-push.sh
 sudo chown postgres:postgres /media/data/postgres/backup/backup-push.sh
 
