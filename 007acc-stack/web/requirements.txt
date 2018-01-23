@@ -13,7 +13,6 @@ git+https://github.com/josh-devops-center/django-health-check@e9bcff0030c85dd97a
 greenlet==0.4.11
 ipython==4.0.0
 jasmine==2.3.0
-lxml==3.4.4
 oauthlib==2.0.0
 psycopg2==2.7.3.2
 pubnub==3.7.3
@@ -21,7 +20,5 @@ raven>=6.0.0
 redis==2.10.5
 requests==2.7.0
 requests-oauthlib==0.6.2
-xlrd==0.9.4
-xlwt==1.0.0
 wsgiref==0.1.2
 
