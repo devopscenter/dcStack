@@ -8,7 +8,10 @@
 # WORKS
 #pandas==0.19.2
 
-# DO NOT WORK
+# DOES NOT WORK
 #pandas==0.21.1
 
+# DOES NOT WORK
 pandas==0.20.3
+
+pandas==0.20.0
