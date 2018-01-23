@@ -1,4 +1,8 @@
+# WORKS
 #numpy==1.8.1
 #pandas==0.14.1
 
-pandas==0.18.1
+# WORKS
+# pandas==0.18.1
+
+pandas==0.19.2
