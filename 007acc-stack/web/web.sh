@@ -47,7 +47,6 @@ dcStartLog "install of app-specific web for 007acc"
 
 sudo pip install -r requirements.txt
 sudo pip install --no-binary :all: -r requirements2.txt
-#sudo pip install -r requirements2.txt
 
 curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -
 
