@@ -1,17 +1,1 @@
-# WORKS
-#numpy==1.8.1
-#pandas==0.14.1
-
-# WORKS
-# pandas==0.18.1
-
-# WORKS
-#pandas==0.19.2
-
-# DOES NOT WORK
-#pandas==0.21.1
-
-# DOES NOT WORK
-pandas==0.20.3
-
-pandas==0.20.0
+pandas==0.19.2
