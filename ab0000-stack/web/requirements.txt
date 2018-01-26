@@ -2,7 +2,7 @@ Django==1.11.9
 dj-database-url==0.3.0
 httplib2==0.10.3
 pre-commit>=1.1.1
-psycopg2==2.7.3.2
+psycopg2>=2.7.3.2
 python-dateutil==2.6.0
 raven>=6.5.0
 redis>=2.10.5
@@ -13,3 +13,5 @@ s3cmd
 awscli
 gitpython
 boto
+virtualenvwrapper
+

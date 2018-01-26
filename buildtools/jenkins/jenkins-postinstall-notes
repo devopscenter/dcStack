@@ -1,8 +1,0 @@
-1. from the cli, install from jenkins-install.sh
-2. go to <server IP>:8080 in a browser
- - follow on-screen user setups
- - install plugins (std set, then blue ocean, AWS SDK, CloudBees AWS Credentials, Slack, etc)
-3. from the cli
- - into AWS_KEYS/ add private keys for all target instances.
- - Using Cloudbees AWS Credentials, add AWS credentials for target AWS regions.
- - Add deploy GIT credentials for all source repos.
