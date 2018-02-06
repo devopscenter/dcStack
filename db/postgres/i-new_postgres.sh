@@ -157,6 +157,10 @@ ln -s $HOME/dcUtils/db/restore.sh /media/data/db_restore/
 #-------------------------------------------------------------------------------
 # restart supervisor to pick up new postgres files in conf.d
 #-------------------------------------------------------------------------------
+# NOTE: this is a work around to ensure supervisor is stopped before restarting
+# this is from this page:
+# https://stackoverflow.com/questions/32738415/supervisor-fails-to-restart-half-of-the-time/33881057#33881057
+sudo /etc/init.d/supervisor force-stop && \
 sudo /etc/init.d/supervisor restart
 
 #-------------------------------------------------------------------------------
