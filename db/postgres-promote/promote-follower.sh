@@ -90,4 +90,4 @@ if ! (sudo crontab -l -u postgres|grep -q '^[^#].*pg_backup_rotated.sh\b.*'); th
 fi
 
 # push base backup to s3 to enable immediate wal-e restore
-sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres
+nohup sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres &
