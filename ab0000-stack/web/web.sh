@@ -46,7 +46,7 @@ pushd ../../buildtools/jenkins/
 ./jenkins-install.sh
 popd
 
-sudo pip install -r requirements.txt
+sudo -H pip install -r requirements.txt
 
 #
 # disable unused services (at least initially)

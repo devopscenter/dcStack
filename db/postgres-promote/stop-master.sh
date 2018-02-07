@@ -40,6 +40,6 @@
 
 #First competely shut down and disconnect the master.
 sudo supervisorctl stop postgres
-sudo rm -f /etc/supervisor/conf.d/postgres.conf
-sudo rm -f /etc/supervisor/conf.d/run_postgres.sh
+sudo mv /etc/supervisor/conf.d/postgres.conf /etc/supervisor/conf.d/postgres.conf.ORIG
+sudo mv /etc/supervisor/conf.d/run_postgres.sh /etc/supervisor/conf.d/run_postgres.sh
 sudo service supervisor restart

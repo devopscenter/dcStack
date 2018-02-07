@@ -58,8 +58,8 @@ JENKINS_BACKUP_FILE=$(mktemp /media/data/tmp/jenkins.tar.gz.XXXXX)
 #/usr/local/bin/s3cmd mb "s3://${BUCKET_NAME}"
 s3cmd mb "s3://${BUCKET_NAME}"
 
-# tar both jenkins directories
-sudo tar czvf "$JENKINS_BACKUP_FILE" /media/data/jenkins /var/lib/jenkins
+# tar just the backup data needed to load onto a new instance
+sudo tar czvf "$JENKINS_BACKUP_FILE" /media/data/jenkins
 
 # upload to s3
 #/usr/local/bin/s3cmd put "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
