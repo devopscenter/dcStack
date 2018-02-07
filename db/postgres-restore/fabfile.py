@@ -87,7 +87,7 @@ def install_postgres(private_ip, papertrail_address, vpc_cidr, database,
 
 @task
 def download_pgdump_backup(s3_bucket_host, db_name):
-    run("~/dcUtils/db/postgres-restore/download.sh %s %s" %
+    run("~/dcUtils/db/download.sh %s %s" %
         (s3_bucket_host, db_name))
 
 
