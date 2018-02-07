@@ -91,8 +91,8 @@ if ! (sudo crontab -l -u postgres|grep -q '^[^#].*pg_backup_rotated.sh\b.*'); th
     (sudo crontab -u postgres -l 2>/dev/null; echo "01 04  *   *   *     /media/data/postgres/backup/pg_backup_rotated.sh -c /media/data/postgres/backup/pg_backup.config") | sudo crontab -u postgres -
 fi
 
-logger "Executing the backup-push.sh in the background."
+#logger "Executing the backup-push.sh in the background."
 # push base backup to s3 to enable immediate wal-e restore
-nohup sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres &
+#nohup sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres &
 
 logger "And finished with the promote-follower.sh script."
