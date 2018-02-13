@@ -76,8 +76,12 @@ sudo chown -R postgres:postgres /media/data/postgres/db /media/data/postgres/xlo
 #-------------------------------------------------------------------------------
 dcLog "replace master's conf file so wal-e backups go to the correct bucket if promoted"
 #-------------------------------------------------------------------------------
-sudo cp --preserve /media/data/postgres/backup/postgresql.conf /media/data/postgres/db/pgdata/
-
+# actually grab the archive command from the original postgresql.conf and add it 
+# to new postgresql.conf
+#sudo cp --preserve /media/data/postgres/backup/postgresql.conf /media/data/postgres/db/pgdata/
+archiveCommand=$(sudo grep "^archive_command" /media/data/postgres/backup/postgresql.conf)
+sudo sed -i "s/^archive_command/#archive_command/" /media/data/postgres/db/pgdata/postgresql.conf
+echo ${archiveCommand} | sudo tee -a /media/data/postgres/db/pgdata/postgresql.conf
 
 #-------------------------------------------------------------------------------
 dcLog "and finally start postgres"
