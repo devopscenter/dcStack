@@ -257,12 +257,16 @@ cd ~/dcStack/db/postgres-backup/ || exit
 #-------------------------------------------------------------------------------
 if ! s3cmd ls s3://"${S3_WALE_BUCKET}" > /dev/null 2>&1; then
     s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"${S3_WALE_BUCKET}"
-    if [[ ${ENCRYPT_FS} == "true" ]]; then
-        # create a json string that represents the structure needed to define the
-        # default encryption for the S3 bucket
-        ENCRYPT_JSON='{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
-        aws --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_WALE_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
-    fi
+fi
+
+#-------------------------------------------------------------------------------
+# and if they wan tto encrypt the backups then we need to do that to this too
+#-------------------------------------------------------------------------------
+if [[ ${ENCRYPT_FS} == "true" ]]; then
+    # create a json string that represents the structure needed to define the
+    # default encryption for the S3 bucket
+    ENCRYPT_JSON='{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
+    aws --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_WALE_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
 fi
 
 #-------------------------------------------------------------------------------

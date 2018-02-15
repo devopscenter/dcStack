@@ -38,5 +38,5 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 set -o verbose
 
-NGINX_VERSION=1.13.2
-UWSGI_VERSION=2.0.15
+NGINX_VERSION=1.13.8
+UWSGI_VERSION=2.0.16
