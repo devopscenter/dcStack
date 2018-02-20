@@ -35,13 +35,15 @@ class Supervisor(ElementBase):
     def __init__(self, argList):
         """Constructor for this class."""
         ElementBase.__init__(self, "supervisor", argList)
+        self.executePath = self.stackDir + "/buildtools/utils"
+        self.executeScript = "install-supervisor.sh custom"
         print(self.name)
 
     def run(self):
         """Run the element to install the corresponding code."""
         # save the current directory
         currentDir = os.getcwd()
-        theDir = os.path.expanduser(self.supervisor_element)
+        theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
         print(os.getcwd())
 

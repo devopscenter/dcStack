@@ -35,13 +35,15 @@ class Python(ElementBase):
     def __init__(self, argList):
         """Constructor for this class."""
         ElementBase.__init__(self, "python", argList)
+        self.executePath = self.stackDir + "/python"
+        self.executeScript = "python.sh"
         print(self.name)
 
     def run(self):
         """Run the element to install the corresponding code."""
         # save the current directory
-        theDir = os.path.expanduser(self.python_element)
         currentDir = os.getcwd()
+        theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
         print(os.getcwd())
 

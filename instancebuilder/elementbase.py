@@ -3,7 +3,7 @@
 
 import sys
 import argparse
-from ConfigParser import ConfigParser
+# from ConfigParser import ConfigParser
 # ==============================================================================
 __version__ = "0.1"
 
@@ -34,8 +34,8 @@ class ElementBase(object):
     def __init__(self, nameIn, argList):
         """Constructor for the base class."""
         self.name = nameIn
-        if "CONFIG_FILE" in argList:
-            self.readConfigFile(argList["CONFIG_FILE"])
+#        if "CONFIG_FILE" in argList:
+#            self.readConfigFile(argList["CONFIG_FILE"])
         if "PROFILE" in argList:
             self.profile = argList["PROFILE"]
         if "REGION" in argList:
@@ -50,22 +50,22 @@ class ElementBase(object):
             self.stackDir = argList["STACK_DIR"]
         # print("ElementBase args: {}".format(argList))
 
-    def readConfigFile(self, theFileName):
-        """Read the config file for the key/value pairs listing the paths."""
-        # check to see if the config file exists
-        try:
-            tmpFileHandle = open(theFileName, 'r')
-            tmpFileHandle.close()
-        except IOError:
-            print("Unable to access the config file: {}".format(theFileName))
-            sys.exit(1)
-
-        self.config = ConfigParser()
-        self.config.read(theFileName)
-
-        for keyName, aValue in self.config.items("settings"):
-            if not hasattr(self, keyName):
-                setattr(self, keyName, aValue)
+#    def readConfigFile(self, theFileName):
+#        """Read the config file for the key/value pairs listing the paths."""
+#        # check to see if the config file exists
+#        try:
+#            tmpFileHandle = open(theFileName, 'r')
+#            tmpFileHandle.close()
+#        except IOError:
+#            print("Unable to access the config file: {}".format(theFileName))
+#            sys.exit(1)
+#
+#        self.config = ConfigParser()
+#        self.config.read(theFileName)
+#
+#        for keyName, aValue in self.config.items("settings"):
+#            if not hasattr(self, keyName):
+#                setattr(self, keyName, aValue)
 
 
 def checkArgs():

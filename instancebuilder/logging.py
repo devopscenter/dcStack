@@ -35,13 +35,15 @@ class Logging(ElementBase):
     def __init__(self, argList):
         """Constructor for this class."""
         ElementBase.__init__(self, "logging", argList)
+        self.executePath = self.stackDir + "/logging"
+        self.executeScript = "i-enable-logging.sh"
         print(self.name)
 
     def run(self):
         """Run the element to install the corresponding code."""
         # save the current directory
         currentDir = os.getcwd()
-        theDir = os.path.expanduser(self.logging_element)
+        theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
         print(os.getcwd())
 

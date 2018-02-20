@@ -35,6 +35,8 @@ class Base(ElementBase):
     def __init__(self, argList):
         """Constructor for this class."""
         ElementBase.__init__(self, "base", argList)
+        self.executePath = self.stackDir + "/buildtools/utils"
+        self.executeScript = "base-utils.sh"
         print(self.name)
 
     def run(self):
@@ -42,7 +44,7 @@ class Base(ElementBase):
         # change directory to the dcStack buildtools directory to get the base
         # stuff to install
         currentDir = os.getcwd()
-        theDir = os.path.expanduser(self.base_element)
+        theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
         print(os.getcwd())
 
