@@ -4,7 +4,7 @@
 import sys
 import os
 import argparse
-from process_dc_env import pythonGetEnv, dcEnvCheckArgs
+# from process_dc_env import pythonGetEnv, dcEnvCheckArgs
 from base import Base
 from python import Python
 from logging import Logging
@@ -186,17 +186,18 @@ def main(argv):
     try:
         (cmdLineArgs, testMode) = checkArgs()
     except SystemExit:
-        dcEnvCheckArgs()
+        # dcEnvCheckArgs()
+        print("Some arguments provided are not supported")
         sys.exit(1)
 
-    # get the list of key/value pairs from the app-utils
-    envList = pythonGetEnv()
+        # get the list of key/value pairs from the app-utils
+        # envList = pythonGetEnv()
 
-    # take the key/value arguments from the command line
-    # and create one list of a merged set of key/value pairs
-    # from the environment and from the command line
+        # take the key/value arguments from the command line
+        # and create one list of a merged set of key/value pairs
+        # from the environment and from the command line
     argsList = cmdLineArgs.copy()
-    argsList.update(envList)
+    # argsList.update(envList)
 
     # and then use that combined list to create an instance of
     # an InstanceBuilder to create the needed instance
