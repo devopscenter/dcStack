@@ -42,18 +42,36 @@ class InstanceBuilder:
         self.test = testMode
         self.argList = argsDict
         self.elementsToInclude = argsDict["ELEMENTS_TO_INCLUDE"]
+        self.elementDependency = {
+            "base",
+            "python",
+            "supervisor",
+            "deployenv"
+            "logging",
+            "mount",
+            "postgres",
+            "nginx",
+            "pgpool",
+            "redis",
+            "web",
+            "worker"
+        }
 
     def buildIt(self):
         """Execute the build based upon the elements."""
         # first setup some standardized directories
         self.setupStandardDirectories()
-        sys.exit(1)
 
-        for element in self.elementsToInclude:
-            elementClassName = element[:1].upper() + element[1:]
-            aClassName = globals()[elementClassName]
-            theElement = aClassName(self.argList)
-            theElement.run()
+        for item in self.elementDependency:
+            for element in self.elementsToInclude:
+                if element == item:
+                    print("element={}".format(element))
+                    elementClassName = element[:1].upper() + element[1:]
+                    print("elementClassName={}".format(elementClassName))
+                    aClassName = globals()[elementClassName]
+                    theElement = aClassName(self.argList)
+                    theElement.run()
+                    break
 
     def setupStandardDirectories(self):
         """Create the standard set of directories."""
