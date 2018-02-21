@@ -175,6 +175,7 @@ def checkArgs():
     if args.stackDir:
         retArgs["STACK_DIR"] = args.suffix
 
+    retTest = ""
     if args.test:
         retTest = args.test
 
