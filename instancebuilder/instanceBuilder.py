@@ -61,6 +61,8 @@ class InstanceBuilder:
         # and gid for actual user who ran this with sudo
         # uid = int(os.environ.get('SUDO_UID'))
         # gid = int(os.environ.get('SUDO_GID'))
+        # and then to use it after you make a directory
+        # os.chown(mediaDBRestoreDir, uid, gid)
 
         # first make the /data directory
         dataDir = "/data"
@@ -68,8 +70,6 @@ class InstanceBuilder:
             cmdToRun = ("sudo mkdir " + dataDir
                         + " ; chmod 755 " + dataDir)
             subprocess.call(cmdToRun, shell=True)
-            # os.makedirs(dataDir)
-            # os.chmod(dataDir, 0o755)
 
         # ----------------------------------------------------------------------
         # If this will have an attached scratch volume, then prepare and mount
@@ -92,8 +92,12 @@ class InstanceBuilder:
             mediaDeployDir = "/media/data/deploy"
             deployDir = "/data/deploy"
             if not os.path.exists(mediaDeployDir):
-                os.makedirs(mediaDeployDir)
-                os.chmod(mediaDeployDir, 0o755)
+                cmdToRun = ("sudo mkdir " + mediaDeployDir
+                            + " ; chmod 755 " + mediaDeployDir)
+                subprocess.call(cmdToRun, shell=True)
+                cmdToRun = ("sudo ln -s " + mediaDeployDir + " "
+                            + deployDir)
+                subprocess.call(cmdToRun, shell=True)
                 os.symlink(mediaDeployDir, deployDir)
 
                 # and now go back to the original directory to proceed
@@ -101,8 +105,9 @@ class InstanceBuilder:
                 os.chdir(originalDir)
         else:
             if not os.path.exists(deployDir):
-                os.makedirs(deployDir)
-                os.chmod(deployDir, 0o755)
+                cmdToRun = ("sudo mkdir " + deployDir
+                            + " ; chmod 755 " + deployDir)
+                subprocess.call(cmdToRun, shell=True)
 
         # Create standard temp directory, then set up a symlink
         # to a previous standard, for compatibility reasons
@@ -111,16 +116,19 @@ class InstanceBuilder:
         mediaTmpDir = "/media/data/tmp"
         scratchDir = "/data/scratch"
         if not os.path.exists(mediaTmpDir):
-            os.makedirs(mediaTmpDir)
-            os.chmod(mediaTmpDir, 0o777)
-            os.symlink(mediaTmpDir, scratchDir)
+            cmdToRun = ("sudo mkdir " + mediaTmpDir
+                        + " ; chmod 777 " + mediaTmpDir)
+            subprocess.call(cmdToRun, shell=True)
+            cmdToRun = ("sudo ln -s " + mediaTmpDir + " "
+                        + scratchDir)
+            subprocess.call(cmdToRun, shell=True)
 
         # and now make the db_restore directory
         mediaDBRestoreDir = "/media/data/db_restore"
         if not os.path.exists(mediaDBRestoreDir):
-            os.makedirs(mediaDBRestoreDir)
-            os.chmod(mediaDBRestoreDir, 0o777)
-            # os.chown(mediaDBRestoreDir, uid, gid)
+            cmdToRun = ("sudo mkdir " + mediaDBRestoreDir
+                        + " ; chmod 777 " + mediaDBRestoreDir)
+            subprocess.call(cmdToRun, shell=True)
 
 
 def checkArgs():
