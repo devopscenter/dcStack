@@ -55,11 +55,10 @@ class InstanceBuilder:
 
     def setupStandardDirectories(self):
         """Create the standard set of directories."""
-        # get the uid and gid for root for chown later
+        # if this script is run with sudo then we can get the uid
+        # and gid for actual user who ran this with sudo
         # uid = int(os.environ.get('SUDO_UID'))
         # gid = int(os.environ.get('SUDO_GID'))
-        uid = os.getuid()
-        gid = os.getgid()
 
         # first make the /data directory
         dataDir = "/data"
@@ -89,15 +88,15 @@ class InstanceBuilder:
             if not os.path.exists(mediaDeployDir):
                 os.makedirs(mediaDeployDir, 0o755)
                 os.symlink(mediaDeployDir, deployDir)
-                os.chown(mediaDeployDir, uid, gid)
-                os.chown(deployDir, uid, gid)
+                # os.chown(mediaDeployDir, uid, gid)
+                # os.chown(deployDir, uid, gid)
 
                 # and now go back to the original directory to proceed
                 # with processing
                 os.chdir(originalDir)
         else:
             os.makedirs(deployDir, 0o755)
-            os.chown(deployDir, uid, gid)
+            # os.chown(deployDir, uid, gid)
 
         # Create standard temp directory, then set up a symlink
         # to a previous standard, for compatibility reasons
@@ -108,14 +107,14 @@ class InstanceBuilder:
         if not os.path.exists(mediaTmpDir):
             os.makedirs(mediaTmpDir, 0o777)
             os.symlink(mediaTmpDir, scratchDir)
-            os.chown(mediaTmpDir, uid, gid)
-            os.chown(scratchDir, uid, gid)
+            # os.chown(mediaTmpDir, uid, gid)
+            # os.chown(scratchDir, uid, gid)
 
         # and now make the db_restore directory
         mediaDBRestoreDir = "/media/data/db_restore"
         if not os.path.exists(mediaDBRestoreDir):
             os.makedirs(mediaDBRestoreDir, 0o777)
-            os.chown(mediaDBRestoreDir, uid, gid)
+            # os.chown(mediaDBRestoreDir, uid, gid)
 
 
 def checkArgs():
