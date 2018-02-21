@@ -65,7 +65,7 @@ class InstanceBuilder:
         for item in self.elementDependency:
             for element in self.elementsToInclude:
                 if element == item:
-                    print("Building element: %s", element)
+                    print("================ Building element: " + element)
                     elementClassName = element[:1].upper() + element[1:]
                     aClassName = globals()[elementClassName]
                     theElement = aClassName(self.argList)
