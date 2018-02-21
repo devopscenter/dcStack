@@ -77,7 +77,7 @@ class InstanceBuilder:
             originalDir = os.getcwd()
             # and change the dcStack postgres directory so that we can run the
             # mount script
-            destDir = os.path.expanduser("~/dcStack/db/postgres")
+            destDir = os.path.expanduser(self.stackDir + "/db/postgres")
             os.chdir(destDir)
             # TODO callexternal process i-mount.sh "/media/data"
 #             sudo . / i - mount.sh "/media/data"
@@ -90,16 +90,14 @@ class InstanceBuilder:
                 os.makedirs(mediaDeployDir)
                 os.chmod(mediaDeployDir, 0o755)
                 os.symlink(mediaDeployDir, deployDir)
-                # os.chown(mediaDeployDir, uid, gid)
-                # os.chown(deployDir, uid, gid)
 
                 # and now go back to the original directory to proceed
                 # with processing
                 os.chdir(originalDir)
         else:
-            os.makedirs(deployDir)
-            os.chmod(deployDir, 0o755)
-            # os.chown(deployDir, uid, gid)
+            if not os.path.exists(deployDir):
+                os.makedirs(deployDir)
+                os.chmod(deployDir, 0o755)
 
         # Create standard temp directory, then set up a symlink
         # to a previous standard, for compatibility reasons
@@ -111,8 +109,6 @@ class InstanceBuilder:
             os.makedirs(mediaTmpDir)
             os.chmod(mediaTmpDir, 0o777)
             os.symlink(mediaTmpDir, scratchDir)
-            # os.chown(mediaTmpDir, uid, gid)
-            # os.chown(scratchDir, uid, gid)
 
         # and now make the db_restore directory
         mediaDBRestoreDir = "/media/data/db_restore"
