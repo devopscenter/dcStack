@@ -63,7 +63,7 @@ class InstanceBuilder:
         # first make the /data directory
         dataDir = "/data"
         if not os.path.exists(dataDir):
-            os.makedirs(dataDir, 0o755)
+            os.makedirs(dataDir, mode=0o755)
 
         # ----------------------------------------------------------------------
         # If this will have an attached scratch volume, then prepare and mount
@@ -86,7 +86,7 @@ class InstanceBuilder:
             mediaDeployDir = "/media/data/deploy"
             deployDir = "/data/deploy"
             if not os.path.exists(mediaDeployDir):
-                os.makedirs(mediaDeployDir, 0o755)
+                os.makedirs(mediaDeployDir, mode=0o755)
                 os.symlink(mediaDeployDir, deployDir)
                 # os.chown(mediaDeployDir, uid, gid)
                 # os.chown(deployDir, uid, gid)
@@ -95,7 +95,7 @@ class InstanceBuilder:
                 # with processing
                 os.chdir(originalDir)
         else:
-            os.makedirs(deployDir, 0o755)
+            os.makedirs(deployDir, mode=0o755)
             # os.chown(deployDir, uid, gid)
 
         # Create standard temp directory, then set up a symlink
@@ -105,7 +105,7 @@ class InstanceBuilder:
         mediaTmpDir = "/media/data/tmp"
         scratchDir = "/data/scratch"
         if not os.path.exists(mediaTmpDir):
-            os.makedirs(mediaTmpDir, 0o777)
+            os.makedirs(mediaTmpDir, mode=0o777)
             os.symlink(mediaTmpDir, scratchDir)
             # os.chown(mediaTmpDir, uid, gid)
             # os.chown(scratchDir, uid, gid)
@@ -113,7 +113,7 @@ class InstanceBuilder:
         # and now make the db_restore directory
         mediaDBRestoreDir = "/media/data/db_restore"
         if not os.path.exists(mediaDBRestoreDir):
-            os.makedirs(mediaDBRestoreDir, 0o777)
+            os.makedirs(mediaDBRestoreDir, mode=0o777)
             # os.chown(mediaDBRestoreDir, uid, gid)
 
 
