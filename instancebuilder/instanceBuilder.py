@@ -92,7 +92,7 @@ class InstanceBuilder:
             mediaDeployDir = "/media/data/deploy"
             deployDir = "/data/deploy"
             if not os.path.exists(mediaDeployDir):
-                cmdToRun = ("sudo mkdir " + mediaDeployDir
+                cmdToRun = ("sudo mkdir -p " + mediaDeployDir
                             + " ; chmod 755 " + mediaDeployDir)
                 subprocess.call(cmdToRun, shell=True)
                 cmdToRun = ("sudo ln -s " + mediaDeployDir + " "
@@ -105,7 +105,7 @@ class InstanceBuilder:
                 os.chdir(originalDir)
         else:
             if not os.path.exists(deployDir):
-                cmdToRun = ("sudo mkdir " + deployDir
+                cmdToRun = ("sudo mkdir -p " + deployDir
                             + " ; chmod 755 " + deployDir)
                 subprocess.call(cmdToRun, shell=True)
 
@@ -116,7 +116,7 @@ class InstanceBuilder:
         mediaTmpDir = "/media/data/tmp"
         scratchDir = "/data/scratch"
         if not os.path.exists(mediaTmpDir):
-            cmdToRun = ("sudo mkdir " + mediaTmpDir
+            cmdToRun = ("sudo mkdir -p " + mediaTmpDir
                         + " ; chmod 777 " + mediaTmpDir)
             subprocess.call(cmdToRun, shell=True)
             cmdToRun = ("sudo ln -s " + mediaTmpDir + " "
@@ -126,7 +126,7 @@ class InstanceBuilder:
         # and now make the db_restore directory
         mediaDBRestoreDir = "/media/data/db_restore"
         if not os.path.exists(mediaDBRestoreDir):
-            cmdToRun = ("sudo mkdir " + mediaDBRestoreDir
+            cmdToRun = ("sudo mkdir -p " + mediaDBRestoreDir
                         + " ; chmod 777 " + mediaDBRestoreDir)
             subprocess.call(cmdToRun, shell=True)
 
