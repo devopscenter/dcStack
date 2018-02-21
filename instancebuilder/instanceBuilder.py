@@ -47,6 +47,7 @@ class InstanceBuilder:
         """Execute the build based upon the elements."""
         # first setup some standardized directories
         self.setupStandardDirectories()
+        sys.exit(1)
 
         for element in self.elementsToInclude:
             elementClassName = element[:1].upper() + element[1:]
@@ -67,7 +68,7 @@ class InstanceBuilder:
             subprocess.call("sudo mkdir " + dataDir +
                             " ; chmod 755 " + dataDir)
             # os.makedirs(dataDir)
-            #os.chmod(dataDir, 0o755)
+            # os.chmod(dataDir, 0o755)
 
         # ----------------------------------------------------------------------
         # If this will have an attached scratch volume, then prepare and mount
