@@ -65,16 +65,10 @@ class InstanceBuilder:
         for item in self.elementDependency:
             for element in self.elementsToInclude:
                 if element == item:
-                    print("============================ Begin element: {} "
-                          "============================".format(element))
-                    sys.stdout.flush()
                     elementClassName = element[:1].upper() + element[1:]
                     aClassName = globals()[elementClassName]
                     theElement = aClassName(self.argList)
                     theElement.run()
-                    print("============================ End element: {} "
-                          "============================".format(element))
-                    sys.stdout.flush()
                     break
 
     def setupStandardDirectories(self):
