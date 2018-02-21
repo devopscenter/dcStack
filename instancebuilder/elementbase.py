@@ -69,7 +69,12 @@ class ElementBase(object):
 
     def runScript(self, shellScript):
         """Execute the passed in shell script."""
-        subprocess.call(shellScript, shell=True)
+        try:
+            subprocess.call(shellScript, shell=True)
+        except subprocess.CalledProcessError:
+            print("ERROR: there was a problem running the script: "
+                  "{}".format(shellScript))
+            sys.exit(1)
 
 
 def checkArgs():
