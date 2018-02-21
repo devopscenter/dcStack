@@ -36,7 +36,7 @@ class Logging(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "logging", argList)
         self.executePath = self.stackDir + "/logging"
-        self.executeScript = "i-enable-logging.sh"
+        self.executeScript = "./i-enable-logging.sh"
         print(self.name)
 
     def run(self):
