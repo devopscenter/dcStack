@@ -3,7 +3,7 @@
 
 import sys
 import argparse
-# from ConfigParser import ConfigParser
+import subprocess
 # ==============================================================================
 __version__ = "0.1"
 
@@ -66,6 +66,10 @@ class ElementBase(object):
 #        for keyName, aValue in self.config.items("settings"):
 #            if not hasattr(self, keyName):
 #                setattr(self, keyName, aValue)
+
+    def runScript(self, shellScript):
+        """Execute the passed in shell script."""
+        subprocess.call(shellScript, shell=True)
 
 
 def checkArgs():
