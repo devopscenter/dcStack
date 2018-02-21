@@ -37,7 +37,6 @@ class Supervisor(ElementBase):
         ElementBase.__init__(self, "supervisor", argList)
         self.executePath = self.stackDir + "/buildtools/utils"
         self.executeScript = "sudo ./install-supervisor.sh custom"
-        print(self.name)
 
     def run(self):
         """Run the element to install the corresponding code."""

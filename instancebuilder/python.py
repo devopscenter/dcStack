@@ -37,7 +37,6 @@ class Python(ElementBase):
         ElementBase.__init__(self, "python", argList)
         self.executePath = self.stackDir + "/python"
         self.executeScript = "sudo ./python.sh"
-        print(self.name)
 
     def run(self):
         """Run the element to install the corresponding code."""
