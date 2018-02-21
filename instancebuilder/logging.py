@@ -45,7 +45,7 @@ class Logging(ElementBase):
         currentDir = os.getcwd()
         theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
-        print(os.getcwd())
+        self.runScript(self.executeScript)
 
         # and move back to the original directory
         os.chdir(currentDir)

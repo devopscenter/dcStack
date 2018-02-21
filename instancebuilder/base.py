@@ -36,7 +36,7 @@ class Base(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "base", argList)
         self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "./base-utils.sh"
+        self.executeScript = "sudo ./base-utils.sh"
         print(self.name)
 
     def run(self):

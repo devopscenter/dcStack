@@ -36,7 +36,7 @@ class Supervisor(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "supervisor", argList)
         self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "install-supervisor.sh custom"
+        self.executeScript = "sudo ./install-supervisor.sh custom"
         print(self.name)
 
     def run(self):
@@ -45,7 +45,7 @@ class Supervisor(ElementBase):
         currentDir = os.getcwd()
         theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
-        print(os.getcwd())
+        self.runScript(self.executeScript)
 
         # and move back to the original directory
         os.chdir(currentDir)

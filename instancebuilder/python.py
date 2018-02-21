@@ -36,7 +36,7 @@ class Python(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "python", argList)
         self.executePath = self.stackDir + "/python"
-        self.executeScript = "python.sh"
+        self.executeScript = "sudo ./python.sh"
         print(self.name)
 
     def run(self):
@@ -45,7 +45,7 @@ class Python(ElementBase):
         currentDir = os.getcwd()
         theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
-        print(os.getcwd())
+        self.runScript(self.executeScript)
 
         # and move back to the original directory
         os.chdir(currentDir)
