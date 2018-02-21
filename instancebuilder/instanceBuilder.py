@@ -42,7 +42,7 @@ class InstanceBuilder:
         self.test = testMode
         self.argList = argsDict
         self.elementsToInclude = argsDict["ELEMENTS_TO_INCLUDE"]
-        self.elementDependency = {
+        self.elementDependency = [
             "base",
             "python",
             "supervisor",
@@ -55,7 +55,7 @@ class InstanceBuilder:
             "redis",
             "web",
             "worker"
-        }
+        ]
 
     def buildIt(self):
         """Execute the build based upon the elements."""
