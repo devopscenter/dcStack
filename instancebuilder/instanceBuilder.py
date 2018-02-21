@@ -4,6 +4,7 @@
 import sys
 import os
 import argparse
+import subprocess
 # from process_dc_env import pythonGetEnv, dcEnvCheckArgs
 from base import Base
 from python import Python
@@ -63,8 +64,10 @@ class InstanceBuilder:
         # first make the /data directory
         dataDir = "/data"
         if not os.path.exists(dataDir):
-            os.makedirs(dataDir)
-            os.chmod(dataDir, 0o755)
+            subprocess.call("sudo mkdir " + dataDir +
+                            " ; chmod 755 " + dataDir)
+            # os.makedirs(dataDir)
+            #os.chmod(dataDir, 0o755)
 
         # ----------------------------------------------------------------------
         # If this will have an attached scratch volume, then prepare and mount
