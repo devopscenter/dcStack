@@ -172,10 +172,10 @@ def checkArgs():
         retArgs["SUFFIX"] = args.suffix
 
     if args.stack:
-        retArgs["STACK"] = args.suffix
+        retArgs["STACK"] = args.stack
 
     if args.stackDir:
-        retArgs["STACK_DIR"] = args.suffix
+        retArgs["STACK_DIR"] = args.stackDir
 
     retTest = ""
     if args.test:
