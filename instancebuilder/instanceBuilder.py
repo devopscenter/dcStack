@@ -46,7 +46,7 @@ class InstanceBuilder:
             "base",
             "python",
             "supervisor",
-            "deployenv"
+            "deployenv",
             "logging",
             "mount",
             "postgres",
