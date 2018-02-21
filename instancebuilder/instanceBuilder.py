@@ -56,8 +56,10 @@ class InstanceBuilder:
     def setupStandardDirectories(self):
         """Create the standard set of directories."""
         # get the uid and gid for root for chown later
-        uid = int(os.environ.get('SUDO_UID'))
-        gid = int(os.environ.get('SUDO_GID'))
+        # uid = int(os.environ.get('SUDO_UID'))
+        # gid = int(os.environ.get('SUDO_GID'))
+        uid = os.getuid()
+        gid = os.getgid()
 
         # first make the /data directory
         dataDir = "/data"
