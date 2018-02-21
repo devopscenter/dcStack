@@ -68,7 +68,7 @@ class InstanceBuilder:
         dataDir = "/data"
         if not os.path.exists(dataDir):
             cmdToRun = ("sudo mkdir " + dataDir
-                        + " ; chmod 755 " + dataDir)
+                        + " ; sudo chmod 755 " + dataDir)
             subprocess.call(cmdToRun, shell=True)
 
         # ----------------------------------------------------------------------
@@ -93,7 +93,7 @@ class InstanceBuilder:
             deployDir = "/data/deploy"
             if not os.path.exists(mediaDeployDir):
                 cmdToRun = ("sudo mkdir -p " + mediaDeployDir
-                            + " ; chmod 755 " + mediaDeployDir)
+                            + " ; sudo chmod 755 " + mediaDeployDir)
                 subprocess.call(cmdToRun, shell=True)
                 cmdToRun = ("sudo ln -s " + mediaDeployDir + " "
                             + deployDir)
@@ -106,7 +106,7 @@ class InstanceBuilder:
         else:
             if not os.path.exists(deployDir):
                 cmdToRun = ("sudo mkdir -p " + deployDir
-                            + " ; chmod 755 " + deployDir)
+                            + " ; sudo chmod 755 " + deployDir)
                 subprocess.call(cmdToRun, shell=True)
 
         # Create standard temp directory, then set up a symlink
@@ -117,7 +117,7 @@ class InstanceBuilder:
         scratchDir = "/data/scratch"
         if not os.path.exists(mediaTmpDir):
             cmdToRun = ("sudo mkdir -p " + mediaTmpDir
-                        + " ; chmod 777 " + mediaTmpDir)
+                        + " ; sudo chmod 777 " + mediaTmpDir)
             subprocess.call(cmdToRun, shell=True)
             cmdToRun = ("sudo ln -s " + mediaTmpDir + " "
                         + scratchDir)
@@ -127,7 +127,7 @@ class InstanceBuilder:
         mediaDBRestoreDir = "/media/data/db_restore"
         if not os.path.exists(mediaDBRestoreDir):
             cmdToRun = ("sudo mkdir -p " + mediaDBRestoreDir
-                        + " ; chmod 777 " + mediaDBRestoreDir)
+                        + " ; sudo chmod 777 " + mediaDBRestoreDir)
             subprocess.call(cmdToRun, shell=True)
 
 
