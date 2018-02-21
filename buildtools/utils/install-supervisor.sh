@@ -43,6 +43,7 @@
 #set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
+echo "============================ Building element: supervisor ===================="
 sudo pip install supervisor
 if [[ $1 == "custom" ]]; then
   export PATH="${1}/:${PATH}"
@@ -77,3 +78,4 @@ if [[ $1 == "custom" ]]; then
   sudo ln -s /usr/local/opt/python/bin/supervisord /usr/bin/supervisord
   sudo ln -s /usr/local/opt/python/bin/supervisorctl /usr/bin/supervisorctl
 fi
+echo "============================ Finished element: supervisor ===================="

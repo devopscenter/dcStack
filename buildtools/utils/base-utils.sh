@@ -38,6 +38,7 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 set -o verbose
 
+echo "============================ Building element: base ===================="
 sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo add-apt-repository -yu ppa:pi-rho/dev  && \
@@ -85,3 +86,4 @@ popd
 cp tmux.conf $HOME/.tmux.conf
 cp bash_profile $HOME/.bash_profile
 cp bashrc $HOME/.bashrc
+echo "============================ Finished element: base ===================="
