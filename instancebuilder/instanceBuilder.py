@@ -65,8 +65,9 @@ class InstanceBuilder:
         # first make the /data directory
         dataDir = "/data"
         if not os.path.exists(dataDir):
-            subprocess.call("sudo mkdir " + dataDir +
-                            " ; chmod 755 " + dataDir)
+            cmdToRun = ("sudo mkdir " + dataDir
+                        + " ; chmod 755 " + dataDir)
+            subprocess.call(cmdToRun)
             # os.makedirs(dataDir)
             # os.chmod(dataDir, 0o755)
 
