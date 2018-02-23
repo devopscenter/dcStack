@@ -35,7 +35,8 @@ class Web(ElementBase):
     def __init__(self, argList):
         """Constructor for this class."""
         ElementBase.__init__(self, "web", argList)
-        self.executePath = self.stackDir + "/web"
+        self.executePath = (self.stackDir + "/"
+                            + self.stack + "-stack/web")
         self.executeScript = "sudo ./web.sh"
 
     def run(self):
