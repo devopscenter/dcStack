@@ -161,7 +161,7 @@ def checkArgs():
                         required=False)
     parser.add_argument('-p', '--profile',
                         help='This is the AWS profile that needs to be used.',
-                        required=True)
+                        required=False)
     parser.add_argument('-r', '--region',
                         help='This is the AWS profile that needs to be used.',
                         required=False)
