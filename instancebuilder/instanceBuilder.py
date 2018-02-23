@@ -10,6 +10,7 @@ from base import Base
 from python import Python
 from logging import Logging
 from supervisor import Supervisor
+from web import Web
 # ==============================================================================
 __version__ = "0.1"
 
