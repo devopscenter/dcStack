@@ -37,7 +37,7 @@ class Web(ElementBase):
         ElementBase.__init__(self, "web", argList)
         self.executePath = (self.stackDir + "/"
                             + self.stack + "-stack/web")
-        self.executeScript = "sudo ./web.sh"
+        self.executeScript = "sudo ./web.sh " + self.region
 
     def run(self):
         """Run the element to install the corresponding code."""
