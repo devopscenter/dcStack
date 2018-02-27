@@ -164,8 +164,8 @@ def checkArgs():
                         help='This is the AWS profile that needs to be used.',
                         required=False)
     parser.add_argument('-r', '--region',
-                        help='This is the AWS profile that needs to be used.',
-                        required=False)
+                        help='This is the AWS region that needs to be used.',
+                        required=True)
     parser.add_argument('--suffix',
                         help='This is the defined suffix for this instance.',
                         required=False)
