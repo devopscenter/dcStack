@@ -156,6 +156,8 @@ def checkArgs():
                         'elements names that will correspond to the '
                         'modules to be added to the instance.',
                         required=True)
+    parser.add_argument('-a', '--appName', help='This apps name.',
+                        required=False)
     parser.add_argument('-c', '--configFile', help='Config file that '
                         'holds variables that define paths on the local'
                         'system.',
@@ -206,6 +208,9 @@ def checkArgs():
 
     if args.stackDir:
         retArgs["STACK_DIR"] = args.stackDir
+
+    if args.appName:
+        retArgs["APP_NAME"] = args.appName
 
     retTest = ""
     if args.test:

@@ -36,6 +36,8 @@ class ElementBase(object):
         self.name = nameIn
 #        if "CONFIG_FILE" in argList:
 #            self.readConfigFile(argList["CONFIG_FILE"])
+        if "APP_NAME" in argList:
+            self.appName = argList["APP_NAME"]
         if "PROFILE" in argList:
             self.profile = argList["PROFILE"]
         if "REGION" in argList:

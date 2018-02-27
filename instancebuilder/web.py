@@ -51,6 +51,11 @@ class Web(ElementBase):
         # and move back to the original directory
         os.chdir(currentDir)
 
+    def runDeployEnv(self):
+        """Execute the deployEnv.sh script on the instance."""
+        self.runScript("deployenv.sh --type instance --env " + self.env +
+                       " --appName " + self.appName)
+
 
 def checkArgs():
     """Check the command line arguments."""
