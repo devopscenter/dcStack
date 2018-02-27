@@ -48,6 +48,9 @@ class Web(ElementBase):
         os.chdir(theDir)
         self.runScript(self.executeScript)
 
+        # run the deployenv script
+        self.runDeployEnv()
+
         # and move back to the original directory
         os.chdir(currentDir)
 
