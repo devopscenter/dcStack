@@ -56,8 +56,10 @@ class Web(ElementBase):
 
     def runDeployEnv(self):
         """Execute the deployEnv.sh script on the instance."""
-        self.runScript("deployenv.sh --type instance --env " + self.env +
-                       " --appName " + self.appName)
+        theDir = os.path.expanduser("~/dcUtils")
+
+        self.runScript(theDir + "/deployenv.sh --type instance --env "
+                       + self.env + " --appName " + self.appName)
 
 
 def checkArgs():
