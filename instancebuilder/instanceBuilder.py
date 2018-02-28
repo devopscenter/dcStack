@@ -158,6 +158,9 @@ def checkArgs():
                         required=True)
     parser.add_argument('-a', '--appName', help='This apps name.',
                         required=False)
+    parser.add_argument('-e', '--environment', help='The environment the.'
+                        ' app is running in.',
+                        required=False)
     parser.add_argument('-c', '--configFile', help='Config file that '
                         'holds variables that define paths on the local'
                         'system.',
@@ -211,6 +214,9 @@ def checkArgs():
 
     if args.appName:
         retArgs["APP_NAME"] = args.appName
+
+    if args.environment:
+        retArgs["ENV"] = args.environment
 
     retTest = ""
     if args.test:
