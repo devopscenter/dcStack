@@ -159,8 +159,12 @@ mount-volume-encrypted() {
 }
 
 # make use of attached db, xlog, and backup volumes if they exist, otherwise use instance-attached ssd
+# Note that the first two cases are also used for non-db instances with an EBS volume attached.
+#
 if [ -b /dev/xvdg ]; then
     mount-volume "/dev/xvdg" ${MAIN_MOUNT_PATH}
+elif [[ -b /dev/nvme1n1 ]]; then
+    mount-volume "/dev/nvme1n1" "/media/data/"
 else
     if [ -b /dev/nvme0n1 ]; then
         mount-volume "/dev/nvme0n1" "/media/data/"
