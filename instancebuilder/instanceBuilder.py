@@ -69,7 +69,9 @@ class InstanceBuilder:
                     elementClassName = element[:1].upper() + element[1:]
                     aClassName = globals()[elementClassName]
                     theElement = aClassName(self.argList)
+                    theElement.priorToRun()
                     theElement.run()
+                    theElement.postRunning()
                     break
 
     def setupStandardDirectories(self):
