@@ -48,18 +48,8 @@ class Web(ElementBase):
         os.chdir(theDir)
         self.runScript(self.executeScript)
 
-        # run the deployenv script
-        self.runDeployEnv()
-
         # and move back to the original directory
         os.chdir(currentDir)
-
-    def runDeployEnv(self):
-        """Execute the deployEnv.sh script on the instance."""
-        theDir = os.path.expanduser("~/dcUtils")
-
-        self.runScript(theDir + "/deployenv.sh --type instance --env "
-                       + self.env + " --appName " + self.appName)
 
 
 def checkArgs():
