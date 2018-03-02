@@ -38,6 +38,15 @@ class Logging(ElementBase):
         self.executePath = self.stackDir + "/logging"
         self.executeScript = "./i-enable-logging.sh"
 
+    def priorToRun(self):
+        """Execute steps prior to running."""
+        # run the deployenv script
+        self.runDeployEnv()
+
+    def postRunning(self):
+        """Execute steps after the run has completed."""
+        return
+
     def run(self):
         """Run the element to install the corresponding code."""
         # save the current directory
@@ -48,6 +57,13 @@ class Logging(ElementBase):
 
         # and move back to the original directory
         os.chdir(currentDir)
+
+    def runDeployEnv(self):
+        """Execute the deployEnv.sh script on the instance."""
+        theDir = os.path.expanduser("~/dcUtils")
+
+        self.runScript(theDir + "/deployenv.sh --type instance --env "
+                       + self.env + " --appName " + self.appName)
 
 
 def checkArgs():

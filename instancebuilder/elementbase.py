@@ -78,6 +78,14 @@ class ElementBase(object):
                   "{}".format(shellScript))
             sys.exit(1)
 
+    def priorToRun(self):
+        """Execute steps prior to running."""
+        return
+
+    def postRunning(self):
+        """Execute steps after the run has completed."""
+        return
+
 
 def checkArgs():
     """Check the command line arguments."""
