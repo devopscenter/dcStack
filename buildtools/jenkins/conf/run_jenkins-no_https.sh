@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2018 devops.center llc
+# Copyright 2014-2017 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,8 +38,4 @@
 #set -x             # essentially debug mode
 
 
-# Note that this assumes that a certificate and its private key (in rsa format) have been placed in certs/jenkins.crt and certs/jenkins.pem, off the jenkins home directory.
-
-. /etc/default/jenkins && export JENKINS_HOME && export AWS_KEYS && \
-    exec /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war \
-    --httpPort=-1 --ajp13Port=-1 --httpsPort=4443 --httpsCertificate=${JENKINS_HOME}certs/jenkins.crt --httpsPrivateKey=${JENKINS_HOME}/certs/jenkins.pem
+. /etc/default/jenkins && export JENKINS_HOME && export AWS_KEYS && exec /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war --httpPort=8080 --ajp13Port=-1

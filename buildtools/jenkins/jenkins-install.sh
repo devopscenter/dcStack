@@ -61,6 +61,7 @@ echo "AWS_KEYS=/media/data/jenkins/.ssh" | sudo tee -a /etc/default/jenkins
 # copy the configs for running jenkins
 sudo cp -a conf/program_jenkins.conf /etc/supervisor/conf.d/program_jenkins.conf
 sudo cp -a conf/run_jenkins.sh /etc/supervisor/conf.d/run_jenkins.sh
+sudo cp -a conf/run_jenkins-no_https.sh /etc/supervisor/conf.d/run_jenkins-no_https
 
 #-------------------------------------------------------------------------------
 # set up a nightly jenkins backup
