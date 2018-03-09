@@ -182,6 +182,20 @@ def checkArgs():
     parser.add_argument('--stackDir',
                         help='This is the path to where the stack is.',
                         required=False)
+    parser.add_argument('--privateIP',
+                        help='The private IP of this instance.',
+                        required=False)
+    parser.add_argument('--postgresqlVersion',
+                        help='The postgresql version number.',
+                        required=False)
+    parser.add_argument('--combinedWebWorker',
+                        help='The flag to say if this instance is a shared '
+                             'web and worker on the same instance.',
+                        required=False)
+    parser.add_argument('--scratchVolume',
+                        help='Signifies that there needs to be a scratch '
+                             'volume created.',
+                        required=False)
     parser.add_argument('-t', '--test', help='Will run the script but '
                         'will not actually execute the shell commands.'
                         'Think of this as a dry run or a run to be used'
@@ -219,6 +233,18 @@ def checkArgs():
 
     if args.environment:
         retArgs["ENV"] = args.environment
+
+    if args.postgresqlVersion:
+        retArgs["PGVERSION"] = args.postgresqlVersion
+
+    if args.combinedWebWorker:
+        retArgs["COMBINED_WEB_WORKER"] = args.combinedWebWorker
+
+    if args.scratchVolume:
+        retArgs["CREATE_SCRATCH_VOLUME"] = args.scratchVolume
+
+    if args.privateIP:
+        retArgs["PRIVATE_IP"] = args.privateIP
 
     retTest = ""
     if args.test:
