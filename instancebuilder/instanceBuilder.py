@@ -184,17 +184,21 @@ def checkArgs():
                         required=False)
     parser.add_argument('--privateIP',
                         help='The private IP of this instance.',
+                        nargs='?',
                         required=False)
     parser.add_argument('--postgresqlVersion',
                         help='The postgresql version number.',
+                        nargs='?',
                         required=False)
     parser.add_argument('--combinedWebWorker',
                         help='The flag to say if this instance is a shared '
                              'web and worker on the same instance.',
+                        nargs='?',
                         required=False)
     parser.add_argument('--scratchVolume',
                         help='Signifies that there needs to be a scratch '
                              'volume created.',
+                        nargs='?',
                         required=False)
     parser.add_argument('-t', '--test', help='Will run the script but '
                         'will not actually execute the shell commands.'
