@@ -50,7 +50,7 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
 # install the tools for encrypting the filesystem
 sudo apt-fast -y install cryptsetup-bin
 
-sudo apt-fast -qq -y install git wget sudo vim unzip curl language-pack-en jq
+sudo apt-fast -qq -y install bc git wget sudo vim unzip curl language-pack-en jq
 
 sudo apt-fast -y install ncdu ntp fail2ban htop
 
