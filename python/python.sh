@@ -38,6 +38,7 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 set -o verbose
 
+echo "============================ Building element: python ===================="
 echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
 
 sudo apt-get -qq update && apt-get -qq -y install python-software-properties software-properties-common && \
@@ -94,3 +95,4 @@ if [[ ! -e /data/scratch ]]; then
     sudo mkdir -p /data/scratch
     sudo chmod -R 777 /data/scratch
 fi
+echo "============================ Finished element: python ===================="

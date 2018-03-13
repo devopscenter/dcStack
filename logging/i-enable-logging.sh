@@ -39,9 +39,11 @@
 #set -x             # essentially debug mode
 
 
+echo "============================ Building element: logging ===================="
 # Enable logging to papertrail through rsyslogd, using TLS and queueing
 ./papertrail.sh
 
 # Set the papertrail destination in rsyslogd and supervisor.
 ./set-destination.sh
+echo "============================ Finished element: logging ===================="
 
