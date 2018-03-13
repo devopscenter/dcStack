@@ -11,6 +11,7 @@ from python import Python
 from logging import Logging
 from supervisor import Supervisor
 from web import Web
+from node import Node
 # ==============================================================================
 __version__ = "0.1"
 
@@ -54,6 +55,7 @@ class InstanceBuilder:
             "nginx",
             "pgpool",
             "redis",
+            "node",
             "web",
             "worker"
         ]
