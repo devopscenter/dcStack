@@ -42,4 +42,4 @@
 
 . /etc/default/jenkins && export JENKINS_HOME && export AWS_KEYS && \
     exec /usr/bin/java -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --webroot=/var/cache/jenkins/war \
-    --httpPort=-1 --ajp13Port=-1 --httpsPort=4443 --httpsCertificate=${JENKINS_HOME}certs/jenkins.crt --httpsPrivateKey=${JENKINS_HOME}/certs/jenkins.pem
+    --httpPort=-1 --ajp13Port=-1 --httpsPort=4443 --httpsCertificate=${JENKINS_HOME}/certs/jenkins.crt --httpsPrivateKey=${JENKINS_HOME}/certs/jenkins.pem
