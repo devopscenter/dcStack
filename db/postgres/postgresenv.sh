@@ -42,14 +42,14 @@ set -o verbose
 PGVERSION=$1
 
 # default postgres version to install
-POSTGRES_VERSION=9.4
+POSTGRES_VERSION=10
 
 # If the version number is specified, then override the default version number.
 if [ -n "$PGVERSION" ]; then
   POSTGRES_VERSION=${PGVERSION}
 fi
 
-echo "pgversion: "+$PGVERSION "postgres_version: "+$POSTGRES_VERSION
+echo "pgversion: "+${PGVERSION} "postgres_version: "+${POSTGRES_VERSION}
 
 POSTGRES_MOUNT=/media/data/postgres
 
