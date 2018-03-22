@@ -56,11 +56,12 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update && sudo apt-get install yarn
 
-# install needed modules
-npm install knex
-npm install gulp
-
 # scratch volume
 sudo mkdir -p /media/data
+
+#
+# disable unused services
+#
+sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 
 dcEndLog "install of app-specific web for 765ae2"
