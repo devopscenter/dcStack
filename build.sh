@@ -49,6 +49,8 @@ echo "Postgresql version=${postgreVerison}"
 find . -name "Dockerfile" -type f -print -exec sed -i -e "s/dcSTACK_VERSION/$dcSTACK_VERSION/g" {} \;
 find . -name "Dockerfile" -type f -print -exec sed -i -e "s~baseimageversion~$baseimageversion~g" {} \;
 find . -name "Dockerfile" -type f -print -exec sed -i -e "s/ENV POSTGRES_VERSION .*/ENV POSTGRES_VERSION $postgresVersion/g" {} \;
+sed -i -e "s/^POSTGRES_VERSION=.*/POSTGRES_VERSION=$postgresVersion/" db/postgres/postgresenv.sh
+sed -i -e "s/^POSTGRES_VERSION=.*/POSTGRES_VERSION=$postgresVersion/" web/python-nginx-pgpool/pgpoolenv.sh
 
 #build containers
 
