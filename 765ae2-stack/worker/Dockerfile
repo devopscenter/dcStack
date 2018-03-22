@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/007acc.web:v2.0
+FROM devopscenter/007acc.web:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 # Flower port
