@@ -56,8 +56,8 @@ echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
 
 sudo sudo apt-fast update
 
-sudo sudo apt-fast -y -q install postgresql-client-$POSTGRES_VERSION libpq5 libpq-dev
-#        postgresql-contrib-$POSTGRES_VERSION postgresql-server-dev-$POSTGRES_VERSION
+sudo sudo apt-fast -y -q install postgresql-client-${POSTGRES_VERSION} libpq5 libpq-dev
+#        postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION}
 
 # not installing postgres server, so manually create user and group, if needed
 

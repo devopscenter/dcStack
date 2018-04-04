@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: postgresenv.sh
+#          FILE: run_celery.sh
 #
-#         USAGE: postgresenv.sh
+#         USAGE: run_celery.sh
 #
-#   DESCRIPTION: set the variables that will assist with installing and starting
-#                postgres
+#   DESCRIPTION: set up the environment in the container to be able to run celery
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -35,28 +34,22 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-set -o errexit      # exit immediately if command exits with a non-zero status
-set -x             # essentially debug mode
-set -o verbose
+#set -o errexit      # exit immediately if command exits with a non-zero status
+#set -x             # essentially debug mode
+ 
+# This script is run by Supervisor to start celery in foreground mode
 
-PGVERSION=$1
-
-# default postgres version to install
-POSTGRES_VERSION=9.6
-
-# If the version number is specified, then override the default version number.
-if [ -n "$PGVERSION" ]; then
-  POSTGRES_VERSION=${PGVERSION}
+# Create the socket directories, if it doesn't already exist.
+ 
+if [ ! -d /var/run/celery ]; then
+    sudo mkdir /var/run/celery
+    sudo chown celery:celery /var/run/celery
 fi
 
-echo "pgversion: "+${PGVERSION} "postgres_version: "+${POSTGRES_VERSION}
 
-POSTGRES_MOUNT=/media/data/postgres
-
-POSTGRESDBDIR=${POSTGRES_MOUNT}/db/pgdata
-POSTGRESBINDIR=/usr/lib/postgresql/${POSTGRES_VERSION}/bin
-POSTGREX_XLOG=${POSTGRES_MOUNT}/xlog/transactions
-
-POSTGRES_CONF=${POSTGRESDBDIR}/postgresql.conf
-POSTGRES_PERF_CONF=${POSTGRESDBDIR}/postgresql.conf.perf
-POSTGRES_WALE_CONF=${POSTGRESDBDIR}/postgresql.conf.wale
+# Create a worker for all queues
+sudo -Eu celery /usr/local/opt/python/bin/celery worker -A rmsasite \
+                                           --loglevel=INFO --soft-time-limit=3600  \
+                                           -c 4 \
+                                           -Ofair \
+                                           --pidfile=/var/run/celery/pdf_printer.pid

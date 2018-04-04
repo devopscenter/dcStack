@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: postgresenv.sh
+#          FILE: worker.sh
 #
-#         USAGE: postgresenv.sh
+#         USAGE: worker.sh
 #
-#   DESCRIPTION: set the variables that will assist with installing and starting
-#                postgres
+#   DESCRIPTION: install what is necessary for the worker container.
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -36,27 +35,33 @@
 
 #set -o nounset     # Treat unset variables as an error
 set -o errexit      # exit immediately if command exits with a non-zero status
-set -x             # essentially debug mode
-set -o verbose
+#set -x             # essentially debug mode
 
-PGVERSION=$1
+#
+# App-specific worker install for 007acc
+#
+COMBINED_WEB_WORKER="${1}"
+SCRATCHVOLUME="{$2}"
 
-# default postgres version to install
-POSTGRES_VERSION=9.6
+source /usr/local/bin/dcEnv.sh                       # initalize logging environment
+dcStartLog "install of app-specific worker for 765ae2, combo: ${COMBINED_WEB_WORKER}"
 
-# If the version number is specified, then override the default version number.
-if [ -n "$PGVERSION" ]; then
-  POSTGRES_VERSION=${PGVERSION}
+#
+# If this is purely a worker, then we don't need ngix or uwsgi
+#
+
+if [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
+    sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
+    sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
+    sudo rm -rf /etc/supervisor/conf.d/nginx.conf
 fi
 
-echo "pgversion: "+${PGVERSION} "postgres_version: "+${POSTGRES_VERSION}
+#
+# Setup supervisor to run flower and celery
+#
+sudo cp conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
+sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
+sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
 
-POSTGRES_MOUNT=/media/data/postgres
 
-POSTGRESDBDIR=${POSTGRES_MOUNT}/db/pgdata
-POSTGRESBINDIR=/usr/lib/postgresql/${POSTGRES_VERSION}/bin
-POSTGREX_XLOG=${POSTGRES_MOUNT}/xlog/transactions
-
-POSTGRES_CONF=${POSTGRESDBDIR}/postgresql.conf
-POSTGRES_PERF_CONF=${POSTGRESDBDIR}/postgresql.conf.perf
-POSTGRES_WALE_CONF=${POSTGRESDBDIR}/postgresql.conf.wale
+dcEndLog "End: install of customer-specific worker for 765ae2, combo: ${COMBINED_WEB_WORKER}"

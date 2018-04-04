@@ -35,17 +35,22 @@
 
 #set -o nounset     # Treat unset variables as an error
 set -o errexit      # exit immediately if command exits with a non-zero status
-set -o verbose     # print the shell lines as they are executed
+#set -o verbose     # print the shell lines as they are executed
 set -x             # essentially debug mode
 
 source VERSION
 echo "Version=${dcSTACK_VERSION}"
 source BASEIMAGE
 echo "BaseImage=${baseimageversion}"
+source POSTGRES_VERSION
+echo "Postgresql version=${postgreVerison}"
 
 #replace variable dcSTACK_VERSION with the VERSION we are building
 find . -name "Dockerfile" -type f -print -exec sed -i -e "s/dcSTACK_VERSION/$dcSTACK_VERSION/g" {} \;
 find . -name "Dockerfile" -type f -print -exec sed -i -e "s~baseimageversion~$baseimageversion~g" {} \;
+find . -name "Dockerfile" -type f -print -exec sed -i -e "s/ENV POSTGRES_VERSION .*/ENV POSTGRES_VERSION $postgresVersion/g" {} \;
+sed -i -e "s/^POSTGRES_VERSION=.*/POSTGRES_VERSION=$postgresVersion/" db/postgres/postgresenv.sh
+sed -i -e "s/^POSTGRES_VERSION=.*/POSTGRES_VERSION=$postgresVersion/" web/python-nginx-pgpool/pgpoolenv.sh
 
 #build containers
 
@@ -56,7 +61,7 @@ function base {
 function db {
     docker build --rm -t "devopscenter/db_base:${dcSTACK_VERSION}" db
     docker build --rm -t "devopscenter/db_postgres:${dcSTACK_VERSION}" db/postgres
-    docker build --rm -t "devopscenter/db_postgres-standby:${dcSTACK_VERSION}" db/postgres-standby
+#    docker build --rm -t "devopscenter/db_postgres-standby:${dcSTACK_VERSION}" db/postgres-standby
 #   docker build --rm -t "devopscenter/db_postgres-repmgr:${dcSTACK_VERSION}" db/postgres-repmgr
 #   docker build --rm -t "devopscenter/db_postgres-restore:${dcSTACK_VERSION}" db/postgres-restore
     docker build --rm -t "devopscenter/db_redis:${dcSTACK_VERSION}" db/redis
@@ -111,8 +116,22 @@ function stack5 {
     docker build --rm -t "devopscenter/ab0000.web:${dcSTACK_VERSION}" ab0000-stack/web
 }
 
+function stack6 {
+    docker build --rm -t "devopscenter/765ae2.web:${dcSTACK_VERSION}" 765ae2-stack/web
+}
 
 function web {
+    docker build --rm -t "devopscenter/python:${dcSTACK_VERSION}" python
+    time newrelic &> newrelic.log &
+    time backups &> backups.log &
+    docker build --rm -t "devopscenter/python-nginx:${dcSTACK_VERSION}" web/python-nginx
+    docker build --rm -t "devopscenter/python-nginx-pgpool:${dcSTACK_VERSION}" web/python-nginx-pgpool
+    docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${dcSTACK_VERSION}" web/python-nginx-pgpool-redis
+#    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${dcSTACK_VERSION}" web/python-nginx-pgpool-libsodium
+    echo "built common containers"
+}
+
+function web-all {
     docker build --rm -t "devopscenter/python:${dcSTACK_VERSION}" python
     time newrelic &> newrelic.log &
     time backups &> backups.log &
@@ -135,9 +154,15 @@ function web {
     time stack4 &> stack4.log &
     rm -rf stack5.log
     time stack5 &> stack5.log &
+    rm -rf stack6.log
+    time stack6 &> stack5.log &
 }
 
-base > base.log 
-time misc &> misc.log &
-time web &> web.log &
-time db &> db.log &
+if [[ $# -gt 0 ]]; then
+    ${1} > ${1}.log
+else
+    base > base.log 
+    time misc &> misc.log &
+    time web-all &> web.log &
+    time db &> db.log &
+fi

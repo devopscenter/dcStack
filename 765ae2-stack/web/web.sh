@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: postgresenv.sh
+#          FILE: web.sh
 #
-#         USAGE: postgresenv.sh
+#         USAGE: web.sh
 #
-#   DESCRIPTION: set the variables that will assist with installing and starting
-#                postgres
+#   DESCRIPTION: installs what is necessary for the web container
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -36,27 +35,33 @@
 
 #set -o nounset     # Treat unset variables as an error
 set -o errexit      # exit immediately if command exits with a non-zero status
-set -x             # essentially debug mode
-set -o verbose
+#set -x             # essentially debug mode
 
-PGVERSION=$1
+#
+# App-specific web install for 765ae2
+#
 
-# default postgres version to install
-POSTGRES_VERSION=9.6
+source /usr/local/bin/dcEnv.sh                       # initalize logging environment
+dcStartLog "install of app-specific web for 765ae2"
 
-# If the version number is specified, then override the default version number.
-if [ -n "$PGVERSION" ]; then
-  POSTGRES_VERSION=${PGVERSION}
-fi
 
-echo "pgversion: "+${PGVERSION} "postgres_version: "+${POSTGRES_VERSION}
+curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -
 
-POSTGRES_MOUNT=/media/data/postgres
+sudo apt-get install -y nodejs
 
-POSTGRESDBDIR=${POSTGRES_MOUNT}/db/pgdata
-POSTGRESBINDIR=/usr/lib/postgresql/${POSTGRES_VERSION}/bin
-POSTGREX_XLOG=${POSTGRES_MOUNT}/xlog/transactions
+sudo apt-get install -y build-essential 
 
-POSTGRES_CONF=${POSTGRESDBDIR}/postgresql.conf
-POSTGRES_PERF_CONF=${POSTGRESDBDIR}/postgresql.conf.perf
-POSTGRES_WALE_CONF=${POSTGRESDBDIR}/postgresql.conf.wale
+# and install yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+
+# scratch volume
+sudo mkdir -p /media/data
+
+#
+# disable unused services
+#
+sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
+
+dcEndLog "install of app-specific web for 765ae2"
