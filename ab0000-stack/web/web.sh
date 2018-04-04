@@ -48,12 +48,32 @@ popd
 
 sudo -H pip install -r requirements.txt
 
+
+# Install node
+curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -
+
+sudo apt-get install -y nodejs
+
+sudo apt-get install -y build-essential 
+
+# and install yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+
 #
 # disable unused services (at least initially)
 #
 sudo mv /etc/supervisor/conf.d/nginx.conf /etc/supervisor/conf.d/nginx.save
 sudo mv /etc/superviosr/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 sudo mv /etc/supervisor/conf.d/pgpool.conf /etc/supervisor/conf.d/pgpool.save
+
+
+
+# and install yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
 
 
 dcEndLog "install of app-specific web for ab0000 (basic Jenkins)"
