@@ -19,7 +19,7 @@
 FROM devopscenter/db_base:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.4
+ENV POSTGRES_VERSION 9.6
 
 WORKDIR /root/installs
 
