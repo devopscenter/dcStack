@@ -120,6 +120,10 @@ function stack6 {
     docker build --rm -t "devopscenter/765ae2.web:${dcSTACK_VERSION}" 765ae2-stack/web
 }
 
+function stack7 {
+    docker build --rm -t "devopscenter/c386dd0.web:${dcSTACK_VERSION}" c386dd0-stack/web
+}
+
 function web {
     docker build --rm -t "devopscenter/python:${dcSTACK_VERSION}" python
     time newrelic &> newrelic.log &
@@ -156,6 +160,8 @@ function web-all {
     time stack5 &> stack5.log &
     rm -rf stack6.log
     time stack6 &> stack5.log &
+    rm -rf stack7.log
+    time stack7 &> stack7.log &
 }
 
 if [[ $# -gt 0 ]]; then
