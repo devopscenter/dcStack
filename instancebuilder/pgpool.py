@@ -35,7 +35,7 @@ class Pgpool(ElementBase):
     def __init__(self, argList):
         """Constructor for this class."""
         ElementBase.__init__(self, "pgpool", argList)
-        self.executePath = self.stackDir + "web/python-nginx-pgpool/pgpool"
+        self.executePath = self.stackDir + "/web/python-nginx-pgpool/pgpool"
         self.executeScript = "sudo ./pgpool.sh " + self.postgresVersion
 
     def run(self):
