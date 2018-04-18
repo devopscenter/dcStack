@@ -12,6 +12,7 @@ from logging import Logging
 from supervisor import Supervisor
 from web import Web
 from node import Node
+from pgpool import Pgpool
 # ==============================================================================
 __version__ = "0.1"
 
