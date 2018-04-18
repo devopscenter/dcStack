@@ -3,7 +3,7 @@
 
 import sys
 import argparse
-import subprocess
+from subprocess import Popen, PIPE, CalledProcessError
 # ==============================================================================
 __version__ = "0.1"
 
@@ -75,15 +75,16 @@ class ElementBase(object):
         """Execute the passed in shell script."""
         try:
             print(self.__class__.__name__ + " EXECUTING: " + shellScript)
-            subprocess.call(shellScript, shell=True)
-#            appOutput = subprocess.check_output(shellScript,
-#                                                stderr=subprocess.STDOUT,
-#                                                shell=True)
-#            print(appOutput)
-        except subprocess.CalledProcessError:
-            print("ERROR: there was a problem running the script: "
-                  "{}".format(shellScript))
-            sys.exit(1)
+            # subprocess.call(shellScript, shell=True)
+
+            with Popen(shellScript, stdout=PIPE, bufsize=1,
+                       universal_newlines=True) as p:
+                for line in p.stdout:
+                    print(line, end='')  # process line here
+
+                if p.returncode != 0:
+                    raise CalledProcessError(p.returncode, p.args)
+                    sys.exit(1)
 
     def priorToRun(self):
         """Execute steps prior to running."""
