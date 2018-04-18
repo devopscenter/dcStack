@@ -56,7 +56,7 @@ class Web(ElementBase):
         standardAppUtilsDir = "/app-utils/conf"
         if not os.path.exists(standardAppUtilsDir):
             cmdToRun = "sudo mkdir /app-utils ; sudo chmod 755 /app-utils"
-            self.runScript(cmdToRun, shell=True)
+            self.runScript(cmdToRun)
 
         # and no make a symbolic link from the customer app utils to his new
         # dir
@@ -73,6 +73,7 @@ class Web(ElementBase):
         if os.path.isfile(webCmdToRun):
             os.chdir(standardAppUtilsDir)
             cmdToRun = "sudo ./web-commands.sh"
+            self.runScript(cmdToRun)
 
         # and move back to the original directory
         os.chdir(currentDir)
