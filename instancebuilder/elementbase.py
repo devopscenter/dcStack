@@ -75,7 +75,10 @@ class ElementBase(object):
         """Execute the passed in shell script."""
         try:
             print(self.__class__.__name__ + " EXECUTING: " + shellScript)
-            subprocess.call(shellScript, shell=True)
+            appOutput = subprocess.check_output(shellScript,
+                                                stderr=subprocess.STDOUT,
+                                                shell=True)
+            print(appOutput)
         except subprocess.CalledProcessError:
             print("ERROR: there was a problem running the script: "
                   "{}".format(shellScript))
