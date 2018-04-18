@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Functions useful to all element classes."""
 
 import sys
@@ -73,18 +73,17 @@ class ElementBase(object):
 
     def runScript(self, shellScript):
         """Execute the passed in shell script."""
-        try:
-            print(self.__class__.__name__ + " EXECUTING: " + shellScript)
-            # subprocess.call(shellScript, shell=True)
+        print(self.__class__.__name__ + " EXECUTING: " + shellScript)
+        # subprocess.call(shellScript, shell=True)
 
-            with Popen(shellScript, stdout=PIPE, bufsize=1,
-                       universal_newlines=True) as p:
-                for line in p.stdout:
-                    print(line, end='')  # process line here
+        with Popen(shellScript, stdout=PIPE, bufsize=1,
+                   universal_newlines=True) as p:
+            for line in p.stdout:
+                print(line, end='')  # process line here
 
-                if p.returncode != 0:
-                    raise CalledProcessError(p.returncode, p.args)
-                    sys.exit(1)
+            if p.returncode != 0:
+                raise CalledProcessError(p.returncode, p.args)
+                sys.exit(1)
 
     def priorToRun(self):
         """Execute steps prior to running."""
