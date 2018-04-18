@@ -50,6 +50,8 @@ class ElementBase(object):
             self.stack = argList["STACK"]
         if "STACK_DIR" in argList:
             self.stackDir = argList["STACK_DIR"]
+        if "PGVERSION" in argList:
+            self.postgresVersion = argList["PGVERSION"]
         # print("ElementBase args: {}".format(argList))
 
 #    def readConfigFile(self, theFileName):
