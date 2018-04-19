@@ -4,7 +4,6 @@
 import sys
 import argparse
 import subprocess
-from process import ProcessException
 # ==============================================================================
 __version__ = "0.1"
 
@@ -94,7 +93,7 @@ class ElementBase(object):
         if (exitCode == 0):
             return output
         else:
-            raise ProcessException(shellScript, exitCode, output)
+            raise subprocess.CalledProcessError(exitCode, shellScript)
         # except subprocess.CalledProcessError:
         # print("ERROR: there was a problem running the script: "
         #      "{}".format(shellScript))
