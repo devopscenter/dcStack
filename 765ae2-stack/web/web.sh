@@ -73,6 +73,8 @@ sudo mkdir -p /media/data
 #
 # disable unused services
 #
-sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
+if [[ -f "/etc/supervisor/conf.d/uwsgi.conf" ]]; then
+    sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
+fi
 
 dcEndLog "install of app-specific web for 765ae2"
