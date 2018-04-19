@@ -82,7 +82,7 @@ class ElementBase(object):
         # Poll process for new output until finished
         while True:
             nextline = str(process.stdout.readline())
-            if nextline == '' and process.poll() is not None:
+            if nextline == b"" and process.poll() is not None:
                 break
             sys.stdout.write(nextline)
             sys.stdout.flush()
