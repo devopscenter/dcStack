@@ -4,6 +4,7 @@
 import sys
 import argparse
 import subprocess
+from process import ProcessException
 # ==============================================================================
 __version__ = "0.1"
 
@@ -74,16 +75,29 @@ class ElementBase(object):
     def runScript(self, shellScript):
         """Execute the passed in shell script."""
         print(self.__class__.__name__ + " EXECUTING: " + shellScript)
-        try:
-            print(self.__class__.__name__ + " EXECUTING: " + shellScript)
-            subprocess.call(shellScript, shell=True)
-#            appOutput = subprocess.check_output(shellScript,
-#                                                stderr=subprocess.STDOUT,
-#                                                shell=True)
-#            print(appOutput)
-        except subprocess.CalledProcessError:
-            print("ERROR: there was a problem running the script: "
-                  "{}".format(shellScript))
+        # subprocess.call(shellScript, shell=True)
+        process = subprocess.Popen(shellScript, shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.STDOUT)
+
+        # Poll process for new output until finished
+        while True:
+            nextline = process.stdout.readline()
+            if nextline == '' and process.poll() is not None:
+                break
+            sys.stdout.write(nextline)
+            sys.stdout.flush()
+
+        output = process.communicate()[0]
+        exitCode = process.returncode
+
+        if (exitCode == 0):
+            return output
+        else:
+            raise ProcessException(shellScript, exitCode, output)
+        # except subprocess.CalledProcessError:
+        # print("ERROR: there was a problem running the script: "
+        #      "{}".format(shellScript))
             sys.exit(1)
 
     def priorToRun(self):
