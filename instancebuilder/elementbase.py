@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Functions useful to all element classes."""
 
 import sys
 import argparse
-import subprocess
+from subprocess import Popen, PIPE, STDOUT, CalledProcessError
 # ==============================================================================
 __version__ = "0.1"
 
@@ -75,28 +75,13 @@ class ElementBase(object):
         """Execute the passed in shell script."""
         print(self.__class__.__name__ + " EXECUTING: " + shellScript)
         # subprocess.call(shellScript, shell=True)
-        process = subprocess.Popen(shellScript, shell=True,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT)
+        with Popen(shellScript, stdout=PIPE, bufsize=1,
+                   universal_newlines=True) as p:
+            for line in p.stdout:
+                print(line, end='')  # process line here
 
-        # Poll process for new output until finished
-        while True:
-            nextline = str(process.stdout.readline())
-            if nextline == b"" and process.poll() is not None:
-                break
-            sys.stdout.write(nextline)
-            sys.stdout.flush()
-
-        output = process.communicate()[0]
-        exitCode = process.returncode
-
-        if (exitCode == 0):
-            return output
-        else:
-            raise subprocess.CalledProcessError(exitCode, shellScript)
-        # except subprocess.CalledProcessError:
-        # print("ERROR: there was a problem running the script: "
-        #      "{}".format(shellScript))
+        if p.returncode != 0:
+            raise CalledProcessError(p.returncode, p.args)
             sys.exit(1)
 
     def priorToRun(self):
