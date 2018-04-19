@@ -75,7 +75,7 @@ class ElementBase(object):
         """Execute the passed in shell script."""
         print(self.__class__.__name__ + " EXECUTING: " + shellScript)
         # subprocess.call(shellScript, shell=True)
-        with Popen(shellScript, stdout=PIPE, bufsize=1,
+        with Popen(shellScript, shell=True, stdout=PIPE, bufsize=1,
                    universal_newlines=True) as p:
             for line in p.stdout:
                 print(line, end='')  # process line here
