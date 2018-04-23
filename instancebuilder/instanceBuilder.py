@@ -13,6 +13,7 @@ from supervisor import Supervisor
 from web import Web
 from node import Node
 from pgpool import Pgpool
+from redis import Redis
 # ==============================================================================
 __version__ = "0.1"
 
