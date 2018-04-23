@@ -35,7 +35,7 @@ class Redis(ElementBase):
     def __init__(self, argList):
         """Constructor for this class."""
         ElementBase.__init__(self, "redis", argList)
-        self.executePath = self.stackDir + "/web/python-nginx--pgpool-redis"
+        self.executePath = self.stackDir + "/web/python-nginx-pgpool-redis"
         self.executeScript = "sudo ./redis-client-install.sh "
 
     def run(self):
