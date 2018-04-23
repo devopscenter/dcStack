@@ -69,7 +69,7 @@ class Web(ElementBase):
         # -------------------------------------------------------------------------
         # run the appliction specific web_commands.sh
         # -------------------------------------------------------------------------
-        webCmdToRun = standardAppUtilsDir + "/web-commands.sh"
+        webCmdToRun = standardAppUtilsDir + "/web-commands.sh " + self.suffix
         if os.path.isfile(webCmdToRun):
             os.chdir(standardAppUtilsDir)
             cmdToRun = "sudo ./web-commands.sh"
