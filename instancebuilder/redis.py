@@ -29,7 +29,7 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class redis(ElementBase):
+class Redis(ElementBase):
     """Class that installs the redis code."""
 
     def __init__(self, argList):
