@@ -38,7 +38,7 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 set -o verbose
 
-REDIS_VERSION=3.0.7
+REDIS_VERSION=3.2.11
 
 WHEELHOUSE=/wheelhouse
 PIP_WHEEL_DIR=/wheelhouse

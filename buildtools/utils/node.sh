@@ -43,7 +43,7 @@ set -x             # essentially debug mode
 echo "============================ Building element: node ===================="
  
 # latest node as of 3/13/2018
-curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 
 # NOTE on ubuntu the package name is nodejs as is the executable
 sudo apt-get install -y nodejs
