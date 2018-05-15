@@ -107,7 +107,7 @@ sudo chown -R postgres:postgres /var/lib/postgresql
 echo "calling config.sh"
 sudo su -c "./config.sh ${POSTGRES_VERSION} ${DATABASE} ${VPC_CIDR} " -s /bin/sh postgres
 
-echo calling xlog.sh and supervisorconfig
+echo "calling xlog.sh and supervisorconfig"
 ./xlog.sh $POSTGRES_VERSION
 ./supervisorconfig.sh $POSTGRES_VERSION
 
