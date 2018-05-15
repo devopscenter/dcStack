@@ -230,7 +230,7 @@ else
     WALE_S3_ENDPOINT=https+path://s3-${BACKUP_S3_REGION}.amazonaws.com:443
 fi
 
-if [[ ${DCTYPE} == *"VM"* ]]; then
+if [[ ${DCTYPE} != *"VM"* ]]; then
     parameter-ensure archive_command "'export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
 else
     parameter-ensure archive_command "'export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --region ${BACKUP_S3_REGION} --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
@@ -287,7 +287,7 @@ if [ ! -d ${NEWBACKUPDIR} ]; then
     sudo mkdir -m 777 ${NEWBACKUPDIR}
 fi
 echo "export TMPDIR=${NEWBACKUPDIR}" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
-if [[ ${DCTYPE} == *"VM"* ]]; then
+if [[ ${DCTYPE} != *"VM"* ]]; then
     echo "export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
     echo "export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} delete --confirm retain 30" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
 else
