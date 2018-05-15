@@ -142,9 +142,9 @@ if [[ ${DCTYPE} != *"VM"* ]]; then
     sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
     sudo ./i-mount.sh "/media/data/postgres/db" ${ENCRYPT_FS}
 else
-    mkdir -p "/media/data/postgres/db"
-    mkdir -p "/media/data/postgres/xlog"
-    mkdir -p "/media/data/postgres/backup"
+    sudo mkdir -p "/media/data/postgres/db"
+    sudo mkdir -p "/media/data/postgres/xlog"
+    sudo mkdir -p "/media/data/postgres/backup"
 fi
 
 #-------------------------------------------------------------------------------
