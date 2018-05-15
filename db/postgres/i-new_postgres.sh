@@ -87,17 +87,17 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    ROLE: ${ROLE}"
     echo "    ENCRYPT_FS: ${ENCRYPT_FS}"
     echo
-    echo -e "Examples:"
-    echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
-    echo -e "Postgresql 9.5 using Route53 for DNS:      ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.5\n"
-    echo -e "Note: to use Route53 for DNS, you can omit the last argument.  To use the /etc/hosts file, add etchosts as the 8th and final argument."
+   # echo -e "Examples:"
+   # echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
+   # echo -e "Postgresql 9.5 using Route53 for DNS:      ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.5\n"
+   # echo -e "Note: to use Route53 for DNS, you can omit the last argument.  To use the /etc/hosts file, add etchosts as the 8th and final argument."
     exit 1
 fi
 
 #-------------------------------------------------------------------------------
 # if not using route53, add private IP to /etc/hosts
 #-------------------------------------------------------------------------------
-if [[ "$DNS_METHOD" = 'etchosts' ]]; then
+if [[ "$DNS_METHOD" == 'etchosts' ]]; then
     if ! (grep -q "^${PRIVATE_IP}\b.*\bpgmaster-1\b" /etc/hosts); then
         echo "${PRIVATE_IP} pgmaster-1" | sudo tee -a /etc/hosts > /dev/null
     fi
