@@ -137,8 +137,8 @@ cd ~/dcStack/logging/ || exit
 #-------------------------------------------------------------------------------
 # mount volumes and remove instance attached store from /mnt
 #-------------------------------------------------------------------------------
+cd ~/dcStack/db/postgres/ || exit
 if [[ ${DCTYPE} != *"VM"* ]]; then
-    cd ~/dcStack/db/postgres/ || exit
     sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
     sudo ./i-mount.sh "/media/data/postgres/db" ${ENCRYPT_FS}
 else
