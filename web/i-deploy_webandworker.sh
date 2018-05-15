@@ -52,7 +52,7 @@ ENV=$4
 PGVERSION=$5
 CUST_APP_NAME=$6
 COMBINED_WEB_WORKER=${7}
-SCRATCHVOLUME=$8
+SCRATCHVOLUME=${8-"false"}
 
 if  [[ -z ${PRIVATE_IP} ]] ||
     [[ -z ${STACK} ]] ||
