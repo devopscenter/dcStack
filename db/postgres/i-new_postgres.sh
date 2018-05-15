@@ -166,7 +166,9 @@ sudo /etc/init.d/supervisor restart
 #-------------------------------------------------------------------------------
 # get instance type to determine which base postgresql.conf to use
 #-------------------------------------------------------------------------------
-INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
+# ?? 05/15/18 not sure what this is supposed to do as the variable is not used so it has
+# been commented out
+#INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
 if [[ -f ~/dcStack/db/postgres/conf/postgresql.conf.${DCTYPE} ]]; then
     sudo cp ~/dcStack/db/postgres/conf/postgresql.conf."${DCTYPE}" /media/data/postgres/db/pgdata/postgresql.conf
 else
