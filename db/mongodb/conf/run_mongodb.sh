@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: run_mongo.sh
+#          FILE: run_mongodb.sh
 #
-#         USAGE: run_mongo.sh
+#         USAGE: run_mongodb.sh
 #
-#   DESCRIPTION: This script is run by Supervisor to start mongodb in foreground mode
+#   DESCRIPTION: This script is run by Supervisor to start MongoDB in foreground mode
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,12 +37,7 @@
 #set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
  
-# This script is run by Supervisor to start mongoQL in foreground mode
+# This script is run by Supervisor to start MongoDB in foreground mode
  
-# example supervisor.conf start commands for mongo
-#command=/opt/mongodb/bin/mongod --dbpath /storage/mongodb_data --rest
-#command=/usr/bin/mongod --port 27017 --quiet --logpath /var/log/mongodb/mongod.log --logappend
-
-#exec su mongo -c '/usr/lib/mongoql/${mongo_VERSION}/bin/mongo -D /media/data/mongo/db/pgdata -c config_file=/media/data/mongo/db/pgdata/mongoql.conf'
-exec su mongodb /usr/bin/mongod --port 27017 --dbpath /media/data/mongo/db
+exec /usr/bin/mongod --port 27017 --dbpath /media/data/mongodb/db
 
