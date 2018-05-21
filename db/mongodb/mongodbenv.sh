@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: postgresenv.sh
+#          FILE: mongodbenv.sh
 #
-#         USAGE: postgresenv.sh
+#         USAGE: mongodbenv.sh
 #
 #   DESCRIPTION: set the variables that will assist with installing and starting
-#                postgres
+#                mongodb
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -18,7 +18,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,21 +39,21 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 set -o verbose
 
-MONGOVERSION=$1
+MONGODBVERSION=$1
 
 # default mongodb version to install
-MONGO_VERSION=3.6
+MONGODB_VERSION=3.6
 
 # If the version number is specified, then override the default version number.
-if [ -n "$MONGOVERSION" ]; then
-  MONGO_VERSION=${MONGOVERSION}
+if [ -n "$MONGODBVERSION" ]; then
+  MONGODB_VERSION=${MONGODBVERSION}
 fi
 
-echo "mongoversion: "+${MONGOVERSION} "mongo_version: "+${MONGO_VERSION}
+echo "mongoversion: "+${MONGODBVERSION} "mongo_version: "+${MONGODB_VERSION}
 
-MONGO_MOUNT=/media/data/mongo
+MONGODB_MOUNT=/media/data/mongodb
 #
-MONGODBDIR=${MONGO_MOUNT}/db
+MONGODBDIR=${MONGODB_MOUNT}/db
 #POSTGRESBINDIR=/usr/lib/postgresql/${POSTGRES_VERSION}/bin
 #POSTGREX_XLOG=${POSTGRES_MOUNT}/xlog/transactions
 #

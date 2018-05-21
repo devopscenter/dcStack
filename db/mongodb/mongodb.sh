@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: mongo.sh
+#          FILE: mongodb.sh
 #
-#         USAGE: mongo.sh
+#         USAGE: mongodb.sh
 #
-#   DESCRIPTION: install mongo, python and other utilities needed.
+#   DESCRIPTION: install mongodb, and other utilities needed.
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,15 +36,15 @@
 #set -o nounset     # Treat unset variables as an error
 set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
-set -o verbose
+#set -o verbose
 
-MONGO_VERSION=$1
+MONGODB_VERSION=$1
 DATABASE=$2
 VPC_CIDR=$3
 
-. ./mongoenv.sh $MONGO_VERSION
+. ./mongodbenv.sh $MONGODB_VERSION
 
-sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
+sudo apt-get -qq update && sudo apt-get -qq -y install software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo apt-get -qq update
 
@@ -54,31 +54,25 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
     sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
 
-sudo apt-fast -qq -y install git python-dev wget sudo vim
-
-# Install python3 tools for the wal-e install
-sudo apt-get -y install python3-pip
-sudo pip3 install --upgrade pip
-
-pushd /tmp
-sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
-popd
+sudo apt-fast -qq -y install git wget sudo vim
 
 # INSTALL mongodb =====
 
-# Add the mongoQL PGP key to verify their Debian packages.
+# Add the MongoDB PGP key to verify their Debian packages.
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
 
-# create the list file for mongo so that it can be installed
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/${MONGO_VERSION} multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGO_VERSION}.list
+# create the list file for MongoDB so that it can be installed
+echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/${MONGODB_VERSION} multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGODB_VERSION}.list
 
-sudo apt-fast -qq update
+#sudo apt-fast -qq update
+sudo apt-get -qq update
 
-echo "installing mongo ver: ${mongo_VERSION}"
-sudo apt-get install -y mongodb-org=${MONGO_VERSION} mongodb-org-server=${MONGO_VERSION} mongodb-org-shell=${MONGO_VERSION} mongodb-org-mongos=${MONGO_VERSION} mongodb-org-tools=${MONGO_VERSION}
+echo "installing MongoDB ver: ${MONGODB_VERSION}"
+#sudo apt-get install -y mongodb-org=${MONGODB_VERSION} mongodb-org-server=${MONGODB_VERSION} mongodb-org-shell=${MONGODB_VERSION} mongodb-org-mongos=${MONGODB_VERSION} mongodb-org-tools=${MONGODB_VERSION}
+sudo apt-get install -y mongodb-org
 
 
-echo "pinning the packages at tha version: ${MONGO_VERSION}"
+echo "pinning the packages at tha version: ${MONGODB_VERSION}"
 echo "mongodb-org hold" | sudo dpkg --set-selections
 echo "mongodb-org-server hold" | sudo dpkg --set-selections
 echo "mongodb-org-shell hold" | sudo dpkg --set-selections
@@ -86,9 +80,9 @@ echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
 echo "mongodb-org-tools hold" | sudo dpkg --set-selections
 
 
-echo "mkdir /media/data/mongo"
+echo "mkdir /media/data/mongodb"
 sudo mkdir -p ${MONGODBDIR}
-sudo chown -R mongodb:mongodb /media/data/mongo
+sudo chown -R mongodb:mongodb /media/data/mongodb
 
 sudo chown -R mongodb:mongodb /var/lib/mongodb
 sudo chown -R mongodb:mongodb /var/log/mongodb
@@ -96,18 +90,18 @@ sudo chown -R mongodb:mongodb /var/log/mongodb
 # TODO...start here
 
 #echo "calling config.sh"
-#sudo su -c "./config.sh ${mongo_VERSION} ${DATABASE} ${VPC_CIDR} " -s /bin/sh mongo
+#sudo su -c "./config.sh ${MONGODB_VERSION} ${DATABASE} ${VPC_CIDR} " -s /bin/sh mongodb
 
 #echo calling xlog.sh and supervisorconfig
-#./xlog.sh $mongo_VERSION
+#./xlog.sh $MONGODB_VERSION
 echo calling supervisorconfig
-./supervisorconfig.sh $mongo_VERSION
+./supervisorconfig.sh $MONGODB_VERSION
 
-# stop the systemd mongoql so that it can be disabled and removed
-sudo service mongod stop
+# stop the systemd mongodb so that it can be disabled and removed
+#sudo service mongod stop
 
 #disable init.d autostart
-sudo update-rc.d mongod disable
+#sudo update-rc.d mongod disable
 # and finally remove it
 #sudo update-rc.d mongoql remove
 
