@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -66,6 +66,11 @@ function db {
 #   docker build --rm -t "devopscenter/db_postgres-restore:${dcSTACK_VERSION}" db/postgres-restore
     docker build --rm -t "devopscenter/db_redis:${dcSTACK_VERSION}" db/redis
     docker build --rm -t "devopscenter/db_redis-standby:${dcSTACK_VERSION}" db/redis-standby
+}
+
+function mongodb {
+    docker build --rm -t "devopscenter/db_base:${dcSTACK_VERSION}" db
+    docker build --rm -t "devopscenter/db_mongodb:${dcSTACK_VERSION}" db/mongodb
 }
 
 function misc {
@@ -121,7 +126,7 @@ function stack6 {
 }
 
 function stack7 {
-    docker build --rm -t "devopscenter/c386dd0.web:${dcSTACK_VERSION}" c386dd0-stack/web
+    docker build --rm -t "devopscenter/386dd0.web:${dcSTACK_VERSION}" 386dd0-stack/web
 }
 
 function web {
