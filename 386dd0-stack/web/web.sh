@@ -14,10 +14,10 @@
 #        AUTHOR: Gregg Jensen (), gjensen@devops.center
 #                Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
-#       CREATED: 11/21/2016 15:13:37
+#       CREATED: 11/21/2017 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -63,5 +63,8 @@ sudo mkdir -p /media/data
 # disable unused services
 #
 sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
+sudo mv /etc/supervisor/conf.d/nginx.conf /etc/supervisor/conf.d/nginx.save
+sudo mv /etc/supervisor/conf.d/pgpool.conf /etc/supervisor/conf.d/pgpool.save
+
 
 dcEndLog "install of app-specific web for 386dd0"
