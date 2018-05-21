@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: worker.sh
+#          FILE: web.sh
 #
-#         USAGE: worker.sh
+#         USAGE: web.sh
 #
-#   DESCRIPTION: install what is necessary for the worker container.
+#   DESCRIPTION: installs what is necessary for the web container
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -38,30 +38,30 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
 #
-# App-specific worker install for 007acc
+# App-specific web install for 386dd0
 #
-COMBINED_WEB_WORKER="${1}"
-SCRATCHVOLUME="{$2}"
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
-dcStartLog "install of app-specific worker for c386dd0, combo: ${COMBINED_WEB_WORKER}"
+dcStartLog "install of app-specific web for 386dd0"
+
+
+curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -
+
+sudo apt-get install -y nodejs
+
+sudo apt-get install -y build-essential 
+
+# and install yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+
+# scratch volume
+sudo mkdir -p /media/data
 
 #
-# If this is purely a worker, then we don't need ngix or uwsgi
+# disable unused services
 #
+sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 
-if [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
-    sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
-    sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
-    sudo rm -rf /etc/supervisor/conf.d/nginx.conf
-fi
-
-#
-# Setup supervisor to run flower and celery
-#
-sudo cp conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
-sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
-sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
-
-
-dcEndLog "End: install of customer-specific worker for c386dd0, combo: ${COMBINED_WEB_WORKER}"
+dcEndLog "install of app-specific web for 386dd0"
