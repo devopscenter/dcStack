@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,5 +42,5 @@ copyright-header --add-path . \
                  --copyright-holder 'devops.center' \
                  --copyright-software 'dcStack' \
                  --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2017" \
+                 --copyright-year "2014 - 2018" \
                  --output-dir .
