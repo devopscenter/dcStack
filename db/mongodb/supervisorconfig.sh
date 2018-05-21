@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,17 +36,17 @@
 #set -o nounset     # Treat unset variables as an error
 set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
-set -o verbose
+#set -o verbose
 
-MONGOVERSION=$1
-. ./mongoenv.sh $MONGOVERSION
+MONGODBVERSION=$1
+. ./mongodbenv.sh $MONGODBVERSION
 
-# Setup supervisor to run postgres
-sudo cp ./conf/supervisor-mongo.conf /etc/supervisor/conf.d/mongo.conf
-sudo cp ./conf/run_mongo.sh /etc/supervisor/conf.d/run_mongo.sh
-echo "export MONGO_VERSION=${MONGO_VERSION}"  | sudo tee -a /etc/default/supervisor
+# Setup supervisor to run MongoDB
+sudo cp ./conf/supervisor-mongodb.conf /etc/supervisor/conf.d/mongodb.conf
+sudo cp ./conf/run_mongodb.sh /etc/supervisor/conf.d/run_mongodb.sh
+echo "export MONGODB_VERSION=${MONGODB_VERSION}"  | sudo tee -a /etc/default/supervisor
 
 # If on an instance, drop a .env file so that this will always be set when ENVs are updated at any point in the future.
 if [[ -d "$HOME/.dcConfig/" ]] ; then 
-    echo "MONGO_VERSION=${MONGO_VERSION}" >> "$HOME/.dcConfig/instance-mongo.env"
+    echo "MONGODB_VERSION=${MONGODB_VERSION}" >> "$HOME/.dcConfig/instance-mongodb.env"
 fi
