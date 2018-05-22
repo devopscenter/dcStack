@@ -62,9 +62,8 @@ sudo mkdir -p /media/data
 #
 # disable unused services
 #
-sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
-sudo mv /etc/supervisor/conf.d/nginx.conf /etc/supervisor/conf.d/nginx.save
-sudo mv /etc/supervisor/conf.d/pgpool.conf /etc/supervisor/conf.d/pgpool.save
+#sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
+#sudo mv /etc/supervisor/conf.d/pgpool.conf /etc/supervisor/conf.d/pgpool.save
 
 
 dcEndLog "install of app-specific web for 386dd0"
