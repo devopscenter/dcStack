@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: nginxenv.sh
+#          FILE: nginx-php-env.sh
 #
-#         USAGE: nginxenv.sh
+#         USAGE: nginx-php-env.sh
 #
 #   DESCRIPTION: set the nginx version in a variable
 #
@@ -38,4 +38,5 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 set -o verbose
 
-NGINX_VERSION=1.11.11
+PHP_VERSION=7.0
+NGINX_VERSION=1.13.8
