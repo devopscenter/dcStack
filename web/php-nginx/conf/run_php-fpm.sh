@@ -88,8 +88,8 @@ do_start()
         # on this one.  As a last resort, sleep for some time.
 }
 
-if [[ do_check ]]; then
-	if [[ do_start ]]; then
+if [[ do_check -eq 0 ]]; then
+	if [[ do_start -ne 1 ]]; then
 		echo "ERROR: Attempting to start php-fpm failed."
         exit 1
 	fi
