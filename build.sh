@@ -126,6 +126,7 @@ function stack6 {
 }
 
 function stack7 {
+    php
     docker build --rm -t "devopscenter/386dd0.web:${dcSTACK_VERSION}" 386dd0-stack/web
 }
 
@@ -138,6 +139,11 @@ function web {
     docker build --rm -t "devopscenter/python-nginx-pgpool-redis:${dcSTACK_VERSION}" web/python-nginx-pgpool-redis
 #    docker build --rm -t "devopscenter/python-nginx-pgpool-libsodium:${dcSTACK_VERSION}" web/python-nginx-pgpool-libsodium
     echo "built common containers"
+}
+
+function php {
+    docker build --rm -t "devopscenter/php:${dcSTACK_VERSION}" php
+    docker build --rm -t "devopscenter/php-nginx:${dcSTACK_VERSION}" web/php-nginx
 }
 
 function web-all {
