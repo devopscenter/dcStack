@@ -55,7 +55,7 @@ fi
 dcStartLog "Starting nginx.sh"
 
 dcLog "set the nginx version number in environment variable"
-. ./nginxenv.sh
+. nginx-php-env.sh
 
 
 #-------------------------------------------------------------------------------
@@ -103,9 +103,9 @@ dcLog "done"
 # copy the appropriate edited configs 
 #-------------------------------------------------------------------------------
 dcLog "copying the needed php configuration files"
-sudo cp conf/php.ini /etc/php/7.0/fpm/
-sudo cp conf/php-fpm.conf /etc/php/7.0/fpm/
-sudo cp conf/www.conf /etc/php/7.0/fpm/pool.d/
+sudo cp conf/php.ini /etc/php/${PHP_VERSION}/fpm/
+sudo cp conf/php-fpm.conf /etc/php/${PHP_VERSION}/fpm/
+sudo cp conf/www.conf /etc/php/${PHP_VERSION}/fpm/pool.d/
 sudo cp conf/supervisor-php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
 sudo cp conf/run_php-fpm.sh /etc/supervisor/conf.d/run_php-fpm.sh
 
