@@ -17,7 +17,7 @@
 #       CREATED: 03/21/2017 10:39:14
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@
 set -o errexit            # exit immediately if command exists with a non-zero status
 set -x                    # essentially debug mode
 
+PHP_VERSION=7.0
 #-------------------------------------------------------------------------------
 # START set up the logging framework
 #-------------------------------------------------------------------------------
@@ -74,16 +75,20 @@ dcLog "done"
 # install php and the appropriate other needed packages
 #-------------------------------------------------------------------------------
 dcLog "installing php and accompanying extensions"
-sudo apt-fast -y install php                  \
-                         php7.0.common        \
-                         php7.0-fpm           \
-                         php7.0-curl          \
-                         php7.0-cli           \
-                         php7.0-pgsql         \
-                         php7.0-gd            \
-                         php7.0-mbstring      \
-                         php7.0-soap          \
-                         php7.0-simplexml
+sudo apt-fast -y install php${PHP_VERSION}               \
+                         php${PHP_VERISON}.common        \
+                         php${PHP_VERSION}-fpm           \
+                         php${PHP_VERSION}-curl          \
+                         php${PHP_VERSION}-cli           \
+                         php${PHP_VERSION}-pgsql         \
+                         php${PHP_VERSION}-gd            \
+                         php${PHP_VERSION}-mbstring      \
+                         php${PHP_VERSION}-soap          \
+                         php${PHP_VERSION}-simplexml     \
+                         php${PHP_VERSION}-zip           \
+                         php${PHP_VERSION}-mcrypt        \
+                         php${PHP_VERSION}-json          \
+                         php-mongodb
 
 dcLog "done"
 
@@ -94,14 +99,19 @@ dcLog "done"
 #-------------------------------------------------------------------------------
 dcLog "installing and setting up composer - php package manager"
 
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7506b8cb2d1c292f042046c5a994c43155c0be6190fa0355160742ab2e1c88d40d5be660b410') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-php composer-setup.php
-php -r "unlink('composer-setup.php');"
+mkdir /tmp/composer
+cd /tmp/composer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+chmod a+x /usr/local/bin/composer
+#php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+#php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7506b8cb2d1c292f042046c5a994c43155c0be6190fa0355160742ab2e1c88d40d5be660b410') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+#php composer-setup.php
+#php -r "unlink('composer-setup.php');"
 
-if [[ -f composer.phar ]]; then
-    sudo mv composer.phar /usr/local/bin/composer
-fi
+#if [[ -f composer.phar ]]; then
+#    sudo mv composer.phar /usr/local/bin/composer
+#fi
 
 dcLog "done"
 
