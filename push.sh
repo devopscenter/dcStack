@@ -49,7 +49,7 @@ function base {
 function db {
     docker push  "devopscenter/db_base:${dcSTACK_VERSION}"
     docker push  "devopscenter/db_postgres:${dcSTACK_VERSION}"  
-    docker push  "devopscenter/db_postgres-standby:${dcSTACK_VERSION}"
+#    docker push  "devopscenter/db_postgres-standby:${dcSTACK_VERSION}"
 #    docker push  "devopscenter/db_postgres-repmgr:${dcSTACK_VERSION}"
 #   docker push  "devopscenter/db_postgres-restore:${dcSTACK_VERSION}"
     docker push  "devopscenter/db_redis:${dcSTACK_VERSION}"
@@ -95,6 +95,10 @@ function stack5 {
     docker push  "devopscenter/ab0000.web:${dcSTACK_VERSION}"
 }
 
+function stack6 {
+    docker push  "devopscenter/765ae2.web:${dcSTACK_VERSION}"
+}
+
 function web {
     docker push  "devopscenter/python:${dcSTACK_VERSION}"
     docker push  "devopscenter/python-nginx:${dcSTACK_VERSION}"
@@ -112,6 +116,8 @@ function web {
     time stack4 &> stack4push.log &
     rm -rf stack5push.log
     time stack5 &> stack5push.log &
+    rm -rf stack6push.log
+    time stack6 &> stack6push.log &
 }
 
 base
