@@ -58,7 +58,7 @@ sudo apt-get update && sudo apt-get install yarn
 
 
 # create the log directory where node can write its output for remote-syslog2 to pick up
-sudo mkdir /data/deploy/log
+sudo mkdir -p /data/deploy/log
 sudo chmod 777 /data/deploy/log
 
 # install remote_syslog2

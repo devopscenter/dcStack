@@ -20,11 +20,11 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 USER root
 
-ENV POSTGRES_VERSION 9.3
+ENV POSTGRES_VERSION 9.6
 
 RUN sudo apt-fast -y -q install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev
 
-ENV POSTGRES_VERSION 9.4
+ENV POSTGRES_VERSION 9.6
 USER postgres
 
 RUN /usr/lib/postgresql/9.3/bin/initdb --locale en_US.UTF-8 -D /tmp/postgres/9.3
