@@ -19,7 +19,8 @@
 FROM devopscenter/db_base:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.6
+ARG POSTGRES_VERSION
+ENV POSTGRES_VERSION ${POSTGRES_VERSION}
 
 WORKDIR /root/installs
 
@@ -31,7 +32,7 @@ ADD hstore.sh /root/installs/hstore.sh
 ADD postgresenv.sh /root/installs/postgresenv.sh
 ADD supervisorconfig.sh /root/installs/supervisorconfig.sh
 
-RUN ./postgres.sh $POSTGRES_VERSION && \
+RUN ./postgres.sh ${POSTGRES_VERSION} && \
     cp conf/postgresql.conf.local /media/data/postgres/db/pgdata/postgresql.conf
 
 # Run supervisor in this container, in foreground mode
