@@ -1,4 +1,5 @@
-FROM baseimageversion
+ARG baseimageversion
+FROM ${baseimageversion}
 
 # Since ubuntu 16.04 has dropped sudo, need to
 # install sudo for compatibility with scripts that also run in instances

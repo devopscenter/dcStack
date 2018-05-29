@@ -15,8 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-FROM devopscenter/python:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/python:${COMPOSIT_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ARG POSTGRES_VERSION

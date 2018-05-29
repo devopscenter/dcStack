@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/0099ff.web:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/0099ff.web:${COMPOSIT_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 

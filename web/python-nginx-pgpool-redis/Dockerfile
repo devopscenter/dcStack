@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/python-nginx-pgpool:${COMPOSIT_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD redis-client-install.sh /installs/redis-client-install.sh

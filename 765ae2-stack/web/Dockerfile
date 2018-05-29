@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/python-nginx-pgpool:${COMPOSIT_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs

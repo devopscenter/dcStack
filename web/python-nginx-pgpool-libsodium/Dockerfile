@@ -1,4 +1,5 @@
-FROM devopscenter/python-nginx-pgpool:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/python-nginx-pgpool:${COMPOSIT_TAG}
 
 RUN mkdir /repos
 WORKDIR /repos

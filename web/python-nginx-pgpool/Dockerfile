@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/python-nginx:${COMPOSIT_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ARG POSTGRES_VERSION

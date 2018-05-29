@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-
-FROM devopscenter/db_base:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/db_base:${COMPOSIT_TAG}
 
 MAINTAINER josh < josh [at] devops {dot} center>
 

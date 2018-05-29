@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/9900af.web:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/9900af.web:${COMPOSIT_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 # Setup config to run pgpool and a single django-rq worker in this container

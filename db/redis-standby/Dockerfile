@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/db_redis:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/db_redis:${COMPOSIT_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN echo "slaveof redismaster-1 6379" >> /etc/redis/redis.conf

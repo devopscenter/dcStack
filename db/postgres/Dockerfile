@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/db_base:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/db_base:${COMPOSIT_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ARG POSTGRES_VERSION
