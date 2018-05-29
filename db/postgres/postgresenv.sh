@@ -42,7 +42,7 @@ set -o verbose
 PGVERSION=$1
 
 # default postgres version to install
-POSTGRES_VERSION=9.6
+POSTGRES_VERSION=9.4
 
 # If the version number is specified, then override the default version number.
 if [ -n "$PGVERSION" ]; then
