@@ -19,18 +19,18 @@
 FROM devopscenter/db_base:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ENV MONGO_VERSION 3.6
+ENV MONGODB_VERSION 3.6
 
 WORKDIR /root/installs
 
-ADD mongo.sh /root/installs/mongo.sh
+ADD mongodb.sh /root/installs/mongodb.sh
 ADD config.sh /root/installs/config.sh
 ADD conf /root/installs/conf
-ADD mongoenv.sh /root/installs/mongoenv.sh
+ADD mongodbenv.sh /root/installs/mongodbenv.sh
 ADD supervisorconfig.sh /root/installs/supervisorconfig.sh
 
-RUN ./mongo.sh ${MONGO_VERSION}
-#RUN ./mongo.sh $MONGO_VERSION && \
+RUN ./mongodb.sh ${MONGODB_VERSION}
+#RUN ./mongodb.sh $MONGODB_VERSION && \
 #    cp conf/postgresql.conf.local /media/data/postgres/db/pgdata/postgresql.conf
 
 # Run supervisor in this container, in foreground mode
