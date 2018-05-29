@@ -21,7 +21,7 @@ MAINTAINER josh < josh [at] devops {dot} center>
 
 EXPOSE 80 8000 443
 
-ADD nginxenv.sh /installs/nginxenv.sh
+ADD nginx-php-env.sh /installs/nginx-php-env.sh
 ADD nginx.sh /installs/nginx.sh
 ADD conf /installs/conf
 WORKDIR /installs
