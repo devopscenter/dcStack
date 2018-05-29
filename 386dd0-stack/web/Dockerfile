@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool:dcSTACK_VERSION
+FROM devopscenter/php-nginx:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs
@@ -34,8 +34,5 @@ RUN ./web.sh
 
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
     if [ -e /app-utils/conf/web-commands.sh ]; then  /app-utils/conf/web-commands.sh; fi && \
-    rm -rf /var/run/pgpool/.s.* && \
     rm -rf /tmp/.s.* && \
-    rm -rf /var/run/pgpool/pgpool.pid && \
-    rm -rf /var/run/postgresql/.s.* && \
     supervisord -n
