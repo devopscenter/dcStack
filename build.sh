@@ -150,7 +150,7 @@ function web-all {
     rm -rf stack5.log
     stack5 &> stack5.log
     rm -rf stack6.log
-    stack6 &> stack5.log
+    stack6 &> stack6.log
 }
 
 if [[ $# -gt 0 ]]; then
