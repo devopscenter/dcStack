@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Docstring for module."""
 
 import sys
@@ -29,8 +29,8 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Logging(ElementBase):
-    """Class to provide the necessary stuff for loggin to syslog."""
+class dcLogging(ElementBase):
+    """Class to provide the necessary stuff for logging to syslog."""
 
     def __init__(self, argList):
         """Constructor for this class."""

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Docstring for module."""
 
 import sys
@@ -29,19 +29,18 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Base(ElementBase):
-    """Class the installs the base components."""
+class dcPython(ElementBase):
+    """Class that installs the python code."""
 
     def __init__(self, argList):
         """Constructor for this class."""
-        ElementBase.__init__(self, "base", argList)
-        self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "sudo ./base-utils.sh"
+        ElementBase.__init__(self, "python", argList)
+        self.executePath = self.stackDir + "/python"
+        self.executeScript = "sudo ./python.sh"
 
     def run(self):
         """Run the element to install the corresponding code."""
-        # change directory to the dcStack buildtools directory to get the base
-        # stuff to install
+        # save the current directory
         currentDir = os.getcwd()
         theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
