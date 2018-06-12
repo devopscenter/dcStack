@@ -6,14 +6,14 @@ import os
 import argparse
 import subprocess
 # from process_dc_env import pythonGetEnv, dcEnvCheckArgs
-from dc_base import Base
-from dc_python import Python
-from dc_logging import Logging
-from dc_supervisor import Supervisor
-from dc_web import Web
-from dc_node import Node
-from dc_pgpool import Pgpool
-from dc_redis import Redis
+from dc_base import dcBase
+from dc_python import dcPython
+from dc_logging import dcLogging
+from dc_supervisor import dcSupervisor
+from dc_web import dcWeb
+from dc_node import dcNode
+from dc_pgpool import dcPgpool
+from dc_redis import dcRedis
 from dc_nginx import dcNginx
 # ==============================================================================
 __version__ = "0.1"
