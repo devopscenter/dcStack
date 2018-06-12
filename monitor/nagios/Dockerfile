@@ -29,7 +29,7 @@ apt-get -qq -y install apt-fast
 
 RUN apt-get install sudo
 
-ENV POSTGRES_VERSION 9.6
+ENV POSTGRES_VERSION 9.4
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
