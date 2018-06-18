@@ -23,6 +23,7 @@ MAINTAINER josh < josh [at] devops {dot} center>
 ARG POSTGRES_VERSION
 ENV POSTGRES_VERSION ${POSTGRES_VERSION}
 
+
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \

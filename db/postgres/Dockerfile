@@ -23,6 +23,7 @@ MAINTAINER bob < bob [at] devops {dot} center>
 ARG POSTGRES_VERSION
 ENV POSTGRES_VERSION ${POSTGRES_VERSION}
 
+
 WORKDIR /root/installs
 
 ADD postgres.sh /root/installs/postgres.sh
