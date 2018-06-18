@@ -1,4 +1,4 @@
-#!/usr/bin/env pgpool
+#!/usr/bin/env python3
 """Docstring for module."""
 
 import sys
@@ -29,14 +29,14 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Pgpool(ElementBase):
-    """Class that installs the pgpool code."""
+class dcNginx(ElementBase):
+    """Class that installs the nginx code."""
 
     def __init__(self, argList):
         """Constructor for this class."""
-        ElementBase.__init__(self, "pgpool", argList)
-        self.executePath = self.stackDir + "/web/python-nginx-pgpool"
-        self.executeScript = "sudo ./pgpool.sh " + self.postgresVersion
+        ElementBase.__init__(self, "nginx", argList)
+        self.executePath = self.stackDir + "/web/python-nginx"
+        self.executeScript = "sudo ./nginx.sh "
 
     def run(self):
         """Run the element to install the corresponding code."""

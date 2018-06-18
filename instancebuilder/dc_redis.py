@@ -1,4 +1,4 @@
-#!/usr/bin/env redis
+#!/usr/bin/env python3
 """Docstring for module."""
 
 import sys
@@ -29,7 +29,7 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Redis(ElementBase):
+class dcRedis(ElementBase):
     """Class that installs the redis code."""
 
     def __init__(self, argList):
