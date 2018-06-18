@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/python-nginx-pgpool-redis:${COMPOSIT_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD wheelhouse /wheelhouse

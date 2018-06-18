@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/djangoreferenceimplementation.web:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/djangoreferenceimplementation.web:${COMPOSIT_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN rm -rf /etc/supervisor/conf.d/nginx.conf && rm -rf /etc/supervisor/conf.d/uwsgi.conf

@@ -15,7 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM devopscenter/db_postgres-repmgr:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/db_postgres-repmgr:${COMPOSIT_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 USER root

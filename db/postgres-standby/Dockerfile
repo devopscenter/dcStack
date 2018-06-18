@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/db_postgres:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/db_postgres:${COMPOSIT_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 RUN echo "autostart=false" >> /etc/supervisor/conf.d/postgres.conf

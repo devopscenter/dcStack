@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/base:dcSTACK_VERSION
+ARG COMPOSIT_TAG
+FROM devopscenter/base:${COMPOSIT_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ADD jenkins.sh /installs/jenkins-install.sh
