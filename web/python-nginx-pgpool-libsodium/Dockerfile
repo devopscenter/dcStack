@@ -1,5 +1,5 @@
-ARG COMPOSIT_TAG
-FROM devopscenter/python-nginx-pgpool:${COMPOSIT_TAG}
+ARG COMPOSITE_TAG
+FROM devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}
 
 RUN mkdir /repos
 WORKDIR /repos

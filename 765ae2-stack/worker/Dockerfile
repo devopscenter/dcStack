@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-ARG COMPOSIT_TAG
-FROM devopscenter/007acc.web:${COMPOSIT_TAG}
+ARG COMPOSITE_TAG
+FROM devopscenter/007acc.web:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 # Flower port

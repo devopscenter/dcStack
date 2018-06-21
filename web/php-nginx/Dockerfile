@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-ARG COMPOSIT_TAG
-FROM devopscenter/php:${COMPOSIT_TAG}
+ARG COMPOSITE_TAG
+FROM devopscenter/php:${COMPOSITE_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 EXPOSE 80 8000 443

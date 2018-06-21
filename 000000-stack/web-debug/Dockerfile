@@ -28,8 +28,8 @@
 # limitations under the License.
 #
 
-ARG COMPOSIT_TAG
-FROM devopscenter/000000.web:${COMPOSIT_TAG}
+ARG COMPOSITE_TAG
+FROM devopscenter/000000.web:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV IS_DC_WEB_DEBUG=1

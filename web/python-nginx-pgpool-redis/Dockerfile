@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-ARG COMPOSIT_TAG
-FROM devopscenter/python-nginx-pgpool:${COMPOSIT_TAG}
+ARG COMPOSITE_TAG
+FROM devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 ADD redis-client-install.sh /installs/redis-client-install.sh

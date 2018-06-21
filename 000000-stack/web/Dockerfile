@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-ARG COMPOSIT_TAG
-FROM devopscenter/python-nginx-pgpool-redis:${COMPOSIT_TAG}
+ARG COMPOSITE_TAG
+FROM devopscenter/python-nginx-pgpool-redis:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs

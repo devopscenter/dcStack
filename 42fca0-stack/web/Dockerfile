@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-ARG COMPOSIT_TAG
-FROM devopscenter/python-nginx-pgpool-redis:${COMPOSIT_TAG}
+ARG COMPOSITE_TAG
+FROM devopscenter/python-nginx-pgpool-redis:${COMPOSITE_TAG}
 MAINTAINER admin < admin [at] devops {dot} center>
 
 ADD web.sh /installs/web.sh

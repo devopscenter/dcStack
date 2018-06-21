@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-ARG COMPOSIT_TAG
-FROM devopscenter/db_base:${COMPOSIT_TAG}
+ARG COMPOSITE_TAG
+FROM devopscenter/db_base:${COMPOSITE_TAG}
 
 MAINTAINER josh < josh [at] devops {dot} center>
 
