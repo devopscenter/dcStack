@@ -144,6 +144,7 @@ function web {
 function php {
     docker build --rm -t "devopscenter/php:${dcSTACK_VERSION}" php
     docker build --rm -t "devopscenter/php-nginx:${dcSTACK_VERSION}" web/php-nginx
+    docker build --rm -t "devopscenter/php-nginx-pgpool:${dcSTACK_VERSION}" web/php-nginx-pgpool
 }
 
 function web-all {
