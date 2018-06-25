@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-FROM devopscenter/php-nginx:dcSTACK_VERSION
+FROM devopscenter/php-nginx-pgpool:dcSTACK_VERSION
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs
