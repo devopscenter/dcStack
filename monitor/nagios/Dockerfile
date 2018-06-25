@@ -29,7 +29,9 @@ apt-get -qq -y install apt-fast
 
 RUN apt-get install sudo
 
-ENV POSTGRES_VERSION 9.4
+ARG POSTGRES_VERSION
+ENV POSTGRES_VERSION ${POSTGRES_VERSION}
+
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -42,7 +44,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg m
 
 RUN sudo apt-fast -qq update
 
-RUN sudo apt-fast -y -qq install postgresql-client-$POSTGRES_VERSION libpq5 libpq-dev
+RUN sudo apt-fast -y -qq install postgresql-client-${POSTGRES_VERSION} libpq5 libpq-dev
 
 #RUN sudo apt-fast -y install supervisor
 

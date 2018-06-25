@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/66ccff.web:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/66ccff.web:${COMPOSITE_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 # Flower port

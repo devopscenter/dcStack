@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/base:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/base:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 # Install pip
