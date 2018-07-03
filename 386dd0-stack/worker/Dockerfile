@@ -16,11 +16,9 @@
 # limitations under the License.
 #
 
-FROM devopscenter/007acc.web:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
-
-# Flower port
-EXPOSE 5555
 
 WORKDIR /installs
 ADD worker.sh /installs/worker.sh
@@ -43,5 +41,4 @@ CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
     rm -rf /var/run/postgresql/.s.* && \
-    rm -rf /var/run/celery/*.pid && \
     supervisord -n
