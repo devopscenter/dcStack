@@ -64,15 +64,15 @@ function db {
 }
 
 function mongodb {
-    docker build --rm -t "devopscenter/db_base:${dcSTACK_VERSION}" db
-    docker build --rm -t "devopscenter/db_mongodb:${dcSTACK_VERSION}" db/mongodb
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_base:${COMPOSITE_TAG}" db
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_mongodb:${COMPOSITE_TAG}" db/mongodb
 }
 
 function misc {
     docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/syslog:${COMPOSITE_TAG}" logging/. &> syslog.log &
     docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/monitor_papertrail:${COMPOSITE_TAG}" monitor/papertrail &> papertrail.log &
-    docker build --rm -t "devopscenter/monitor_sentry:${COMPOSITE_TAG}" monitor/sentry &> sentry.log &
-    docker build --rm -t "devopscenter/monitor_nagios:${COMPOSITE_TAG}" monitor/nagios &> nagios.log &
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_sentry:${COMPOSITE_TAG}" monitor/sentry &> sentry.log &
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_nagios:${COMPOSITE_TAG}" monitor/nagios &> nagios.log &
 }
 # docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${COMPOSITE_TAG}" loadbalancer/ssl-termination
 # docker build --rm -t "devopscenter/loadbalancer_haproxy:${COMPOSITE_TAG}" loadbalancer/haproxy
@@ -122,7 +122,7 @@ function stack6 {
 
 function stack7 {
     php
-    docker build --rm -t "devopscenter/386dd0.web:${dcSTACK_VERSION}" 386dd0-stack/web
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/386dd0.web:${COMPOSITE_TAG}" 386dd0-stack/web
 }
 
 function web {
@@ -137,9 +137,9 @@ function web {
 }
 
 function php {
-    docker build --rm -t "devopscenter/php:${dcSTACK_VERSION}" php
-    docker build --rm -t "devopscenter/php-nginx:${dcSTACK_VERSION}" web/php-nginx
-    docker build --rm -t "devopscenter/php-nginx-pgpool:${dcSTACK_VERSION}" web/php-nginx-pgpool
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php:${COMPOSITE_TAG}" php
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx:${COMPOSITE_TAG}" web/php-nginx
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx-pgpool:${COMPOSITE_TAG}" web/php-nginx-pgpool
 }
 
 function web-all {
@@ -166,9 +166,9 @@ function web-all {
     rm -rf stack5.log
     stack5 &> stack5.log
     rm -rf stack6.log
-    time stack6 &> stack6.log &
+    stack6 &> stack6.log &
     rm -rf stack7.log
-    time stack7 &> stack7.log &
+    stack7 &> stack7.log &
 }
 
 if [[ $# -gt 0 ]]; then
