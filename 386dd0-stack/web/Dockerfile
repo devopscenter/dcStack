@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/php-nginx-pgpool:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/php-nginx-pgpool:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs
