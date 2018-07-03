@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Docstring for module."""
 
 import sys
@@ -29,14 +29,14 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Supervisor(ElementBase):
-    """Class to provide supervisor code support."""
+class dcRedis(ElementBase):
+    """Class that installs the redis code."""
 
     def __init__(self, argList):
         """Constructor for this class."""
-        ElementBase.__init__(self, "supervisor", argList)
-        self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "sudo ./install-supervisor.sh custom"
+        ElementBase.__init__(self, "redis", argList)
+        self.executePath = self.stackDir + "/web/python-nginx-pgpool-redis"
+        self.executeScript = "sudo ./redis-client-install.sh "
 
     def run(self):
         """Run the element to install the corresponding code."""

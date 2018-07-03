@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Functions useful to all element classes."""
 
 import sys
 import argparse
-import subprocess
+from subprocess import Popen, PIPE, STDOUT, CalledProcessError
 # ==============================================================================
 __version__ = "0.1"
 
@@ -50,6 +50,8 @@ class ElementBase(object):
             self.stack = argList["STACK"]
         if "STACK_DIR" in argList:
             self.stackDir = argList["STACK_DIR"]
+        if "PGVERSION" in argList:
+            self.postgresVersion = argList["PGVERSION"]
         # print("ElementBase args: {}".format(argList))
 
 #    def readConfigFile(self, theFileName):
@@ -71,11 +73,15 @@ class ElementBase(object):
 
     def runScript(self, shellScript):
         """Execute the passed in shell script."""
-        try:
-            subprocess.call(shellScript, shell=True)
-        except subprocess.CalledProcessError:
-            print("ERROR: there was a problem running the script: "
-                  "{}".format(shellScript))
+        print(self.__class__.__name__ + " EXECUTING: " + shellScript)
+        # NOTE: this is a python3
+        with Popen(shellScript, shell=True, stdout=PIPE, bufsize=1,
+                   universal_newlines=True) as p:
+            for line in p.stdout:
+                print(line, end='')  # process line here
+
+        if p.returncode != 0:
+            raise CalledProcessError(p.returncode, p.args)
             sys.exit(1)
 
     def priorToRun(self):

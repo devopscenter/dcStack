@@ -6,12 +6,15 @@ import os
 import argparse
 import subprocess
 # from process_dc_env import pythonGetEnv, dcEnvCheckArgs
-from base import Base
-from python import Python
-from logging import Logging
-from supervisor import Supervisor
-from web import Web
-from node import Node
+from dc_base import dcBase
+from dc_python import dcPython
+from dc_logging import dcLogging
+from dc_supervisor import dcSupervisor
+from dc_web import dcWeb
+from dc_node import dcNode
+from dc_pgpool import dcPgpool
+from dc_redis import dcRedis
+from dc_nginx import dcNginx
 # ==============================================================================
 __version__ = "0.1"
 
@@ -69,6 +72,7 @@ class InstanceBuilder:
             for element in self.elementsToInclude:
                 if element == item:
                     elementClassName = element[:1].upper() + element[1:]
+                    elementClassName = "dc" + elementClassName
                     aClassName = globals()[elementClassName]
                     theElement = aClassName(self.argList)
                     theElement.priorToRun()

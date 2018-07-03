@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/python:${COMPOSITE_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 EXPOSE 80 8000 443

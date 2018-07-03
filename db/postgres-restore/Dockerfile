@@ -15,12 +15,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM devopscenter/db_postgres-repmgr:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/db_postgres-repmgr:${COMPOSITE_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 USER root
 
-ENV POSTGRES_VERSION 9.3
+ENV POSTGRES_VERSION 9.4
 
 RUN sudo apt-fast -y -q install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev
 

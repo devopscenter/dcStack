@@ -49,17 +49,17 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
     sudo apt-get -qq update && \
     sudo apt-get -qq -y install apt-fast
 
-export GIT_VERSION=2.12.1
-export PYTHON_VERSION=2.7.13
+export GIT_VERSION=2.17.0
+export PYTHON_VERSION=2.7.15
 
 sudo apt-fast -qq update
 sudo apt-fast -qq -y install wget sudo vim curl build-essential
 
 sudo apt-fast -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev libffi-dev python-dev
 pushd /tmp
-sudo wget --quiet https://www.kernel.org/pub/software/scm/git/git-2.12.1.tar.gz
-sudo tar -xvf git-2.12.1.tar.gz
-pushd git-2.12.1
+sudo wget --quiet https://www.kernel.org/pub/software/scm/git/git-2.17.0.tar.gz
+sudo tar -xvf git-2.17.0.tar.gz
+pushd git-2.17.0
 sudo make --silent prefix=/usr/local all && sudo make --silent prefix=/usr/local install
 popd
 popd

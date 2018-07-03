@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/php:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/php:${COMPOSITE_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 EXPOSE 80 8000 443

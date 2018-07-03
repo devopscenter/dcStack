@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Docstring for module."""
 
 import sys
@@ -29,23 +29,14 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Logging(ElementBase):
-    """Class to provide the necessary stuff for loggin to syslog."""
+class dcNginx(ElementBase):
+    """Class that installs the nginx code."""
 
     def __init__(self, argList):
         """Constructor for this class."""
-        ElementBase.__init__(self, "logging", argList)
-        self.executePath = self.stackDir + "/logging"
-        self.executeScript = "./i-enable-logging.sh"
-
-    def priorToRun(self):
-        """Execute steps prior to running."""
-        # run the deployenv script
-        self.runDeployEnv()
-
-    def postRunning(self):
-        """Execute steps after the run has completed."""
-        return
+        ElementBase.__init__(self, "nginx", argList)
+        self.executePath = self.stackDir + "/web/python-nginx"
+        self.executeScript = "sudo ./nginx.sh "
 
     def run(self):
         """Run the element to install the corresponding code."""
@@ -57,13 +48,6 @@ class Logging(ElementBase):
 
         # and move back to the original directory
         os.chdir(currentDir)
-
-    def runDeployEnv(self):
-        """Execute the deployEnv.sh script on the instance."""
-        theDir = os.path.expanduser("~/dcUtils")
-
-        self.runScript(theDir + "/deployenv.sh --type instance --env "
-                       + self.env + " --appName " + self.appName)
 
 
 def checkArgs():

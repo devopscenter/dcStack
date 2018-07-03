@@ -87,17 +87,17 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    ROLE: ${ROLE}"
     echo "    ENCRYPT_FS: ${ENCRYPT_FS}"
     echo
-    echo -e "Examples:"
-    echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
-    echo -e "Postgresql 9.5 using Route53 for DNS:      ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.5\n"
-    echo -e "Note: to use Route53 for DNS, you can omit the last argument.  To use the /etc/hosts file, add etchosts as the 8th and final argument."
+   # echo -e "Examples:"
+   # echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
+   # echo -e "Postgresql 9.5 using Route53 for DNS:      ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.5\n"
+   # echo -e "Note: to use Route53 for DNS, you can omit the last argument.  To use the /etc/hosts file, add etchosts as the 8th and final argument."
     exit 1
 fi
 
 #-------------------------------------------------------------------------------
 # if not using route53, add private IP to /etc/hosts
 #-------------------------------------------------------------------------------
-if [[ "$DNS_METHOD" = 'etchosts' ]]; then
+if [[ "$DNS_METHOD" == 'etchosts' ]]; then
     if ! (grep -q "^${PRIVATE_IP}\b.*\bpgmaster-1\b" /etc/hosts); then
         echo "${PRIVATE_IP} pgmaster-1" | sudo tee -a /etc/hosts > /dev/null
     fi
@@ -138,8 +138,14 @@ cd ~/dcStack/logging/ || exit
 # mount volumes and remove instance attached store from /mnt
 #-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres/ || exit
-sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
-sudo ./i-mount.sh "/media/data/postgres/db" ${ENCRYPT_FS}
+if [[ ${DCTYPE} != *"VM"* ]]; then
+    sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
+    sudo ./i-mount.sh "/media/data/postgres/db" ${ENCRYPT_FS}
+else
+    sudo mkdir -p "/media/data/postgres/db"
+    sudo mkdir -p "/media/data/postgres/xlog"
+    sudo mkdir -p "/media/data/postgres/backup"
+fi
 
 #-------------------------------------------------------------------------------
 # install postgres and other tasks
@@ -166,7 +172,9 @@ sudo /etc/init.d/supervisor restart
 #-------------------------------------------------------------------------------
 # get instance type to determine which base postgresql.conf to use
 #-------------------------------------------------------------------------------
-INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
+# ?? 05/15/18 not sure what this is supposed to do as the variable is not used so it has
+# been commented out
+#INSTANCE_TYPE=$(curl http://169.254.169.254/latest/meta-data/instance-type)
 if [[ -f ~/dcStack/db/postgres/conf/postgresql.conf.${DCTYPE} ]]; then
     sudo cp ~/dcStack/db/postgres/conf/postgresql.conf."${DCTYPE}" /media/data/postgres/db/pgdata/postgresql.conf
 else
@@ -222,9 +230,11 @@ else
     WALE_S3_ENDPOINT=https+path://s3-${BACKUP_S3_REGION}.amazonaws.com:443
 fi
 
-#parameter-ensure archive_command "'export AWS_REGION=${BACKUP_S3_REGION}; export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
-parameter-ensure archive_command "'export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
-#parameter-ensure archive_timeout 60 /media/data/postgres/db/pgdata/postgresql.conf
+if [[ ${DCTYPE} != *"VM"* ]]; then
+    parameter-ensure archive_command "'export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
+else
+    parameter-ensure archive_command "'export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e -k ${AWS_ACCESS_KEY_ID} --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
+fi
 
 #-------------------------------------------------------------------------------
 # make copies of files needed for wal-e restore
@@ -246,53 +256,60 @@ sudo chown postgres:postgres /media/data/postgres/db/pgdata/server.crt /media/da
 
 sudo supervisorctl restart postgres
 
-#-------------------------------------------------------------------------------
-# enable backups
-#-------------------------------------------------------------------------------
-cd ~/dcStack/db/postgres-backup/ || exit
-./enable-backup.sh "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}" "${ENCRYPT_FS}"
+if [[ ${DCTYPE} != *"VM"* ]]; then
+    # NOTE, when creating VM that doesn't have access to S3 don't imprint the backup
+    #-------------------------------------------------------------------------------
+    # enable backups
+    #-------------------------------------------------------------------------------
+    cd ~/dcStack/db/postgres-backup/ || exit
+    ./enable-backup.sh "${S3_BACKUP_BUCKET}" "${BACKUP_S3_REGION}" "${ENCRYPT_FS}"
 
-#-------------------------------------------------------------------------------
-# create wal-e bucket if it doesn't exist
-#-------------------------------------------------------------------------------
-if ! s3cmd ls s3://"${S3_WALE_BUCKET}" > /dev/null 2>&1; then
-    s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"${S3_WALE_BUCKET}"
-fi
+    #-------------------------------------------------------------------------------
+    # create wal-e bucket if it doesn't exist
+    #-------------------------------------------------------------------------------
+    if ! s3cmd ls s3://"${S3_WALE_BUCKET}" > /dev/null 2>&1; then
+        s3cmd --bucket-location=${BACKUP_S3_REGION} mb s3://"${S3_WALE_BUCKET}"
+    fi
 
-#-------------------------------------------------------------------------------
-# and if they wan tto encrypt the backups then we need to do that to this too
-#-------------------------------------------------------------------------------
-if [[ ${ENCRYPT_FS} == "true" ]]; then
-    # create a json string that represents the structure needed to define the
-    # default encryption for the S3 bucket
-    ENCRYPT_JSON='{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
-    aws --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_WALE_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
-fi
+    #-------------------------------------------------------------------------------
+    # and if they wan tto encrypt the backups then we need to do that to this too
+    #-------------------------------------------------------------------------------
+    if [[ ${ENCRYPT_FS} == "true" ]]; then
+        # create a json string that represents the structure needed to define the
+        # default encryption for the S3 bucket
+        ENCRYPT_JSON='{"Rules":[{"ApplyServerSideEncryptionByDefault":{"SSEAlgorithm":"AES256"}}]}'
+        aws --region ${BACKUP_S3_REGION} s3api put-bucket-encryption --bucket "${S3_WALE_BUCKET}" --server-side-encryption-configuration ${ENCRYPT_JSON}
+    fi
 
-#-------------------------------------------------------------------------------
-# create backup-push file
-#-------------------------------------------------------------------------------
-NEWBACKUPDIR="/media/data/postgres/backup/wal-e-backups"
-if [ ! -d ${NEWBACKUPDIR} ]; then
-    sudo mkdir -m 777 ${NEWBACKUPDIR}
-fi
-echo "export TMPDIR=${NEWBACKUPDIR}" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
-echo "export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
-echo "export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} delete --confirm retain 30" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
-sudo chmod +x /media/data/postgres/backup/backup-push.sh
-sudo chown postgres:postgres /media/data/postgres/backup/backup-push.sh
+    #-------------------------------------------------------------------------------
+    # create backup-push file
+    #-------------------------------------------------------------------------------
+    NEWBACKUPDIR="/media/data/postgres/backup/wal-e-backups"
+    if [ ! -d ${NEWBACKUPDIR} ]; then
+        sudo mkdir -m 777 ${NEWBACKUPDIR}
+    fi
+    echo "export TMPDIR=${NEWBACKUPDIR}" | sudo tee /media/data/postgres/backup/backup-push.sh > /dev/null
+    if [[ ${DCTYPE} != *"VM"* ]]; then
+        echo "export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
+        echo "export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} delete --confirm retain 30" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
+    else
+        echo "export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e -k ${AWS_ACCESS_KEY_ID} --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
+        echo "export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e -k ${AWS_ACCESS_KEY_ID} --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} delete --confirm retain 30" | sudo tee -a /media/data/postgres/backup/backup-push.sh > /dev/null
+    fi
+    sudo chmod +x /media/data/postgres/backup/backup-push.sh
+    sudo chown postgres:postgres /media/data/postgres/backup/backup-push.sh
 
-#-------------------------------------------------------------------------------
-# push the first wal-e archive to s3
-#-------------------------------------------------------------------------------
-sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres
-#sudo su -c "/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} backup-push /media/data/postgres/db/pgdata" -s /bin/sh postgres
+    #-------------------------------------------------------------------------------
+    # push the first wal-e archive to s3
+    #-------------------------------------------------------------------------------
+    sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres
 
-#-------------------------------------------------------------------------------
-# run a nightly wal-e backup
-#-------------------------------------------------------------------------------
-if ! (sudo crontab -l -u postgres|grep '^[^#].*backup-push.sh\b.*'); then
-    (sudo crontab -u postgres -l 2>/dev/null; echo "01 01  *   *   *     /media/data/postgres/backup/backup-push.sh") | sudo crontab -u postgres -
+    #-------------------------------------------------------------------------------
+    # run a nightly wal-e backup
+    #-------------------------------------------------------------------------------
+    if ! (sudo crontab -l -u postgres|grep '^[^#].*backup-push.sh\b.*'); then
+        (sudo crontab -u postgres -l 2>/dev/null; echo "01 01  *   *   *     /media/data/postgres/backup/backup-push.sh") | sudo crontab -u postgres -
+    fi
 fi
 
 # edit pg_hba.conf to set up appropriate access security for external connections.

@@ -16,17 +16,19 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx-pgpool-redis:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/python-nginx-pgpool-redis:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs
 ADD web.sh /installs/web.sh
 ADD requirements.txt /installs/requirements.txt
+ADD requirements2.txt /installs/requirements2.txt
 
 # the config files specific to this app stack
 # (note that the config files specific to the ENV are mounted in docker-compose)
 ADD conf /installs/conf
-ADD requirements.txt /installs/requirements.txt
+
 
 RUN ./web.sh
 

@@ -16,6 +16,7 @@
 # limitations under the License.
 #
 
-FROM baseimageversion
+ARG baseimageversion
+FROM ${baseimageversion}
 MAINTAINER josh < josh [at] devops {dot} center>
 

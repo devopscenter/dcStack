@@ -43,63 +43,67 @@ source VERSION
 echo "Version=${dcSTACK_VERSION}"
 
 function base {
-    docker push  "devopscenter/base:${dcSTACK_VERSION}"
+    docker push  "devopscenter/base:${COMPOSITE_TAG}"
 }
 
 function db {
-    docker push  "devopscenter/db_base:${dcSTACK_VERSION}"
-    docker push  "devopscenter/db_postgres:${dcSTACK_VERSION}"  
-    docker push  "devopscenter/db_postgres-standby:${dcSTACK_VERSION}"
-#    docker push  "devopscenter/db_postgres-repmgr:${dcSTACK_VERSION}"
-#   docker push  "devopscenter/db_postgres-restore:${dcSTACK_VERSION}"
-    docker push  "devopscenter/db_redis:${dcSTACK_VERSION}"
-    docker push  "devopscenter/db_redis-standby:${dcSTACK_VERSION}"
+    docker push  "devopscenter/db_base:${COMPOSITE_TAG}"
+    docker push  "devopscenter/db_postgres:${COMPOSITE_TAG}"  
+#    docker push  "devopscenter/db_postgres-standby:${COMPOSITE_TAG}"
+#    docker push  "devopscenter/db_postgres-repmgr:${COMPOSITE_TAG}"
+#   docker push  "devopscenter/db_postgres-restore:${COMPOSITE_TAG}"
+    docker push  "devopscenter/db_redis:${COMPOSITE_TAG}"
+    docker push  "devopscenter/db_redis-standby:${COMPOSITE_TAG}"
 }
 
 function misc {
-    docker push  "devopscenter/syslog:${dcSTACK_VERSION}"
-    docker push  "devopscenter/monitor_papertrail:${dcSTACK_VERSION}"
-    docker push  "devopscenter/monitor_sentry:${dcSTACK_VERSION}"
-#    docker push  "devopscenter/monitor_nagios:${dcSTACK_VERSION}"
-    docker push  "devopscenter/monitor_newrelic:${dcSTACK_VERSION}" 
+    docker push  "devopscenter/syslog:${COMPOSITE_TAG}"
+    docker push  "devopscenter/monitor_papertrail:${COMPOSITE_TAG}"
+    docker push  "devopscenter/monitor_sentry:${COMPOSITE_TAG}"
+#    docker push  "devopscenter/monitor_nagios:${COMPOSITE_TAG}"
+    docker push  "devopscenter/monitor_newrelic:${COMPOSITE_TAG}" 
 }
 
 function stack0 {
-    docker push  "devopscenter/000000.web:${dcSTACK_VERSION}" 
-    docker push  "devopscenter/000000.web-debug:${dcSTACK_VERSION}"
-    docker push  "devopscenter/000000.worker:${dcSTACK_VERSION}" 
+    docker push  "devopscenter/000000.web:${COMPOSITE_TAG}" 
+    docker push  "devopscenter/000000.web-debug:${COMPOSITE_TAG}"
+    docker push  "devopscenter/000000.worker:${COMPOSITE_TAG}" 
 }
 
 function stack1 {
-    docker push  "devopscenter/0099ff.web:${dcSTACK_VERSION}" 
-    docker push  "devopscenter/0099ff.web-debug:${dcSTACK_VERSION}"
-    docker push  "devopscenter/0099ff.worker:${dcSTACK_VERSION}" 
+    docker push  "devopscenter/0099ff.web:${COMPOSITE_TAG}" 
+    docker push  "devopscenter/0099ff.web-debug:${COMPOSITE_TAG}"
+    docker push  "devopscenter/0099ff.worker:${COMPOSITE_TAG}" 
 }
 
 function stack2 {
-    docker push  "devopscenter/66ccff.web:${dcSTACK_VERSION}" 
-    docker push  "devopscenter/66ccff.worker:${dcSTACK_VERSION}" 
+    docker push  "devopscenter/66ccff.web:${COMPOSITE_TAG}" 
+    docker push  "devopscenter/66ccff.worker:${COMPOSITE_TAG}" 
 }
 
 function stack3 {
-    docker push  "devopscenter/007acc.web:${dcSTACK_VERSION}"
-    docker push  "devopscenter/007acc.worker:${dcSTACK_VERSION}"
+    docker push  "devopscenter/007acc.web:${COMPOSITE_TAG}"
+    docker push  "devopscenter/007acc.worker:${COMPOSITE_TAG}"
 }
 
 function stack4 {
-    docker push  "devopscenter/9900af.web:${dcSTACK_VERSION}"
-    docker push  "devopscenter/9900af.worker:${dcSTACK_VERSION}"
+    docker push  "devopscenter/9900af.web:${COMPOSITE_TAG}"
+    docker push  "devopscenter/9900af.worker:${COMPOSITE_TAG}"
 }
 
 function stack5 {
-    docker push  "devopscenter/ab0000.web:${dcSTACK_VERSION}"
+    docker push  "devopscenter/ab0000.web:${COMPOSITE_TAG}"
+}
+
+function stack6 {
+    docker push  "devopscenter/765ae2.web:${COMPOSITE_TAG}"
 }
 
 function web {
-    docker push  "devopscenter/python:${dcSTACK_VERSION}"
-    docker push  "devopscenter/python-nginx:${dcSTACK_VERSION}"
-    docker push  "devopscenter/python-nginx-pgpool:${dcSTACK_VERSION}"
-    docker push  "devopscenter/python-nginx-pgpool-redis:${dcSTACK_VERSION}"
+    docker push  "devopscenter/python:${COMPOSITE_TAG}"
+    docker push  "devopscenter/python-nginx:${COMPOSITE_TAG}"
+    docker push  "devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}"
+    docker push  "devopscenter/python-nginx-pgpool-redis:${COMPOSITE_TAG}"
     rm -rf stack0push.log
     time stack0 &> stack0push.log &
     rm -rf stack1push.log
@@ -112,7 +116,22 @@ function web {
     time stack4 &> stack4push.log &
     rm -rf stack5push.log
     time stack5 &> stack5push.log &
+    rm -rf stack6push.log
+    time stack6 &> stack6push.log &
 }
+
+postgresVersion=9.4
+COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
+echo  ${COMPOSITE_TAG}
+
+base
+misc
+web
+db
+
+postgresVersion=9.6
+COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
+echo  ${COMPOSITE_TAG}
 
 base
 misc

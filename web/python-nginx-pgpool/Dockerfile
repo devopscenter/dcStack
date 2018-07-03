@@ -16,10 +16,12 @@
 # limitations under the License.
 #
 
-FROM devopscenter/python-nginx:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/python-nginx:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ENV POSTGRES_VERSION 9.6
+ARG POSTGRES_VERSION
+ENV POSTGRES_VERSION ${POSTGRES_VERSION}
 
 ADD pgpool /installs/pgpool
 ADD pgpoolenv.sh /installs/pgpoolenv.sh
@@ -30,6 +32,6 @@ ADD run_pgpool.sh /installs/run_pgpool.sh
 ADD pgpool.sh /installs/pgpool.sh
 
 WORKDIR /installs
-RUN ./pgpool.sh $POSTGRES_VERSION
+RUN ./pgpool.sh ${POSTGRES_VERSION}
 
 CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"

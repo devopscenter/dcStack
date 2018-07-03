@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Docstring for module."""
 
 import sys
@@ -29,7 +29,7 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Base(ElementBase):
+class dcBase(ElementBase):
     """Class the installs the base components."""
 
     def __init__(self, argList):
