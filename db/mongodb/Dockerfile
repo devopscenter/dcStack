@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/db_base:dcSTACK_VERSION
+ARG COMPOSITE_TAG
+FROM devopscenter/db_base:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV MONGODB_VERSION 3.6
