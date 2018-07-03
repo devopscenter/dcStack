@@ -16,7 +16,8 @@
 # limitations under the License.
 #
 
-FROM devopscenter/php-nginx:v2.1
+ARG COMPOSITE_TAG
+FROM devopscenter/php-nginx:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 ENV POSTGRES_VERSION 9.6
