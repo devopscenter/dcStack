@@ -39,5 +39,5 @@
  
 # This script is run by Supervisor to start MongoDB in foreground mode
  
-exec /usr/bin/mongod --port 27017 --dbpath /media/data/mongodb/db
+exec /usr/bin/mongod --bind_ip 0.0.0.0 --port 27017 --dbpath /media/data/mongodb/db
 
