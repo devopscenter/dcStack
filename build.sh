@@ -68,11 +68,16 @@ function mongodb {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_mongodb:${COMPOSITE_TAG}" db/mongodb
 }
 
+function mysql {
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_base:${COMPOSITE_TAG}" db
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_mysql:${COMPOSITE_TAG}" db/mysql
+}
+
 function misc {
     docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/syslog:${COMPOSITE_TAG}" logging/. &> syslog.log &
     docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/monitor_papertrail:${COMPOSITE_TAG}" monitor/papertrail &> papertrail.log &
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_sentry:${COMPOSITE_TAG}" monitor/sentry &> sentry.log &
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_nagios:${COMPOSITE_TAG}" monitor/nagios &> nagios.log &
+#    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_sentry:${COMPOSITE_TAG}" monitor/sentry &> sentry.log &
+#    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_nagios:${COMPOSITE_TAG}" monitor/nagios &> nagios.log &
 }
 # docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${COMPOSITE_TAG}" loadbalancer/ssl-termination
 # docker build --rm -t "devopscenter/loadbalancer_haproxy:${COMPOSITE_TAG}" loadbalancer/haproxy
@@ -142,6 +147,7 @@ function php {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php:${COMPOSITE_TAG}" php
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx:${COMPOSITE_TAG}" web/php-nginx
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx-pgpool:${COMPOSITE_TAG}" web/php-nginx-pgpool
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx-mysqlclient:${COMPOSITE_TAG}" web/php-nginx-mysqlclient
 }
 
 function web-all {
