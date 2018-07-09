@@ -38,5 +38,5 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 #set -o verbose
 
-PHP_VERSION=7.0
+PHP_VERSION=5.6
 NGINX_VERSION=1.13.8
