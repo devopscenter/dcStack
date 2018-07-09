@@ -37,7 +37,7 @@
 set -o errexit            # exit immediately if command exists with a non-zero status
 set -x                    # essentially debug mode
 
-PHP_VERSION=7.0
+PHP_VERSION=5.6
 #-------------------------------------------------------------------------------
 # START set up the logging framework
 #-------------------------------------------------------------------------------
@@ -69,7 +69,13 @@ dcLog "done"
 #-------------------------------------------------------------------------------
 dcLog "updating system with apt-get update"
 sudo apt-get -qq update
+sudo apt-get install -y software-properties-common
+sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+sudo apt-get -qq update
+#sudo apt-key del 4F4EA0AAE5267A6C
+#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
 dcLog "done"
+
 
 #-------------------------------------------------------------------------------
 # install php and the appropriate other needed packages
@@ -88,8 +94,8 @@ sudo apt-fast -y install php${PHP_VERSION}               \
                          php${PHP_VERSION}-zip           \
                          php${PHP_VERSION}-mcrypt        \
                          php${PHP_VERSION}-json          \
-                         php-mysql                       \
-                         php-mongodb
+                         php${PHP_VERSION}-mysql         \
+                         php-mongo
 
 dcLog "done"
 
@@ -99,20 +105,15 @@ dcLog "done"
 # and now get and set up composer the php package manager
 #-------------------------------------------------------------------------------
 dcLog "installing and setting up composer - php package manager"
+sudo apt-fast -y install php-cli php-mbstring
+
 
 mkdir /tmp/composer
 cd /tmp/composer
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
-chmod a+x /usr/local/bin/composer
+curl -sS https://getcomposer.org/installer -o composer-setup.php
 #php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 #php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7506b8cb2d1c292f042046c5a994c43155c0be6190fa0355160742ab2e1c88d40d5be660b410') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-#php composer-setup.php
-#php -r "unlink('composer-setup.php');"
-
-#if [[ -f composer.phar ]]; then
-#    sudo mv composer.phar /usr/local/bin/composer
-#fi
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 dcLog "done"
 
