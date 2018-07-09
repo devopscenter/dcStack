@@ -128,7 +128,6 @@ function stack6 {
 function stack7 {
     php
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/386dd0.web:${COMPOSITE_TAG}" 386dd0-stack/web
-    web
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/386dd0.worker:${COMPOSITE_TAG}" 386dd0-stack/worker
 }
 
