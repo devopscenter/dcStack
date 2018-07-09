@@ -17,7 +17,8 @@
 #
 
 ARG COMPOSITE_TAG
-FROM devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}
+#FROM devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}
+FROM devopscenter/python-nginx:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs
