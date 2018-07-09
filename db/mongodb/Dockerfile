@@ -31,8 +31,6 @@ ADD mongodbenv.sh /root/installs/mongodbenv.sh
 ADD supervisorconfig.sh /root/installs/supervisorconfig.sh
 
 RUN ./mongodb.sh ${MONGODB_VERSION}
-#RUN ./mongodb.sh $MONGODB_VERSION && \
-#    cp conf/postgresql.conf.local /media/data/postgres/db/pgdata/postgresql.conf
 
 # Run supervisor in this container, in foreground mode
 CMD ln -sf /var/run/rsyslog/dev/log /dev/log && /usr/local/bin/supervisord -n
@@ -43,10 +41,6 @@ CMD ln -sf /var/run/rsyslog/dev/log /dev/log && /usr/local/bin/supervisord -n
 VOLUME  ["/media/data/mongodb", \
     	 "/media/data/mongodb/db", \
     	 "/media/data/mongodb/backup"]
-#VOLUME  ["/media/data/postgres", \
-    #	 "/media/data/postgres/db/pgdata", \
-    # "/media/data/postgres/xlog", \
-    #	 "/media/data/postgres/backup"]
 
 WORKDIR /root
-EXPOSE 5432
+EXPOSE 27017
