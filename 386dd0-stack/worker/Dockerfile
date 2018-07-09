@@ -18,7 +18,7 @@
 
 ARG COMPOSITE_TAG
 #FROM devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}
-FROM devopscenter/python-nginx:${COMPOSITE_TAG}
+FROM devopscenter/php-nginx-mysqlclient:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
 WORKDIR /installs
@@ -42,4 +42,5 @@ CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
     rm -rf /tmp/.s.* && \
     rm -rf /var/run/pgpool/pgpool.pid && \
     rm -rf /var/run/postgresql/.s.* && \
+    mkdir -p /var/run/php && \
     supervisord -n
