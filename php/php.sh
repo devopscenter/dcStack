@@ -88,6 +88,7 @@ sudo apt-fast -y install php${PHP_VERSION}               \
                          php${PHP_VERSION}-zip           \
                          php${PHP_VERSION}-mcrypt        \
                          php${PHP_VERSION}-json          \
+                         php-mysql                       \
                          php-mongodb
 
 dcLog "done"
