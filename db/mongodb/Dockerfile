@@ -20,7 +20,7 @@ ARG COMPOSITE_TAG
 FROM devopscenter/db_base:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
-ENV MONGODB_VERSION 3.6
+ENV MONGODB_VERSION 3.4
 
 WORKDIR /root/installs
 
