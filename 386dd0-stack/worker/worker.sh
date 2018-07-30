@@ -34,11 +34,11 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-set -o errexit      # exit immediately if command exits with a non-zero status
+# set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
 #
-# App-specific worker install for 007acc
+# App-specific worker install for 386dd0
 #
 COMBINED_WEB_WORKER="${1}"
 SCRATCHVOLUME="{$2}"
@@ -47,21 +47,8 @@ source /usr/local/bin/dcEnv.sh                       # initalize logging environ
 dcStartLog "install of app-specific worker for 386dd0, combo: ${COMBINED_WEB_WORKER}"
 
 #
-# If this is purely a worker, then we don't need ngix or uwsgi
-#
 
-if [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
-    sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
-    sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
-    sudo rm -rf /etc/supervisor/conf.d/nginx.conf
-fi
 
-#
-# Setup supervisor to run flower and celery
-#
-sudo cp conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
-sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
-sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
-
+#sudo pip install -r requirements.txt
 
 dcEndLog "End: install of customer-specific worker for 386dd0, combo: ${COMBINED_WEB_WORKER}"
