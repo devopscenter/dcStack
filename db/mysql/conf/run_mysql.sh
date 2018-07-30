@@ -38,5 +38,5 @@
 #set -x             # essentially debug mode
  
 # This script is run by Supervisor to start MySQL
-exec mysqld_safe
+exec mysqld_safe --syslog
 
