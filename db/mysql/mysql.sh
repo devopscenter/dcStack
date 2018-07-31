@@ -60,7 +60,7 @@ sudo apt-fast -qq -y install git wget sudo vim
 echo "installing MySQL ver: ${MYSQLDB_VERSION}"
 # Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
 echo "mysql-server-5.7 mysql-server/root_password password root" | sudo debconf-set-selections
-echo "mysql-server-5.7 mysql-server/root_password_again password root" | sudo debconf-set-selections
+echo "mysql-server-5.7 mysql-server/root_password_again password d3vopsc3nt3r" | sudo debconf-set-selections
 sudo apt-get install -y  mysql-server
 
 # copy over our mysql configuration file
