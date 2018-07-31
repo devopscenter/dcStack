@@ -107,7 +107,6 @@ sudo cp conf/php.ini /etc/php/${PHP_VERSION}/fpm/
 sudo cp conf/php-fpm.conf /etc/php/${PHP_VERSION}/fpm/
 sudo cp conf/www.conf /etc/php/${PHP_VERSION}/fpm/pool.d/
 sudo cp conf/supervisor-php-fpm.conf /etc/supervisor/conf.d/php-fpm.conf
-sudo cp conf/run_php-fpm.sh /etc/supervisor/conf.d/run_php-fpm.sh
 
 dcLog "copying the needed nginx configuration files"
 sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
