@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: copyright.sh
+#          FILE: mysqlenv.sh
 #
-#         USAGE: copyright.sh
+#         USAGE: mysqlenv.sh
 #
-#   DESCRIPTION:
+#   DESCRIPTION: set the variables that will assist with installing and starting
+#                mysql
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -34,13 +35,21 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-#set -o errexit      # exit immediately if command exits with a non-zero status
-#set -x             # essentially debug mode
+set -o errexit      # exit immediately if command exits with a non-zero status
+set -x             # essentially debug mode
+set -o verbose
 
-copyright-header --add-path . \
-                 --license ASL2 \
-                 --copyright-holder 'devops.center' \
-                 --copyright-software 'dcStack' \
-                 --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2018" \
-                 --output-dir .
+MYSQLDBVERSION=$1
+
+# default mysql version to install
+MYSQLDB_VERSION=5.7
+
+# If the version number is specified, then override the default version number.
+if [ -n "$MYSQLDBVERSION" ]; then
+  MYSQLDB_VERSION=${MYSQLDBVERSION}
+fi
+
+echo "mysqlversion: "+${MYSQLDBVERSION} "mysql_version: "+${MYSQLDB_VERSION}
+
+MYSQLDB_MOUNT=/media/data/mysql
+

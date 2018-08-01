@@ -17,14 +17,11 @@
 #
 
 ARG COMPOSITE_TAG
-FROM devopscenter/base:${COMPOSITE_TAG}
+FROM devopscenter/php-nginx:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
-# Install pip
-RUN sudo apt-get update && apt-get -y install python-pip
+ADD mysqlclient.sh /installs/mysqlclient.sh
+WORKDIR /installs
+RUN ./mysqlclient.sh
 
-# Install supervisor via pip to get latest version
-WORKDIR /installs/utils
-RUN ./install-supervisor.sh normal
-
-
+CMD /bin/bash -c "/usr/bin/supervisord && tail -f /dev/null"

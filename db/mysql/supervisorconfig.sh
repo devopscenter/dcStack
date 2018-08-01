@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: copyright.sh
+#          FILE: supervisorconfig.sh
 #
-#         USAGE: copyright.sh
+#         USAGE: supervisorconfig.sh
 #
-#   DESCRIPTION:
+#   DESCRIPTION: setup the config files that supervisor will use to start mysql
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -34,13 +34,19 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-#set -o errexit      # exit immediately if command exits with a non-zero status
-#set -x             # essentially debug mode
+set -o errexit      # exit immediately if command exits with a non-zero status
+set -x             # essentially debug mode
+#set -o verbose
 
-copyright-header --add-path . \
-                 --license ASL2 \
-                 --copyright-holder 'devops.center' \
-                 --copyright-software 'dcStack' \
-                 --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2018" \
-                 --output-dir .
+MYSQLDBVERSION=$1
+. ./mysqlenv.sh $MYSQLDBVERSION
+
+# Setup supervisor to run MongoDB
+sudo cp ./conf/supervisor-mysql.conf /etc/supervisor/conf.d/mysql.conf
+sudo cp ./conf/run_mysql.sh /etc/supervisor/conf.d/run_mysql.sh
+echo "export MYSQLDB_VERSION=${MYSQLDB_VERSION}"  | sudo tee -a /etc/default/supervisor
+
+# If on an instance, drop a .env file so that this will always be set when ENVs are updated at any point in the future.
+if [[ -d "$HOME/.dcConfig/" ]] ; then 
+    echo "MYSQLDB_VERSION=${MYSQLDB_VERSION}" >> "$HOME/.dcConfig/instance-mysql.env"
+fi

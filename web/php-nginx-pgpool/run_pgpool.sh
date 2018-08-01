@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: copyright.sh
+#          FILE: run_pgpool.sh
 #
-#         USAGE: copyright.sh
+#         USAGE: run_pgpool.sh
 #
-#   DESCRIPTION:
+#   DESCRIPTION: This script is run by Supervisor to start pgpool in foreground mode
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2018 devops.center llc
+# Copyright 2014-2017 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,10 +37,18 @@
 #set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
-copyright-header --add-path . \
-                 --license ASL2 \
-                 --copyright-holder 'devops.center' \
-                 --copyright-software 'dcStack' \
-                 --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2018" \
-                 --output-dir .
+
+# Create the socket directories, if it doesn't already exist.
+ 
+if [ ! -d /var/run/pgpool ]; then
+  sudo install -d -m 755 -o postgres -g postgres /var/run/pgpool
+fi
+if [ ! -d /var/run/postgresql ]; then
+  sudo install -d -m 755 -o postgres -g postgres /var/run/postgresql
+fi
+# Make sure that pgpool does not read in any pre-existing status file, so that it will query backends on startup
+# to see whether they are reachable or not. This is the preferred beahvior, UNLESS the pgpool config permits pgpool
+# to initiate postgres follower promotions.
+
+exec /usr/local/bin/pgpool -a /etc/pgpool2/pool_hba.conf -f $1 -F /etc/pgpool2/pcp.conf -n -D
+

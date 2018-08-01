@@ -17,14 +17,20 @@
 #
 
 ARG COMPOSITE_TAG
-FROM devopscenter/base:${COMPOSITE_TAG}
+FROM devopscenter/php-nginx:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
-# Install pip
-RUN sudo apt-get update && apt-get -y install python-pip
+ENV POSTGRES_VERSION 9.6
 
-# Install supervisor via pip to get latest version
-WORKDIR /installs/utils
-RUN ./install-supervisor.sh normal
+ADD pgpool /installs/pgpool
+ADD pgpoolenv.sh /installs/pgpoolenv.sh
+ADD sudo-postgres /installs/sudo-postgres
+ADD supervisor-pgpool.conf /installs/supervisor-pgpool.conf
+ADD run_pgpool.sh /installs/run_pgpool.sh
 
+ADD pgpool.sh /installs/pgpool.sh
 
+WORKDIR /installs
+RUN ./pgpool.sh $POSTGRES_VERSION
+
+CMD /bin/bash -c "rm -rf /var/run/pgpool/pgpool.pid && rm -rf /var/run/postgresql/.s.* && /usr/bin/supervisord && tail -f /dev/null"

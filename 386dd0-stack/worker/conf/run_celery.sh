@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: copyright.sh
+#          FILE: run_celery.sh
 #
-#         USAGE: copyright.sh
+#         USAGE: run_celery.sh
 #
-#   DESCRIPTION:
+#   DESCRIPTION: set up the environment in the container to be able to run celery
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2018 devops.center llc
+# Copyright 2014-2017 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,11 +36,20 @@
 #set -o nounset     # Treat unset variables as an error
 #set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
+ 
+# This script is run by Supervisor to start celery in foreground mode
 
-copyright-header --add-path . \
-                 --license ASL2 \
-                 --copyright-holder 'devops.center' \
-                 --copyright-software 'dcStack' \
-                 --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2018" \
-                 --output-dir .
+# Create the socket directories, if it doesn't already exist.
+ 
+if [ ! -d /var/run/celery ]; then
+    sudo mkdir /var/run/celery
+    sudo chown celery:celery /var/run/celery
+fi
+
+
+# Create a worker for all queues
+sudo -Eu celery /usr/local/opt/python/bin/celery worker -A rmsasite \
+                                           --loglevel=INFO --soft-time-limit=3600  \
+                                           -c 4 \
+                                           -Ofair \
+                                           --pidfile=/var/run/celery/pdf_printer.pid

@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: copyright.sh
+#          FILE: mongodbenv.sh
 #
-#         USAGE: copyright.sh
+#         USAGE: mongodbenv.sh
 #
-#   DESCRIPTION:
+#   DESCRIPTION: set the variables that will assist with installing and starting
+#                mongodb
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -34,13 +35,28 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-#set -o errexit      # exit immediately if command exits with a non-zero status
-#set -x             # essentially debug mode
+set -o errexit      # exit immediately if command exits with a non-zero status
+set -x             # essentially debug mode
+set -o verbose
 
-copyright-header --add-path . \
-                 --license ASL2 \
-                 --copyright-holder 'devops.center' \
-                 --copyright-software 'dcStack' \
-                 --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2018" \
-                 --output-dir .
+MONGODBVERSION=$1
+
+# default mongodb version to install
+MONGODB_VERSION=3.4
+
+# If the version number is specified, then override the default version number.
+if [ -n "$MONGODBVERSION" ]; then
+  MONGODB_VERSION=${MONGODBVERSION}
+fi
+
+echo "mongoversion: "+${MONGODBVERSION} "mongo_version: "+${MONGODB_VERSION}
+
+MONGODB_MOUNT=/media/data/mongodb
+#
+MONGODBDIR=${MONGODB_MOUNT}/db
+#POSTGRESBINDIR=/usr/lib/postgresql/${POSTGRES_VERSION}/bin
+#POSTGREX_XLOG=${POSTGRES_MOUNT}/xlog/transactions
+#
+#POSTGRES_CONF=${POSTGRESDBDIR}/postgresql.conf
+#POSTGRES_PERF_CONF=${POSTGRESDBDIR}/postgresql.conf.perf
+#POSTGRES_WALE_CONF=${POSTGRESDBDIR}/postgresql.conf.wale

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: copyright.sh
+#          FILE: mysqlclient.sh
 #
-#         USAGE: copyright.sh
+#         USAGE: mysqlclient.sh
 #
-#   DESCRIPTION:
+#   DESCRIPTION: Install mysqlclient
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2018 devops.center llc
+# Copyright 2014-2017 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,13 +34,10 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-#set -o errexit      # exit immediately if command exits with a non-zero status
-#set -x             # essentially debug mode
+set -o errexit      # exit immediately if command exits with a non-zero status
+set -x             # essentially debug mode
 
-copyright-header --add-path . \
-                 --license ASL2 \
-                 --copyright-holder 'devops.center' \
-                 --copyright-software 'dcStack' \
-                 --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2018" \
-                 --output-dir .
+sudo sudo apt-fast update
+
+sudo sudo apt-fast -y install mysql-client
+

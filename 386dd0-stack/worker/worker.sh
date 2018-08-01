@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: copyright.sh
+#          FILE: worker.sh
 #
-#         USAGE: copyright.sh
+#         USAGE: worker.sh
 #
-#   DESCRIPTION:
+#   DESCRIPTION: install what is necessary for the worker container.
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2018 devops.center llc
+# Copyright 2014-2017 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,13 +34,21 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-#set -o errexit      # exit immediately if command exits with a non-zero status
+# set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
-copyright-header --add-path . \
-                 --license ASL2 \
-                 --copyright-holder 'devops.center' \
-                 --copyright-software 'dcStack' \
-                 --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2018" \
-                 --output-dir .
+#
+# App-specific worker install for 386dd0
+#
+COMBINED_WEB_WORKER="${1}"
+SCRATCHVOLUME="{$2}"
+
+source /usr/local/bin/dcEnv.sh                       # initalize logging environment
+dcStartLog "install of app-specific worker for 386dd0, combo: ${COMBINED_WEB_WORKER}"
+
+#
+
+
+#sudo pip install -r requirements.txt
+
+dcEndLog "End: install of customer-specific worker for 386dd0, combo: ${COMBINED_WEB_WORKER}"

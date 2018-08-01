@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: copyright.sh
+#          FILE: run_mysql.sh
 #
-#         USAGE: copyright.sh
+#         USAGE: run_mysql.sh
 #
-#   DESCRIPTION:
+#   DESCRIPTION: This script is run by Supervisor to start MongoDB in foreground mode
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -36,11 +36,7 @@
 #set -o nounset     # Treat unset variables as an error
 #set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
+ 
+# This script is run by Supervisor to start MySQL
+exec mysqld_safe --syslog
 
-copyright-header --add-path . \
-                 --license ASL2 \
-                 --copyright-holder 'devops.center' \
-                 --copyright-software 'dcStack' \
-                 --copyright-software-description "Stack to easily enable apps to deploy to multiple targets, including Docker, AWS, +" \
-                 --copyright-year "2014 - 2018" \
-                 --output-dir .

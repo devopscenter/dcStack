@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2018 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -63,11 +63,21 @@ function db {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_redis-standby:${COMPOSITE_TAG}" db/redis-standby
 }
 
+function mongodb {
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_base:${COMPOSITE_TAG}" db
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_mongodb:${COMPOSITE_TAG}" db/mongodb
+}
+
+function mysql {
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_base:${COMPOSITE_TAG}" db
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_mysql:${COMPOSITE_TAG}" db/mysql
+}
+
 function misc {
     docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/syslog:${COMPOSITE_TAG}" logging/. &> syslog.log &
     docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/monitor_papertrail:${COMPOSITE_TAG}" monitor/papertrail &> papertrail.log &
-    docker build --rm -t "devopscenter/monitor_sentry:${COMPOSITE_TAG}" monitor/sentry &> sentry.log &
-    docker build --rm -t "devopscenter/monitor_nagios:${COMPOSITE_TAG}" monitor/nagios &> nagios.log &
+#    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_sentry:${COMPOSITE_TAG}" monitor/sentry &> sentry.log &
+#    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_nagios:${COMPOSITE_TAG}" monitor/nagios &> nagios.log &
 }
 # docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${COMPOSITE_TAG}" loadbalancer/ssl-termination
 # docker build --rm -t "devopscenter/loadbalancer_haproxy:${COMPOSITE_TAG}" loadbalancer/haproxy
@@ -115,6 +125,12 @@ function stack6 {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/765ae2.web:${COMPOSITE_TAG}" 765ae2-stack/web
 }
 
+function stack7 {
+    php
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/386dd0.web:${COMPOSITE_TAG}" 386dd0-stack/web
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/386dd0.worker:${COMPOSITE_TAG}" 386dd0-stack/worker
+}
+
 function web {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/python:${COMPOSITE_TAG}" python
     time newrelic &> newrelic.log &
@@ -124,6 +140,13 @@ function web {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} --build-arg POSTGRES_VERSION=${postgresVersion} -t "devopscenter/python-nginx-pgpool-redis:${COMPOSITE_TAG}" web/python-nginx-pgpool-redis
 #    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/python-nginx-pgpool-libsodium:${COMPOSITE_TAG}" web/python-nginx-pgpool-libsodium
     echo "built common containers"
+}
+
+function php {
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php:${COMPOSITE_TAG}" php
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx:${COMPOSITE_TAG}" web/php-nginx
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx-pgpool:${COMPOSITE_TAG}" web/php-nginx-pgpool
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx-mysqlclient:${COMPOSITE_TAG}" web/php-nginx-mysqlclient
 }
 
 function web-all {
@@ -150,7 +173,9 @@ function web-all {
     rm -rf stack5.log
     stack5 &> stack5.log
     rm -rf stack6.log
-    stack6 &> stack6.log
+    stack6 &> stack6.log &
+    rm -rf stack7.log
+    stack7 &> stack7.log &
 }
 
 if [[ $# -gt 0 ]]; then
