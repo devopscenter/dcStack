@@ -64,7 +64,7 @@ echo "mysql-server-5.7 mysql-server/root_password_again password d3vopsc3nt3r" |
 sudo apt-get install -y  mysql-server
 
 # copy over our mysql configuration file
-cp conf/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo cp conf/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
 echo "mkdir /media/data/mysql"
 sudo mkdir -p ${MYSQLDB_MOUNT}/db
