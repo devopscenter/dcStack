@@ -80,11 +80,13 @@ sudo chown -R mysql:mysql /var/lib/mysql
 sudo chown -R mysql:mysql /usr/share/mysql
 
 # initialize mysql
-# note disabling this so that mysql can write to the /media/data/mysql directory
-sudo service apparmor stop
-sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
-sudo service apparmor restart
-sudo aa-status
+## note disabling this so that mysql can write to the /media/data/mysql directory
+#sudo service apparmor stop
+#sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+echo "/media/data/mysql/ r," | sudo tee -a /etc/apparmor.d/local/usr.sbin.mysqld > /dev/null
+echo "/media/data/mysql/** rwk," | sudo tee -a /etc/apparmor.d/local/usr.sbin.mysqld > /dev/null
+sudo service apparmor reload
+#sudo aa-status
 sudo su -c "mysqld --initialize-insecure" -s /bin/bash mysql
 
 echo calling supervisorconfig
