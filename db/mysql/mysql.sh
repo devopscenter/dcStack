@@ -66,7 +66,7 @@ sudo apt-get install -y  mysql-server
 # copy over our mysql configuration file
 sudo cp conf/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
-echo "mkdir /media/data/mysql"
+echo "mkdir ${MYSQLDB_MOUNT}"
 sudo mkdir -p ${MYSQLDB_MOUNT}/db
 sudo mkdir -p ${MYSQLDB_MOUNT}/backup
 sudo chown -R mysql:mysql ${MYSQLDB_MOUNT}
@@ -79,7 +79,7 @@ sudo chown -R mysql:mysql /var/lib/mysql
 sudo chown -R mysql:mysql /usr/share/mysql
 
 # initialize mysql
-mysqld --initialize-insecure
+sudo su -c "mysqld --initialize-insecure" -s /bin/bash mysql
 
 echo calling supervisorconfig
 ./supervisorconfig.sh $MYSQLDB_VERSION
