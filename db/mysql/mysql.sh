@@ -67,7 +67,8 @@ sudo apt-get install -y  mysql-server
 sudo cp conf/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
 echo "mkdir ${MYSQLDB_MOUNT}"
-sudo mkdir -p ${MYSQLDB_MOUNT}/db
+# mysql initialization doesn't like that this directory exists prior to the intiialization
+#sudo mkdir -p ${MYSQLDB_MOUNT}/db
 sudo mkdir -p ${MYSQLDB_MOUNT}/backup
 sudo chown -R mysql:mysql ${MYSQLDB_MOUNT}
 
