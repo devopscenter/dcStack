@@ -52,26 +52,21 @@ ENV=$4
 DB_TO_USE=$5
 DB_VERSION=$6
 CUST_APP_NAME=$7
-REDIS_INSTALL=R8
+REDIS_INSTALL=$8
 COMBINED_WEB_WORKER=${9}
 SCRATCHVOLUME=${10-"false"}
 
-if  [[ -z ${PRIVATE_IP} ]] ||
-    [[ -z ${STACK} ]] ||
-    [[ -z ${SUFFIX} ]] ||
-    [[ -z ${ENV} ]] ||
-    [[ -z ${CUST_APP_NAME} ]] ||
-    [[ -z ${PGVERSION} ]] ; then
-
-    echo "6 Arguments are required: "
-    echo "    PRIVATE_IP: ${PRIVATE_IP}"
-    echo "    STACK: ${STACK}"
-    echo "    SUFFIX: ${SUFFIX}"
-    echo "    ENV: ${ENV}"
-    echo "    PGVERSION: ${PGVERSION}"
-    echo "    CUST_APP_NAME: ${CUST_APP_NAME}"
-    exit 1
-fi
+echo "Arguments passed in: "
+echo "    PRIVATE_IP: ${PRIVATE_IP}"
+echo "    STACK: ${STACK}"
+echo "    SUFFIX: ${SUFFIX}"
+echo "    ENV: ${ENV}"
+echo "    DB_TO_USE: ${DB_TO_USE}"
+echo "    DB_VERSION: ${DB_VERSION}"
+echo "    CUST_APP_NAME: ${CUST_APP_NAME}"
+echo "    REDIS_INSTALL: ${REDIS_INSTALL}"
+echo "    COMBINED_WEB_WORKER: ${COMBINED_WEB_WORKER}"
+echo "    SCRATCHVOLUME: ${SCRATCHVOLUME}"
 
 #
 # All web and worker instances use /data for code deploys, some for other stuff
