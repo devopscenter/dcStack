@@ -137,7 +137,7 @@ sudo ./nginx.sh
 #-------------------------------------------------------------------------------
 # install pgpool
 #-------------------------------------------------------------------------------
-if [[ $DB_TO_USE} == "postgresql" ]]; then
+if [[ ${DB_TO_USE} == "postgresql" ]]; then
     cd ~/dcStack/web/python-nginx-pgpool/ || exit
     sudo ./pgpool.sh "$DB_VERSION"
 fi
@@ -145,7 +145,7 @@ fi
 #-------------------------------------------------------------------------------
 # install redis client
 #-------------------------------------------------------------------------------
-if [[ ${REDIS_INSTALL} ]]; then
+if [[ ${REDIS_INSTALL} == 1 ]]; then
     cd ~/dcStack/web/python-nginx-pgpool-redis/ || exit
     sudo ./redis-client-install.sh
 fi
