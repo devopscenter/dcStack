@@ -8,6 +8,7 @@ import subprocess
 # from process_dc_env import pythonGetEnv, dcEnvCheckArgs
 from dc_base import dcBase
 from dc_python import dcPython
+from dc_php import dcPhp
 from dc_logging import dcLogging
 from dc_supervisor import dcSupervisor
 from dc_web import dcWeb
@@ -50,6 +51,7 @@ class InstanceBuilder:
         self.elementDependency = [
             "base",
             "python",
+            "php",
             "supervisor",
             "deployenv",
             "logging",
