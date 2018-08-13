@@ -29,7 +29,7 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class dcPython(ElementBase):
+class dcPhp(ElementBase):
     """Class that installs the php code."""
 
     def __init__(self, argList):
