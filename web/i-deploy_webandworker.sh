@@ -49,10 +49,12 @@ PRIVATE_IP=$1
 STACK=$2
 SUFFIX=$3
 ENV=$4
-PGVERSION=$5
-CUST_APP_NAME=$6
-COMBINED_WEB_WORKER=${7}
-SCRATCHVOLUME=${8-"false"}
+DB_TO_USE=$5
+DB_VERSION=$6
+CUST_APP_NAME=$7
+REDIS_INSTALL=R8
+COMBINED_WEB_WORKER=${9}
+SCRATCHVOLUME=${10-"false"}
 
 if  [[ -z ${PRIVATE_IP} ]] ||
     [[ -z ${STACK} ]] ||
@@ -140,14 +142,18 @@ sudo ./nginx.sh
 #-------------------------------------------------------------------------------
 # install pgpool
 #-------------------------------------------------------------------------------
-cd ~/dcStack/web/python-nginx-pgpool/ || exit
-sudo ./pgpool.sh "$PGVERSION"
+if [[ $DB_TO_USE} == "postgresql" ]]; then
+    cd ~/dcStack/web/python-nginx-pgpool/ || exit
+    sudo ./pgpool.sh "$DB_VERSION"
+fi
 
 #-------------------------------------------------------------------------------
 # install redis client
 #-------------------------------------------------------------------------------
-cd ~/dcStack/web/python-nginx-pgpool-redis/ || exit
-sudo ./redis-client-install.sh
+if [[ ${REDIS_INSTALL} ]]; then
+    cd ~/dcStack/web/python-nginx-pgpool-redis/ || exit
+    sudo ./redis-client-install.sh
+fi
 
 #-------------------------------------------------------------------------------
 # Install customer-specific stack - all (both web and worker) get the web portion.
