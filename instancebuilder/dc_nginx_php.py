@@ -29,7 +29,7 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class dcNginxPHP(ElementBase):
+class dcNginx_php(ElementBase):
     """Class that installs the nginx code with php access."""
 
     def __init__(self, argList):

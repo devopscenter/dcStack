@@ -16,7 +16,7 @@ from dc_node import dcNode
 from dc_pgpool import dcPgpool
 from dc_redis import dcRedis
 from dc_nginx import dcNginx
-from dc_nginx_php import dcNginxPHP
+from dc_nginx_php import dcNginx_php
 # ==============================================================================
 __version__ = "0.1"
 
