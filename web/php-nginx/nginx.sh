@@ -37,7 +37,7 @@
 #set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 
-echo "============================ Beginning element: nginx_php ===================="
+echo "============================ Building element: nginx_php ===================="
 #-------------------------------------------------------------------------------
 # START set up the logging framework
 #-------------------------------------------------------------------------------
