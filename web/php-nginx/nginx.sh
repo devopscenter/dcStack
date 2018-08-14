@@ -37,6 +37,7 @@
 #set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 
+echo "============================ Beginning element: nginx_php ===================="
 #-------------------------------------------------------------------------------
 # START set up the logging framework
 #-------------------------------------------------------------------------------
@@ -113,4 +114,5 @@ sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 sudo cp conf/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
 dcLog "done"
 
+echo "============================ Finished element: nginx_php ===================="
 dcEndLog "Finished nginx.sh set up and configuration"

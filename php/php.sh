@@ -36,6 +36,7 @@
 #set -o nounset     # Treat unset variables as an error
 set -o errexit            # exit immediately if command exists with a non-zero status
 set -x                    # essentially debug mode
+echo "============================ Building element: php ===================="
 
 PHP_VERSION=5.6
 #-------------------------------------------------------------------------------
@@ -118,4 +119,5 @@ sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 dcLog "done"
 
 
+echo "============================ Finished element: php ===================="
 dcEndLog "Finished php.sh"
