@@ -16,6 +16,7 @@ from dc_node import dcNode
 from dc_pgpool import dcPgpool
 from dc_redis import dcRedis
 from dc_nginx import dcNginx
+from dc_nginx_php import dcNginxPHP
 # ==============================================================================
 __version__ = "0.1"
 
@@ -58,6 +59,7 @@ class InstanceBuilder:
             "mount",
             "postgres",
             "nginx",
+            "nginx_php"
             "pgpool",
             "redis",
             "node",
