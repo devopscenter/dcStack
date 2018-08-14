@@ -59,7 +59,7 @@ class InstanceBuilder:
             "mount",
             "postgres",
             "nginx",
-            "nginx_php"
+            "nginx_php",
             "pgpool",
             "redis",
             "node",
