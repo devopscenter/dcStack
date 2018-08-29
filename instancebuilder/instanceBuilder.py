@@ -177,6 +177,9 @@ def checkArgs():
                         'holds variables that define paths on the local'
                         'system.',
                         required=False)
+    parser.add_argument('-p', '--profile',
+                        help='This is the AWS profile that needs to be used.',
+                        required=False)
     parser.add_argument('-o', '--organization',
                         help='This is the AWS profile that needs to be used.',
                         required=False)
@@ -227,8 +230,11 @@ def checkArgs():
     if args.configFile:
         retArgs["CONFIG_FILE"] = args.configFile
 
-    if args.profile:
+    if args.organization:
         retArgs["ORGANIZATION"] = args.organization
+
+    if args.profile:
+        retArgs["ORGANIZATION"] = args.profile
 
     if args.region:
         retArgs["REGION"] = args.region
