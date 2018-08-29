@@ -38,8 +38,9 @@ class ElementBase(object):
 #            self.readConfigFile(argList["CONFIG_FILE"])
         if "APP_NAME" in argList:
             self.appName = argList["APP_NAME"]
-        if "PROFILE" in argList:
-            self.profile = argList["PROFILE"]
+        if "ORGANIZATION" in argList:
+            self.profile = argList["ORGANIZATION"]
+            self.organization = argList["ORGANIZATION"]
         if "REGION" in argList:
             self.region = argList["REGION"]
         if "ENV" in argList:
