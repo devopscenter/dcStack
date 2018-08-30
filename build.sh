@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: drop-index.sh
+#          FILE: build.sh
 #
-#         USAGE: ./drop-index.sh
+#         USAGE: ./build.sh
 #
 #   DESCRIPTION: Docker Stack - Docker stack to manage infrastructures
 #
@@ -44,6 +44,8 @@ source BASEIMAGE
 echo "BaseImage=${baseimageversion}"
 source POSTGRES_VERSION
 echo "Postgresql version=${postgresVerison}"
+. db/mysql/mysqlenv.sh
+echo "MySQL version=${MYSQLDB_VERSION}"
 
 COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
 
@@ -200,4 +202,14 @@ else
     misc &> misc9.6.log &
     web-all &> web9.6.log
     db &> db9.6.log
+
+    echo "Building the images that have an association with a mysql database"
+    COMPOSITE_TAG=${dcSTACK_VERSION}-mysql${MYSQLDB_VERSION}
+    echo  ${COMPOSITE_TAG}
+    base > base-mysql${MYSQLDB_VERSION}.log
+    misc &> misc-mysql${MYSQLDB_VERSION}.log &
+    web &> web-mysql${MYSQLDB_VERSION}.log
+    stack7 &> stack7-mysql${MYSQLDB_VERSION}.log
+    mysql &> mysql${MYSQLDB_VERSION}.log
+    mongodb &> mongodb-mysql${MYSQLDB_VERSION}.log
 fi
