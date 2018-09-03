@@ -133,6 +133,11 @@ function stack7 {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/386dd0.worker:${COMPOSITE_TAG}" 386dd0-stack/worker
 }
 
+function stack8 {
+    # dcMonitoring
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/1213d64.web:${COMPOSITE_TAG}" 1213d64-stack/web
+}
+
 function web {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/python:${COMPOSITE_TAG}" python
     time newrelic &> newrelic.log &
