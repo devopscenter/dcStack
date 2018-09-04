@@ -54,6 +54,8 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install -y grafana
 
+# install parallel shell for running paws
+sudo apt-get install -y pdsh
 
 # install the python support libraries
 sudo -H pip install -r requirements.txt
