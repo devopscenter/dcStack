@@ -68,6 +68,8 @@ sudo apt-get install -y nodejs
 
 sudo apt-get install -y build-essential 
 
+# we need expect just in case paws is run with the -x option
+DEBIAN_FRONTEND=noninteractive sudo apt-get install -y expect
 #
 # disable unused services (at least initially)
 #
