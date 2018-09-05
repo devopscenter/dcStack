@@ -7,3 +7,4 @@ gitpython
 boto3
 virtualenvwrapper
 pysnmp
+simplejson
