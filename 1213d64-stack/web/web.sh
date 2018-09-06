@@ -78,7 +78,7 @@ if [[ -f /etc/supervisor/conf.d/nginx.conf ]]; then
     sudo mv /etc/supervisor/conf.d/nginx.conf /etc/supervisor/conf.d/nginx.save
 fi
 if [[ -f /etc/supervisor/conf.d/uwsgi.conf ]]; then 
-    sudo mv /etc/superviosr/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
+    sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 fi
 if [[ -f /etc/supervisor/conf.d/pgpool.conf ]]; then 
     sudo mv /etc/supervisor/conf.d/pgpool.conf /etc/supervisor/conf.d/pgpool.save
