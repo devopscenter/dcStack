@@ -44,14 +44,15 @@ dcStartLog "install of app-specific web for 1213d64-stack (dcMonitoring)"
 
 
 # add the repository for grafana
-deb https://packagecloud.io/grafana/stable/debian/ stretch main
-
-# and the key
 curl https://packagecloud.io/gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb https://packagecloud.io/grafana/stable/debian/ stretch main"
 
 # update and install grafana
 sudo apt-get update
-sudo apt-get upgrade
+
+# make sure grafana will be installed from the packagecloud repository
+apt-cache policy grafana
+
 sudo apt-get install -y grafana
 
 # install parallel shell for running paws
