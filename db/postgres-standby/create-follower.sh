@@ -83,4 +83,7 @@ fi
 
 echo "trigger_file = '/media/data/postgres/trigger_promote'" | sudo tee -a /media/data/postgres/db/pgdata/recovery.conf
 
-sudo sed -i "s/.*pg_backup_rotated/#&/" /var/spool/cron/crontabs/postgres
+CRONTAB_OUTPUT=$(crontab -l)
+if [[ "${CRONTAB_OUTPUT}" != "no crontab"* ]]; then
+    sudo sed -i "s/.*pg_backup_rotated/#&/" /var/spool/cron/crontabs/postgres
+fi
