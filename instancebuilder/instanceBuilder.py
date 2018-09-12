@@ -111,6 +111,9 @@ class InstanceBuilder:
             originalDir = os.getcwd()
             # and change the dcStack postgres directory so that we can run the
             # mount script
+            if "STACK_DIR" in self.argList:
+                self.stackDir = self.argList["STACK_DIR"]
+
             destDir = os.path.expanduser(self.stackDir + "/db/postgres")
             os.chdir(destDir)
             # TODO get the path to mount from an argument passed in
