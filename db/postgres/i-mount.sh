@@ -165,6 +165,8 @@ if [ -b /dev/xvdg ]; then
     mount-volume "/dev/xvdg" ${MAIN_MOUNT_PATH}
 elif [[ -b /dev/nvme1n1 ]]; then
     mount-volume "/dev/nvme1n1" "/media/data/"
+elif [[ -b /dev/sdb ]]; then
+    mount-volume "/dev/sdb" ${MAIN_MOUNT_PATH}
 else
     if [ -b /dev/nvme0n1 ]; then
         mount-volume "/dev/nvme0n1" "/media/data/"
