@@ -113,8 +113,9 @@ class InstanceBuilder:
             # mount script
             destDir = os.path.expanduser(self.stackDir + "/db/postgres")
             os.chdir(destDir)
-            # TODO callexternal process i-mount.sh "/media/data"
-#             sudo . / i - mount.sh "/media/data"
+            # TODO get the path to mount from an argument passed in
+            cmdToRun = ("sudo ./i-mount.sh /media/data")
+            subprocess.call(cmdToRun, shell=True)
 
             # now we need to make the deploy directory and then set up
             # a symbolic link for legacy reasons
