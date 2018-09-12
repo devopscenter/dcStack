@@ -106,7 +106,7 @@ class InstanceBuilder:
         # well.
         # ----------------------------------------------------------------------
         deployDir = "/data/deploy"
-        if "SCRATCHVOLUME" in self.elementsToInclude:
+        if "CREATE_SCRATCH_VOLUME" in self.elementsToInclude:
             # hold the original directory
             originalDir = os.getcwd()
             # and change the dcStack postgres directory so that we can run the
