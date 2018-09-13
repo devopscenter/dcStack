@@ -118,6 +118,7 @@ class InstanceBuilder:
             os.chdir(destDir)
             # TODO get the path to mount from an argument passed in
             cmdToRun = ("sudo ./i-mount.sh /media/data")
+            print("instanceBuilder.py:setupStandardDirectories[122]:{}".format(cmdToRun))
             subprocess.call(cmdToRun, shell=True)
 
             # now we need to make the deploy directory and then set up
@@ -127,9 +128,11 @@ class InstanceBuilder:
             if not os.path.exists(mediaDeployDir):
                 cmdToRun = ("sudo mkdir -p " + mediaDeployDir
                             + " ; sudo chmod 755 " + mediaDeployDir)
+                print("instanceBuilder.py:setupStandardDirectories[132]:{}".format(cmdToRun))
                 subprocess.call(cmdToRun, shell=True)
                 cmdToRun = ("sudo ln -s " + mediaDeployDir + " "
                             + deployDir)
+                print("instanceBuilder.py:setupStandardDirectories[136]:{}".format(cmdToRun))
                 subprocess.call(cmdToRun, shell=True)
                 os.symlink(mediaDeployDir, deployDir)
 
