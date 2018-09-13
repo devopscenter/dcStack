@@ -130,10 +130,6 @@ class InstanceBuilder:
                             + " ; sudo chmod 755 " + mediaDeployDir)
                 print("instanceBuilder.py:setupStandardDirectories[132]:{}".format(cmdToRun))
                 subprocess.call(cmdToRun, shell=True)
-                cmdToRun = ("sudo ln -s " + mediaDeployDir + " "
-                            + deployDir)
-                print("instanceBuilder.py:setupStandardDirectories[136]:{}".format(cmdToRun))
-                subprocess.call(cmdToRun, shell=True)
                 os.symlink(mediaDeployDir, deployDir)
 
                 # and now go back to the original directory to proceed
