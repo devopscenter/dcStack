@@ -139,7 +139,10 @@ cd ~/dcStack/logging/ || exit
 #-------------------------------------------------------------------------------
 cd ~/dcStack/db/postgres/ || exit
 sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
-sudo ./i-mount.sh "/media/data/postgres/db" ${ENCRYPT_FS}
+# changed to provide at minimum the based directory and if the other xlog and backup directory
+# are found on a separate device then they will overlay appropriately
+#sudo ./i-mount.sh "/media/data/postgres/db" ${ENCRYPT_FS}
+sudo ./i-mount.sh "/media/data" ${ENCRYPT_FS}
 
 #-------------------------------------------------------------------------------
 # install postgres and other tasks
