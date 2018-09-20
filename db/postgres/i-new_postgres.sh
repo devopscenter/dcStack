@@ -233,6 +233,8 @@ sudo supervisorctl restart postgres
 # parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
 #-------------------------------------------------------------------------------
 if [[ "${NEED_TO_BACKUP_TO_S3}" == "true" ]]; then
+    echo "NOTICE: Setting up backup to S3"
+
     if [[ "$BACKUP_S3_REGION" == "us-east-1" ]]; then
         WALE_S3_ENDPOINT=https+path://s3.amazonaws.com:443
     else
