@@ -61,6 +61,7 @@ BACKUP_S3_REGION=${11}
 PUBLIC_IP=${12}
 ROLE=${13}
 ENCRYPT_FS=${14}
+NEED_TO_BACKUP_TO_S3=${15}
 
 if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$VPC_CIDR" ]] ||
@@ -72,7 +73,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     [[ -z "$BACKUP_S3_REGION}" ]] ||
     [[ -z "$ENV" ]]; then
 
-    echo "14 Arguments are required: "
+    echo "15 Arguments are required: "
     echo "    PRIVATE_IP: ${PRIVATE_IP}"
     echo "    VPC_CIDR: ${VPC_CIDR}"
     echo "    DATABASE: ${DATABASE}"
@@ -86,6 +87,7 @@ if  [[ -z "$PRIVATE_IP" ]] ||
     echo "    PUBLIC_IP: ${PUBLIC_IP}"
     echo "    ROLE: ${ROLE}"
     echo "    ENCRYPT_FS: ${ENCRYPT_FS}"
+    echo "    NEED_TO_BACKUP_TO_S3: ${NEED_TO_BACKUP_TO_S3}"
     echo
    # echo -e "Examples:"
    # echo -e "Postgresql 9.4 using /etc/hosts for DNS:   ./i-new_postgres.sh 10.0.0.15 logs.papertrailapp.com:12345 10.0.0.0/16 test-postgres-backup-dev 9.4 etchosts"
@@ -219,32 +221,6 @@ function parameter-ensure
 }
 
 #-------------------------------------------------------------------------------
-# parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
-#-------------------------------------------------------------------------------
-if [[ "$BACKUP_S3_REGION" == "us-east-1" ]]; then
-    WALE_S3_ENDPOINT=https+path://s3.amazonaws.com:443
-else
-    WALE_S3_ENDPOINT=https+path://s3-${BACKUP_S3_REGION}.amazonaws.com:443
-fi
-
-if [[ ${DCTYPE} != *"VM"* ]]; then
-    parameter-ensure archive_command "'export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
-else
-    parameter-ensure archive_command "'export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e -k ${AWS_ACCESS_KEY_ID} --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
-fi
-
-#-------------------------------------------------------------------------------
-# make copies of files needed for wal-e restore
-#-------------------------------------------------------------------------------
-sudo cp --preserve /media/data/postgres/db/pgdata/postgresql.conf /media/data/postgres/backup/
-sudo cp --preserve /media/data/postgres/db/pgdata/pg_ident.conf /media/data/postgres/backup/
-sudo cp --preserve /media/data/postgres/db/pgdata/pg_hba.conf /media/data/postgres/backup/
-
-## create postgresql.conf file with archive mode = off for wal-e restores
-#sudo cp --preserve /media/data/postgres/backup/postgresql.conf /media/data/postgres/backup/postgresql.conf.wale
-#sudo sed -i "s/^\barchive_mode\b[[:blank:]]\+=[[:blank:]]\+\bon\b/archive_mode = off/g" /media/data/postgres/backup/postgresql.conf.wale
-
-#-------------------------------------------------------------------------------
 # self-signed cert for now...
 #-------------------------------------------------------------------------------
 sudo openssl req -new -x509 -nodes -out /media/data/postgres/db/pgdata/server.crt -keyout /media/data/postgres/db/pgdata/server.key -days 1024 -subj "/C=US"
@@ -253,8 +229,25 @@ sudo chown postgres:postgres /media/data/postgres/db/pgdata/server.crt /media/da
 
 sudo supervisorctl restart postgres
 
-if [[ ${DCTYPE} != *"VM"* ]]; then
-    # NOTE, when creating VM that doesn't have access to S3 don't imprint the backup
+#-------------------------------------------------------------------------------
+# parameter-ensure archive_mode on /media/data/postgres/db/pgdata/postgresql.conf
+#-------------------------------------------------------------------------------
+if [[ "${NEED_TO_BACKUP_TO_S3}" == "true" ]]; then
+    if [[ "$BACKUP_S3_REGION" == "us-east-1" ]]; then
+        WALE_S3_ENDPOINT=https+path://s3.amazonaws.com:443
+    else
+        WALE_S3_ENDPOINT=https+path://s3-${BACKUP_S3_REGION}.amazonaws.com:443
+    fi
+
+    parameter-ensure archive_command "'export WALE_S3_ENDPOINT=${WALE_S3_ENDPOINT}; /usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://${S3_WALE_BUCKET}/${HOSTNAME} wal-push %p'" /media/data/postgres/db/pgdata/postgresql.conf /media/data/tmp
+
+    #-------------------------------------------------------------------------------
+    # make copies of files needed for wal-e restore
+    #-------------------------------------------------------------------------------
+    sudo cp --preserve /media/data/postgres/db/pgdata/postgresql.conf /media/data/postgres/backup/
+    sudo cp --preserve /media/data/postgres/db/pgdata/pg_ident.conf /media/data/postgres/backup/
+    sudo cp --preserve /media/data/postgres/db/pgdata/pg_hba.conf /media/data/postgres/backup/
+
     #-------------------------------------------------------------------------------
     # enable backups
     #-------------------------------------------------------------------------------
