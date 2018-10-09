@@ -39,7 +39,7 @@
 #set -x             # essentially debug mode
 
 
-NAME=grafana-server
+NAME=grafana
 DESC="Grafana Server"
 DEFAULT=/etc/default/$NAME
 
