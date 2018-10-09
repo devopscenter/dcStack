@@ -58,16 +58,22 @@ sudo apt-get install -y grafana
 # install parallel shell for running paws
 sudo apt-get install -y pdsh
 
-# install the python support libraries
-sudo -H pip install -r requirements.txt
-
-
 # Install node
 curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -
 
 sudo apt-get install -y nodejs
 
 sudo apt-get install -y build-essential 
+
+# install the python support libraries
+sudo -H pip install -r requirements.txt
+
+# Clone the statsd project 
+git clone https://github.com/etsy/statsd.git
+cd ./statsd
+
+# Create a config file for statsd
+cp ./statsd/exampleConfig.js ./statsd/config.js
 
 # we need expect just in case paws is run with the -x option
 DEBIAN_FRONTEND=noninteractive sudo apt-get install -y expect
