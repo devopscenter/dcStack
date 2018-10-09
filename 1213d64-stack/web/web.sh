@@ -42,13 +42,16 @@ source /usr/local/bin/dcEnv.sh                       # initalize logging environ
 
 dcStartLog "install of app-specific web for 1213d64-stack (dcMonitoring)"
 
-# add the repository for grafana
-curl https://packagecloud.io/gpg.key | sudo apt-key add -
-sudo add-apt-repository "deb https://packagecloud.io/grafana/stable/debian/ stretch main"
+# update 
+sudo apt-get update
 
 # go get the apt-trapport-https as grafana will want to use https after it add the source 
 # repository for grafana
 apt-get install apt-transport-https
+
+# add the repository for grafana
+curl https://packagecloud.io/gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb https://packagecloud.io/grafana/stable/debian/ stretch main"
 
 # update and install grafana
 sudo apt-get update
