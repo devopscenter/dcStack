@@ -42,7 +42,6 @@ source /usr/local/bin/dcEnv.sh                       # initalize logging environ
 
 dcStartLog "install of app-specific web for 1213d64-stack (dcMonitoring)"
 
-
 # add the repository for grafana
 curl https://packagecloud.io/gpg.key | sudo apt-key add -
 sudo add-apt-repository "deb https://packagecloud.io/grafana/stable/debian/ stretch main"
@@ -70,7 +69,6 @@ sudo -H pip install -r requirements.txt
 
 # Clone the statsd project 
 git clone https://github.com/etsy/statsd.git
-cd ./statsd
 
 # Create a config file for statsd
 cp ./statsd/exampleConfig.js ./statsd/config.js
@@ -91,6 +89,7 @@ if [[ -f /etc/supervisor/conf.d/pgpool.conf ]]; then
 fi
 
 # set up the supervisor start script for grafana
+pwd
 sudo cp conf/supervisor-grafana.conf /etc/supervisor/conf.d/grafana.conf
 sudo cp conf/run_grafana.sh /etc/supervisor/conf.d/
 chmod a+x /etc/supervisor/conf.d/run_grafana.sh
