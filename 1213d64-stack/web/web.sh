@@ -101,4 +101,10 @@ sudo cp conf/supervisor-grafana.conf /etc/supervisor/conf.d/grafana.conf
 sudo cp conf/run_grafana.sh /etc/supervisor/conf.d/
 chmod a+x /etc/supervisor/conf.d/run_grafana.sh
 
+# make sure the grafana shared directory is writable by the grafana owner
+if [[ ! -d /usr/share/grafana ]]; then 
+    sudo mkdir /usr/share/grafana
+fi
+chown grafana:grafana /usr/share/grafana
+
 dcEndLog "install of app-specific web for 1213d64-stack (dcMonitoring)"
