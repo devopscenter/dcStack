@@ -63,4 +63,4 @@ fi
 mkdir -p "$LOG_DIR" "$DATA_DIR" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$LOG_DIR" "$DATA_DIR"
 touch "$PID_FILE" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$PID_FILE"
 
-/usr/sbin/grafana-server --pidfile=${PID_FILE} --config=${CONF_DIR} --homepath=${GRAFANA_HOME} cfg:default.paths.data=${DATA_DIR} cfg:default.paths.logs=${LOG_DIR}
+${DAEMON} --pidfile=${PID_FILE} --config=${CONF_FILE} --homepath=${GRAFANA_HOME} cfg:default.paths.data=${DATA_DIR} cfg:default.paths.logs=${LOG_DIR}
