@@ -38,7 +38,9 @@ RUN ./postgres.sh ${POSTGRES_VERSION} && \
     cp conf/postgresql.conf.local /media/data/postgres/db/pgdata/postgresql.conf
 
 # Run supervisor in this container, in foreground mode
-CMD ln -sf /var/run/rsyslog/dev/log /dev/log && /usr/local/bin/supervisord -n
+CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
+    if [ -e /app-utils/conf/db-commands.sh ]; then  /app-utils/conf/db-commands.sh; fi && \
+	 /usr/local/bin/supervisord -n
 
 # Add mountpoints for VOLUMES to be created. Note that these mirror what is established
 # when these are created in instances. Each of the four mountpoints are different types of data,
