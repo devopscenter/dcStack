@@ -91,9 +91,6 @@ fi
 if [[ -f /etc/supervisor/conf.d/uwsgi.conf ]]; then 
     sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 fi
-if [[ -f /etc/supervisor/conf.d/pgpool.conf ]]; then 
-    sudo mv /etc/supervisor/conf.d/pgpool.conf /etc/supervisor/conf.d/pgpool.save
-fi
 
 # set up the supervisor start script for grafana
 pwd
