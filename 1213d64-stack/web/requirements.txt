@@ -9,3 +9,6 @@ virtualenvwrapper
 pysnmp
 simplejson
 python-statsd
+pytz
+gunicorn
+six
