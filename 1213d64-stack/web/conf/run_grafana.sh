@@ -59,6 +59,10 @@ if [ -n "$MAX_OPEN_FILES" ]; then
 	ulimit -n $MAX_OPEN_FILES
 fi
 
+# before we start need to make sure that pgmaster-1 is up and running and we need to create the
+# grafana database inside postresql
+psql -U postgres -c "create database grafana"
+
 # Prepare environment
 mkdir -p "$LOG_DIR" "$DATA_DIR" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$LOG_DIR" "$DATA_DIR"
 touch "$PID_FILE" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$PID_FILE"
