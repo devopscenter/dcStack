@@ -139,7 +139,7 @@ cp conf/usr/local/bin/manage.sh /usr/local/bin/manage.sh
 sudo chmod +x /usr/local/bin/manage.sh
 /usr/local/bin/django_admin_init.exp
 
-# Configure Grafana and wizzy
+# Configure Grafana
 cp conf/custom.ini /opt/grafana/conf/custom.ini
 
 # Add the default datasource and dashboards
