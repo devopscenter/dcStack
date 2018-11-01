@@ -39,21 +39,21 @@
 #set -x             # essentially debug mode
 
 
-NAME=grafana-server
-DESC="Grafana Server"
-DEFAULT=/etc/default/$NAME
-
-GRAFANA_USER=grafana
-GRAFANA_GROUP=grafana
-GRAFANA_HOME=/usr/share/grafana
-CONF_DIR=/etc/grafana
-WORK_DIR=$GRAFANA_HOME
-DATA_DIR=/var/lib/grafana
-LOG_DIR=/var/log/grafana
-CONF_FILE=$CONF_DIR/grafana.ini
-MAX_OPEN_FILES=10000
-PID_FILE=/var/run/$NAME.pid
-DAEMON=/usr/sbin/$NAME
+#NAME=grafana-server
+#DESC="Grafana Server"
+#DEFAULT=/etc/default/$NAME
+#
+#GRAFANA_USER=grafana
+#GRAFANA_GROUP=grafana
+#GRAFANA_HOME=/usr/share/grafana
+#CONF_DIR=/etc/grafana
+#WORK_DIR=$GRAFANA_HOME
+#DATA_DIR=/var/lib/grafana
+#LOG_DIR=/var/log/grafana
+#CONF_FILE=$CONF_DIR/grafana.ini
+#MAX_OPEN_FILES=10000
+#PID_FILE=/var/run/$NAME.pid
+#DAEMON=/usr/sbin/$NAME
 
 if [ -n "$MAX_OPEN_FILES" ]; then
 	ulimit -n $MAX_OPEN_FILES
@@ -64,7 +64,10 @@ fi
 psql -U postgres -c "create database grafana"
 
 # Prepare environment
-mkdir -p "$LOG_DIR" "$DATA_DIR" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$LOG_DIR" "$DATA_DIR"
-touch "$PID_FILE" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$PID_FILE"
+#mkdir -p "$LOG_DIR" "$DATA_DIR" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$LOG_DIR" "$DATA_DIR"
+#touch "$PID_FILE" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$PID_FILE"
 
-${DAEMON} --pidfile=${PID_FILE} --config=${CONF_FILE} --homepath=${GRAFANA_HOME} cfg:default.paths.data=${DATA_DIR} cfg:default.paths.logs=${LOG_DIR}
+#${DAEMON} --pidfile=${PID_FILE} --config=${CONF_FILE} --homepath=${GRAFANA_HOME} cfg:default.paths.data=${DATA_DIR} cfg:default.paths.logs=${LOG_DIR}
+
+# start grafana
+/opt/grafana/bin/grafana-server
