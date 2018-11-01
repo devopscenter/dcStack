@@ -69,10 +69,10 @@ class dcWeb(ElementBase):
         # -------------------------------------------------------------------------
         # run the appliction specific web_commands.sh
         # -------------------------------------------------------------------------
-        webCmdToRun = standardAppUtilsDir + "/web-commands.sh"
+        webCmdToRun = standardAppUtilsDir + "/" + self.suffix + "-commands.sh"
         if os.path.isfile(webCmdToRun):
             os.chdir(standardAppUtilsDir)
-            cmdToRun = "sudo ./web-commands.sh " + self.suffix
+            cmdToRun = "sudo ./" + self.suffix + "-commands.sh "
             self.runScript(cmdToRun)
 
         # and move back to the original directory

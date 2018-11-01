@@ -33,7 +33,7 @@
 #
 # ==============================================================================
 
-from fabric.api import run, task, local, env
+from fabric.api import run, task, local, env, sudo 
 from django_code_deploy import fabfile as deploy
 
 env.user = "ubuntu"
@@ -105,3 +105,7 @@ def restore_pgdump_backup_schema_only(db_name):
 # @task
 # def db_migrate():
 #    run("cd /data/deploy/current && python manage.py migrate")
+
+@task
+def cleanup_pgdump_backup(db_name):
+    sudo("cd /media/data/db_restore/ &&  rm %s.sql.gz-*" % (db_name) )
