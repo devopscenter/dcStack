@@ -145,11 +145,8 @@ cp conf/custom.ini /opt/grafana/conf/custom.ini
 # Add the default datasource and dashboards
 mkdir -p /src/datasources
 mkdir -p /src/dashboards
-pwd 
 cp conf/grafana/datasources/* /src/datasources
 cp conf/grafana/dashboards/* /src/dashboards/
-cp conf/grafana/export-datasources-and-dashboards.sh /src/
-
 
 # set up the supervisor start script for grafana
 sudo cp conf/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
