@@ -5,6 +5,7 @@ log.txt
 *-e
 *.log
 *.whl
+*.pyc
 base.log
 syslog.log
 push.log
