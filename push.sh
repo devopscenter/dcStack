@@ -114,6 +114,11 @@ function stack7 {
     docker push  "devopscenter/386dd0.worker:${COMPOSITE_TAG}"
 }
 
+function stack8 {
+    # dcMonitoring
+    docker push   "devopscenter/1213d64.web:${COMPOSITE_TAG}"
+}
+
 function python {
     docker push  "devopscenter/python:${COMPOSITE_TAG}"
     docker push  "devopscenter/python-nginx:${COMPOSITE_TAG}"
@@ -139,6 +144,8 @@ function web {
     time stack6 &> stack6push.log &
 }
 
+
+# TODO this next part needs to be refactored to be more flexible
 postgresVersion=9.4
 COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
 echo  ${COMPOSITE_TAG}
