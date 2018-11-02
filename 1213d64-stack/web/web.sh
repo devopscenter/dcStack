@@ -60,6 +60,9 @@ sudo apt-get install -y nodejs
 
 sudo apt-get install -y build-essential 
 
+# install grafana helper tool wizzy to help with exporting dashboards
+npm install -g wizzy
+
 # install the python support libraries
 sudo -H pip install -r requirements.txt
 
@@ -143,10 +146,11 @@ sudo chmod +x /usr/local/bin/manage.sh
 cp conf/custom.ini /opt/grafana/conf/custom.ini
 
 # Add the default datasource and dashboards
-mkdir -p /src/datasources
-mkdir -p /src/dashboards
-cp conf/grafana/datasources/* /src/datasources
-cp conf/grafana/dashboards/* /src/dashboards/
+mkdir -p /dataload/datasources
+mkdir -p /dataload/dashboards
+cp conf/grafana/datasources/* /dataload/datasources
+cp conf/grafana/dashboards/* /dataload/dashboards/
+cp conf/grafana/manage-datasources-and-dashboards.sh /dataload
 
 # set up the supervisor start script for grafana
 sudo cp conf/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
