@@ -145,13 +145,6 @@ sudo chmod +x /usr/local/bin/manage.sh
 # Configure Grafana
 cp conf/custom.ini /opt/grafana/conf/custom.ini
 
-# Add the default datasource and dashboards
-mkdir -p /dataload/datasources
-mkdir -p /dataload/dashboards
-cp conf/grafana/datasources/* /dataload/datasources
-cp conf/grafana/dashboards/* /dataload/dashboards/
-cp conf/grafana/manage-datasources-and-dashboards.sh /dataload
-
 # set up the supervisor start script for grafana
 sudo cp conf/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
 sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
