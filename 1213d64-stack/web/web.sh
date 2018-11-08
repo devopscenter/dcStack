@@ -164,12 +164,6 @@ if [[ -f /etc/supervisor/conf.d/uwsgi.conf ]]; then
     sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 fi
 
-# make sure the grafana shared directory is writable by the grafana owner
-if [[ ! -d /usr/share/grafana ]]; then 
-    sudo mkdir /usr/share/grafana
-fi
-sudo chmod 777 /usr/share/grafana
-
 # cleanup
 apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
