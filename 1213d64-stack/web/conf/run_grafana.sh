@@ -70,4 +70,4 @@ psql -U postgres -c "create database grafana"
 #${DAEMON} --pidfile=${PID_FILE} --config=${CONF_FILE} --homepath=${GRAFANA_HOME} cfg:default.paths.data=${DATA_DIR} cfg:default.paths.logs=${LOG_DIR}
 
 # start grafana
-/opt/grafana/bin/grafana-server
+exec /opt/grafana/bin/grafana-server
