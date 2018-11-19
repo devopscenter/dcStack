@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: drop-index.sh
+#          FILE: push.sh 
 #
-#         USAGE: ./drop-index.sh
+#         USAGE: ./push.sh
 #
 #   DESCRIPTION: push the dcStack containers to docker hub
 #
@@ -56,12 +56,22 @@ function db {
     docker push  "devopscenter/db_redis-standby:${COMPOSITE_TAG}"
 }
 
+function mysql {
+    docker push  "devopscenter/db_base:${COMPOSITE_TAG}"
+    docker push  "devopscenter/db_mysql:${COMPOSITE_TAG}"
+}
+
+function mongodb {
+    docker push  "devopscenter/db_base:${COMPOSITE_TAG}"
+    docker push  "devopscenter/db_mongodb:${COMPOSITE_TAG}"
+}
+
 function misc {
     docker push  "devopscenter/syslog:${COMPOSITE_TAG}"
     docker push  "devopscenter/monitor_papertrail:${COMPOSITE_TAG}"
-    docker push  "devopscenter/monitor_sentry:${COMPOSITE_TAG}"
+#    docker push  "devopscenter/monitor_sentry:${COMPOSITE_TAG}"
 #    docker push  "devopscenter/monitor_nagios:${COMPOSITE_TAG}"
-    docker push  "devopscenter/monitor_newrelic:${COMPOSITE_TAG}" 
+#    docker push  "devopscenter/monitor_newrelic:${COMPOSITE_TAG}" 
 }
 
 function stack0 {
@@ -99,11 +109,25 @@ function stack6 {
     docker push  "devopscenter/765ae2.web:${COMPOSITE_TAG}"
 }
 
-function web {
+function stack7 {
+    docker push  "devopscenter/386dd0.web:${COMPOSITE_TAG}"
+    docker push  "devopscenter/386dd0.worker:${COMPOSITE_TAG}"
+}
+
+function stack8 {
+    # dcMonitoring
+    docker push   "devopscenter/1213d64.web:${COMPOSITE_TAG}"
+}
+
+function python {
     docker push  "devopscenter/python:${COMPOSITE_TAG}"
     docker push  "devopscenter/python-nginx:${COMPOSITE_TAG}"
     docker push  "devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}"
     docker push  "devopscenter/python-nginx-pgpool-redis:${COMPOSITE_TAG}"
+}
+
+function web {
+    python
     rm -rf stack0push.log
     time stack0 &> stack0push.log &
     rm -rf stack1push.log
@@ -120,6 +144,8 @@ function web {
     time stack6 &> stack6push.log &
 }
 
+
+# TODO this next part needs to be refactored to be more flexible
 postgresVersion=9.4
 COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
 echo  ${COMPOSITE_TAG}
@@ -137,3 +163,13 @@ base
 misc
 web
 db
+
+# build the images associated with mysql
+. db/mysql/mysqlenv.sh
+COMPOSITE_TAG=${dcSTACK_VERSION}-mysql${MYSQLDB_VERSION}
+base
+misc
+python
+mysql
+mongodb
+stack7
