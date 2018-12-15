@@ -105,3 +105,7 @@ sudo cp pgpool/pgpool.conf.two /etc/pgpool2/pgpool.conf.two
 sudo cp pgpool/pgpool.conf.three /etc/pgpool2/pgpool.conf.three
 sudo cp pgpool/pcp.conf /etc/pgpool2/pcp.conf
 
+
+sudo rm -R /installs/
+
+
