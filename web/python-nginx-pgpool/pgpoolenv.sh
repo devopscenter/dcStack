@@ -39,4 +39,4 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 set -o verbose
 
 POSTGRES_VERSION=9.4
-PGPOOL_VERSION=3.7.3
+PGPOOL_VERSION=3.7.7
