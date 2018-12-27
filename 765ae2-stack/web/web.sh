@@ -45,7 +45,7 @@ source /usr/local/bin/dcEnv.sh                       # initalize logging environ
 dcStartLog "install of app-specific web for 765ae2"
 
 
-curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 
 sudo apt-get install -y nodejs
 
