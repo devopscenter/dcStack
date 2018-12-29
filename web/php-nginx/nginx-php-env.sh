@@ -39,4 +39,4 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -o verbose
 
 PHP_VERSION=5.6
-NGINX_VERSION=1.13.8
+NGINX_VERSION=1.15.8
