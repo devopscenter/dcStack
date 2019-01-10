@@ -57,11 +57,8 @@ if [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
 fi
 
 #
-# Setup supervisor to run flower and celery
+# There is no worker type for this stack; instead a `svc` instance / container is built separately.
 #
-sudo cp conf/supervisor-flower.conf /etc/supervisor/conf.d/flower.conf 
-sudo cp conf/supervisor-celery.conf /etc/supervisor/conf.d/celery.conf
-sudo cp conf/run_celery.sh /etc/supervisor/conf.d/run_celery.sh
 
 
 dcEndLog "End: install of customer-specific worker for 765ae2, combo: ${COMBINED_WEB_WORKER}"
