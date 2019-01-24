@@ -50,7 +50,7 @@ sudo -H pip install -r requirements.txt
 
 
 # Install node
-curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 
 sudo apt-get install -y nodejs
 
