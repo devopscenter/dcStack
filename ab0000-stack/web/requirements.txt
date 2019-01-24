@@ -6,11 +6,11 @@ psycopg2>=2.7.3.2
 python-dateutil==2.6.0
 raven>=6.5.0
 redis>=2.10.5
-fabric>=1.14.0
-django-code-deploy
+fabric<=2.0
+dcCodeDeploy
 s3cmd
 awscli
 gitpython
-boto
+boto3
 virtualenvwrapper
 
