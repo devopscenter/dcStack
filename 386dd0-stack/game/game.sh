@@ -44,7 +44,7 @@ COMBINED_WEB_WORKER="${1}"
 SCRATCHVOLUME="{$2}"
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
-dcStartLog "install of app-specific worker for 386dd0, combo: ${COMBINED_WEB_WORKER}"
+dcStartLog "install of game instance for 386dd0."
 
 if [[ ! -d /media/data ]]; then
     sudo mkdir -p /media/data
@@ -53,4 +53,4 @@ fi
 
 #sudo pip install -r requirements.txt
 
-dcEndLog "End: install of customer-specific worker for 386dd0, combo: ${COMBINED_WEB_WORKER}"
+dcEndLog "End: install of game instance for 386dd0."
