@@ -66,6 +66,8 @@ class InstanceBuilder:
             "web",
             "worker"
         ]
+        self.createScratchVolume = False
+
 
     def buildIt(self):
         """Execute the build based upon the elements."""
@@ -107,6 +109,9 @@ class InstanceBuilder:
         # ----------------------------------------------------------------------
         deployDir = "/data/deploy"
         if "CREATE_SCRATCH_VOLUME" in self.argList:
+            self.createScratchVolume = self.argList["CREATE_SCRATCH_VOLUME"] in ["True", "true", "Yes", "yes", "def"]
+
+        if self.createScratchVolume:
             # hold the original directory
             originalDir = os.getcwd()
             # and change the dcStack postgres directory so that we can run the
