@@ -58,8 +58,10 @@ sudo apt-fast -qq -y install git wget sudo vim
 
 # INSTALL mongodb =====
 
-# Add the MongoDB PGP key to verify their Debian packages.
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+# Add the MongoDB PGP keys (for 3.4, 3.6 and 4.0) to verify their Debian packages.
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv BC711F9BA15703C6
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
 
 # create the list file for MongoDB so that it can be installed
 echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/${MONGODB_VERSION} multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGODB_VERSION}.list
