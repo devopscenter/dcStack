@@ -34,7 +34,7 @@
 # ==============================================================================
 
 from fabric.api import run, task, local, env, sudo 
-from django_code_deploy import fabfile as deploy
+from dcCodeDeploy import fabfile as deploy
 
 env.user = "ubuntu"
 
