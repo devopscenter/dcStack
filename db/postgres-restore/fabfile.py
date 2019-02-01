@@ -34,7 +34,7 @@
 # ==============================================================================
 
 from fabric.api import run, task, local, env, sudo 
-from dcCodeDeploy import fabfile as deploy
+from dcCodeDeploy import dcCodeDeploy as deploy
 
 env.user = "ubuntu"
 
