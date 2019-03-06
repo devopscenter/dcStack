@@ -158,34 +158,35 @@ mount-volume-encrypted() {
     set +x
 }
 
-# make use of attached db, xlog, and backup volumes if they exist, otherwise use instance-attached ssd
-# Note that the first two cases are also used for non-db instances with an EBS volume attached.
-#
-if [ -b /dev/xvdg ]; then
-    mount-volume "/dev/xvdg" ${MAIN_MOUNT_PATH}
+# Mount /media/data for various cases
+if [[ -b /dev/nvme0n1 && $(mount | grep -c nvme0n1 ) != 1 ]]; then
+    mount-volume "/dev/nvme0n1" "/media/data"
+elif [[ -b /dev/xvdg ]]; then
+    mount-volume "/dev/xvdg" "/media/data"
 elif [[ -b /dev/nvme1n1 ]]; then
-    mount-volume "/dev/nvme1n1" "/media/data/"
+    mount-volume "/dev/nvme1n1" "/media/data"
 elif [[ -b /dev/sdb ]]; then
-    mount-volume "/dev/sdb" ${MAIN_MOUNT_PATH}
-else
-    if [ -b /dev/nvme0n1 ]; then
-        mount-volume "/dev/nvme0n1" "/media/data/"
-    else
-        mount-volume "/dev/xvdb" ${MAIN_MOUNT_PATH}
-    fi
+    mount-volume "/dev/sdb" "/media/data"
 fi
 
-# mount the xlog volume if it is exists
-if [ -b /dev/xvdh ]; then
+# For smaller db instances, mount a separate xlog volume if it is exists
+if [[ -b /dev/xvdh ]]; then
     mount-volume "/dev/xvdh" "/media/data/postgres/xlog"
+elif [[ -b /dev/nvme2n1 ]]; then
+    mount-volume "/dev/nvme2n1" "/media/data/postgres/xlog"
+elif  [[ -b /dev/sdc ]]; then
+    mount-volume "/dev/sdc" "/media/data/postgres/xlog"
 fi
 
-# mount the backup volume if it is exists
-if [ -b /dev/xvdi ]; then
+# For smaller db instances, mount a separate backup volume if it is exists
+if [[ -b /dev/xvdi ]]; then
     mount-volume "/dev/xvdi" "/media/data/postgres/backup"
+elif [[ -b /dev/nvme3n1 ]]; then
+    mount-volume "/dev/nvme3n1" "/media/data/postgres/backup"
+elif [[ -b /dev/sdd ]]; then
+    mount-volume "/dev/sdd" "/media/data/postgres/backup"
 else
-    # looks like we need to create the directory if it doesn't exist.  The postgres install and configuration
-    # won't do it.
+    # If not yet created on a separate volume, go ahead and make a backup directory
     mkdir -p "/media/data/postgres/backup"
 fi
 
