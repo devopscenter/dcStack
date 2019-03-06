@@ -74,9 +74,7 @@ mount-volume() {
 
         # mount at the target directory
         sudo mkdir -p ${DIRECTORY}
-        if ! (mount|grep -q "^${MOUNTPATH}\b[[:blank:]]*\bon\b[[:blank:]]*${DIRECTORY}\b"); then
-            sudo mount ${MOUNTPATH} ${DIRECTORY}
-        fi
+        sudo mount ${MOUNTPATH} ${DIRECTORY}
 
         # add to fstab to mount on boot
         #FSTAB_LINE="${MOUNTPATH}   ${DIRECTORY}     auto    defaults,nobootwait,comment=cloudconfig 0       2"
