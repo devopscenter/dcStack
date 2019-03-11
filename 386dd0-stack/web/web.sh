@@ -44,8 +44,8 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
 dcStartLog "install of app-specific web for 386dd0"
 
-#  install the package needed to ulized EFS for the shared directory /media/share
-sudo apt-get -y install nfs-common
+# other installs
+sudo apt -y install ffmpeg
 
 
 #curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -
