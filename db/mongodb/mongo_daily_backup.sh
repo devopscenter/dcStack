@@ -59,7 +59,7 @@ cd /media/data/tmp
 mongodump -o $mongo_dir
 tar -czf $tar_file $mongo_dir
 
-aws s3 cp $tar_file $s3_file
+aws s3 cp --no-progress $tar_file $s3_file
 
 rm -rf $mongo_dir
 rm $tar_file

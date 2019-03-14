@@ -57,7 +57,7 @@ cd /media/data/tmp
 
 tar -czf $tar_file /media/share
 
-aws s3 cp $tar_file $s3_file
+aws s3 cp --no-progress $tar_file $s3_file
 
 rm $tar_file
 
