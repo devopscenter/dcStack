@@ -80,6 +80,7 @@ version=1.1.4
 whisper_version=${version}
 carbon_version=${version}
 graphite_version=${version}
+grafana_version=6.0.2
 
 # Checkout the master branches of Graphite, Carbon and Whisper and install from there
 git clone -b ${graphite_version} --depth=1  https://github.com/graphite-project/graphite-web.git /usr/local/src/graphite-web
@@ -106,7 +107,7 @@ git clone -b ${statsd_version} --depth=1  https://github.com/etsy/statsd.git /op
 
 # Install Grafana
 mkdir  /opt/grafana
-curl https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.3.0.linux-amd64.tar.gz -o /usr/local/src/grafana.tar.gz                                                                                  &&\
+curl https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-${grafana_version}.linux-amd64.tar.gz -o /usr/local/src/grafana.tar.gz                                                                                  &&\
 tar -xzf /usr/local/src/grafana.tar.gz -C /opt/grafana --strip-components=1
 rm /usr/local/src/grafana.tar.gz
 
