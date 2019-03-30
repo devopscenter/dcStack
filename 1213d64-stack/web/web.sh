@@ -169,6 +169,6 @@ fi
 apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # update the PATH variable in the bashrc with the needed new paths 
-echo "export PATH=/opt/grafana/bin:$PATH" >> ~/.bashrc
+echo "export PATH=/opt/grafana/bin:\$PATH" >> ~/.bashrc
 
 dcEndLog "install of app-specific web for 1213d64-stack (dcMonitoring)"
