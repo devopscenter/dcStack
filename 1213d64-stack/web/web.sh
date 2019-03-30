@@ -76,7 +76,7 @@ if [[ ! -d /usr/local/src ]]; then
     sudo chmod 777 /usr/local/src
 fi
 
-version=1.1.4
+version=1.1.5
 whisper_version=${version}
 carbon_version=${version}
 graphite_version=${version}
