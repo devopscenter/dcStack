@@ -5,7 +5,7 @@
 #
 #         USAGE: install-supervisor.sh
 #
-#   DESCRIPTION: Install supervisor 3.2.3 via pip install, and mimic installation 
+#   DESCRIPTION: Install supervisor 4.1.x via pip install, and mimic installation 
 #                structure and configs of apt-get install. Must be run after python
 #                and it's pip is installed.
 #
@@ -23,7 +23,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2019 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,11 +58,7 @@ sudo mkdir /etc/supervisor/conf.d
 sudo mkdir /var/log/supervisor
 sudo cp supervisord.conf /etc/supervisor/
 
-# Install the supervisor logging plug-in
-# https://github.com/Supervisor/supervisor/issues/446
-sudo pip install supervisor-logging
-
-# if present, remvoe spurious rsyslogd config file (so that it does not run under supervisor!)
+# if present, remove spurious rsyslogd config file (so that it does not run under supervisor!)
 if [[ -f /etc/supervisor/conf.d/rsyslogd.conf ]]; then
     sudo rm /etc/supervisor/conf.d/rsyslogd.conf
 fi

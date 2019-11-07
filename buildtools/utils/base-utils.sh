@@ -39,23 +39,22 @@
 set -o verbose
 
 echo "============================ Building element: base ===================="
-sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
+sudo apt -qq update && sudo apt -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo add-apt-repository -yu ppa:pi-rho/dev  && \
-    sudo apt-get -qq update
+    sudo apt -qq update
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-    sudo apt-get -qq update && \
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
+    sudo apt -qq update 
 
 # install the tools for encrypting the filesystem
-sudo apt-fast -y install cryptsetup-bin
+sudo apt -y install cryptsetup-bin
 
-sudo apt-fast -qq -y install bc git wget sudo vim unzip curl language-pack-en jq
+sudo apt -qq -y install bc git wget sudo vim unzip curl language-pack-en jq
 
-sudo apt-fast -y install ncdu ntp fail2ban htop
+sudo apt -y install ncdu ntp fail2ban htop
 
-sudo apt-fast -y install tmux-next
+sudo apt -y install tmux-next
 sudo mv /usr/bin/tmux-next /usr/bin/tmux
 
 pushd /tmp
@@ -65,7 +64,7 @@ sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 popd
 
 echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | sudo debconf-set-selections
-sudo apt-fast -y install unattended-upgrades
+sudo apt -y install unattended-upgrades
 
 #
 # Copy logging framework to a known place
