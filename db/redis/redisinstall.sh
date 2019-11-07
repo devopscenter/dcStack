@@ -38,20 +38,19 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 set -o verbose
 
-export REDIS_VERSION=3.2.13
+export REDIS_VERSION=5.0.5
 export REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
 
-sudo apt-get -qq update && sudo apt-get -y install python-software-properties software-properties-common && \
+sudo apt -qq update && sudo apt -y install python-software-properties software-properties-common && \
         sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-            sudo apt-get -qq update
+            sudo apt -qq update
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-        sudo apt-get -qq update && \
-            sudo apt-get -qq -y install apt-fast
+        sudo apt -qq update
 
 sudo groupadd -r redis && sudo useradd -r -g redis redis
 
-sudo apt-fast -qq update && sudo apt-fast -qq install -y --no-install-recommends \
+sudo apt -qq update && sudo apt -qq install -y --no-install-recommends \
     ca-certificates \
     curl \
     && sudo rm -rf /var/lib/apt/lists/*
@@ -60,7 +59,7 @@ sudo gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD
 
 buildDeps='gcc libc6-dev make'
 set -x \
-&& sudo apt-fast -qq update && sudo apt-fast -qq install -y $buildDeps --no-install-recommends \
+&& sudo apt -qq update && sudo apt -qq install -y $buildDeps --no-install-recommends \
 && sudo rm -rf /var/lib/apt/lists/* \
 && sudo mkdir -p /usr/src/redis \
 && pushd /tmp \
@@ -71,7 +70,7 @@ set -x \
 && sudo make --silent \
 && sudo make --silent install \
 && sudo rm -rf /usr/src/redis \
-&& sudo apt-get purge -y --auto-remove $buildDeps \
+&& sudo apt purge -y --auto-remove $buildDeps \
 && popd \
 && popd
 
