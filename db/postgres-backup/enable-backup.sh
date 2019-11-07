@@ -70,6 +70,6 @@ fi
 
 # add cron job to run the backup daily
 #sudo (crontab -u postgres -l 2>/dev/null; echo "$1 $2 $3 $4 $5 /path/to/job -with args") | crontab -u postgres -
-(sudo crontab -u postgres -l 2>/dev/null; echo "01 04  *   *   *     /media/data/postgres/backup/pg_backup_rotated.sh -c /media/data/postgres/backup/pg_backup.config") | sudo crontab -u postgres -
+(sudo crontab -u postgres -l 2>/dev/null; echo "01 04  *   *   *     /media/data/postgres/backup/pg_backup_rotated.sh -c /media/data/postgres/backup/pg_backup.config 2>&1 | /usr/bin/logger -t pg-fullbkp") | sudo crontab -u postgres -
 
 # jenkins setup
