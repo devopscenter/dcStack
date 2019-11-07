@@ -38,6 +38,7 @@
 #set -x             # essentially debug mode
 
 # note that this is only run on an instance, not within a container.
+. ./postgresenv.sh $PGVERSION
 
 # check to see if they have entered a path for the XVDG partition
 MAIN_MOUNT_PATH=${1:-"empty"}
@@ -167,13 +168,13 @@ elif [[ -b /dev/sdb ]]; then
     mount-volume "/dev/sdb" "/media/data"
 fi
 
-# For smaller db instances, mount a separate xlog volume if it is exists
+# For smaller db instances, mount a separate transaction log volume if it is exists
 if [[ -b /dev/xvdh ]]; then
-    mount-volume "/dev/xvdh" "/media/data/postgres/xlog"
+    mount-volume "/dev/xvdh" "/media/data/postgres/${PGLOGS}"
 elif [[ -b /dev/nvme2n1 ]]; then
-    mount-volume "/dev/nvme2n1" "/media/data/postgres/xlog"
+    mount-volume "/dev/nvme2n1" "/media/data/postgres/${PGLOGS}"
 elif  [[ -b /dev/sdc ]]; then
-    mount-volume "/dev/sdc" "/media/data/postgres/xlog"
+    mount-volume "/dev/sdc" "/media/data/postgres/${PGLOGS}"
 fi
 
 # For smaller db instances, mount a separate backup volume if it is exists

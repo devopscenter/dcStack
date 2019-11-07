@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2019 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,21 +44,20 @@ VPC_CIDR=$3
 
 . ./postgresenv.sh $PGVERSION
 
-sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
+sudo apt -qq update && sudo apt -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-    sudo apt-get -qq update
+    sudo apt -qq update
 
-sudo apt-get -qq -y install debconf-utils
+sudo apt -qq -y install debconf-utils
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-    sudo apt-get -qq update && \
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
+    sudo apt -qq update 
 
-sudo apt-fast -qq -y install git python-dev wget sudo vim
+sudo apt -qq -y install git python-dev wget sudo vim
 
 # Install python3 tools for the wal-e install
-sudo apt-get -y install python3-pip
-sudo pip3 install --upgrade pip
+sudo apt -y install python3-pip
+sudo -H pip3 install --upgrade pip
 
 pushd /tmp
 sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
@@ -72,10 +71,10 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-
 #     of PostgreSQL, ``${POSTGRES_VERSION}``.
 sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
 
-sudo apt-fast -qq update
+sudo apt -qq update
 
 echo "installing postgres ver: ${POSTGRES_VERSION}"
-sudo apt-fast -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev postgresql-${POSTGRES_VERSION}-postgis-2.2
+sudo apt -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev postgresql-${POSTGRES_VERSION}-postgis-2.2
 
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8 && \
@@ -85,30 +84,30 @@ echo "installing wal-e"
 ###WAL-E
 #USER root
 #https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
-sudo apt-fast -qq -y install libffi-dev
-sudo pip install --upgrade distribute
-sudo pip install -U six
+sudo apt -qq -y install libffi-dev
+sudo -H pip install -U distribute
+sudo -H pip install -U six
 
 # wal-e v1 and later now require python3
-sudo pip3 install boto
-sudo pip3 install wal-e
+sudo -H pip3 install boto
+sudo -H pip3 install wal-e
 
-sudo apt-fast -qq install -y daemontools lzop pv
-sudo pip install -U requests==2.12.5
+sudo apt -qq install -y daemontools lzop pv
+sudo -H pip install -U requests
 
 echo "mkdir /media/data/postgres"
 sudo mkdir -p ${POSTGRESDBDIR}
-sudo mkdir -p /media/data/postgres/xlog/transactions
+sudo mkdir -p /media/data/postgres/${PGLOGS}/transactions
 sudo chown -R postgres:postgres /media/data/postgres
 
 sudo chown -R postgres:postgres /var/lib/postgresql
 
 
 echo "calling config.sh"
-sudo su -c "./config.sh ${POSTGRES_VERSION} ${DATABASE} ${VPC_CIDR} " -s /bin/sh postgres
+sudo su -c "./config.sh ${POSTGRES_VERSION} ${DATABASE} ${VPC_CIDR} " -s /bin/bash postgres
 
-echo "calling xlog.sh and supervisorconfig"
-./xlog.sh $POSTGRES_VERSION
+echo "calling pglogs.sh and supervisorconfig"
+./pglogs.sh $POSTGRES_VERSION
 ./supervisorconfig.sh $POSTGRES_VERSION
 
 # stop the systemd postgresql so that it can be disabled and removed
@@ -119,8 +118,8 @@ sudo update-rc.d postgresql disable
 # and finally remove it
 #sudo update-rc.d postgresql remove
 
-sudo pip install s3cmd==1.6.1
-sudo pip install -U setuptools
+sudo -H pip install s3cmd
+sudo -H pip install -U setuptools
 
 # Create a couple of standard temp directories
 sudo mkdir -p /media/data/tmp

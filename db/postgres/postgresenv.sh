@@ -42,7 +42,7 @@ set -o verbose
 PGVERSION=$1
 
 # default postgres version to install
-POSTGRES_VERSION=9.6
+POSTGRES_VERSION=10
 
 # If the version number is specified, then override the default version number.
 if [ -n "$PGVERSION" ]; then
@@ -51,11 +51,19 @@ fi
 
 echo "pgversion: "+${PGVERSION} "postgres_version: "+${POSTGRES_VERSION}
 
+if [ {POSTGRES_VERSION::1} != "9"]; then
+    PGLOGS="wal"
+else
+    PGLOGS="xlog"
+fi
+
+echo $PGLOGS
+
 POSTGRES_MOUNT=/media/data/postgres
 
 POSTGRESDBDIR=${POSTGRES_MOUNT}/db/pgdata
 POSTGRESBINDIR=/usr/lib/postgresql/${POSTGRES_VERSION}/bin
-POSTGREX_XLOG=${POSTGRES_MOUNT}/xlog/transactions
+POSTGRES_LOGS=${POSTGRES_MOUNT}/${PGLOGS}/transactions
 
 POSTGRES_CONF=${POSTGRESDBDIR}/postgresql.conf
 POSTGRES_PERF_CONF=${POSTGRESDBDIR}/postgresql.conf.perf
