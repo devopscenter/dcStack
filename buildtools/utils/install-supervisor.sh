@@ -44,7 +44,7 @@
 #set -x             # essentially debug mode
 
 echo "============================ Building element: supervisor ===================="
-sudo pip install supervisor
+sudo -H pip install supervisor
 if [[ $1 == "custom" ]]; then
   export PATH="${1}/:${PATH}"
   sudo cp initd-supervisor-custom /etc/init.d/supervisor

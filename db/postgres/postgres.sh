@@ -44,19 +44,19 @@ VPC_CIDR=$3
 
 . ./postgresenv.sh $PGVERSION
 
-sudo apt -qq update && sudo apt -qq -y install python-software-properties software-properties-common && \
+sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-    sudo apt -qq update
+    sudo apt-get -qq update
 
-sudo apt -qq -y install debconf-utils
+sudo apt-get -qq -y install debconf-utils
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-    sudo apt -qq update 
+    sudo apt-get -qq update 
 
-sudo apt -qq -y install git python-dev wget sudo vim
+sudo apt-get -qq -y install git python-dev wget sudo vim
 
 # Install python3 tools for the wal-e install
-sudo apt -y install python3-pip
+sudo apt-get -y install python3-pip
 sudo -H pip3 install --upgrade pip
 
 pushd /tmp
@@ -71,10 +71,10 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-
 #     of PostgreSQL, ``${POSTGRES_VERSION}``.
 sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
 
-sudo apt -qq update
+sudo apt-get -qq update
 
 echo "installing postgres ver: ${POSTGRES_VERSION}"
-sudo apt -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev postgresql-${POSTGRES_VERSION}-postgis-2.2
+sudo apt-get -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${POSTGRES_VERSION} postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION} libpq5 libpq-dev postgresql-${POSTGRES_VERSION}-postgis-2.2
 
 #Fix locale warnings when starting postgres
 sudo locale-gen en_US.UTF-8 && \
@@ -84,7 +84,7 @@ echo "installing wal-e"
 ###WAL-E
 #USER root
 #https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
-sudo apt -qq -y install libffi-dev
+sudo apt-get -qq -y install libffi-dev
 sudo -H pip install -U distribute
 sudo -H pip install -U six
 
@@ -92,7 +92,7 @@ sudo -H pip install -U six
 sudo -H pip3 install boto
 sudo -H pip3 install wal-e
 
-sudo apt -qq install -y daemontools lzop pv
+sudo apt-get -qq install -y daemontools lzop pv
 sudo -H pip install -U requests
 
 echo "mkdir /media/data/postgres"
