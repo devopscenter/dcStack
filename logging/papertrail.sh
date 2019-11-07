@@ -38,7 +38,7 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 set -o verbose
 
-sudo apt-fast -y install rsyslog-gnutls
+sudo apt -y install rsyslog-gnutls
 sudo curl -o /etc/papertrail-bundle.pem https://papertrailapp.com/tools/papertrail-bundle.pem
 sudo cp 90-papertrailqueue.conf /etc/rsyslog.d/90-papertrailqueue.conf
 
