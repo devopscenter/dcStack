@@ -42,7 +42,6 @@ PGVERSION=$1
 
 
 sudo rsync -av ${POSTGRESDBDIR}/pg_${PGLOGS}/ ${POSTGRES_LOGS}/
-sudo rm -rf ${POSTGRESDBDIR}/pg_${PGLOGS})
-sudo ln -s ${POSTGRES_LOGS} ${POSTGRESDBDIR}/pg_${PGLOGS})
+sudo rm -rf ${POSTGRESDBDIR}/pg_${PGLOGS}
+sudo ln -s ${POSTGRES_LOGS} ${POSTGRESDBDIR}/pg_${PGLOGS}
 sudo chown -R postgres:postgres ${POSTGRES_LOGS}
-
