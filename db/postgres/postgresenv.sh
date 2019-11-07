@@ -51,7 +51,7 @@ fi
 
 echo "pgversion: "+${PGVERSION} "postgres_version: "+${POSTGRES_VERSION}
 
-if [ {POSTGRES_VERSION::1} != "9"]; then
+if [ "${POSTGRES_VERSION::1}" != "9" ]; then
     PGLOGS="wal"
 else
     PGLOGS="xlog"
