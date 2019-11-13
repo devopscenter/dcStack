@@ -64,6 +64,9 @@ while [[ $# -gt 0 ]]; do
     --backup )      shift
                     LOCAL_BACKUP_FILE=$1
                     ;;
+    --num )         shift
+                    NUM_CONCURRENT=$1
+                    ;;
     [!-]* )         if [[ $# -eq 1 ]]; then
                       DB_NAME=$1
                     else
@@ -164,11 +167,11 @@ fi
 # schema-only restore if --schema-only is passed, otherwise do full restore
 echo "Postgresql restore of backup: ${LOCAL_BACKUP_FILE} started at " && date
 if ! [[ -z "$SCHEMA_ONLY" ]]; then
-  sudo -u postgres pg_restore -U postgres -s --exit-on-error -j 1 -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE" || exit 1
-  sudo -u postgres pg_restore -U postgres --data-only -t django_migrations -j 1 -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE"
+  sudo -u postgres pg_restore -U postgres -s --exit-on-error -j $NUM_CONCURRENT -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE" || exit 1
+  sudo -u postgres pg_restore -U postgres --data-only -t django_migrations -j $NUM_CONCURRENT -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE"
   sudo psql -U postgres -d "$DB_NAME" -c "SELECT setval('django_migrations_id_seq', COALESCE((SELECT MAX(id)+1 FROM django_migrations), 1), false);"
 else
-  sudo -u postgres pg_restore -U postgres --exit-on-error -j 1 -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE" || exit 1
+  sudo -u postgres pg_restore -U postgres --exit-on-error -j $NUM_CONCURRENT -e -Fc --dbname="$DB_NAME" "$LOCAL_BACKUP_FILE" || exit 1
 fi
 
 # turn on archive_mode after restore is complete and restart postgres
