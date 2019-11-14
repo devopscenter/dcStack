@@ -188,11 +188,6 @@ function web-all {
 if [[ $# -gt 0 ]]; then
     ${1} > ${1}.log
 else
-    # ORIGINAL flow
-    #base > base.log
-    #time misc &> misc.log &
-    #time web-all &> web.log &
-    #time db &> db.log &
     postgresVersion=9.4
     COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
     echo  ${COMPOSITE_TAG}
@@ -200,6 +195,7 @@ else
     misc &> misc9.4.log &
     web-all &> web9.4.log
     db &> db9.4.log
+
     postgresVersion=9.6
     COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
     echo  ${COMPOSITE_TAG}
@@ -207,6 +203,14 @@ else
     misc &> misc9.6.log &
     web-all &> web9.6.log
     db &> db9.6.log
+
+    postgresVersion=10
+    COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
+    echo  ${COMPOSITE_TAG}
+    base > base10.log
+    misc &> misc10.log &
+    web-all &> web10.log
+    db &> db10.log
 
     echo "Building the images that have an association with a mysql database"
     COMPOSITE_TAG=${dcSTACK_VERSION}-mysql${MYSQLDB_VERSION}
