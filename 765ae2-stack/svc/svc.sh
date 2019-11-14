@@ -38,27 +38,45 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
 #
-# App-specific worker install for 007acc
+# App-specific web install for 765ae2
 #
 COMBINED_WEB_WORKER="${1}"
 SCRATCHVOLUME="{$2}"
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
-dcStartLog "install of app-specific worker for 765ae2, combo: ${COMBINED_WEB_WORKER}"
+dcStartLog "install of app-specific svc for 765ae2"
+
+
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+
+sudo apt-get install -y nodejs
+
+sudo apt-get install -y build-essential 
+
+# and install yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt=get update && sudo apt-get install yarn
+
+
+# create the log directory where node can write its output for remote-syslog2 to pick up
+sudo mkdir -p /data/deploy/log
+sudo chmod 777 /data/deploy/log
+
+# install remote_syslog2
+curl -SLO https://github.com/papertrail/remote_syslog2/releases/download/v0.20/remote_syslog_linux_amd64.tar.gz
+tar xvf remote_syslog_linux_amd64.tar.gz
+cd remote_syslog
+sudo cp ./remote_syslog /usr/local/bin
+
+# scratch volume
+sudo mkdir -p /media/data
 
 #
-# If this is purely a worker, then we don't need ngix or uwsgi
+# disable unused services
 #
-
-if [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
-    sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
-    sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
-    sudo rm -rf /etc/supervisor/conf.d/nginx.conf
+if [[ -f "/etc/supervisor/conf.d/uwsgi.conf" ]]; then
+    sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 fi
 
-#
-# There is no worker type for this stack; instead a `svc` instance / container is built separately.
-#
-
-
-dcEndLog "End: install of customer-specific worker for 765ae2, combo: ${COMBINED_WEB_WORKER}"
+dcEndLog "install of app-specific svc for 765ae2"

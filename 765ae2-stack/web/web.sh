@@ -47,14 +47,14 @@ dcStartLog "install of app-specific web for 765ae2"
 
 curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 
-sudo apt install -y nodejs
+sudo apt-get install -y nodejs
 
-sudo apt install -y build-essential 
+sudo apt-get install -y build-essential 
 
 # and install yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update && sudo apt-get install yarn
+sudo apt-get update && sudo apt-get install yarn
 
 
 # create the log directory where node can write its output for remote-syslog2 to pick up
