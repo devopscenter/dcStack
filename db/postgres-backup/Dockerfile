@@ -33,9 +33,9 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 #     of PostgreSQL, ``9.5``.
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-RUN sudo apt-fast update
+RUN sudo apt-get update
 
-RUN sudo apt-fast -y -q install postgresql-client-${POSTGRES_VERSION} libpq5 libpq-dev
+RUN sudo apt-get -y -q install postgresql-client-${POSTGRES_VERSION} libpq5 libpq-dev
 
 RUn sudo pip install s3cmd==1.5.2
 

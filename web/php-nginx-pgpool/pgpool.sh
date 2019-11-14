@@ -54,9 +54,9 @@ sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 #     of PostgreSQL, ``9.5``.
 echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" | sudo tee --append /etc/apt/sources.list.d/pgdg.list
 
-sudo sudo apt-fast update
+sudo sudo apt-get update
 
-sudo sudo apt-fast -y -q install postgresql-client-${POSTGRES_VERSION} libpq5 libpq-dev
+sudo sudo apt-get -y -q install postgresql-client-${POSTGRES_VERSION} libpq5 libpq-dev
 #        postgresql-contrib-${POSTGRES_VERSION} postgresql-server-dev-${POSTGRES_VERSION}
 
 # not installing postgres server, so manually create user and group, if needed

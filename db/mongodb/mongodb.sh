@@ -50,11 +50,9 @@ sudo apt-get -qq update && sudo apt-get -qq -y install software-properties-commo
 
 sudo apt-get -qq -y install debconf-utils
 
-sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-    sudo apt-get -qq update && \
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
+sudo add-apt-repository -y ppa:saiarcot895/myppa
 
-sudo apt-fast -qq -y install git wget sudo vim
+sudo apt-get -qq -y install git wget sudo vim
 
 # INSTALL mongodb =====
 
@@ -66,11 +64,9 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD7
 # create the list file for MongoDB so that it can be installed
 echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/${MONGODB_VERSION} multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGODB_VERSION}.list
 
-#sudo apt-fast -qq update
 sudo apt-get -qq update
 
 echo "installing MongoDB ver: ${MONGODB_VERSION}"
-#sudo apt-get install -y mongodb-org=${MONGODB_VERSION} mongodb-org-server=${MONGODB_VERSION} mongodb-org-shell=${MONGODB_VERSION} mongodb-org-mongos=${MONGODB_VERSION} mongodb-org-tools=${MONGODB_VERSION}
 sudo apt-get install -y  --allow-unauthenticated mongodb-org
 
 

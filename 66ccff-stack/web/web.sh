@@ -42,7 +42,7 @@ source /usr/local/bin/dcEnv.sh                       # initalize logging environ
 dcStartLog "install of app-specific web for 66ccff"
 
 # Some equired packages for rendering
-sudo apt-fast -y install libfontconfig-dev libxrender-dev libxtst6
+sudo apt-get -y install libfontconfig-dev libxrender-dev libxtst6
 
 # install node
 curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -

@@ -50,11 +50,9 @@ sudo apt-get -qq update && sudo apt-get -qq -y install software-properties-commo
 
 sudo apt-get -qq -y install debconf-utils
 
-sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-    sudo apt-get -qq update && \
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
+sudo add-apt-repository -y ppa:saiarcot895/myppa
 
-sudo apt-fast -qq -y install git wget sudo vim
+sudo apt-get -qq -y install git wget sudo vim
 
 # INSTALL mysql =====
 echo "installing MySQL ver: ${MYSQLDB_VERSION}"

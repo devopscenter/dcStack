@@ -25,12 +25,12 @@ RUN apt-get update
 
 RUN add-apt-repository ppa:saiarcot895/myppa
 RUN apt-get update
-RUN apt-get -y install apt-fast
+RUN apt-get -y install apt-get
 
-RUN apt-fast update
-RUN apt-fast -y install wget sudo vim curl
-RUN apt-fast -y install build-essential
-RUN apt-fast -y install libpcre3 libpcre3-dev libssl-dev
+RUN apt-get update
+RUN apt-get -y install wget sudo vim curl
+RUN apt-get -y install build-essential
+RUN apt-get -y install libpcre3 libpcre3-dev libssl-dev
 
 RUN cd /tmp && wget http://www.haproxy.org/download/1.5/src/haproxy-1.5.9.tar.gz
 RUN cd /tmp && tar -xvf haproxy-1.5.9.tar.gz

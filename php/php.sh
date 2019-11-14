@@ -82,7 +82,7 @@ dcLog "done"
 # install php and the appropriate other needed packages
 #-------------------------------------------------------------------------------
 dcLog "installing php and accompanying extensions"
-sudo apt-fast -y install php${PHP_VERSION}               \
+sudo apt-get -y install php${PHP_VERSION}               \
                          php${PHP_VERISON}.common        \
                          php${PHP_VERSION}-fpm           \
                          php${PHP_VERSION}-curl          \
@@ -106,7 +106,7 @@ dcLog "done"
 # and now get and set up composer the php package manager
 #-------------------------------------------------------------------------------
 dcLog "installing and setting up composer - php package manager"
-sudo apt-fast -y install php-cli php-mbstring
+sudo apt-get -y install php-cli php-mbstring
 
 
 mkdir /tmp/composer

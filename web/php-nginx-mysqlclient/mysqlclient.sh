@@ -37,7 +37,7 @@
 set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 
-sudo sudo apt-fast update
+sudo sudo apt-get update
 
-sudo sudo apt-fast -y install mysql-client
+sudo sudo apt-get -y install mysql-client
 

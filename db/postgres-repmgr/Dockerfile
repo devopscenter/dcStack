@@ -20,10 +20,10 @@ FROM devopscenter/db_postgres:${COMPOSITE_TAG}
 MAINTAINER josh < josh [at] devops {dot} center>
 
 USER root
-RUN cd /tmp && wget http://www.repmgr.org/download/repmgr-3.1.2.tar.gz && tar -xvf repmgr-3.1.2.tar.gz
-RUN sudo apt-fast -y install libpam-dev libxml2-dev libxslt-dev
-RUN sudo apt-fast -y install libedit-dev
-RUN cd /tmp/repmgr-3.1.2 && make USE_PGXS=1
-RUN cd /tmp/repmgr-3.1.2 && make USE_PGXS=1 install
+RUN cd /tmp && wget http://www.repmgr.org/download/repmgr-5.0.0.tar.gz && tar -xvf repmgr-5.0.0.tar.gz
+RUN sudo apt-get -y install libpam-dev libxml2-dev libxslt-dev
+RUN sudo apt-get -y install libedit-dev
+RUN cd /tmp/repmgr-5.0.0 && make USE_PGXS=1
+RUN cd /tmp/repmgr-5.0.0 && make USE_PGXS=1 install
 
 USER postgres
