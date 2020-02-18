@@ -23,8 +23,6 @@ MAINTAINER josh < josh [at] devops {dot} center>
 WORKDIR /installs
 ADD web.sh /installs/web.sh
 ADD requirements.txt /installs/requirements.txt
-ADD requirements2.txt /installs/requirements2.txt
-ADD requirements3.txt /installs/requirements3.txt
 
 # the config files specific to this app stack
 # (note that the config files specific to the ENV are mounted in docker-compose)

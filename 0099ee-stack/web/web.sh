@@ -14,7 +14,7 @@
 #        AUTHOR: Gregg Jensen (), gjensen@devops.center
 #                Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
-#       CREATED: 11/21/2016 15:13:37
+#       CREATED: 02/18/2020 
 #      REVISION:  ---
 #
 # Copyright 2014-2017 devops.center llc
@@ -38,14 +38,8 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
-dcStartLog "install of app-specific web for 0099ff"
+dcStartLog "install of app-specific web for 0099ee"
 
 sudo pip install -r requirements.txt
-sudo pip install --no-binary :all: -r requirements2.txt
-sudo pip install -r requirements3.txt
 
-# scratch volume
-sudo mkdir -p /media/data/tmp
-sudo chmod 777 -R /media/data/tmp
-
-dcEndLog "install of app-specific web for 0099ff"
+dcEndLog "install of app-specific web for 0099ee"

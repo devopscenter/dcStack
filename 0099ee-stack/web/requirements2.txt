@@ -1,7 +1,0 @@
-# In order to build scipy and scikit-learn in a way compatible with numpy, all four need to be done in a 2nd step, without binary caches.
-# https://stackoverflow.com/questions/40845304/runtimewarning-numpy-dtype-size-changed-may-indicate-binary-incompatibility
-
-numpy==1.8.1
-pandas==0.14.1
-scipy==0.14.0
-scikit-learn==0.15.1
