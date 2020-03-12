@@ -129,18 +129,18 @@ function python {
 
 function web {
     python
-    rm -rf stack0push.log
-    time stack0 &> stack0push.log &
-    rm -rf stack1push.log
-    time stack1 &> stack1push.log &
-    rm -rf stack2push.log
-    time stack2 &> stack2push.log &
-    rm -rf stack3push.log
-    time stack3 &> stack3push.log &
-    rm -rf stack4push.log
-    time stack4 &> stack4push.log &
-    rm -rf stack5push.log
-    time stack5 &> stack5push.log &
+#    rm -rf stack0push.log
+#    time stack0 &> stack0push.log &
+#    rm -rf stack1push.log
+#    time stack1 &> stack1push.log &
+#    rm -rf stack2push.log
+#    time stack2 &> stack2push.log &
+#    rm -rf stack3push.log
+#    time stack3 &> stack3push.log &
+#    rm -rf stack4push.log
+#    time stack4 &> stack4push.log &
+#    rm -rf stack5push.log
+#    time stack5 &> stack5push.log &
     rm -rf stack6push.log
     time stack6 &> stack6push.log &
 }
