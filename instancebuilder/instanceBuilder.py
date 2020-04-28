@@ -17,6 +17,7 @@ from dc_pgpool import dcPgpool
 from dc_redis import dcRedis
 from dc_nginx import dcNginx
 from dc_nginx_php import dcNginx_php
+from dc_java import dcJava
 # ==============================================================================
 __version__ = "0.1"
 
@@ -63,6 +64,7 @@ class InstanceBuilder:
             "pgpool",
             "redis",
             "node",
+            "java",
             "web",
             "worker"
         ]

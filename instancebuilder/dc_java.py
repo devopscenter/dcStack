@@ -29,7 +29,7 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Java(ElementBase):
+class dcJava(ElementBase):
     """Class that installs the base components."""
 
     def __init__(self, argList):
