@@ -15,9 +15,9 @@
 #                Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
 #       CREATED: 11/21/2016 15:13:37
-#      REVISION:  ---
+#      REVISION:  04/28/20
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2020 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,12 +48,16 @@ sudo chown -R jenkins:jenkins /media/data/jenkins
 
 sudo usermod -d /media/data/jenkins jenkins
 
+# install java
+sudo apt update
+sudo apt install openjdk-11-jdk
+java -version
+
 # install jenkins
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-sudo apt-get update
-sudo apt-get install openjdk-8-jre-headless -y
-sudo apt-get -y install jenkins
+sudo apt update
+sudo apt -y install jenkins
 
 mkdir /media/data/jenkins/.ssh
 echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
