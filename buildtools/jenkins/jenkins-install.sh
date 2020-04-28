@@ -49,6 +49,7 @@ sudo chown -R jenkins:jenkins /media/data/jenkins
 sudo usermod -d /media/data/jenkins jenkins
 
 # install java
+sudo add-apt-repository ppa:openjdk-r/ppa -y
 sudo apt update
 sudo apt install openjdk-11-jdk
 java -version
