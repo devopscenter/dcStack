@@ -42,8 +42,9 @@ set -x             # essentially debug mode
 echo "============================ Building element: java ===================="
  
 # install java
-sudo apt update
-sudo apt install openjdk-11-jdk
+sudo add-apt-repository ppa:openjdk-r/ppa -y
+sudo apt-get update
+sudo apt-get install openjdk-11-jdk
 java -version
 
 
