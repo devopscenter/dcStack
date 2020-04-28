@@ -46,10 +46,10 @@ echo "============================ Building element: node ===================="
 curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
 
 # NOTE on ubuntu the package name is nodejs as is the executable
-sudo apt install -y nodejs
+sudo apt-get install -y nodejs
 
 # and some npm modules will need the essentials so install them if they aren't
 # already there
-sudo apt install build-essential
+sudo apt-get install build-essential
 
-echo "============================ Finished element: base ===================="
+echo "============================ Finished element: node ===================="
