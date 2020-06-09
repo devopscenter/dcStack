@@ -3,7 +3,7 @@ dj-database-url==0.3.0
 dj-static==0.0.6
 django-rq==0.6.1
 
-httplib2==0.10.3
+httplib2==0.18.0
 xlwt==0.7.5
 psycopg2==2.7.3.2
 python-dateutil==2.2
