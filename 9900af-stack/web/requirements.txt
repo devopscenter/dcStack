@@ -1,6 +1,6 @@
 Django==1.11.29
 dj-database-url==0.3.0
-httplib2==0.10.3
+httplib2==0.18.0
 psycopg2==2.7.3.2
 python-dateutil==2.6.0
 raven==6.0.0
