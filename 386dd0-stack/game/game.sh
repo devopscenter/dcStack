@@ -48,7 +48,7 @@ dcStartLog "install of game instance for 386dd0."
 
 # other installs
 sudo add-apt-repository ppa:jonathonf/ffmpeg-3
-sudo apt -y install ffmpeg
+sudo apt-get -y install ffmpeg
 
 if [[ ! -d /media/data ]]; then
     sudo mkdir -p /media/data

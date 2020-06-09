@@ -48,17 +48,17 @@ sudo chown -R jenkins:jenkins /media/data/jenkins
 
 sudo usermod -d /media/data/jenkins jenkins
 
-# install java
+# install java 11
 sudo add-apt-repository ppa:openjdk-r/ppa -y
-sudo apt update
-sudo apt install openjdk-11-jdk
+sudo apt-get update
+sudo apt-get install openjdk-11-jdk
 java -version
 
 # install jenkins
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-sudo apt update
-sudo apt -y install jenkins
+sudo apt-get update
+sudo apt-get -y install jenkins
 
 mkdir /media/data/jenkins/.ssh
 echo "JENKINS_HOME=/media/data/jenkins" | sudo tee -a /etc/default/jenkins
