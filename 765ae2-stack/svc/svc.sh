@@ -34,27 +34,49 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-# set -o errexit      # exit immediately if command exits with a non-zero status
+set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
 #
-# App-specific worker install for 386dd0
+# App-specific web install for 765ae2
 #
 COMBINED_WEB_WORKER="${1}"
 SCRATCHVOLUME="{$2}"
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
-dcStartLog "install of game instance for 386dd0."
+dcStartLog "install of app-specific svc for 765ae2"
 
-# other installs
-sudo add-apt-repository ppa:jonathonf/ffmpeg-3
-sudo apt-get -y install ffmpeg
 
-if [[ ! -d /media/data ]]; then
-    sudo mkdir -p /media/data
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+
+sudo apt-get install -y nodejs
+
+sudo apt-get install -y build-essential 
+
+# and install yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt=get update && sudo apt-get install yarn
+
+
+# create the log directory where node can write its output for remote-syslog2 to pick up
+sudo mkdir -p /data/deploy/log
+sudo chmod 777 /data/deploy/log
+
+# install remote_syslog2
+curl -SLO https://github.com/papertrail/remote_syslog2/releases/download/v0.20/remote_syslog_linux_amd64.tar.gz
+tar xvf remote_syslog_linux_amd64.tar.gz
+cd remote_syslog
+sudo cp ./remote_syslog /usr/local/bin
+
+# scratch volume
+sudo mkdir -p /media/data
+
+#
+# disable unused services
+#
+if [[ -f "/etc/supervisor/conf.d/uwsgi.conf" ]]; then
+    sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.save
 fi
 
-
-#sudo pip install -r requirements.txt
-
-dcEndLog "End: install of game instance for 386dd0."
+dcEndLog "install of app-specific svc for 765ae2"

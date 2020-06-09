@@ -42,7 +42,7 @@ set -o verbose
 MONGODBVERSION=$1
 
 # default mongodb version to install
-MONGODB_VERSION=3.4
+MONGODB_VERSION=4.2
 
 # If the version number is specified, then override the default version number.
 if [ -n "$MONGODBVERSION" ]; then

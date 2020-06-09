@@ -41,6 +41,8 @@ set -o errexit          # exit immediately if command exists with a non-zero sta
 #-------------------------------------------------------------------------------
 source  /usr/local/bin/dcEnv.sh
 
+. ./postgres/postgresenv.sh $PGVERSION
+
 dcStartLog "initialize database follower/standby"
 
 #-------------------------------------------------------------------------------
@@ -50,28 +52,25 @@ sudo supervisorctl stop postgres
 
 
 #-------------------------------------------------------------------------------
-dcLog "now remove the xlog files"
+dcLog "now remove the transaction log files"
 #-------------------------------------------------------------------------------
-#sudo unlink /media/data/postgres/db/pgdata/pg_xlog
-sudo rm -rf /media/data/postgres/db/pgdata/pg_xlog
-sudo rm -rf /media/data/postgres/db/pgdata/ /media/data/postgres/db/pg_xlog/ /media/data/postgres/xlog/*
+sudo rm -rf /media/data/postgres/db/pgdata/pg_${PGLOGS}
+sudo rm -rf /media/data/postgres/db/pgdata/ /media/data/postgres/db/pg_${PGLOGS}/ /media/data/postgres/${PGLOGS}/*
 
-#ln -s /media/data/postgres/xlog /media/data/postgres/db/pg_xlog
-#sudo chown -R postgres:postgres /media/data/postgres/xlog
 
 #-------------------------------------------------------------------------------
 dcLog "start the base backup on pgmaster-1 and set up a stream back to this machine"
 #-------------------------------------------------------------------------------
-sudo pg_basebackup -D /media/data/postgres/db/pgdata -w -R --xlog-method=stream --dbname="host=pgmaster-1 user=postgres"
+sudo pg_basebackup -D /media/data/postgres/db/pgdata -w -R --${PGLOGS}-method=stream --dbname="host=pgmaster-1 user=postgres"
 
 
 #-------------------------------------------------------------------------------
-dcLog "while the backup is streaming from pgmaster-1, copy the xlog entries back to this machine"
+dcLog "while the backup is streaming from pgmaster-1, copy the transaction log entries back to this machine"
 #-------------------------------------------------------------------------------
-sudo rsync -av /media/data/postgres/db/pgdata/pg_xlog/ /media/data/postgres/xlog
-sudo rm -rf /media/data/postgres/db/pgdata/pg_xlog
-sudo ln -s /media/data/postgres/xlog/ /media/data/postgres/db/pgdata/pg_xlog
-sudo chown -R postgres:postgres /media/data/postgres/db /media/data/postgres/xlog
+sudo rsync -av /media/data/postgres/db/pgdata/pg_${PGLOGS}/ /media/data/postgres/${PGLOGS}
+sudo rm -rf /media/data/postgres/db/pgdata/pg_${PGLOGS}
+sudo ln -s /media/data/postgres/${PGLOGS}/ /media/data/postgres/db/pgdata/pg_${PGLOGS}
+sudo chown -R postgres:postgres /media/data/postgres/db /media/data/postgres/${PGLOGS}
 
 #-------------------------------------------------------------------------------
 dcLog "replace master's conf file so wal-e backups go to the correct bucket if promoted"

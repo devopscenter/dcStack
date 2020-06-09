@@ -64,7 +64,7 @@ dcLog "set the nginx version number in environment variable"
 #-------------------------------------------------------------------------------
 dcLog "installing rsyslog-gnutls"
 
-sudo apt-fast install -y rsyslog-gnutls
+sudo apt-get install -y rsyslog-gnutls
 
 dcLog "done"
 
@@ -89,7 +89,7 @@ popd
 dcLog "done"
 
 dcLog "installing libgeos-dev"
-sudo apt-fast install -y libgeos-dev
+sudo apt-get install -y libgeos-dev
 popd
 dcLog "done"
 

@@ -15,9 +15,9 @@
 #                Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
 #       CREATED: 11/21/2016 15:13:37
-#      REVISION:  ---
+#      REVISION:  04/28/2020
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2020 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -45,17 +45,16 @@ sudo apt-get -qq update && sudo apt-get -qq -y install python-software-propertie
     sudo apt-get -qq update
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-    sudo apt-get -qq update && \
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install apt-fast
+    sudo aptt -qq update 
 
 # install the tools for encrypting the filesystem
-sudo apt-fast -y install cryptsetup-bin
+sudo apt-get -y install cryptsetup-bin
 
-sudo apt-fast -qq -y install bc git wget sudo vim unzip curl language-pack-en jq
+sudo apt-get -qq -y install bc git wget sudo vim unzip curl language-pack-en jq
 
-sudo apt-fast -y install ncdu ntp fail2ban htop
+sudo apt-get -y install ncdu ntp fail2ban htop
 
-sudo apt-fast -y install tmux-next
+sudo apt-get -y install tmux-next
 sudo mv /usr/bin/tmux-next /usr/bin/tmux
 
 pushd /tmp
@@ -65,7 +64,7 @@ sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 popd
 
 echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true | sudo debconf-set-selections
-sudo apt-fast -y install unattended-upgrades
+sudo apt-get -y install unattended-upgrades
 
 #
 # Copy logging framework to a known place

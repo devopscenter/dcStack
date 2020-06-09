@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: run_celery.sh
+#          FILE: xlog.sh
 #
-#         USAGE: run_celery.sh
+#         USAGE: xlog.sh
 #
-#   DESCRIPTION: set up the environment in the container to be able to run celery
+#   DESCRIPTION: set up th pg_xlog directory
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -34,22 +34,14 @@
 #===============================================================================
 
 #set -o nounset     # Treat unset variables as an error
-#set -o errexit      # exit immediately if command exits with a non-zero status
+set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
- 
-# This script is run by Supervisor to start celery in foreground mode
 
-# Create the socket directories, if it doesn't already exist.
- 
-if [ ! -d /var/run/celery ]; then
-    sudo mkdir /var/run/celery
-    sudo chown celery:celery /var/run/celery
-fi
+PGVERSION=$1
+. ./postgresenv.sh $PGVERSION
 
 
-# Create a worker for all queues
-sudo -Eu celery /usr/local/opt/python/bin/celery worker -A rmsasite \
-                                           --loglevel=INFO --soft-time-limit=3600  \
-                                           -c 4 \
-                                           -Ofair \
-                                           --pidfile=/var/run/celery/pdf_printer.pid
+sudo rsync -av ${POSTGRESDBDIR}/pg_${PGLOGS}/ ${POSTGRES_LOGS}/
+sudo rm -rf ${POSTGRESDBDIR}/pg_${PGLOGS}
+sudo ln -s ${POSTGRES_LOGS} ${POSTGRESDBDIR}/pg_${PGLOGS}
+sudo chown -R postgres:postgres ${POSTGRES_LOGS}

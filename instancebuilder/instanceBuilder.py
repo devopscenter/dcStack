@@ -6,17 +6,26 @@ import os
 import argparse
 import subprocess
 # from process_dc_env import pythonGetEnv, dcEnvCheckArgs
+
+#building blocks
 from dc_base import dcBase
 from dc_python import dcPython
 from dc_php import dcPhp
 from dc_logging import dcLogging
 from dc_supervisor import dcSupervisor
-from dc_web import dcWeb
 from dc_node import dcNode
 from dc_pgpool import dcPgpool
 from dc_redis import dcRedis
 from dc_nginx import dcNginx
 from dc_nginx_php import dcNginx_php
+from dc_java import dcJava
+
+#instance types
+from dc_web import dcWeb
+from dc_worker import dcWorker
+from dc_dataengine import dcDataengine
+
+
 # ==============================================================================
 __version__ = "0.1"
 
@@ -63,8 +72,10 @@ class InstanceBuilder:
             "pgpool",
             "redis",
             "node",
+            "java",
             "web",
-            "worker"
+            "worker",
+            "dataengine"
         ]
         self.createScratchVolume = False
 

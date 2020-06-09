@@ -46,9 +46,9 @@ dcStartLog "install of app-specific web for 386dd0"
 
 # other installs
 sudo add-apt-repository ppa:jonathonf/ffmpeg-3
-sudo apt -y install ffmpeg
+sudo apt-get -y install ffmpeg
 
-sudo apt -y install php5.6-imap
+sudo apt-get -y install php5.6-imap
 
 
 #curl -sL https://deb.nodesource.com/setup_9.x | sudo bash -

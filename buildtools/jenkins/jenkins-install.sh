@@ -15,9 +15,9 @@
 #                Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
 #       CREATED: 11/21/2016 15:13:37
-#      REVISION:  ---
+#      REVISION:  04/28/20
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2020 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,11 +48,16 @@ sudo chown -R jenkins:jenkins /media/data/jenkins
 
 sudo usermod -d /media/data/jenkins jenkins
 
+# install java 11
+sudo add-apt-repository ppa:openjdk-r/ppa -y
+sudo apt-get update
+sudo apt-get install openjdk-11-jdk
+java -version
+
 # install jenkins
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
-sudo apt-get install openjdk-8-jre-headless -y
 sudo apt-get -y install jenkins
 
 mkdir /media/data/jenkins/.ssh
@@ -78,7 +83,7 @@ EOF
 fi
 
 # install grunt-cli
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo npm install -g grunt-cli
 

@@ -43,7 +43,7 @@ sudo useradd uwsgi
 sudo usermod -a -G sudo uwsgi
 sudo cp conf/sudo-uwsgi /etc/sudoers.d
 
-sudo apt-fast install -y rsyslog-gnutls
+sudo apt-get install -y rsyslog-gnutls
 
 pushd /tmp
 wget --quiet ftp://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2 && \
@@ -57,7 +57,7 @@ pushd nginx-$NGINX_VERSION
 ./configure --with-http_stub_status_module --with-http_ssl_module && sudo make --silent -j 3 && sudo make --silent install
 popd
 
-sudo apt-fast install -y libgeos-dev
+sudo apt-get install -y libgeos-dev
 
 #http://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
 cd /etc/ssl/certs && sudo openssl dhparam -dsaparam -out dhparam.pem 2048

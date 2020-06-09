@@ -37,6 +37,8 @@
 #set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
+exit
+
 PGMASTER_PRIVATEIP=$1
 PGFOLLOWER_PRIVATEIP=$2
 DNS_METHOD=$3

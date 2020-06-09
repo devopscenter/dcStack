@@ -92,9 +92,9 @@ def download_pgdump_backup(s3_bucket_host, db_name):
 
 
 @task
-def restore_pgdump_backup(db_name):
-    run("cd /media/data/db_restore/ && ./restore.sh %s" %
-        (db_name))
+def restore_pgdump_backup(db_name, num="1"):
+    run("cd /media/data/db_restore/ && ./restore.sh %s --num %s" %
+        (db_name, num))
 
 
 @task

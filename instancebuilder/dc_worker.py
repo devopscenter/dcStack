@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Docstring for module."""
 
 import sys
@@ -29,14 +29,15 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class Node(ElementBase):
-    """Class the installs the base components."""
+class dcWorker(ElementBase):
+    """Class the installs the web components."""
 
     def __init__(self, argList):
         """Constructor for this class."""
-        ElementBase.__init__(self, "node", argList)
-        self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "sudo ./node.sh"
+        ElementBase.__init__(self, "worker", argList)
+        self.executePath = (self.stackDir + "/"
+                            + self.stack + "-stack/worker")
+        self.executeScript = "sudo ./worker.sh " + self.region
 
     def run(self):
         """Run the element to install the corresponding code."""
@@ -46,6 +47,33 @@ class Node(ElementBase):
         theDir = os.path.expanduser(self.executePath)
         os.chdir(theDir)
         self.runScript(self.executeScript)
+
+        # ----------------------------------------------------------------------
+        # Before running the application specific commands we need to create a
+        # directory that is similar to the setup in a docker container so that
+        # the {web-commands.sh can reference the same directory structure
+        # ----------------------------------------------------------------------
+        standardAppUtilsDir = "/app-utils/conf"
+        if not os.path.exists(standardAppUtilsDir):
+            cmdToRun = "sudo mkdir /app-utils ; sudo chmod 755 /app-utils"
+            self.runScript(cmdToRun)
+
+        # and no make a symbolic link from the customer app utils to his new
+        # dir
+        custAppUtilsDir = os.path.expanduser(
+            "~/" + self.appName + "/" + self.appName + "-utils/config/" +
+            self.env)
+        linkToRun = "sudo ln -s " + custAppUtilsDir + " " + standardAppUtilsDir
+        self.runScript(linkToRun)
+
+        # -------------------------------------------------------------------------
+        # run the appliction specific web_commands.sh
+        # -------------------------------------------------------------------------
+        webCmdToRun = standardAppUtilsDir + "/" + self.suffix + "-commands.sh"
+        if os.path.isfile(webCmdToRun):
+            os.chdir(standardAppUtilsDir)
+            cmdToRun = "sudo ./" + self.suffix + "-commands.sh "
+            self.runScript(cmdToRun)
 
         # and move back to the original directory
         os.chdir(currentDir)

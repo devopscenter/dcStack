@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: xlog.sh
+#          FILE: web.sh
 #
-#         USAGE: xlog.sh
+#         USAGE: web.sh
 #
-#   DESCRIPTION: set up th pg_xlog directory
+#   DESCRIPTION: install was is necessary for the web container
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -14,7 +14,7 @@
 #        AUTHOR: Gregg Jensen (), gjensen@devops.center
 #                Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
-#       CREATED: 11/21/2016 15:13:37
+#       CREATED: 02/18/2020 
 #      REVISION:  ---
 #
 # Copyright 2014-2017 devops.center llc
@@ -37,12 +37,9 @@
 set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
-PGVERSION=$1
-. ./postgresenv.sh $PGVERSION
+source /usr/local/bin/dcEnv.sh                       # initalize logging environment
+dcStartLog "install of app-specific web for 0099ee"
 
+sudo pip install -r requirements.txt
 
-sudo rsync -av ${POSTGRESDBDIR}/pg_xlog/ ${POSTGREX_XLOG}/
-sudo rm -rf ${POSTGRESDBDIR}/pg_xlog
-sudo ln -s ${POSTGREX_XLOG} ${POSTGRESDBDIR}/pg_xlog
-sudo chown -R postgres:postgres ${POSTGREX_XLOG}
-
+dcEndLog "install of app-specific web for 0099ee"

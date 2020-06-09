@@ -17,9 +17,9 @@
 #                Gregg Jensen - gjensen@devops.center
 #  ORGANIZATION: devops.center
 #       CREATED: 03/13/2018 12:44:58
-#      REVISION:  ---
+#      REVISION: 04/28/2020
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2020 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -42,8 +42,8 @@ set -x             # essentially debug mode
 
 echo "============================ Building element: node ===================="
  
-# latest node as of 3/13/2018
-curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+# latest node as of 04/28/20
+curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
 
 # NOTE on ubuntu the package name is nodejs as is the executable
 sudo apt-get install -y nodejs
@@ -52,4 +52,4 @@ sudo apt-get install -y nodejs
 # already there
 sudo apt-get install build-essential
 
-echo "============================ Finished element: base ===================="
+echo "============================ Finished element: node ===================="

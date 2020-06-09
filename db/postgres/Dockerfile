@@ -28,7 +28,7 @@ WORKDIR /root/installs
 
 ADD postgres.sh /root/installs/postgres.sh
 ADD config.sh /root/installs/config.sh
-ADD xlog.sh /root/installs/xlog.sh
+ADD pglogs.sh /root/installs/pglogs.sh
 ADD conf /root/installs/conf
 ADD hstore.sh /root/installs/hstore.sh
 ADD postgresenv.sh /root/installs/postgresenv.sh
@@ -48,6 +48,7 @@ CMD ln -sf /var/run/rsyslog/dev/log /dev/log && \
 VOLUME  ["/media/data/postgres", \
 	 "/media/data/postgres/db/pgdata", \
 	 "/media/data/postgres/xlog", \
+     "/media/data/postgres/wal", \
 	 "/media/data/postgres/backup"]
 
 WORKDIR /root

@@ -1,23 +1,22 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: worker.sh
+#          FILE: dataengine.sh
 #
-#         USAGE: worker.sh
+#         USAGE: dataengine.sh
 #
-#   DESCRIPTION: install what is necessary for the worker container.
+#   DESCRIPTION: install what is necessary for the dataengine container
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
-#        AUTHOR: Gregg Jensen (), gjensen@devops.center
-#                Bob Lozano (), bob@devops.center
+#        AUTHOR: Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
-#       CREATED: 11/21/2016 15:13:37
+#       CREATED: 04/28/20 1
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2020 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,28 +36,17 @@
 set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
-#
-# App-specific worker install for 007acc
-#
-COMBINED_WEB_WORKER="${1}"
-SCRATCHVOLUME="{$2}"
-
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
-dcStartLog "install of app-specific worker for 765ae2, combo: ${COMBINED_WEB_WORKER}"
+dcStartLog "install of app-specific dataengine for 0099ff"
 
-#
-# If this is purely a worker, then we don't need ngix or uwsgi
-#
+# create the log directory where node can write its output for remote-syslog2 to pick up
+sudo mkdir -p /data/deploy/logs
+sudo chmod 777 /data/deploy/logs
 
-if [[ "${COMBINED_WEB_WORKER}" = "false" ]]; then
-    sudo rm -rf /etc/supervisor/conf.d/uwsgi.conf
-    sudo rm -rf /etc/supervisor/conf.d/run_uwsgi.conf
-    sudo rm -rf /etc/supervisor/conf.d/nginx.conf
-fi
+# install remote_syslog2
+curl -SLO https://github.com/papertrail/remote_syslog2/releases/download/v0.20/remote_syslog_linux_amd64.tar.gz
+tar xvf remote_syslog_linux_amd64.tar.gz
+cd remote_syslog
+sudo cp ./remote_syslog /usr/local/bin
 
-#
-# There is no worker type for this stack; instead a `svc` instance / container is built separately.
-#
-
-
-dcEndLog "End: install of customer-specific worker for 765ae2, combo: ${COMBINED_WEB_WORKER}"
+dcEndLog "install of app-specific dataengine for 0099ff"

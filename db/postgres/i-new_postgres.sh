@@ -114,7 +114,7 @@ sudo ./base-utils.sh
 #-------------------------------------------------------------------------------
 # install python and pip directly rather than via python/python.sh
 #-------------------------------------------------------------------------------
-sudo apt-fast -qq -y install python-dev python-pip
+sudo apt-get -qq -y install python-dev python-pip
 
 cd ~/dcStack/buildtools/utils || exit
 sudo ./install-supervisor.sh normal
@@ -295,13 +295,13 @@ if [[ "${NEED_TO_BACKUP_TO_S3}" == "true" ]]; then
     #-------------------------------------------------------------------------------
     # push the first wal-e archive to s3
     #-------------------------------------------------------------------------------
-    sudo su -c "/media/data/postgres/backup/backup-push.sh" -s /bin/sh postgres
+    sudo su -c '/media/data/postgres/backup/backup-push.sh 2>&1 | /usr/bin/logger -t pg-walebkp' -s /bin/sh postgres
 
     #-------------------------------------------------------------------------------
     # run a nightly wal-e backup
     #-------------------------------------------------------------------------------
     if ! (sudo crontab -l -u postgres|grep '^[^#].*backup-push.sh\b.*'); then
-        (sudo crontab -u postgres -l 2>/dev/null; echo "01 01  *   *   *     /media/data/postgres/backup/backup-push.sh") | sudo crontab -u postgres -
+        (sudo crontab -u postgres -l 2>/dev/null; echo '01 01  *   *   *     /media/data/postgres/backup/backup-push.sh 2>&1 | /usr/bin/logger -t pg-walebkp') | sudo crontab -u postgres -
     fi
 fi
 

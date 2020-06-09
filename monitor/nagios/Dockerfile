@@ -23,10 +23,6 @@ RUN apt-get -qq update && apt-get -qq -y install python-software-properties soft
 add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
 apt-get -qq update
 
-RUN add-apt-repository -y ppa:saiarcot895/myppa && \
-apt-get -qq update && \
-apt-get -qq -y install apt-fast
-
 RUN apt-get install sudo
 
 ARG POSTGRES_VERSION
@@ -42,11 +38,11 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 #     of PostgreSQL, ``9.4``.
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-RUN sudo apt-fast -qq update
+RUN sudo apt-get -qq update
 
-RUN sudo apt-fast -y -qq install postgresql-client-${POSTGRES_VERSION} libpq5 libpq-dev
+RUN sudo apt-get -y -qq install postgresql-client-${POSTGRES_VERSION} libpq5 libpq-dev
 
-#RUN sudo apt-fast -y install supervisor
+#RUN sudo apt-get -y install supervisor
 
 ENV REDIS_VERSION 3.0.0
 RUN cd / && wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz && \
@@ -57,14 +53,14 @@ RUN mkdir /tmp/check_postgres
 RUN cd /tmp/check_postgres && wget http://bucardo.org/downloads/check_postgres-2.21.0.tar.gz && tar -xvf check_postgres-2.21.0.tar.gz
 RUN cd /tmp/check_postgres/check_postgres-2.21.0 && perl Makefile.PL && make --silent && make --silent install
 
-RUN apt-fast -qq -y install python-dev
+RUN apt-get -qq -y install python-dev
 RUN cd /tmp && wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
-#RUN apt-fast install -y mysql-client libmysqlclient-dev mysql-server libsnappy-dev 
-RUN apt-fast -qq install -y libsnappy-dev libmysqlclient-dev
+#RUN apt-get install -y mysql-client libmysqlclient-dev mysql-server libsnappy-dev 
+RUN apt-get -qq install -y libsnappy-dev libmysqlclient-dev
 RUN pip install MySQL-python==1.2.5
 
 #for XMLParser
-RUN sudo apt-fast -qq install -y expat libexpat1-dev
+RUN sudo apt-get -qq install -y expat libexpat1-dev
 RUN cd /tmp && wget http://search.cpan.org/CPAN/authors/id/M/MS/MSERGEANT/XML-Parser-2.36.tar.gz && tar -xvf XML-Parser-2.36.tar.gz 
 RUN cd /tmp/XML-Parser-2.36 && perl Makefile.PL && make --silent && make test && make --silent install
 

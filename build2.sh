@@ -65,38 +65,16 @@ function db {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_redis-standby:${COMPOSITE_TAG}" db/redis-standby
 }
 
-function mongodb {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_base:${COMPOSITE_TAG}" db
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_mongodb:${COMPOSITE_TAG}" db/mongodb
-}
-
-function mysql {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_base:${COMPOSITE_TAG}" db
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_mysql:${COMPOSITE_TAG}" db/mysql
-}
-
 function misc {
     docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/syslog:${COMPOSITE_TAG}" logging/. &> syslog.log &
     docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/monitor_papertrail:${COMPOSITE_TAG}" monitor/papertrail &> papertrail.log &
-#    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_sentry:${COMPOSITE_TAG}" monitor/sentry &> sentry.log &
-#    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/monitor_nagios:${COMPOSITE_TAG}" monitor/nagios &> nagios.log &
 }
-# docker build --rm -t "devopscenter/loadbalancer_ssl-termination:${COMPOSITE_TAG}" loadbalancer/ssl-termination
-# docker build --rm -t "devopscenter/loadbalancer_haproxy:${COMPOSITE_TAG}" loadbalancer/haproxy
 
-function newrelic {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} --build-arg POSTGRES_VERSION=${postgresVersion} -t "devopscenter/monitor_newrelic:${COMPOSITE_TAG}" monitor/newrelic &
-}
 
 function backups {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_postgres-backup:${COMPOSITE_TAG}" db/postgres-backup
 }
 
-function stack0 {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/000000.web:${COMPOSITE_TAG}" 000000-stack/web
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/000000.web-debug:${COMPOSITE_TAG}" 000000-stack/web-debug
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/000000.worker:${COMPOSITE_TAG}" 000000-stack/worker
-}
 
 function stack1 {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/0099ff.web:${COMPOSITE_TAG}" 0099ff-stack/web
@@ -104,43 +82,14 @@ function stack1 {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/0099ff.worker:${COMPOSITE_TAG}" 0099ff-stack/worker
 }
 
-function stack2 {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/66ccff.web:${COMPOSITE_TAG}" 66ccff-stack/web
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/66ccff.worker:${COMPOSITE_TAG}" 66ccff-stack/worker
-}
-
-function stack3 {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/007acc.web:${COMPOSITE_TAG}" 007acc-stack/web
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/007acc.worker:${COMPOSITE_TAG}" 007acc-stack/worker
-}
-
-function stack4 {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/9900af.web:${COMPOSITE_TAG}" 9900af-stack/web
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/9900af.worker:${COMPOSITE_TAG}" 9900af-stack/worker
-}
-
-function stack5 {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/ab0000.web:${COMPOSITE_TAG}" ab0000-stack/web
-}
-
 function stack6 {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/765ae2.web:${COMPOSITE_TAG}" 765ae2-stack/web
+    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/765ae2.svc:${COMPOSITE_TAG}" 765ae2-stack/svc
 }
 
-function stack7 {
-    php
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/386dd0.web:${COMPOSITE_TAG}" 386dd0-stack/web
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/386dd0.worker:${COMPOSITE_TAG}" 386dd0-stack/worker
-}
-
-function stack8 {
-    # dcMonitoring
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/1213d64.web:${COMPOSITE_TAG}" 1213d64-stack/web
-}
 
 function web {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/python:${COMPOSITE_TAG}" python
-    time newrelic &> newrelic.log &
     time backups &> backups.log &
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/python-nginx:${COMPOSITE_TAG}" web/python-nginx
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} --build-arg POSTGRES_VERSION=${postgresVersion} -t "devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}" web/python-nginx-pgpool
@@ -149,16 +98,9 @@ function web {
     echo "built common containers"
 }
 
-function php {
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php:${COMPOSITE_TAG}" php
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx:${COMPOSITE_TAG}" web/php-nginx
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx-pgpool:${COMPOSITE_TAG}" web/php-nginx-pgpool
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/php-nginx-mysqlclient:${COMPOSITE_TAG}" web/php-nginx-mysqlclient
-}
 
 function web-all {
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/python:${COMPOSITE_TAG}" python
-    newrelic &> newrelic.log &
     backups &> backups.log &
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/python-nginx:${COMPOSITE_TAG}" web/python-nginx
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} --build-arg POSTGRES_VERSION=${postgresVersion} -t "devopscenter/python-nginx-pgpool:${COMPOSITE_TAG}" web/python-nginx-pgpool
@@ -167,58 +109,35 @@ function web-all {
     echo "built common containers"
 
 
-    rm -rf stack0.log
-    stack0 &> stack0.log
-    rm -rf stack1.log
-    stack1 &> stack1.log
-    rm -rf stack2.log
-    stack2 &> stack2.log
-    rm -rf stack3.log
-    stack3 &> stack3.log
-    rm -rf stack4.log
-    stack4 &> stack4.log
-    rm -rf stack5.log
-    stack5 &> stack5.log
+
+#    rm -rf stack1.log
+#    stack1 &> stack1.log
+
     rm -rf stack6.log
-    stack6 &> stack6.log &
-    rm -rf stack7.log
-    stack7 &> stack7.log &
+    stack6 &> stack6.log
+
 }
 
 if [[ $# -gt 0 ]]; then
     ${1} > ${1}.log
 else
-    postgresVersion=9.4
-    COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
-    echo  ${COMPOSITE_TAG}
-    base > base9.4.log
-    misc &> misc9.4.log &
-    web-all &> web9.4.log
-    db &> db9.4.log
-
     postgresVersion=9.6
     COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
     echo  ${COMPOSITE_TAG}
     base > base9.6.log
-    misc &> misc9.6.log &
-    web-all &> web9.6.log
+    misc &> misc9.6.log
     db &> db9.6.log
+
+    web-all &> web9.6.log
+
 
     postgresVersion=10
     COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
     echo  ${COMPOSITE_TAG}
     base > base10.log
-    misc &> misc10.log &
-    web-all &> web10.log
+    misc &> misc10.log
     db &> db10.log
 
-    echo "Building the images that have an association with a mysql database"
-    COMPOSITE_TAG=${dcSTACK_VERSION}-mysql${MYSQLDB_VERSION}
-    echo  ${COMPOSITE_TAG}
-    base > base-mysql${MYSQLDB_VERSION}.log
-    misc &> misc-mysql${MYSQLDB_VERSION}.log &
-    web &> web-mysql${MYSQLDB_VERSION}.log
-    stack7 &> stack7-mysql${MYSQLDB_VERSION}.log
-    mysql &> mysql${MYSQLDB_VERSION}.log
-    mongodb &> mongodb-mysql${MYSQLDB_VERSION}.log
+    web-all &> web10.log
+
 fi
