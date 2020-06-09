@@ -49,4 +49,4 @@ tar xvf remote_syslog_linux_amd64.tar.gz
 cd remote_syslog
 sudo cp ./remote_syslog /usr/local/bin
 
-dcEndLog "install of app-specific web for 0099ff"
+dcEndLog "install of app-specific dataengine for 0099ff"

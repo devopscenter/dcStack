@@ -30,7 +30,7 @@ __status__ = "Development"
 
 
 class dcDataengine(ElementBase):
-    """Class the installs the web components."""
+    """Class the installs the dataengine components."""
 
     def __init__(self, argList):
         """Constructor for this class."""
