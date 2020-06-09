@@ -1,6 +1,6 @@
 Django==1.11.29
 dj-database-url==0.3.0
-httplib2==0.10.3
+httplib2==0.18.0
 pre-commit>=1.1.1
 psycopg2>=2.7.3.2
 python-dateutil==2.6.0
