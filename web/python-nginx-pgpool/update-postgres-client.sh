@@ -39,7 +39,7 @@ set -x             # essentially debug mode
 
 . ./pgpoolenv.sh
 
-# Optionally over-ride default version of Postgres client
+# Optionally over-ride default version of Postgres client which is provided locally.
 
 if [[ -n "$1" ]]; then
   POSTGRES_VERSION=$1

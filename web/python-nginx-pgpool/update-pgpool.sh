@@ -33,18 +33,15 @@
 #
 #===============================================================================
 
-#set -o nounset     # Treat unset variables as an error
-#set -o errexit      # exit immediately if command exits with a non-zero status
+set -o nounset     # Treat unset variables as an error
+set -o errexit      # exit immediately if command exits with a non-zero status
 set -x              # essentially debug mode 
 
 . ./pgpoolenv.sh
 
-# they have to pass in the PGPOOL_VERSION that pgpool will be updated to.
+# either pass in the PGPOOL_VERSION or pick up the current default.
 if [[ -n "$1" ]]; then
   PGPOOL_VERSION=$1
-else
-    echo "You need to provide the pgpool version number to update to."
-    exit 1
 fi
 
 #-------------------------------------------------------------------------------
