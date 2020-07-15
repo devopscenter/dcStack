@@ -34,8 +34,8 @@
 #===============================================================================
 
 set -o nounset     # Treat unset variables as an error
-set -o errexit      # exit immediately if command exits with a non-zero status
-set -x              # essentially debug mode 
+#set -o errexit      # exit immediately if command exits with a non-zero status
+#set -x              # essentially debug mode 
 
 . ./pgpoolenv.sh
 
