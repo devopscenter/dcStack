@@ -37,6 +37,8 @@
 #set -o errexit      # exit immediately if command exits with a non-zero status
 set -x              # essentially debug mode 
 
+. ./pgpoolenv.sh
+
 # they have to pass in the PGPOOL_VERSION that pgpool will be updated to.
 if [[ -n "$1" ]]; then
   PGPOOL_VERSION=$1

@@ -37,6 +37,8 @@
 set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 
+. ./pgpoolenv.sh
+
 # Optionally over-ride default version of Postgres client
 
 if [[ -n "$1" ]]; then
