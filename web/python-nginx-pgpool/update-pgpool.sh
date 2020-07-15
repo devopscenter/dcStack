@@ -40,9 +40,9 @@ set -x              # essentially debug mode
 . ./pgpoolenv.sh
 
 # either pass in the PGPOOL_VERSION or pick up the current default.
-if [[ -n "$1" ]]; then
-  PGPOOL_VERSION=$1
-fi
+
+ PGPOOL_VERSION=${1:-${PGPOOL_VERSION}}
+
 
 #-------------------------------------------------------------------------------
 # put the build down in /installs...there was one there when the instance was 

@@ -41,9 +41,7 @@ set -x             # essentially debug mode
 
 # Optionally over-ride default version of Postgres client which is provided locally.
 
-if [[ -n "$1" ]]; then
-  POSTGRES_VERSION=$1
-fi
+POSTGRES_VERSION=${1:-${POSTGRES_VERSION}}
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
