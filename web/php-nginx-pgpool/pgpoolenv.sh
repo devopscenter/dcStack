@@ -38,5 +38,5 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 set -o verbose
 
-POSTGRES_VERSION=9.6
-PGPOOL_VERSION=3.7.13
+POSTGRES_VERSION=10
+PGPOOL_VERSION=3.7.14

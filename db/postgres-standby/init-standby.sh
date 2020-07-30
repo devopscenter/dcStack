@@ -41,7 +41,7 @@ set -o errexit          # exit immediately if command exists with a non-zero sta
 #-------------------------------------------------------------------------------
 source  /usr/local/bin/dcEnv.sh
 
-. ./postgres/postgresenv.sh $PGVERSION
+. ../postgres/postgresenv.sh $PGVERSION
 
 dcStartLog "initialize database follower/standby"
 
