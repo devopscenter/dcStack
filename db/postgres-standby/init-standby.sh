@@ -46,9 +46,11 @@ source  /usr/local/bin/dcEnv.sh
 dcStartLog "initialize database follower/standby"
 
 #-------------------------------------------------------------------------------
-dcLog "First stop postgres"
+dcLog "First stop postgres and save the config"
 #-------------------------------------------------------------------------------
 sudo supervisorctl stop postgres
+sudo cp /media/data/postgres/db/pgdata/postgresql.conf /media/data/postgres/backup/
+sudo chown postgres:postgres /media/data/postgres/backup/postgresql.conf
 
 
 #-------------------------------------------------------------------------------
