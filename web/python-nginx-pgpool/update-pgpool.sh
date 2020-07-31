@@ -41,7 +41,7 @@ set -o nounset     # Treat unset variables as an error
 
 # either pass in the PGPOOL_VERSION or pick up the current default.
 
- PGPOOL_VERSION=${1:-${PGPOOL_VERSION}}
+PGPOOL_VERSION=${1:-${PGPOOL_VERSION}}
 
 
 #-------------------------------------------------------------------------------
