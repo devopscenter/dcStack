@@ -140,4 +140,22 @@ else
 
     web-all &> web10.log
 
+    postgresVersion=11
+    COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
+    echo  ${COMPOSITE_TAG}
+    base > base11.log
+    misc &> misc11.log
+    db &> db11.log
+
+    web-all &> web11.log
+
+    postgresVersion=12
+    COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
+    echo  ${COMPOSITE_TAG}
+    base > base12.log
+    misc &> misc12.log
+    db &> db12.log
+
+    web-all &> web12.log
+
 fi

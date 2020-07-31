@@ -166,6 +166,24 @@ db
 
 exit
 
+postgresVersion=11
+COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
+echo  ${COMPOSITE_TAG}
+base > base10.log
+misc &> misc10.log
+db &> db10.log
+
+web-all &> web10.log
+
+postgresVersion=12
+COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
+echo  ${COMPOSITE_TAG}
+base > base10.log
+misc &> misc10.log
+db &> db10.log
+
+web-all &> web10.log]
+
 # push the images associated with mysql
 . db/mysql/mysqlenv.sh
 COMPOSITE_TAG=${dcSTACK_VERSION}-mysql${MYSQLDB_VERSION}
