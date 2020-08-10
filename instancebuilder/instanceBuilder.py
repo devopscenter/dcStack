@@ -24,6 +24,7 @@ from dc_java import dcJava
 from dc_web import dcWeb
 from dc_worker import dcWorker
 from dc_dataengine import dcDataengine
+from dc_scheduler import dcScheduler
 
 
 # ==============================================================================
@@ -32,7 +33,7 @@ __version__ = "0.1"
 __copyright__ = "Copyright 2017, devops.center"
 __credits__ = ["Bob Lozano", "Gregg Jensen"]
 __license__ = ' \
-   # Copyright 2014-2017 devops.center llc                                    \
+   # Copyright 2014-2020 devops.center llc                                    \
    #                                                                          \
    # Licensed under the Apache License, Version 2.0 (the "License");          \
    # you may not use this file except in compliance with the License.         \
@@ -75,7 +76,8 @@ class InstanceBuilder:
             "java",
             "web",
             "worker",
-            "dataengine"
+            "dataengine",
+            "scheduler"
         ]
         self.createScratchVolume = False
 
