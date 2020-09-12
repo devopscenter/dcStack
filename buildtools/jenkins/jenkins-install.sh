@@ -51,7 +51,7 @@ sudo usermod -d /media/data/jenkins jenkins
 # install java 11
 sudo add-apt-repository ppa:openjdk-r/ppa -y
 sudo apt-get update
-sudo apt-get install openjdk-11-jdk
+sudo apt-get -y install openjdk-11-jdk
 java -version
 
 # install jenkins
@@ -84,7 +84,7 @@ fi
 
 # install grunt-cli
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt-get -y install nodejs
 sudo npm install -g grunt-cli
 
 # prevent services from starting automatically after package install
