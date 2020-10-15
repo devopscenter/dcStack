@@ -58,15 +58,18 @@ JENKINS_BACKUP_FILE=$(mktemp /media/data/tmp/jenkins.tar.gz.XXXXX)
 #/usr/local/bin/s3cmd mb "s3://${BUCKET_NAME}"
 s3cmd mb "s3://${BUCKET_NAME}"
 
-# tar just the backup data needed to load onto a new instance
-sudo tar czvf "$JENKINS_BACKUP_FILE" /media/data/jenkins
+# tar just the backup data needed to load onto a new instance.
+# Tip on using a find to exclude from tar courtesy of https://stackoverflow.com/a/30037079/8417759
+pushd /media/data/tmp
+find ~ -type d -name *workspace* > excludefiles
+tar czf "$JENKINS_BACKUP_FILE" /media/data/jenkins -X excludefiles
 
 # upload to s3
-#/usr/local/bin/s3cmd put "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
-s3cmd put "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
+aws s3 cp "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
 
-# remove temporary file
-if [[ -f "$JENKINS_BACKUP_FILE" ]]; then
-  rm "$JENKINS_BACKUP_FILE"
-fi
+# remove temporary files
+rm "$JENKINS_BACKUP_FILE"
+rm excludefiles
+popd
+
 logger "jenkins backup finished"
