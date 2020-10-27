@@ -7,7 +7,7 @@ python-dateutil==2.6.0
 raven>=6.5.0
 redis>=2.10.5
 fabric<2.0
-cryptography==2.3
+cryptography==3.2
 dcCodeDeploy
 s3cmd
 awscli
