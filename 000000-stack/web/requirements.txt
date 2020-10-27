@@ -24,4 +24,4 @@ objgraph==3.0.0
 oauth2client==3.0.0
 enum34==1.1.2
 django-extensions==1.6.1
-cryptography==1.2.3
+cryptography==3.2
