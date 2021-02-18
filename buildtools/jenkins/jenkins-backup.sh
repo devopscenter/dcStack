@@ -45,6 +45,19 @@ MONTH=$(date +%m)
 S3_FILE="${BUCKET_NAME}/${HOSTNAME}/${YEAR}/${MONTH}/jenkins-${TIMESTAMP}.tar.gz"
 
 logger "jenkins backup started"
+
+# Define cleanup as an exit trap, so happens no matter what
+function finish {
+    pushd /media/data/tmp
+    sudo supervisorctl start jenkins
+	sudo rm "$JENKINS_BACKUP_FILE"
+	sudo rm excludefiles
+	popd
+}
+trap finish EXIT
+
+
+
 # create the temporary directory if it doesn't exist
 if [[ ! -d /media/data/tmp ]]; then
     sudo mkdir /media/data/tmp
@@ -56,20 +69,19 @@ JENKINS_BACKUP_FILE=$(mktemp /media/data/tmp/jenkins.tar.gz.XXXXX)
 
 # create s3 bucket if it doesn't already exist
 #/usr/local/bin/s3cmd mb "s3://${BUCKET_NAME}"
-s3cmd mb "s3://${BUCKET_NAME}"
+#s3cmd mb "s3://${BUCKET_NAME}"
 
 # tar just the backup data needed to load onto a new instance.
 # Tip on using a find to exclude from tar courtesy of https://stackoverflow.com/a/30037079/8417759
 pushd /media/data/tmp
-find ~ -type d -name *workspace* > excludefiles
-tar czf "$JENKINS_BACKUP_FILE" /media/data/jenkins -X excludefiles
+sudo find ~ -type d -name *workspace* > excludefiles
+
+sudo supervisorctl stop jenkins
+sudo tar czf "$JENKINS_BACKUP_FILE" /media/data/jenkins -X excludefiles
 
 # upload to s3
 aws s3 cp "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
 
-# remove temporary files
-rm "$JENKINS_BACKUP_FILE"
-rm excludefiles
 popd
 
 logger "jenkins backup finished"
