@@ -79,7 +79,7 @@ which python && python --version
 pushd /tmp
 # temporarily comment out until we switch to python 3
 #sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
-sudo wget --quiet https://bootstrap.pypa.io/pip/2.7get-pip.py && sudo python get-pip.py
+sudo wget --quiet https://bootstrap.pypa.io/pip/2.7/get-pip.py && sudo python get-pip.py
 #https://bootstrap.pypa.io/pip/2.7/get-pip.py
 sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
 
