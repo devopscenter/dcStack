@@ -60,7 +60,7 @@ sudo apt-get -y install python3-pip
 sudo -H pip3 install --upgrade pip
 
 pushd /tmp
-sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
+sudo wget --quiet https://bootstrap.pypa.io/pip/2.7/get-pip.py && sudo python get-pip.py
 popd
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
