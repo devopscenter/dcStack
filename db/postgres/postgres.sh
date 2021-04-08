@@ -55,9 +55,9 @@ sudo add-apt-repository -y ppa:saiarcot895/myppa && \
 
 sudo apt-get -qq -y install git python-dev wget sudo vim
 
-# Install python3 tools for the wal-e install
+# Install python3 tools for the wal-e install. Note that in ubunt 16.04 python is 3.5, so can't update pip.
 sudo apt-get -y install python3-pip
-sudo -H pip3 install --upgrade pip
+#sudo -H pip3 install --upgrade pip
 
 pushd /tmp
 sudo wget --quiet https://bootstrap.pypa.io/pip/2.7/get-pip.py && sudo python get-pip.py
