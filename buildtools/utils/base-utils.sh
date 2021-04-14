@@ -56,7 +56,7 @@ sudo apt-get -y install ncdu ntp fail2ban htop
 sudo apt-get -y install tmux
 
 #Use the python 3 that comes with 20.04
-sudo apt-get update && apt-get -y install python3-pip python3-dev
+sudo apt-get update && apt-get -y install python3-pip python3-dev setuptools
 ln -s /usr/bin/python3 /usr/bin/python
 ln -s /usr/bin/pip3 /usr/bin/pip
 

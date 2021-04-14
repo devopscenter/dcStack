@@ -63,14 +63,13 @@ sudo locale-gen en_US.UTF-8 && \
 
 echo "installing wal-e"
 sudo apt-get -qq -y install libffi-dev
-sudo -H pip install -U distribute
 sudo -H pip install -U six
 
 # wal-e v1 and later now require python3
 sudo -H pip install boto
 sudo -H pip install wal-e
 
-sudo apt-get -qq install -y daemontools lzop pv
+sudo apt-get -qq install -y daemontools lzop
 sudo -H pip install -U requests
 
 echo "mkdir /media/data/postgres"
@@ -93,11 +92,8 @@ sudo service postgresql stop
 
 #disable init.d autostart
 sudo update-rc.d postgresql disable
-# and finally remove it
-#sudo update-rc.d postgresql remove
 
 sudo -H pip install s3cmd
-sudo -H pip install -U setuptools
 
 # Create a couple of standard temp directories
 sudo mkdir -p /media/data/tmp
