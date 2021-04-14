@@ -38,15 +38,9 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 set -o verbose
 
-export REDIS_VERSION=5.0.5
+export REDIS_VERSION=5.0.12
 export REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
 
-sudo apt-get -qq update && sudo apt-get -y install python-software-properties software-properties-common && \
-        sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-            sudo apt-get -qq update
-
-sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-        sudo apt-get -qq update
 
 sudo groupadd -r redis && sudo useradd -r -g redis redis
 
