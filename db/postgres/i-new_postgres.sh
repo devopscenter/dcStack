@@ -114,7 +114,6 @@ sudo ./base-utils.sh
 #-------------------------------------------------------------------------------
 # install python and pip directly rather than via python/python.sh
 #-------------------------------------------------------------------------------
-sudo apt-get -qq -y install python-dev python-pip
 
 cd ~/dcStack/buildtools/utils || exit
 sudo ./install-supervisor.sh normal

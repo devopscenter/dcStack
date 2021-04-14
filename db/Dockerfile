@@ -20,9 +20,6 @@ ARG COMPOSITE_TAG
 FROM devopscenter/base:${COMPOSITE_TAG}
 MAINTAINER bob < bob [at] devops {dot} center>
 
-# Install pip
-RUN sudo apt-get update && apt-get -y install python-pip
-
 # Install supervisor via pip to get latest version
 WORKDIR /installs/utils
 RUN ./install-supervisor.sh normal

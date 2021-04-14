@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: mysqlenv.sh
+#          FILE: build.sh
 #
-#         USAGE: mysqlenv.sh
+#         USAGE: ./build.sh
 #
-#   DESCRIPTION: set the variables that will assist with installing and starting
-#                mysql
+#   DESCRIPTION: Docker Stack - Docker stack to manage infrastructures
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -36,22 +35,16 @@
 
 #set -o nounset     # Treat unset variables as an error
 set -o errexit      # exit immediately if command exits with a non-zero status
+#set -o verbose     # print the shell lines as they are executed
 set -x             # essentially debug mode
-set -o verbose
 
-MYSQLDBVERSION=$1
+source VERSION
+echo "Version=${dcSTACK_VERSION}"
+source BASEIMAGE
+echo "BaseImage=${baseimageversion}"
+source POSTGRES_VERSION
+echo "Postgresql version=${postgresVerison}"
+. db/mysql/mysqlenv.sh
+echo "MySQL version=${MYSQLDB_VERSION}"
 
-# default mysql version to install
-MYSQLDB_VERSION=5.7
-
-# If the version number is specified, then override the default version number.
-if [ -n "$MYSQLDBVERSION" ]; then
-  MYSQLDB_VERSION=${MYSQLDBVERSION}
-fi
-
-export MYSQLDB_VERSION
-
-echo "mysqlversion: "+${MYSQLDBVERSION} "mysql_version: "+${MYSQLDB_VERSION}
-
-MYSQLDB_MOUNT=/media/data/mysql
-
+export COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}

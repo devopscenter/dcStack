@@ -47,8 +47,8 @@ sudo apt-get -qq update && apt-get -qq -y install python-software-properties sof
 
 sudo add-apt-repository -y ppa:saiarcot895/myppa
 
-export GIT_VERSION=2.31.1
-export PYTHON_VERSION=3.9.4
+export GIT_VERSION=2.24.0
+export PYTHON_VERSION=2.7.17
 
 sudo apt-get -qq update
 sudo apt-get -qq -y install wget sudo vim curl build-essential
@@ -78,7 +78,9 @@ which python && python --version
 
 pushd /tmp
 # temporarily comment out until we switch to python 3
-sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
+#sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
+sudo wget --quiet https://bootstrap.pypa.io/pip/2.7/get-pip.py && sudo python get-pip.py
+#https://bootstrap.pypa.io/pip/2.7/get-pip.py
 sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
 
 sudo pip install -U setuptools-git wheel virtualenv

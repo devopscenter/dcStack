@@ -1,1 +1,1 @@
-baseimageversion=ubuntu:xenial
+export baseimageversion=ubuntu:focal

@@ -39,23 +39,26 @@
 set -o verbose
 
 echo "============================ Building element: base ===================="
-sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
+sudo apt-get -qq update && sudo apt-get -qq -y install software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo add-apt-repository -yu ppa:pi-rho/dev  && \
     sudo apt-get -qq update
 
-sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-    sudo aptt -qq update 
+#sudo add-apt-repository -y ppa:saiarcot895/myppa && \
+#    sudo apt-get -qq update 
+
+
 
 # install the tools for encrypting the filesystem
 sudo apt-get -y install cryptsetup-bin
-
 sudo apt-get -qq -y install bc git wget sudo vim unzip curl language-pack-en jq
-
 sudo apt-get -y install ncdu ntp fail2ban htop
+sudo apt-get -y install tmux
 
-sudo apt-get -y install tmux-next
-sudo mv /usr/bin/tmux-next /usr/bin/tmux
+#Use the python 3 that comes with 20.04
+sudo apt-get update && apt-get -y install python3-pip python3-dev
+ln -s /usr/bin/python3 /usr/bin/python
+ln -s /usr/bin/pip3 /usr/bin/pip
 
 pushd /tmp
 curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
@@ -75,7 +78,7 @@ sudo chmod 755 /usr/local/bin/dcEnv.sh
 #
 # Tmux install and config.
 #
-
+exit
 pushd $HOME
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tmux-pain-control ~/.tmux/plugins/tmux-pain-control
