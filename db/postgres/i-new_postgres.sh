@@ -146,9 +146,10 @@ sudo sed -i '/\/dev\/xvdb[[:blank:]]\/mnt/d' /etc/fstab
 sudo ./i-mount.sh "/media/data" ${ENCRYPT_FS}
 
 #-------------------------------------------------------------------------------
-# install postgres and other tasks
+# install postgres and other tasks, --preserve-env required as of 19.10
+# details: https://askubuntu.com/questions/1186999/how-does-sudo-handle-home-differently-since-19-10
 #-------------------------------------------------------------------------------
-sudo ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
+sudo --preserve-env=HOME ./postgres.sh "${PGVERSION}" "${DATABASE}" "${VPC_CIDR}"
 
 
 #-------------------------------------------------------------------------------
@@ -310,7 +311,7 @@ fi
 #hostssl <DB NAME> all 0.0.0.0/0 password
 
 #-------------------------------------------------------------------------------
-# run the appliction specific web_commands.sh 
+# run the appliction specific db_commands.sh 
 #-------------------------------------------------------------------------------
 STANDARD_APP_UTILS_DIR="/app-utils/conf"
 
