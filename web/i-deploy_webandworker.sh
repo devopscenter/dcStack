@@ -107,11 +107,11 @@ sudo ./base-utils.sh
 #-------------------------------------------------------------------------------
 # install stack common to web and workers
 #-------------------------------------------------------------------------------
+cd ~/dcStack/buildtools/utils || exit
+sudo ./install-supervisor.sh normal
+
 cd ~/dcStack/python/ || exit
 sudo ./python.sh
-
-cd ~/dcStack/buildtools/utils || exit
-sudo ./install-supervisor.sh custom
 
 #-------------------------------------------------------------------------------
 # Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
