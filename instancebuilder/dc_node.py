@@ -36,7 +36,7 @@ class dcNode(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "node", argList)
         self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "sudo ./node.sh"
+        self.executeScript = "sudo --preserve-env=HOME ./node.sh"
 
     def run(self):
         """Run the element to install the corresponding code."""

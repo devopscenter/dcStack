@@ -37,7 +37,7 @@ class dcScheduler(ElementBase):
         ElementBase.__init__(self, "scheduler", argList)
         self.executePath = (self.stackDir + "/"
                             + self.stack + "-stack/scheduler")
-        self.executeScript = "sudo ./scheduler.sh " + self.region
+        self.executeScript = "sudo --preserve-env=HOME ./scheduler.sh " + self.region
 
     def run(self):
         """Run the element to install the corresponding code."""
@@ -72,7 +72,7 @@ class dcScheduler(ElementBase):
         webCmdToRun = standardAppUtilsDir + "/" + self.suffix + "-commands.sh"
         if os.path.isfile(webCmdToRun):
             os.chdir(standardAppUtilsDir)
-            cmdToRun = "sudo ./" + self.suffix + "-commands.sh "
+            cmdToRun = "sudo --preserve-env=HOME ./" + self.suffix + "-commands.sh "
             self.runScript(cmdToRun)
 
         # and move back to the original directory

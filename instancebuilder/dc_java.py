@@ -36,7 +36,7 @@ class dcJava(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "java", argList)
         self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "sudo ./java.sh"
+        self.executeScript = "sudo --preserve-env=HOME ./java.sh"
 
     def run(self):
         """Run the element to install the corresponding code."""
