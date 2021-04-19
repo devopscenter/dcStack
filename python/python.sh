@@ -41,21 +41,7 @@ set -o verbose
 echo "============================ Building element: python ===================="
 echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
 
-export GIT_VERSION=2.31.1
-
-sudo apt-get -qq update
-sudo apt-get -qq -y install build-essential
-sudo apt-get -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev libffi-dev
-
-pushd /tmp
-sudo wget --quiet https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz
-sudo tar -xvf git-${GIT_VERSION}.tar.gz
-pushd git-${GIT_VERSION}
-sudo make --silent prefix=/usr/local all && sudo make --silent prefix=/usr/local install
-popd
-popd
-
-sudo apt-get -qq -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev libatlas-dev subversion
+sudo apt-get -qq -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev
 sudo pip install -U setuptools-git wheel
 
 sudo mkdir -p /wheelhouse

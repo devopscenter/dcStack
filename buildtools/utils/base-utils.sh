@@ -39,19 +39,17 @@
 set -o verbose
 
 echo "============================ Building element: base ===================="
+
+export GIT_VERSION=2.31.1
+
 sudo apt-get -qq update && sudo apt-get -qq -y install software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
     sudo add-apt-repository -yu ppa:pi-rho/dev  && \
     sudo apt-get -qq update
 
-#sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-#    sudo apt-get -qq update 
-
-
-
 # install the tools for encrypting the filesystem
 sudo apt-get -y install cryptsetup-bin
-sudo apt-get -qq -y install bc git wget sudo vim unzip curl language-pack-en jq
+sudo apt-get -qq -y install bc wget sudo vim unzip curl language-pack-en jq
 sudo apt-get -y install ncdu ntp fail2ban htop
 sudo apt-get -y install tmux
 
@@ -60,6 +58,21 @@ sudo apt-get update && apt-get -y install python3-pip python3-dev python3-venv
 ln -s /usr/bin/python3 /usr/bin/python
 ln -s /usr/bin/pip3 /usr/bin/pip
 
+
+# install a common git
+sudo apt-get -qq update
+sudo apt-get -qq -y install build-essential
+sudo apt-get -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev libffi-dev
+
+pushd /tmp
+sudo wget --quiet https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz
+sudo tar -xvf git-${GIT_VERSION}.tar.gz
+pushd git-${GIT_VERSION}
+sudo make --silent prefix=/usr/local all && sudo make --silent prefix=/usr/local install
+popd
+popd
+
+# aws cli
 pushd /tmp
 curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 unzip awscli-bundle.zip
