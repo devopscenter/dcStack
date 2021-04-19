@@ -56,13 +56,10 @@ sudo ./configure CFLAGSFORSHARED="-fPIC" CCSHARED="-fPIC" --quiet CCSHARED="-fPI
             && make clean && make --silent -j3 && sudo make --silent install
 popd
 
-sudo ln -s /usr/local/opt/python/bin/python /usr/local/bin/python2
-
 which python2 && python2 --version
 
-#sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
 sudo wget --quiet https://bootstrap.pypa.io/pip/2.7/get-pip.py && sudo python get-pip.py
-#https://bootstrap.pypa.io/pip/2.7/get-pip.py
+which pip2 && pip2 --version
 
 popd
 
