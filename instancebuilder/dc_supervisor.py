@@ -36,7 +36,7 @@ class dcSupervisor(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "supervisor", argList)
         self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "sudo --preserve-env=HOME ./install-supervisor.sh custom"
+        self.executeScript = "sudo --preserve-env=HOME ./install-supervisor.sh normal"
 
     def run(self):
         """Run the element to install the corresponding code."""
