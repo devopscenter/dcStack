@@ -129,7 +129,7 @@ cd ~/dcStack/logging/ || exit
 ./i-enable-logging.sh
 
 #-------------------------------------------------------------------------------
-#  install nginx
+#  install nginx and uwsgi
 #-------------------------------------------------------------------------------
 cd ~/dcStack/web/python-nginx/ || exit
 sudo --preserve-env=HOME ./nginx.sh

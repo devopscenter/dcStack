@@ -38,31 +38,15 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 set -o verbose
 
-echo "============================ Building element: python ===================="
+echo "============================ Building element: python2 ===================="
 echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
 
-sudo apt-get -qq update && apt-get -qq -y install python-software-properties software-properties-common && \
-    sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-    sudo apt-get -qq update
 
-sudo add-apt-repository -y ppa:saiarcot895/myppa
-
-export GIT_VERSION=2.24.0
 export PYTHON_VERSION=2.7.17
 
-sudo apt-get -qq update
-sudo apt-get -qq -y install wget sudo vim curl build-essential
-
 sudo apt-get -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev libffi-dev python-dev
-pushd /tmp
-sudo wget --quiet https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz
-sudo tar -xvf git-${GIT_VERSION}.tar.gz
-pushd git-${GIT_VERSION}
-sudo make --silent prefix=/usr/local all && sudo make --silent prefix=/usr/local install
-popd
-popd
 
-sudo apt-get -qq -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev libatlas-dev subversion
+sudo apt-get -qq -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev
 
 pushd /tmp
 sudo wget --quiet https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz -O /tmp/Python-${PYTHON_VERSION}.tgz
@@ -72,28 +56,27 @@ sudo ./configure CFLAGSFORSHARED="-fPIC" CCSHARED="-fPIC" --quiet CCSHARED="-fPI
             && make clean && make --silent -j3 && sudo make --silent install
 popd
 
-sudo ln -s /usr/local/opt/python/bin/python /usr/local/bin/python
+sudo ln -s /usr/local/opt/python/bin/python /usr/local/bin/python2
 
-which python && python --version
+which python2 && python2 --version
 
-pushd /tmp
-# temporarily comment out until we switch to python 3
 #sudo wget --quiet https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
 sudo wget --quiet https://bootstrap.pypa.io/pip/2.7/get-pip.py && sudo python get-pip.py
 #https://bootstrap.pypa.io/pip/2.7/get-pip.py
-sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip
+sudo ln -s /usr/local/opt/python/bin/pip /usr/local/bin/pip2
+popd
 
-sudo pip install -U setuptools-git wheel virtualenv
+sudo pip2 install -U setuptools-git wheel virtualenv
 
 sudo mkdir -p /wheelhouse
 
 #ipython
 sudo apt-get -qq -y install libncurses5-dev
-sudo pip install readline==6.2.4.1
+sudo pip2 install readline==6.2.4.1
 
 # Create a scratch directory, if it doesn't already exist
 if [[ ! -e /data/scratch ]]; then
     sudo mkdir -p /data/scratch
     sudo chmod -R 777 /data/scratch
 fi
-echo "============================ Finished element: python ===================="
+echo "============================ Finished element: python2 ===================="
