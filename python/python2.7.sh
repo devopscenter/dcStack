@@ -39,8 +39,6 @@ set -x             # essentially debug mode
 set -o verbose
 
 echo "============================ Building element: python2 ===================="
-echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
-
 
 export PYTHON_VERSION=2.7.17
 
