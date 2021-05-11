@@ -91,7 +91,6 @@ sudo chmod 755 /usr/local/bin/dcEnv.sh
 #
 # Tmux install and config.
 #
-exit
 pushd $HOME
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tmux-pain-control ~/.tmux/plugins/tmux-pain-control
