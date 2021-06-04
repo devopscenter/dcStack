@@ -8,16 +8,3 @@ boto3
 virtualenvwrapper
 pysnmp
 simplejson
-python-statsd
-pytz
-gunicorn
-six
-cairocffi>==0.6
-django>==1.11.15
-python-memcached>==1.53
-django-tagging>==0.3.1
-django-statsd-mozilla
-twisted>==13.2.0
-txAMQP>==0.6.2
-scandir
-rrdtool

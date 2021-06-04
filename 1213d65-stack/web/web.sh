@@ -49,10 +49,9 @@ sudo apt-get update
 useradd grafana
 
 # prerequisites 
-DEBIAN_FRONTEND=noninteractive sudo apt-get install -y pdsh gunicorn \
- python-dev python-flup python-ldap expect memcached \
- sqlite3 libcairo2 libcairo2-dev libffi-dev librrd-dev python-cairo python-rrdtool 
 
+# install node
+source ~/dcStack/buildtools/utils/node.sh
 
 # install grafana helper tool wizzy to help with exporting dashboards
 npm install -g wizzy
@@ -76,7 +75,7 @@ grafana_version=7.5.7
 
 # Install Grafana
 mkdir  -p /opt/grafana
-curl https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-${grafana_version}.linux-amd64.tar.gz -o /usr/local/src/grafana.tar.gz                                                                                  &&\
+curl https://dl.grafana.com/oss/release/release/grafana-${grafana_version}.linux-amd64.tar.gz -o /usr/local/src/grafana.tar.gz                                                                                  &&\
 tar -xzvf /usr/local/src/grafana.tar.gz -C /opt/grafana --strip-components=1
 rm /usr/local/src/grafana.tar.gz
 
