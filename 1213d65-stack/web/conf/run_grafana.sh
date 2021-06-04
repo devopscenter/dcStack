@@ -61,7 +61,9 @@ fi
 
 # before we start need to make sure that pgmaster-1 is up and running and we need to create the
 # grafana database inside postresql
-psql -U postgres -c "create database grafana"
+if  ! $(psql -U postgres -l | grep '^ grafana\b' > /dev/null)  ; then
+	psql -U postgres -c "create database grafana"; 
+fi
 
 # Prepare environment
 #mkdir -p "$LOG_DIR" "$DATA_DIR" && chown "$GRAFANA_USER":"$GRAFANA_GROUP" "$LOG_DIR" "$DATA_DIR"
