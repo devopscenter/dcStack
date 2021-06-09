@@ -69,12 +69,14 @@ if [[ ! -d /usr/local/src ]]; then
     sudo chmod 777 /usr/local/src
 fi
 
+sudo mkdir -p /media/data/grafana
+sudo chown grafana:grafana /media/data/grafana
 
 grafana_version=8.0.0
 
 
 # Install Grafana
-mkdir  -p /opt/grafana
+sudo mkdir  -p /opt/grafana
 curl https://dl.grafana.com/oss/release/grafana-${grafana_version}.linux-amd64.tar.gz -o /usr/local/src/grafana.tar.gz                                                                                  &&\
 tar -xzvf /usr/local/src/grafana.tar.gz -C /opt/grafana --strip-components=1
 rm /usr/local/src/grafana.tar.gz
