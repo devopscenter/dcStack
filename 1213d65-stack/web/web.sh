@@ -5,7 +5,7 @@
 #
 #         USAGE: web.sh
 #
-#   DESCRIPTION: install what is necessary for the web container
+#   DESCRIPTION: install what is necessary grafana-prometheus web container
 #
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
@@ -14,10 +14,10 @@
 #        AUTHOR: Gregg Jensen (), gjensen@devops.center
 #                Bob Lozano (), bob@devops.center
 #  ORGANIZATION: devops.center
-#       CREATED: 11/21/2016 15:13:37
+#       CREATED: 06/04/2021 
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2021 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ if [[ ! -d /usr/local/src ]]; then
 fi
 
 
-grafana_version=7.5.7
+grafana_version=8.0.0
 
 
 # Install Grafana
