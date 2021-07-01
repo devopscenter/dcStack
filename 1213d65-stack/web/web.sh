@@ -45,55 +45,17 @@ dcStartLog "install of app-specific web for 1213d64-stack (dcMonitoring)"
 # update 
 sudo apt-get update
 
-# add the grafana user
-useradd grafana
-
-# prerequisites 
-
 # install node
 source ~/dcStack/buildtools/utils/node.sh
 
-# install grafana helper tool wizzy to help with exporting dashboards
-npm install -g wizzy
+# install grafana
+source ~/dcStack/monitoring/grafana-install.sh
+
+# install prometheus
+source ~/dcStack/monitoring/prometheus-install.sh
 
 # install the python support libraries
 sudo -H pip install -r requirements.txt
-
-# set up the location for the files
-if [[ ! -d /opt ]]; then
-    sudo mkdir /opt
-    sudo chmod 777 /opt
-fi
-if [[ ! -d /usr/local/src ]]; then
-    sudo mkdir -p /usr/local/src
-    sudo chmod 777 /usr/local/src
-fi
-
-sudo mkdir -p /media/data/grafana
-sudo chown grafana:grafana /media/data/grafana
-
-grafana_version=8.0.0
-
-
-# Install Grafana
-sudo mkdir  -p /opt/grafana
-curl https://dl.grafana.com/oss/release/grafana-${grafana_version}.linux-amd64.tar.gz -o /usr/local/src/grafana.tar.gz                                                                                  &&\
-tar -xzvf /usr/local/src/grafana.tar.gz -C /opt/grafana --strip-components=1
-rm /usr/local/src/grafana.tar.gz
-
-#-------------------------------------------------------------------------------
-# Configuration
-#-------------------------------------------------------------------------------
-
-# Configure Grafana
-cp conf/custom.ini /opt/grafana/conf/custom.ini
-
-# set up the supervisor start script for grafana
-sudo cp conf/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
-sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
-sudo cp conf/supervisor-grafana.conf /etc/supervisor/conf.d/grafana.conf
-sudo cp conf/run_grafana.sh /etc/supervisor/conf.d/run_grafana.sh
-sudo chmod a+x /etc/supervisor/conf.d/run_grafana.sh
 
 #
 # disable unused services
@@ -104,8 +66,5 @@ fi
 
 # cleanup
 apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# update the PATH variable in the bashrc with the needed new paths 
-echo "export PATH=/opt/grafana/bin:\$PATH" >> ~/.bashrc
 
 dcEndLog "install of app-specific web for 1213d64-stack (dcMonitoring)"
