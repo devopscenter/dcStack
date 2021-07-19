@@ -49,9 +49,9 @@ logger "jenkins backup started"
 # Define cleanup as an exit trap, so happens no matter what
 function finish {
     pushd /media/data/tmp
-    sudo supervisorctl start jenkins
 	sudo rm "$JENKINS_BACKUP_FILE"
 	sudo rm excludefiles
+    sudo supervisorctl start jenkins            # just incase the tar had failed, triggering the exit before the ordinary start
 	popd
 }
 trap finish EXIT
@@ -76,8 +76,11 @@ JENKINS_BACKUP_FILE=$(mktemp /media/data/tmp/jenkins.tar.gz.XXXXX)
 pushd /media/data/tmp
 sudo find ~ -type d -name *workspace* > excludefiles
 
+logger "stopping jenkins"
 sudo supervisorctl stop jenkins
 sudo tar czf "$JENKINS_BACKUP_FILE" /media/data/jenkins -X excludefiles
+sudo supervisorctl start jenkins
+logger "started jenkins"
 
 # upload to s3
 aws s3 cp "$JENKINS_BACKUP_FILE" "s3://${S3_FILE}"
