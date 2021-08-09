@@ -53,7 +53,7 @@ export PYTHON_VERSION=2.7.17
 sudo apt-get -qq update
 sudo apt-get -qq -y install wget sudo vim curl build-essential
 
-sudo apt-get -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev libffi-dev python-dev
+sudo apt-get -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev libffi-dev python-dev libncursesw5-dev
 pushd /tmp
 sudo wget --quiet https://www.kernel.org/pub/software/scm/git/git-${GIT_VERSION}.tar.gz
 sudo tar -xvf git-${GIT_VERSION}.tar.gz
