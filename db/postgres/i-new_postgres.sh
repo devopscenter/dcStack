@@ -109,14 +109,14 @@ fi
 # install standard packages/utilities
 #-------------------------------------------------------------------------------
 cd ~/dcStack/buildtools/utils/ || exit
-sudo ./base-utils.sh
+sudo --preserve-env=HOME ./base-utils.sh
 
 #-------------------------------------------------------------------------------
-# install python and pip directly rather than via python/python.sh
+# install supervisor using the standard python install.
 #-------------------------------------------------------------------------------
 
 cd ~/dcStack/buildtools/utils || exit
-sudo ./install-supervisor.sh normal
+sudo --preserve-env=HOME ./install-supervisor.sh normal
 
 #-------------------------------------------------------------------------------
 # create env variables so supervisor can start
