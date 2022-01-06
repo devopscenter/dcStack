@@ -1,5 +1,5 @@
 boto==2.43.0
-celery==3.1.25
+celery==5.2.2
 Django==1.11.29
 django-celery>=3.1.17
 django-concurrent_server==0.1.4
