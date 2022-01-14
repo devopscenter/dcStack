@@ -38,5 +38,5 @@
 #set -x             # essentially debug mode
 set -o verbose
 
-NGINX_VERSION=1.19.8
+NGINX_VERSION=1.21.5
 UWSGI_VERSION=2.0.19.1
