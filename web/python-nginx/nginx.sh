@@ -46,9 +46,9 @@ sudo cp conf/sudo-uwsgi /etc/sudoers.d
 sudo apt-get install -y rsyslog-gnutls
 
 pushd /tmp
-wget --quiet ftp://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2 && \
-    tar -xvf pcre-8.41.tar.bz2
-pushd pcre-8.41
+wget https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.bz2 && \
+    tar -xvf pcre-8.45.tar.bz2
+pushd pcre-8.45
 ./configure && make --silent -j 3 && sudo make --silent install
 popd
 
