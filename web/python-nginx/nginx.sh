@@ -46,8 +46,9 @@ sudo cp conf/sudo-uwsgi /etc/sudoers.d
 sudo apt-get install -y rsyslog-gnutls
 
 pushd /tmp
-wget https://sourceforge.net/projects/pcre/files/pcre/8.45/pcre-8.45.tar.bz2 && \
-    tar -xvf pcre-8.45.tar.bz2
+# info on pcre download hanging and a fix: https://jay.gooby.org/2021/11/30/use-the-exim-mirror-for-pcre-now-that-the-official-mirror-only-hosts-pcre2
+wget https://ftp.exim.org/pub/pcre/pcre-8.45.tar.gz && \
+    tar -zxvf pcre-8.45.tar.gz
 pushd pcre-8.45
 ./configure && make --silent -j 3 && sudo make --silent install
 popd
