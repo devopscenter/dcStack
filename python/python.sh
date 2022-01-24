@@ -48,7 +48,7 @@ sudo apt-get -qq update && apt-get -qq -y install python-software-properties sof
 sudo add-apt-repository -y ppa:saiarcot895/myppa
 
 export GIT_VERSION=2.24.0
-export PYTHON_VERSION=2.7.17
+export PYTHON_VERSION=2.7.18
 
 sudo apt-get -qq update
 sudo apt-get -qq -y install wget sudo vim curl build-essential
