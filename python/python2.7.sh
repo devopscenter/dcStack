@@ -40,7 +40,7 @@ set -o verbose
 
 echo "============================ Building element: python2 ===================="
 
-export PYTHON_VERSION=2.7.17
+export PYTHON_VERSION=2.7.18
 
 sudo apt-get -qq -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev libffi-dev python-dev
 
