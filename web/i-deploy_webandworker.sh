@@ -115,13 +115,22 @@ if [[ ${PYTHON2} == "true" ]]; then
 fi
 
 #-------------------------------------------------------------------------------
-# Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
+# install supervisor using the standard python install.
+#-------------------------------------------------------------------------------
+
+cd ~/dcStack/buildtools/utils || exit
+sudo --preserve-env=HOME ./install-supervisor.sh normal
+
+#-------------------------------------------------------------------------------
+# create env variables so supervisor can start
 #-------------------------------------------------------------------------------
 if [[ (-n "${ENV}") && (-e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/environments/${ENV}.env") ]]; then
     pushd ~/dcUtils/
     ./deployenv.sh --type instance --env $ENV --appName ${CUST_APP_NAME}
     popd
 fi
+
+sudo /etc/init.d/supervisor start
 
 #-------------------------------------------------------------------------------
 # enable logging
