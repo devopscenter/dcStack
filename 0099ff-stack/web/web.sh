@@ -41,17 +41,16 @@ source /usr/local/bin/dcEnv.sh                       # initalize logging environ
 dcStartLog "install of app-specific web for 0099ff"
 
 
-# Manually switch to python2 for this app stack
+# Assume python2.7 installed earlier, so now build uwsgi in python2
 pushd ../../python/
 . ../web/python-nginx/nginxenv.sh
 
-./python2.7.sh
 sudo pip2 install uwsgi==$UWSGI_VERSION && \
     sudo mkdir -p /var/log/uwsgi && \
     sudo chown -R uwsgi /var/log/uwsgi
 popd
 
-
+#do all installs in python2
 sudo pip2 install -r requirements.txt
 sudo pip2 install --no-binary :all: -r requirements2.txt
 sudo pip2 install -r requirements3.txt
