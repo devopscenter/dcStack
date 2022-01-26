@@ -55,6 +55,7 @@ CUST_APP_NAME=$7
 REDIS_INSTALL=$8
 COMBINED_WEB_WORKER=${9}
 SCRATCHVOLUME=${10-"false"}
+PYTHON2=${11-"false"}
 
 echo "Arguments passed in: "
 echo "    PRIVATE_IP: ${PRIVATE_IP}"
@@ -99,19 +100,19 @@ sudo mkdir -p /media/data/db_restore
 sudo chmod 777 /media/data/db_restore
 
 #-------------------------------------------------------------------------------
-# install standard packages/utilities
+# install standard packages/utilities (including supervisord)
 #-------------------------------------------------------------------------------
 cd ~/dcStack/buildtools/utils/ || exit
 sudo --preserve-env=HOME ./base-utils.sh
 
 #-------------------------------------------------------------------------------
-# install stack common to web and workers
+# optionally install python2 for legacy code
 #-------------------------------------------------------------------------------
-cd ~/dcStack/buildtools/utils || exit
-sudo --preserve-env=HOME ./install-supervisor.sh normal
-
-cd ~/dcStack/python/ || exit
-sudo --preserve-env=HOME ./python.sh
+if [[ ${PYTHON2} == "true" ]]; then
+    pushd  ~/dcStack/python/
+    sudo --preserve-env=HOME ./python2.7.sh
+    popd
+fi
 
 #-------------------------------------------------------------------------------
 # Fix configuration files, using env vars distributed in the customer-specific (and private) utils.

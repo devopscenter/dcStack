@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: python.sh
+#          FILE: python2.7.sh
 #
-#         USAGE: python.sh
+#         USAGE: python2.7.sh
 #
 #   DESCRIPTION: install python and other utilities that python uses.
 #
@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2022 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
