@@ -23,7 +23,7 @@
 #       CREATED: 09/29/2016 09:23:15
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2022 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,10 +52,10 @@ ENV=$4
 DB_TO_USE=$5
 DB_VERSION=$6
 CUST_APP_NAME=$7
-REDIS_INSTALL=$8
+PYTHON2=${8-"false"}
 COMBINED_WEB_WORKER=${9}
 SCRATCHVOLUME=${10-"false"}
-PYTHON2=${11-"false"}
+REDIS_INSTALL=$11
 
 echo "Arguments passed in: "
 echo "    PRIVATE_IP: ${PRIVATE_IP}"
