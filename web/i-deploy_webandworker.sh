@@ -65,9 +65,10 @@ echo "    ENV: ${ENV}"
 echo "    DB_TO_USE: ${DB_TO_USE}"
 echo "    DB_VERSION: ${DB_VERSION}"
 echo "    CUST_APP_NAME: ${CUST_APP_NAME}"
-echo "    REDIS_INSTALL: ${REDIS_INSTALL}"
+echo "    Python2: ${PYTHON2}"
 echo "    COMBINED_WEB_WORKER: ${COMBINED_WEB_WORKER}"
 echo "    SCRATCHVOLUME: ${SCRATCHVOLUME}"
+echo "    REDIS_INSTALL: ${REDIS_INSTALL}"
 
 #
 # All web and worker instances use /data for code deploys, some for other stuff
