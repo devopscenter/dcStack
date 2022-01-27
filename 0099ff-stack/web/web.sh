@@ -45,6 +45,8 @@ dcStartLog "install of app-specific web for 0099ff"
 pushd ../../python/
 . ../web/python-nginx/nginxenv.sh
 
+sudo pip uninstall uwsgi # remove python3 version
+
 sudo pip2 install uwsgi==$UWSGI_VERSION && \
     sudo mkdir -p /var/log/uwsgi && \
     sudo chown -R uwsgi /var/log/uwsgi
