@@ -49,6 +49,8 @@ if [ -n "$MYSQLDBVERSION" ]; then
   MYSQLDB_VERSION=${MYSQLDBVERSION}
 fi
 
+export MYSQLDB_VERSION
+
 echo "mysqlversion: "+${MYSQLDBVERSION} "mysql_version: "+${MYSQLDB_VERSION}
 
 MYSQLDB_MOUNT=/media/data/mysql

@@ -36,7 +36,7 @@ class dcPgpool(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "pgpool", argList)
         self.executePath = self.stackDir + "/web/python-nginx-pgpool"
-        self.executeScript = "sudo ./pgpool.sh " + self.postgresVersion
+        self.executeScript = "sudo --preserve-env=HOME ./pgpool.sh " + self.postgresVersion
 
     def run(self):
         """Run the element to install the corresponding code."""

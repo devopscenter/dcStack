@@ -48,11 +48,11 @@ echo "Postgresql version=${postgresVerison}"
 echo "MySQL version=${MYSQLDB_VERSION}"
 
 COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
-
+exit
 #build containers
 
 function base {
-    docker build --rm --build-arg baseimageversion=${baseimageversion} -t "devopscenter/base:${COMPOSITE_TAG}" .
+    docker build --build-arg baseimageversion=${baseimageversion} -t "devopscenter/base:${COMPOSITE_TAG}" .
 }
 
 function db {
@@ -62,7 +62,7 @@ function db {
 #   docker build --rm -t "devopscenter/db_postgres-repmgr:${COMPOSITE_TAG}" db/postgres-repmgr
 #   docker build --rm -t "devopscenter/db_postgres-restore:${COMPOSITE_TAG}" db/postgres-restore
     docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_redis:${COMPOSITE_TAG}" db/redis
-    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_redis-standby:${COMPOSITE_TAG}" db/redis-standby
+#    docker build --rm --build-arg COMPOSITE_TAG=${COMPOSITE_TAG} -t "devopscenter/db_redis-standby:${COMPOSITE_TAG}" db/redis-standby
 }
 
 function misc {
@@ -121,14 +121,14 @@ function web-all {
 if [[ $# -gt 0 ]]; then
     ${1} > ${1}.log
 else
-    postgresVersion=9.6
-    COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
-    echo  ${COMPOSITE_TAG}
-    base > base9.6.log
-    misc &> misc9.6.log
-    db &> db9.6.log
+#   postgresVersion=9.6
+#   COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}
+#   echo  ${COMPOSITE_TAG}
+#   base > base9.6.log
+#   misc &> misc9.6.log
+#   db &> db9.6.log
 
-    web-all &> web9.6.log
+#    web-all &> web9.6.log
 
 
     postgresVersion=10
@@ -139,6 +139,8 @@ else
     db &> db10.log
 
     web-all &> web10.log
+
+    exit
 
     postgresVersion=11
     COMPOSITE_TAG=${dcSTACK_VERSION}-postgres${postgresVersion}

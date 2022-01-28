@@ -36,7 +36,7 @@ class dcPhp(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "php", argList)
         self.executePath = self.stackDir + "/php"
-        self.executeScript = "sudo ./php.sh"
+        self.executeScript = "sudo --preserve-env=HOME ./php.sh"
 
     def run(self):
         """Run the element to install the corresponding code."""

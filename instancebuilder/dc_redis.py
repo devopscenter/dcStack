@@ -36,7 +36,7 @@ class dcRedis(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "redis", argList)
         self.executePath = self.stackDir + "/web/python-nginx-pgpool-redis"
-        self.executeScript = "sudo ./redis-client-install.sh "
+        self.executeScript = "sudo --preserve-env=HOME ./redis-client-install.sh "
 
     def run(self):
         """Run the element to install the corresponding code."""

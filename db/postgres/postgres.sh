@@ -44,25 +44,6 @@ VPC_CIDR=$3
 
 . ./postgresenv.sh $PGVERSION
 
-sudo apt-get -qq update && sudo apt-get -qq -y install python-software-properties software-properties-common && \
-    sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-    sudo apt-get -qq update
-
-sudo apt-get -qq -y install debconf-utils
-
-sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-    sudo apt-get -qq update 
-
-sudo apt-get -qq -y install git python-dev wget sudo vim
-
-# Install python3 tools for the wal-e install. Note that in ubunt 16.04 python is 3.5, so can't update pip.
-sudo apt-get -y install python3-pip
-#sudo -H pip3 install --upgrade pip
-
-pushd /tmp
-sudo wget --quiet https://bootstrap.pypa.io/pip/2.7/get-pip.py && sudo python get-pip.py
-popd
-
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
@@ -81,18 +62,14 @@ sudo locale-gen en_US.UTF-8 && \
     sudo dpkg-reconfigure --frontend=noninteractive locales
 
 echo "installing wal-e"
-###WAL-E
-#USER root
-#https://coderwall.com/p/cwe2_a/backup-and-recover-a-postgres-db-using-wal-e
 sudo apt-get -qq -y install libffi-dev
-sudo -H pip install -U distribute
 sudo -H pip install -U six
 
 # wal-e v1 and later now require python3
-sudo -H pip3 install boto
-sudo -H pip3 install wal-e
+sudo -H pip install boto
+sudo -H pip install wal-e
 
-sudo apt-get -qq install -y daemontools lzop pv
+sudo apt-get -qq install -y daemontools lzop
 sudo -H pip install -U requests
 
 echo "mkdir /media/data/postgres"
@@ -115,11 +92,8 @@ sudo service postgresql stop
 
 #disable init.d autostart
 sudo update-rc.d postgresql disable
-# and finally remove it
-#sudo update-rc.d postgresql remove
 
 sudo -H pip install s3cmd
-sudo -H pip install -U setuptools
 
 # Create a couple of standard temp directories
 sudo mkdir -p /media/data/tmp

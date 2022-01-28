@@ -38,15 +38,9 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 set -x             # essentially debug mode
 set -o verbose
 
-export REDIS_VERSION=5.0.5
+export REDIS_VERSION=5.0.12
 export REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
 
-sudo apt-get -qq update && sudo apt-get -y install python-software-properties software-properties-common && \
-        sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
-            sudo apt-get -qq update
-
-sudo add-apt-repository -y ppa:saiarcot895/myppa && \
-        sudo apt-get -qq update
 
 sudo groupadd -r redis && sudo useradd -r -g redis redis
 
@@ -55,7 +49,8 @@ sudo apt-get -qq update && sudo apt-get -qq install -y --no-install-recommends \
     curl \
     && sudo rm -rf /var/lib/apt/lists/*
 
-sudo gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
+sudo gpg --keyserver keyserver.ubuntu.com --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
+
 
 buildDeps='gcc libc6-dev make'
 set -x \

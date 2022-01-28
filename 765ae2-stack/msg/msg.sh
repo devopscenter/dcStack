@@ -46,11 +46,8 @@ source /usr/local/bin/dcEnv.sh                       # initalize logging environ
 dcStartLog "install of app-specific mail for 765ae2"
 
 
-curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
-
-sudo apt-get install -y nodejs
-
-sudo apt-get install -y build-essential 
+# install node
+source ~/dcStack/buildtools/utils/node.sh
 
 # and install yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -

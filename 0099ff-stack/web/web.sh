@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2022 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -40,9 +40,22 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
 dcStartLog "install of app-specific web for 0099ff"
 
-sudo pip install -r requirements.txt
-sudo pip install --no-binary :all: -r requirements2.txt
-sudo pip install -r requirements3.txt
+
+# Assume python2.7 installed earlier, so now build uwsgi in python2
+pushd ../../python/
+. ../web/python-nginx/nginxenv.sh
+
+sudo pip uninstall uwsgi # remove python3 version
+
+sudo pip2 install uwsgi==$UWSGI_VERSION && \
+    sudo mkdir -p /var/log/uwsgi && \
+    sudo chown -R uwsgi /var/log/uwsgi
+popd
+
+#do all installs in python2
+sudo pip2 install -r requirements.txt
+sudo pip2 install --no-binary :all: -r requirements2.txt
+sudo pip2 install -r requirements3.txt
 
 # scratch volume
 sudo mkdir -p /media/data/tmp

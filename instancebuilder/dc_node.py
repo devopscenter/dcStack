@@ -11,7 +11,7 @@ __version__ = "0.1"
 __copyright__ = "Copyright 2017, devops.center"
 __credits__ = ["Bob Lozano", "Gregg Jensen"]
 __license__ = ' \
-   # Copyright 2014-2017 devops.center llc                                    \
+   # Copyright 2014-2021 devops.center llc                                    \
    #                                                                          \
    # Licensed under the Apache License, Version 2.0 (the "License");          \
    # you may not use this file except in compliance with the License.         \
@@ -36,7 +36,7 @@ class dcNode(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "node", argList)
         self.executePath = self.stackDir + "/buildtools/utils"
-        self.executeScript = "sudo ./node.sh"
+        self.executeScript = "sudo --preserve-env=HOME ./node.sh"
 
     def run(self):
         """Run the element to install the corresponding code."""

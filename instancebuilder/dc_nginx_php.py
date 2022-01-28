@@ -36,7 +36,7 @@ class dcNginx_php(ElementBase):
         """Constructor for this class."""
         ElementBase.__init__(self, "nginx_php", argList)
         self.executePath = self.stackDir + "/web/php-nginx"
-        self.executeScript = "sudo ./nginx.sh "
+        self.executeScript = "sudo --preserve-env=HOME ./nginx.sh "
 
     def run(self):
         """Run the element to install the corresponding code."""

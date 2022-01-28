@@ -23,7 +23,7 @@
 #       CREATED: 09/29/2016 09:23:15
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2022 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,9 +52,10 @@ ENV=$4
 DB_TO_USE=$5
 DB_VERSION=$6
 CUST_APP_NAME=$7
-REDIS_INSTALL=$8
+PYTHON2=${8-"false"}
 COMBINED_WEB_WORKER=${9}
 SCRATCHVOLUME=${10-"false"}
+REDIS_INSTALL=$11
 
 echo "Arguments passed in: "
 echo "    PRIVATE_IP: ${PRIVATE_IP}"
@@ -64,9 +65,10 @@ echo "    ENV: ${ENV}"
 echo "    DB_TO_USE: ${DB_TO_USE}"
 echo "    DB_VERSION: ${DB_VERSION}"
 echo "    CUST_APP_NAME: ${CUST_APP_NAME}"
-echo "    REDIS_INSTALL: ${REDIS_INSTALL}"
+echo "    Python2: ${PYTHON2}"
 echo "    COMBINED_WEB_WORKER: ${COMBINED_WEB_WORKER}"
 echo "    SCRATCHVOLUME: ${SCRATCHVOLUME}"
+echo "    REDIS_INSTALL: ${REDIS_INSTALL}"
 
 #
 # All web and worker instances use /data for code deploys, some for other stuff
@@ -99,28 +101,37 @@ sudo mkdir -p /media/data/db_restore
 sudo chmod 777 /media/data/db_restore
 
 #-------------------------------------------------------------------------------
-# install standard packages/utilities
+# install standard packages/utilities (including supervisord)
 #-------------------------------------------------------------------------------
 cd ~/dcStack/buildtools/utils/ || exit
-sudo ./base-utils.sh
+sudo --preserve-env=HOME ./base-utils.sh
 
 #-------------------------------------------------------------------------------
-# install stack common to web and workers
+# optionally install python2 for legacy code
 #-------------------------------------------------------------------------------
-cd ~/dcStack/python/ || exit
-sudo ./python.sh
+if [[ ${PYTHON2} == "true" ]]; then
+    pushd  ~/dcStack/python/
+    sudo --preserve-env=HOME ./python2.7.sh
+    popd
+fi
+
+#-------------------------------------------------------------------------------
+# install supervisor using the standard python install.
+#-------------------------------------------------------------------------------
 
 cd ~/dcStack/buildtools/utils || exit
-sudo ./install-supervisor.sh custom
+sudo --preserve-env=HOME ./install-supervisor.sh normal
 
 #-------------------------------------------------------------------------------
-# Fix configuration files, using env vars distributed in the customer-specific (and private) utils.
+# create env variables so supervisor can start
 #-------------------------------------------------------------------------------
 if [[ (-n "${ENV}") && (-e "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/environments/${ENV}.env") ]]; then
     pushd ~/dcUtils/
     ./deployenv.sh --type instance --env $ENV --appName ${CUST_APP_NAME}
     popd
 fi
+
+sudo /etc/init.d/supervisor start
 
 #-------------------------------------------------------------------------------
 # enable logging
@@ -129,17 +140,17 @@ cd ~/dcStack/logging/ || exit
 ./i-enable-logging.sh
 
 #-------------------------------------------------------------------------------
-#  install nginx
+#  install nginx and uwsgi
 #-------------------------------------------------------------------------------
 cd ~/dcStack/web/python-nginx/ || exit
-sudo ./nginx.sh
+sudo --preserve-env=HOME ./nginx.sh
 
 #-------------------------------------------------------------------------------
 # install pgpool
 #-------------------------------------------------------------------------------
 if [[ ${DB_TO_USE} == "postgresql" ]]; then
     cd ~/dcStack/web/python-nginx-pgpool/ || exit
-    sudo ./pgpool.sh "$DB_VERSION"
+    sudo --preserve-env=HOME ./pgpool.sh "$DB_VERSION"
 fi
 
 #-------------------------------------------------------------------------------
@@ -147,7 +158,7 @@ fi
 #-------------------------------------------------------------------------------
 if [[ ${REDIS_INSTALL} == 1 ]]; then
     cd ~/dcStack/web/python-nginx-pgpool-redis/ || exit
-    sudo ./redis-client-install.sh
+    sudo --preserve-env=HOME ./redis-client-install.sh
 fi
 
 #-------------------------------------------------------------------------------
@@ -156,7 +167,7 @@ fi
 if [[ -d ~/dcStack/${STACK}-stack/web ]]; then
     cd ~/dcStack/${STACK}-stack/web/ 
     if [[ -f ./web.sh ]]; then
-        sudo ./web.sh ${SCRATCHVOLUME} 
+        sudo --preserve-env=HOME ./web.sh ${SCRATCHVOLUME} 
     fi
 fi
 
@@ -171,14 +182,14 @@ if [[ ! -d "${STANDARD_APP_UTILS_DIR}" ]]; then
     # we will do a symbolic link since that is the most efficient
 fi
 
-sudo ln -s "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}" "${STANDARD_APP_UTILS_DIR}"
+sudo --preserve-env=HOME ln -s "${HOME}/${CUST_APP_NAME}/${CUST_APP_NAME}-utils/config/${ENV}" "${STANDARD_APP_UTILS_DIR}"
 
 #-------------------------------------------------------------------------------
 # run the appliction specific web_commands.sh 
 #-------------------------------------------------------------------------------
 if [[ -e "${STANDARD_APP_UTILS_DIR}/web-commands.sh" ]]; then
     cd ${STANDARD_APP_UTILS_DIR}
-    sudo ./web-commands.sh
+    sudo --preserve-env=HOME ./web-commands.sh
 fi
 
 # If there is a worker specific install, then invoke it.
@@ -186,13 +197,13 @@ if [[ "${SUFFIX}" == "worker" || "${COMBINED_WEB_WORKER}" == "true" ]]; then
     # first do the stack specific worker.sh script
     if [[ -f "${HOME}/dcStack/${STACK}-stack/worker/worker.sh" ]]; then
         cd ${HOME}/dcStack/${STACK}-stack/worker
-        sudo ./worker.sh ${COMBINED_WEB_WORKER} ${SCRATCHVOLUME} 
+        sudo --preserve-env=HOME ./worker.sh ${COMBINED_WEB_WORKER} ${SCRATCHVOLUME} 
     fi
 
     # and now  do the stack specific worker.sh script
     if [[ -f "${STANDARD_APP_UTILS_DIR}/worker-commands.sh" ]]; then
         cd ${STANDARD_APP_UTILS_DIR}
-        sudo ./worker-commands.sh ${COMBINED_WEB_WORKER}
+        sudo --preserve-env=HOME ./worker-commands.sh ${COMBINED_WEB_WORKER}
     fi
 fi
 

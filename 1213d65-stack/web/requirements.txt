@@ -1,0 +1,10 @@
+psycopg2>=2.7.3.2
+python-dateutil>==2.6.0
+fabric>=1.14.0
+s3cmd
+awscli
+gitpython
+boto3
+virtualenvwrapper
+pysnmp
+simplejson
