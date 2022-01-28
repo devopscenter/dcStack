@@ -1,6 +1,6 @@
 boto==2.43.0
 celery==3.1.25
-Django==1.11.29
+Django==2.2.26
 django-celery>=3.1.17
 django-concurrent_server==0.1.4
 django-debug-toolbar==1.2.1
