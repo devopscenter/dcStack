@@ -3,7 +3,7 @@ boto>=2.46.1
 celery==3.1.25
 coverage==4.0a6
 czipfile==1.0.0
-Django==1.11.29
+Django==2.2.26
 django-configurations==0.8
 enum-compat==0.0.2
 enum34==1.1.6
