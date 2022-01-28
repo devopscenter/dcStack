@@ -5,7 +5,7 @@ django-rq==0.6.1
 
 rsa==4.0
 google-api-python-client==1.7.11
-httplib2==0.18.0
+httplib2==0.19.0
 xlwt==0.7.5
 psycopg2==2.7.3.2
 python-dateutil==2.2
