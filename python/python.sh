@@ -41,9 +41,6 @@ set -o verbose
 echo "============================ Building element: python ===================="
 echo "PATH=/usr/local/opt/python/bin:$PATH" | sudo tee -a /etc/environment
 
-sudo apt-get -qq -y install sqlite3 libsqlite3-dev libssl-dev zlib1g-dev libxml2-dev libxslt-dev libbz2-dev gfortran libopenblas-dev liblapack-dev
-sudo pip install -U setuptools-git wheel
-
 sudo mkdir -p /wheelhouse
 
 # Create a scratch directory, if it doesn't already exist
