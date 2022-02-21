@@ -42,15 +42,15 @@ dcStartLog "install of app-specific web for 0099ff"
 
 
 # Assume python2.7 installed earlier, so now build uwsgi in python2
-pushd ../../python/
-. ../web/python-nginx/nginxenv.sh
+#pushd ../../python/
+#. ../web/python-nginx/nginxenv.sh
 
-sudo pip uninstall uwsgi # remove python3 version
+#sudo pip uninstall uwsgi # remove python3 version
 
-sudo pip2 install uwsgi==$UWSGI_VERSION && \
-    sudo mkdir -p /var/log/uwsgi && \
-    sudo chown -R uwsgi /var/log/uwsgi
-popd
+#sudo pip2 install uwsgi==$UWSGI_VERSION && \
+#   sudo mkdir -p /var/log/uwsgi && \
+#   sudo chown -R uwsgi /var/log/uwsgi
+#opd
 
 #do all installs in python2
 sudo pip2 install -r requirements.txt
