@@ -40,7 +40,9 @@ source /usr/local/bin/dcEnv.sh                       # initalize logging environ
 dcStartLog "install of app-specific web for 0099ff"
 
 
-sudo pip install --no-binary :all: -r requirements1.txt
+# sudo pip install --no-binary :all: -r requirements1.txt
+
+sudo pip install -r requirements1.txt
 sudo pip install -r requirements2.txt
 
 # scratch volume
