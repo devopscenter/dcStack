@@ -40,7 +40,7 @@ set -o verbose
 
 echo "============================ Building element: base ===================="
 
-export GIT_VERSION=2.34
+export GIT_VERSION=2.35.1
 
 sudo apt-get -qq update && sudo apt-get -qq -y install software-properties-common && \
     sudo add-apt-repository "deb http://gb.archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" && \
