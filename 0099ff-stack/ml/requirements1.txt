@@ -5,3 +5,22 @@ numpy==1.21.5
 pandas==1.3.5
 scipy==1.7.3
 scikit-learn==1.0.2
+
+
+# pre-dependencies that are needed for fb/prophet: https://github.com/facebook/prophet/blob/main/python/requirements.txt
+# https://github.com/facebook/prophet/issues/1598#issuecomment-665953117
+
+Cython>=0.22
+cmdstanpy==0.9.68
+pystan~=2.19.1.1
+numpy>=1.15.4
+pandas>=1.0.4
+matplotlib>=2.0.0
+LunarCalendar>=0.0.9
+convertdate>=2.1.2
+holidays>=0.11.3.1
+setuptools>=42
+setuptools-git>=1.2
+python-dateutil>=2.8.0
+tqdm>=4.36.1
+wheel>=0.37.0
