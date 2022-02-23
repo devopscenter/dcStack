@@ -1,26 +1,23 @@
-# In order to build scipy and scikit-learn in a way compatible with numpy, all four need to be done in a 2nd step, without binary caches.
-# https://stackoverflow.com/questions/40845304/runtimewarning-numpy-dtype-size-changed-may-indicate-binary-incompatibility
+# needed for launchpadlib
+testresources
 
+# So far on python3 this set looks like it can install together
+
+fastapi==0.73.0
+imbalanced-learn==0.7.0
 numpy==1.21.5
+six==1.16.0
+python-dateutil==2.8.2
+pytz==2021.3
 pandas==1.3.5
+joblib==1.1.0
 scipy==1.7.3
+threadpoolctl==3.0.0
 scikit-learn==1.0.2
-
-
-# pre-dependencies that are needed for fb/prophet: https://github.com/facebook/prophet/blob/main/python/requirements.txt
-# https://github.com/facebook/prophet/issues/1598#issuecomment-665953117
-
-Cython>=0.22
-cmdstanpy==0.9.68
-pystan~=2.19.1.1
-#numpy>=1.15.4
-#pandas>=1.0.4
-matplotlib>=2.0.0
-LunarCalendar>=0.0.9
-convertdate>=2.1.2
-holidays>=0.11.3.1
-setuptools>=42
-setuptools-git>=1.2
-python-dateutil>=2.8.0
-tqdm>=4.36.1
-#wheel>=0.37.0
+matplotlib==3.5.1
+pyspark==3.2.0
+py4j==0.10.9.3
+pyarrow==6.0.1
+statsmodels==0.13.1
+tqdm==4.62.3
+pystan==2.19.1.1
