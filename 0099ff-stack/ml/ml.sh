@@ -45,6 +45,8 @@ dcStartLog "install of app-specific web for 0099ff"
 sudo pip install -r requirements1.txt
 sudo pip install -r requirements2.txt
 
+sudo mv /etc/supervisor/conf.d/uwsgi.conf /etc/supervisor/conf.d/uwsgi.conf.save
+
 # scratch volume
 sudo mkdir -p /media/data/tmp
 sudo chmod 777 -R /media/data/tmp

@@ -21,3 +21,4 @@ pyarrow==6.0.1
 statsmodels==0.13.1
 tqdm==4.62.3
 pystan==2.19.1.1
+uvicorn
