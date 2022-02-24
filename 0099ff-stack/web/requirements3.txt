@@ -1,5 +1,5 @@
 # These are also dependent on numpy and should be installed afterwards, though they may be installed using wheels.
 # (see web.sh in this directory for installation)
 
-nltk==3.2.4
+nltk==3.6.6
 XlsxWriter==1.0.2
