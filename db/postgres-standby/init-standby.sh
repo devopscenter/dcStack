@@ -36,7 +36,7 @@
 #set -x                  # essentially debug mode
 set -o errexit          # exit immediately if command exists with a non-zero status
 
-masterDB=="${1:-postgresql://postgres@pgmaster-1}"
+masterDB="${1:-host=pgmaster-1 user=postgres}"
 
 #-------------------------------------------------------------------------------
 # grab the functions to pretty up the logging
