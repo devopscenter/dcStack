@@ -36,6 +36,8 @@
 #set -x                  # essentially debug mode
 set -o errexit          # exit immediately if command exists with a non-zero status
 
+masterDB=="${1:-postgresql://postgres@pgmaster-1}"
+
 #-------------------------------------------------------------------------------
 # grab the functions to pretty up the logging
 #-------------------------------------------------------------------------------
@@ -63,7 +65,7 @@ sudo rm -rf /media/data/postgres/db/pgdata/ /media/data/postgres/db/pg_${PGLOGS}
 #-------------------------------------------------------------------------------
 dcLog "start the base backup on pgmaster-1 and set up a stream back to this machine"
 #-------------------------------------------------------------------------------
-sudo pg_basebackup -D /media/data/postgres/db/pgdata -w -R --${PGLOGS}-method=stream --dbname="host=pgmaster-1 user=postgres"
+sudo pg_basebackup -D /media/data/postgres/db/pgdata -w -R --${PGLOGS}-method=stream --dbname="${masterDB}"
 
 
 #-------------------------------------------------------------------------------
