@@ -41,9 +41,12 @@
 set -x             # essentially debug mode
 
 echo "============================ Building element: node ===================="
- 
-# latest node as of 04/28/20
-curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
+
+# still default to node 12
+nodeversion="${1:-12}"
+echo "Installing node version ${nodeversion}"
+
+curl -sL https://deb.nodesource.com/setup_${nodeversion}.x | sudo bash -
 
 # NOTE on ubuntu the package name is nodejs as is the executable
 sudo apt-get install -y nodejs
