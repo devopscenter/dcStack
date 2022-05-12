@@ -7,10 +7,10 @@ from subprocess import Popen, PIPE, STDOUT, CalledProcessError
 # ==============================================================================
 __version__ = "0.1"
 
-__copyright__ = "Copyright 2017, devops.center"
+__copyright__ = "Copyright 2017-2022, devops.center"
 __credits__ = ["Bob Lozano", "Gregg Jensen"]
 __license__ = ' \
-   # Copyright 2014-2017 devops.center llc                                    \
+   # Copyright 2014-2022 devops.center llc                                    \
    #                                                                          \
    # Licensed under the Apache License, Version 2.0 (the "License");          \
    # you may not use this file except in compliance with the License.         \
