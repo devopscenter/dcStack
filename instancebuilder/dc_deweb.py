@@ -34,7 +34,7 @@ class dcDeWeb(ElementBase):
 
     def __init__(self, argList):
         """Constructor for this class."""
-        ElementBase.__init__(self, "dataengine", argList)
+        ElementBase.__init__(self, "deweb", argList)
         self.executePath = (self.stackDir + "/"
                             + self.stack + "-stack/deweb")
         self.executeScript = "sudo --preserve-env=HOME ./deweb.sh " + self.region
