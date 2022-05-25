@@ -17,6 +17,7 @@ from dc_node import dcNode
 from dc_pgpool import dcPgpool
 from dc_redis import dcRedis
 from dc_nginx import dcNginx
+from dc_uwsgi import dcUwsgi
 from dc_nginx_php import dcNginx_php
 from dc_java import dcJava
 
@@ -71,6 +72,7 @@ class InstanceBuilder:
             "mount",
             "postgres",
             "nginx",
+            "uwsgi",
             "nginx_php",
             "pgpool",
             "redis",
