@@ -17,7 +17,7 @@
 #       CREATED: 11/21/2016 15:13:37
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2022 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,10 +39,6 @@ set -x             # essentially debug mode
 
 . ./nginxenv.sh
 
-sudo useradd uwsgi
-sudo usermod -a -G sudo uwsgi
-sudo cp conf/sudo-uwsgi /etc/sudoers.d
-
 sudo apt-get install -y rsyslog-gnutls
 
 pushd /tmp
@@ -63,12 +59,5 @@ sudo apt-get install -y libgeos-dev
 #http://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
 cd /etc/ssl/certs && sudo openssl dhparam -dsaparam -out dhparam.pem 2048
 
-sudo pip install uwsgi==$UWSGI_VERSION && \
-    sudo mkdir -p /var/log/uwsgi && \
-    sudo chown -R uwsgi /var/log/uwsgi
-popd
-
 sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 sudo cp conf/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
-sudo cp conf/supervisor-uwsgi.conf /etc/supervisor/conf.d/uwsgi.conf
-sudo cp conf/run_uwsgi.sh /etc/supervisor/conf.d/run_uwsgi.sh

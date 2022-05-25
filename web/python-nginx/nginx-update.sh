@@ -39,10 +39,6 @@ set -x             # essentially debug mode
 
 . ./nginxenv.sh
 
-sudo useradd uwsgi
-sudo usermod -a -G sudo uwsgi
-sudo cp conf/sudo-uwsgi /etc/sudoers.d
-
 sudo apt-get install -y rsyslog-gnutls
 
 pushd /tmp
@@ -62,9 +58,3 @@ sudo apt-get install -y libgeos-dev
 
 #http://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
 cd /etc/ssl/certs && sudo openssl dhparam -dsaparam -out dhparam.pem 2048
-
-sudo pip install uwsgi==$UWSGI_VERSION && \
-    sudo mkdir -p /var/log/uwsgi && \
-    sudo chown -R uwsgi /var/log/uwsgi
-popd
-
