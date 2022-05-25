@@ -59,5 +59,7 @@ sudo apt-get install -y libgeos-dev
 #http://security.stackexchange.com/questions/95178/diffie-hellman-parameters-still-calculating-after-24-hours
 cd /etc/ssl/certs && sudo openssl dhparam -dsaparam -out dhparam.pem 2048
 
+popd
+
 sudo cp conf/nginx.conf /usr/local/nginx/conf/nginx.conf
 sudo cp conf/supervisor-nginx.conf /etc/supervisor/conf.d/nginx.conf
