@@ -24,6 +24,8 @@ from dc_java import dcJava
 from dc_web import dcWeb
 from dc_worker import dcWorker
 from dc_dataengine import dcDataengine
+from dc_deweb import dcDeWeb
+from dc_deworker import dcDeWorker
 from dc_scheduler import dcScheduler
 
 
@@ -77,6 +79,8 @@ class InstanceBuilder:
             "web",
             "worker",
             "dataengine",
+            "deweb",
+            "deworker",
             "scheduler"
         ]
         self.createScratchVolume = False
