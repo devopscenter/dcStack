@@ -29,7 +29,7 @@ __status__ = "Development"
 # ==============================================================================
 
 
-class dcDeWeb(ElementBase):
+class dcDeweb(ElementBase):
     """Class that installs the dataengine components."""
 
     def __init__(self, argList):

@@ -25,8 +25,8 @@ from dc_java import dcJava
 from dc_web import dcWeb
 from dc_worker import dcWorker
 from dc_dataengine import dcDataengine
-from dc_deweb import dcDeWeb
-from dc_deworker import dcDeWorker
+from dc_deweb import dcDeweb
+from dc_deworker import dcDeworker
 from dc_scheduler import dcScheduler
 
 
@@ -80,9 +80,9 @@ class InstanceBuilder:
             "java",
             "web",
             "worker",
-            "dataengine",
             "deweb",
             "deworker",
+            "dataengine",
             "scheduler"
         ]
         self.createScratchVolume = False
@@ -96,8 +96,8 @@ class InstanceBuilder:
         for item in self.elementDependency:
             for element in self.elementsToInclude:
                 if element == item:
-                    elementClassName = element[:1].upper() + element[1:]
-                    elementClassName = "dc" + elementClassName
+                    elementClassName = element[:1].upper() + element[1:] # note that THIS ASSUMES A FORM FOR THE CALLED CLASS NAMES
+                    elementClassName = "dc" + elementClassName           # GREG THIS IS JUST FANCY FOR NO GOOD REASON!!!
                     aClassName = globals()[elementClassName]
                     theElement = aClassName(self.argList)
                     theElement.priorToRun()
