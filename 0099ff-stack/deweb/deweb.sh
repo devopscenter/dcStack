@@ -37,7 +37,7 @@ set -o errexit      # exit immediately if command exits with a non-zero status
 #set -x             # essentially debug mode
 
 source /usr/local/bin/dcEnv.sh                       # initalize logging environment
-dcStartLog "install of app-specific dataengine for 0099ff"
+dcStartLog "install of app-specific dataengine web for 0099ff"
 
 # create the log directory where node can write its output for remote-syslog2 to pick up
 sudo mkdir -p /data/deploy/logs
@@ -49,4 +49,4 @@ tar xvf remote_syslog_linux_amd64.tar.gz
 cd remote_syslog
 sudo cp ./remote_syslog /usr/local/bin
 
-dcEndLog "install of app-specific dataengine for 0099ff"
+dcEndLog "install of app-specific dataengine web for 0099ff"
