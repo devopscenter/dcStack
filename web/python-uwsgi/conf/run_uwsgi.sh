@@ -55,7 +55,7 @@ UWSGI_WORKERS=${UWSGI_WORKERS:-8}
 UWSGI_MAX_REQUESTS=${UWSGI_MAX_REQUESTS:-5000}
 UWSGI_BUFFER_SIZE=${UWSGI_BUFFER_SIZE:-4096}
 
-exec /usr/local/bin/uwsgi \
+exec uwsgi \
         --enable-threads \
         --master-fifo /tmp/uwsgififo \
         --workers=${UWSGI_WORKERS} \
