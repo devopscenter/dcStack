@@ -61,13 +61,13 @@ sudo apt-get -y -qq install postgresql-${POSTGRES_VERSION} postgresql-client-${P
 sudo locale-gen en_US.UTF-8 && \
     sudo dpkg-reconfigure --frontend=noninteractive locales
 
-echo "installing wal-e"
-sudo apt-get -qq -y install libffi-dev
-sudo -H pip install -U six
+#echo "installing wal-e"
+#sudo apt-get -qq -y install libffi-dev
+#sudo -H pip install -U six
 
 # wal-e v1 and later now require python3
-sudo -H pip install boto
-sudo -H pip install wal-e
+#sudo -H pip install boto
+#sudo -H pip install wal-e
 
 sudo apt-get -qq install -y daemontools lzop
 sudo -H pip install -U requests
