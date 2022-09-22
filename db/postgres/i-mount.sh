@@ -17,7 +17,7 @@
 #       CREATED: 03/07/2017 17:52:43
 #      REVISION:  ---
 #
-# Copyright 2014-2017 devops.center llc
+# Copyright 2014-2022 devops.center llc
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -158,8 +158,8 @@ mount-volume-encrypted() {
 }
 
 # Mount /media/data for various cases
-if [[ -b /dev/nvme0n1 && $(mount | grep -c nvme0n1 ) != 1 ]]; then
-    mount-volume "/dev/nvme0n1" "/media/data"
+if [[ -b /dev/nvme0n1 && $(mount | grep -c nvme0n1 ) = 0 ]]; then
+    mount-volume "/dev/nvme0n1" "/media/data"    # not mounted, so must be the data volume
 elif [[ -b /dev/xvdg ]]; then
     mount-volume "/dev/xvdg" "/media/data"
 elif [[ -b /dev/nvme1n1 ]]; then
