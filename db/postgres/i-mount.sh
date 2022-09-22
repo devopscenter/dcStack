@@ -168,11 +168,14 @@ elif [[ -b /dev/sdb ]]; then
     mount-volume "/dev/sdb" "/media/data"
 fi
 
+# for larger instances, mount additional instance attached stores
+if [[ -b /dev/nvme2n1 ]]; then
+    mount-volume "/dev/nvme2n1" "/media/data2/"
+fi
+
 # For smaller db instances, mount a separate transaction log volume if it is exists
 if [[ -b /dev/xvdh ]]; then
     mount-volume "/dev/xvdh" "/media/data/postgres/${PGLOGS}"
-elif [[ -b /dev/nvme2n1 ]]; then
-    mount-volume "/dev/nvme2n1" "/media/data/postgres/${PGLOGS}"
 elif  [[ -b /dev/sdc ]]; then
     mount-volume "/dev/sdc" "/media/data/postgres/${PGLOGS}"
 fi
