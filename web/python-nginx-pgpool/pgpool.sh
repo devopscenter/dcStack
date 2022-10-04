@@ -49,9 +49,9 @@ POSTGRES_VERSION=${1:-${POSTGRES_VERSION}}
 sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
       sudo apt-key add -
 
-# Add PostgreSQL's repository. It contains the most recent stable release
-#     of PostgreSQL, ``9.5``.
-echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" | sudo tee --append /etc/apt/sources.list.d/pgdg.list
+# Add PostgreSQL's repository, but have to pull from postgres archive since this is the legacy branch, intended to support ubuntu 16.04.
+# https://apt-archive.postgresql.org
+echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg-archive main" | sudo tee --append /etc/apt/sources.list.d/pgdg.list
 
 sudo sudo apt-get update
 
