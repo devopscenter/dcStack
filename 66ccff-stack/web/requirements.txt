@@ -24,4 +24,4 @@ sqlparse==0.2.2
 xlutils==2.0.0
 xlwt==1.1.2
 xlrd==1.0.0
-werkzeug==0.15.3
+werkzeug==2.2.3
