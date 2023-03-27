@@ -4,7 +4,7 @@ httplib2==0.18.0
 psycopg2==2.7.3.2
 python-dateutil==2.6.0
 raven==6.0.0
-redis==2.10.5
+redis==4.5.3
 rq==0.7.1
 django-rq==0.9.5
 jsonfield==2.0.1
