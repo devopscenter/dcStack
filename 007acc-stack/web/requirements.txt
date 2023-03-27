@@ -18,7 +18,7 @@ oauthlib==2.0.0
 psycopg2==2.7.3.2
 pubnub==3.7.3
 raven>=6.0.0
-redis==2.10.5
+redis==4.5.3
 requests==2.20.0
 requests-oauthlib==0.6.2
 xlrd==0.9.4
