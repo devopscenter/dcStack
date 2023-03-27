@@ -11,7 +11,7 @@ psycopg2==2.7.3.2
 python-dateutil==2.2
 pytz==2012d
 raven==6.2.1
-redis==2.10.5
+redis==4.5.3
 rq==0.3.13
 simple-salesforce==0.62.0
 static==0.4
