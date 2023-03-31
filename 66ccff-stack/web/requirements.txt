@@ -16,7 +16,7 @@ psycopg2==2.7.3.2
 pyPdf==1.13
 python_dateutil==2.6
 raven==5.1.1
-redis==2.10.5
+redis==4.4.4
 requests==2.20.0
 simplejson==3.6.3
 south==1.0.2
