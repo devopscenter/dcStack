@@ -8,4 +8,4 @@ jinja2>=2.10.1
 psycopg2==2.5.3
 python_dateutil==2.2
 raven==5.1.1
-redis==2.10.3
+redis==4.4.4
