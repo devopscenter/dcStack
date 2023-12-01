@@ -158,12 +158,12 @@ mount-volume-encrypted() {
 }
 
 # Mount /media/data for various cases
-if [[ -b /dev/nvme0n1 && $(mount | grep -c nvme0n1 ) != 1 ]]; then
+if [[ -b /dev/nvme1n1 ]]; then
+    mount-volume "/dev/nvme1n1" "/media/data"
+elif [[ -b /dev/nvme0n1 && $(mount | grep -c nvme0n1 ) != 1 ]]; then
     mount-volume "/dev/nvme0n1" "/media/data"
 elif [[ -b /dev/xvdg ]]; then
     mount-volume "/dev/xvdg" "/media/data"
-elif [[ -b /dev/nvme1n1 ]]; then
-    mount-volume "/dev/nvme1n1" "/media/data"
 elif [[ -b /dev/sdb ]]; then
     mount-volume "/dev/sdb" "/media/data"
 fi
