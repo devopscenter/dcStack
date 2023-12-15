@@ -168,11 +168,11 @@ function perform_backups()
 				MONTH=$(date +%m)
 #                                S3_FILE="s3://$BUCKET_NAME/${YEAR}/${MONTH}/"$DATABASE".sql.gz-$TIMESTAMP"
 				S3_FILE="s3://$BUCKET_NAME/${AWS_HOSTNAME}/${YEAR}/${MONTH}/"$DATABASE".sql.gz-$TIMESTAMP"
-				/usr/local/bin/s3cmd put $FINAL_BACKUP_DIR"$DATABASE".sql.gz $S3_FILE
+				aws s3 cp $FINAL_BACKUP_DIR"$DATABASE".sql.gz $S3_FILE
 				pg_dumpall --roles-only > $FINAL_BACKUP_DIR"roles"
 #                                S3_ROLES_FILE="s3://$BUCKET_NAME/${YEAR}/${MONTH}/roles-$TIMESTAMP"
 				S3_ROLES_FILE="s3://$BUCKET_NAME/${AWS_HOSTNAME}/${YEAR}/${MONTH}/roles-$TIMESTAMP"
-				/usr/local/bin/s3cmd put $FINAL_BACKUP_DIR"roles" $S3_ROLES_FILE
+				aws s3 cp $FINAL_BACKUP_DIR"roles" $S3_ROLES_FILE
 			fi
 		fi
  
