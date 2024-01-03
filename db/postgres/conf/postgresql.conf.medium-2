@@ -645,7 +645,7 @@ max_wal_senders = 20      # max number of walsender processes
 #checkpoint_segments=16
 checkpoint_completion_target = 0.9 # pgtune wizard 2016-02-18
 
-archive_mode = on
+archive_mode = off
 archive_command = '/usr/local/bin/wal-e --aws-instance-profile --s3-prefix s3://<client>-postgres-wale-<target>/<hostname> wal-push %p'
 archive_timeout = 60
 
@@ -657,11 +657,9 @@ constraint_exclusion = partition
 default_statistics_target = 400
 effective_cache_size = 42GB
 work_mem = 1024MB
-checkpoint_segments = 32
 max_stack_depth = 6MB
 max_connections = 512
 wal_buffers = 16MB
-wal_keep_segments = 32
 random_page_cost = 1.0
 
 #------------------------------------------------------------------------------
